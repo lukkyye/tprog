@@ -3,13 +3,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 public class Paciente extends Usuario{
 	private LocalDate fechaNac;
-	private Integer cantOrdenesAcum;
-	private Integer cantTicketAcum;
+	private int cantOrdenesAcum;
+	private int cantTicketAcum;
 	private ArrayList<String> antSalud;
-	private Integer doc;
+	private int doc;
 	private LocalDate fechaIngreso;
 	
-	public Paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, Integer _doc, LocalDate _fechaIngreso){
+	public Paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc, LocalDate _fechaIngreso){
 			super(nickname, nombre, apellido, correo);
 			this.fechaNac=_fechaNac;
 			this.cantOrdenesAcum=0;

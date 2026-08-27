@@ -33,7 +33,7 @@ public class ManejadorUsuario {
 		// diferencia entre DTMedico y Medico?
 	//public HashSet set_usuarios() 
 
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, Integer nroReg, TipoMes licencia, Integer porcCost, String link, String espNom) {
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -41,7 +41,7 @@ public class ManejadorUsuario {
 		usuarios.add(m1);
 	}
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, Integer _doc, LocalDate _fechaIngreso){
+	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc, LocalDate _fechaIngreso){
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
