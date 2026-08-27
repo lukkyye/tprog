@@ -13,8 +13,24 @@ public abstract class Usuario {
         this.correo = correo;
     }
 
-    public String getNickname() { return nickname; }
-    public String getNombre() { return nombre; }
-    public String getApellido() { return apellido; }
-    public String getCorreo() { return correo; }
+//Getters
+    
+    public String getNickname() { 
+    	return nickname; 
+    }
+    public String getNombre() { 
+    	return nombre; 
+    }
+    public String getApellido() { 
+    	return apellido; 
+    }
+    public String getCorreo() { 
+    	return correo; 
+    }
+    
+//Funciones
+    
+    public DTUsuario getDataUsuario() {
+    	return null; //por terminar
+    }
 }
