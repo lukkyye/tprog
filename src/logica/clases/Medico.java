@@ -1,5 +1,5 @@
 package logica.clases;
 
-public class Medico {
+public class Medico extends Usuario{
 
 }
