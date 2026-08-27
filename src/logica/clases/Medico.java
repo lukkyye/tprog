@@ -1,11 +1,13 @@
 package logica.clases;
-import logica.datatypes.TipoMes;
+import logica.datatypes.*;
+import java.util.HashSet;
 
 public class Medico extends Usuario{
 	private int nroReg;
 	private TipoMes mesLic;
 	private int porcentajeCosto;
 	private String link;
+	private HashSet<String> consultasAsociadas;
 	
 	public Medico(String _nickname, String _nombre, String _apellido, String _correo, int _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
 		super(_nickname, _nombre, _apellido, _correo);
@@ -13,6 +15,15 @@ public class Medico extends Usuario{
 		this.mesLic=_mesLic;
 		this.porcentajeCosto=_porcentajeCosto;
 		this.link=_link;
+	}
+	
+	
+	public DTMedico get_dtmedico() {
+		return new DTMedico(nroReg, mesLic, porcentajeCosto, link);
+	}
+	
+	public HashSet<String> get_consultassoc(){
+		return consultasAsociadas;
 	}
 	
 	public int get_nroReg(){ return this.nroReg; }

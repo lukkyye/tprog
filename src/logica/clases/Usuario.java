@@ -1,5 +1,5 @@
 package logica.clases;
-
+import logica.datatypes.DTUsuario;
 public abstract class Usuario { // abstract xq tiene hijos
     protected String nickname;
     protected String nombre;
@@ -13,6 +13,10 @@ public abstract class Usuario { // abstract xq tiene hijos
         this.correo = correo;
     }
 
+    public DTUsuario get_dt() {
+    	return new DTUsuario(this.nickname, this.nombre, this.apellido, this.correo);
+    }
+     
     public String getNickname() { return nickname; }
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
