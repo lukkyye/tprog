@@ -1,5 +1,7 @@
 package logica.clases;
-import java.time.LocalDate
+import java.time.LocalDate;
+import logica.datatypes.*;
+import java.util.HashSet;
 
 public class Consulta {
 	private String diaConsulta;
@@ -20,25 +22,13 @@ public class Consulta {
 		this.medico = medico;
 	}
 	public DTConsultaDetalle getDataConsultaDetalle() { 
-		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle();
-		consultaDetalle.nomC = this.nomC;
-		consultaDetalle.medico = this.medico;
-		consultaDetalle.fecha = fecha;
-		consultaDetalle.sala = sala;
-		consultaDetalle.cantNum = cantNum;
-		consultaDetalle.reservas = 0; //ver bien despues, porque devolveria un set de DTResConsulta
-		consultaDetalle.costoC = this.costoC; //revisar
+		HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
+		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC);
 		return consultaDetalle;
 	}
 	public DTConsulta getDataConsulta() {
-		DTConsulta consulta = new DTConsulta();
-		consulta.nomC = this.nomC;
-		consulta.fecha = this.fecha;
-		consulta.sala = this.sala;
-		consulta.cantNum = this.cantNum;
-		consulta.costoC = this.costoC;
+		DTConsulta consulta = new DTConsulta(nomC, fecha, sala, cantNum, costoC);
 		return consulta;
-		
 	}
-	public DTConsultaDetalle obtenerDataConsultaDetalle()
+	public DTConsultaDetalle obtenerDataConsultaDetalle() {}
 }

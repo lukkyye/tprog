@@ -11,7 +11,6 @@ import logica.excepciones.*;
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
 	private HashMap<String, Usuario> usuarios;
-	//private HashSet<Reserva> reservas;
 	
 	private ManejadorUsuario() {}
 	
@@ -25,6 +24,14 @@ public class ManejadorUsuario {
 	public boolean existe(String nickname) {
 		if (usuarios.containsKey(nickname)) {
 			return true;
+		}
+		return false;
+	}
+	public boolean existe_correo(String correo) {
+		for (Usuario u: usuarios.values()) {
+			if (u.getCorreo().equals(correo)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -66,7 +73,7 @@ public class ManejadorUsuario {
 			ManejadorConsulta mconsultas = ManejadorConsulta.get_instance();
 			HashSet<DTConsulta> result = new HashSet<DTConsulta>();
 			m.get_consultassoc().forEach(
-						s -> result.add(mconsultas.get_consulta(s).get_dt())
+						s -> result.add(mconsultas.get_consulta(s).getDataConsulta())
 					);
 		}
 		throw new UserNotFoundException("El usuario encontrado no es de tipo Medico");
@@ -74,7 +81,16 @@ public class ManejadorUsuario {
 	
 	//Pacientes
 	public HashSet<DTConsulta> reservasConsultasAsociadas(String nicknameUsu){
-		//TO DO
+		Usuario u = get_usuario(nicknameUsu);
+		if (u instanceof Paciente p) {
+			ManejadorConsulta c = ManejadorConsulta.get_instance();
+			HashSet<DTConsulta> result = new HashSet<DTConsulta>();
+			p.get_reservas().forEach(
+						r-> result.add(c.get_consulta(r.get_consultaAsociada()).getDataConsulta())
+					);
+			return result;
+		}
+		throw new UserNotFoundException("No existe paciente con el nickname ingresado.");
 	}
 	
 	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom) {
@@ -92,5 +108,17 @@ public class ManejadorUsuario {
 		LocalDate fecha_ahora = LocalDate.now();
 		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _doc, fecha_ahora);
 		usuarios.put(nickname, p1);
+	}
+	
+	public HashSet<DTPaciente> get_dtpacientes(){
+		HashSet<DTPaciente> result = new HashSet<DTPaciente>();
+		usuarios.forEach(
+					(name, user) -> {
+						if (user instanceof Paciente p) {
+							result.add(p.get_dtpaciente());
+						}
+					}
+				);
+		return result;
 	}
 }

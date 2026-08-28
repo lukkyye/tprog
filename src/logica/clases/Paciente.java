@@ -23,6 +23,10 @@ public class Paciente extends Usuario{
 			this.fechaIngreso=_fechaIngreso;
 	}
 	
+	public HashSet<Reserva> get_reservas() {
+		return reservas;
+	}
+	
 	public DTPaciente get_dtpaciente( ) {
 		return new DTPaciente(fechaNac, cantOrdenesAcum, cantTicketAcum, antSalud, doc, fechaIngreso);
 	}
