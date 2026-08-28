@@ -30,5 +30,5 @@ public class Consulta {
 		DTConsulta consulta = new DTConsulta(nomC, fecha, sala, cantNum, costoC);
 		return consulta;
 	}
-	public DTConsultaDetalle obtenerDataConsultaDetalle() {}
+	
 }
