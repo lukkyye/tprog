@@ -11,6 +11,7 @@ public class Paciente extends Usuario{
 	private ArrayList<String> antSalud;
 	private int doc;
 	private LocalDate fechaIngreso;
+	private HashSet<BeneficioAnual> benef;
 	private HashSet<Reserva> reservas;
 	
 	public Paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc, LocalDate _fechaIngreso){
@@ -21,6 +22,7 @@ public class Paciente extends Usuario{
 			this.antSalud=new ArrayList<String>();
 			this.doc=_doc;
 			this.fechaIngreso=_fechaIngreso;
+			this.benef = new HashSet<BeneficioAnual>();
 	}
 	
 	public HashSet<Reserva> get_reservas() {
