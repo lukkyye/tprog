@@ -3,13 +3,14 @@ import logica.clases.Usuario;
 import logica.clases.Medico;
 import logica.clases.Paciente;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.HashSet;
 import logica.datatypes.*;
-import logica.excepciones.NicknameAlreadyExistsException;
+import logica.excepciones.*;
 
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
-	private HashSet<Usuario> usuarios;
+	private HashMap<String, Usuario> usuarios;
 	//private HashSet<Reserva> reservas;
 	
 	private ManejadorUsuario() {}
@@ -22,31 +23,74 @@ public class ManejadorUsuario {
 	}
 	
 	public boolean existe(String nickname) {
-		for (Usuario u: usuarios) {
-			if (u.getNickname().equals(nickname)) {
-				return true;
-			}
+		if (usuarios.containsKey(nickname)) {
+			return true;
 		}
 		return false;
 	}
-	//public DTMedico datosMedicos(String nicknameUsu) {
-		// diferencia entre DTMedico y Medico?
-	//public HashSet set_usuarios() 
-
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, Integer nroReg, TipoMes licencia, Integer porcCost, String link, String espNom) {
+	
+	// SET_USUARIOS() BAUTIZADA:
+	public HashSet<DTUsuario> get_usuarios() {
+		HashSet<DTUsuario> result = new HashSet<DTUsuario>();
+		usuarios.forEach( (k,v) -> result.add(v.get_dt()));
+		return result;
+	}
+	
+	public Usuario get_usuario(String nickname){
+		if (usuarios.containsKey(nickname)) {
+			return usuarios.get(nickname);
+		}
+		throw new UserNotFoundException("No se encontro usuario con el nickname: " + nickname);
+	}
+	
+	public DTMedico datosMedico(String nickname) {
+		Usuario u = get_usuario(nickname);
+		if (u instanceof Medico m) {
+			return m.get_dtmedico();
+		}
+		throw new UserNotFoundException();
+	}
+	
+	public DTPaciente datosPaciente(String nickname) {
+		Usuario u = get_usuario(nickname);
+		if (u instanceof Paciente p) {
+			return p.get_dtpaciente();
+		}
+		throw new UserNotFoundException();
+	}
+	
+	//Medicos
+	public HashSet<DTConsulta> consultasAsociadas(String nicknameUsu){
+		Usuario u = get_usuario(nicknameUsu);
+		if (u instanceof Medico m) {
+			ManejadorConsulta mconsultas = ManejadorConsulta.get_instance();
+			HashSet<DTConsulta> result = new HashSet<DTConsulta>();
+			m.get_consultassoc().forEach(
+						s -> result.add(mconsultas.get_consulta(s).get_dt())
+					);
+		}
+		throw new UserNotFoundException("El usuario encontrado no es de tipo Medico");
+	}
+	
+	//Pacientes
+	public HashSet<DTConsulta> reservasConsultasAsociadas(String nicknameUsu){
+		//TO DO
+	}
+	
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
-		usuarios.add(m1);
+		usuarios.put(nickname, m1);
 	}
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, Integer _doc, LocalDate _fechaIngreso){
+	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc, LocalDate _fechaIngreso){
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		LocalDate fecha_ahora = LocalDate.now();
 		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _doc, fecha_ahora);
-		usuarios.add(p1);
+		usuarios.put(nickname, p1);
 	}
 }
