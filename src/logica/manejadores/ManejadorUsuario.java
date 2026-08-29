@@ -2,6 +2,7 @@ package logica.manejadores;
 import logica.clases.Usuario;
 import logica.clases.Medico;
 import logica.clases.Paciente;
+import logica.clases.Especialidad;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +13,9 @@ public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
 	private HashMap<String, Usuario> usuarios;
 	
-	private ManejadorUsuario() {}
+	private ManejadorUsuario() {
+		usuarios = new HashMap<String,Usuario>();
+	}
 	
 	public static ManejadorUsuario get_instance() {
 		if (instance == null) {
@@ -55,7 +58,7 @@ public class ManejadorUsuario {
 		if (u instanceof Medico m) {
 			return m.get_dtmedico();
 		}
-		throw new UserNotFoundException();
+		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
 	
 	public DTPaciente datosPaciente(String nickname) {
@@ -63,7 +66,7 @@ public class ManejadorUsuario {
 		if (u instanceof Paciente p) {
 			return p.get_dtpaciente();
 		}
-		throw new UserNotFoundException();
+		throw new UserNotFoundException("El usuario no es de tipo Paciente");
 	}
 	
 	//Medicos
@@ -75,6 +78,7 @@ public class ManejadorUsuario {
 			m.get_consultassoc().forEach(
 						s -> result.add(mconsultas.get_consulta(s).getDataConsulta())
 					);
+			return result;
 		}
 		throw new UserNotFoundException("El usuario encontrado no es de tipo Medico");
 	}
@@ -97,16 +101,24 @@ public class ManejadorUsuario {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
+		if (existe_correo(correo)) {
+			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+		}
 		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+		Espoecialidad esp = ManejadorEspecialidad.get_instance().creoEsp(espNom, espPorc);
+		m1.agregarEspecialidad(esp);
 		usuarios.put(nickname, m1);
 	}
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc, LocalDate _fechaIngreso){
+	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, ArrayList<String> _antSalud, int _doc, LocalDate _fechaIngreso){
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
+		if (existe_correo(correo)) {
+			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+		}
 		LocalDate fecha_ahora = LocalDate.now();
-		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _doc, fecha_ahora);
+		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _antSalud, _doc, fecha_ahora);
 		usuarios.put(nickname, p1);
 	}
 	

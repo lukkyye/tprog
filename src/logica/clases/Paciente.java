@@ -14,15 +14,16 @@ public class Paciente extends Usuario{
 	private HashSet<BeneficioAnual> benef;
 	private HashSet<Reserva> reservas;
 	
-	public Paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc, LocalDate _fechaIngreso){
+	public Paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, ArrayList<String> _antSalud, int _doc, LocalDate _fechaIngreso){
 			super(nickname, nombre, apellido, correo);
-			this.fechaNac=_fechaNac;
-			this.cantOrdenesAcum=0;
-			this.cantTicketAcum=0;
-			this.antSalud=new ArrayList<String>();
-			this.doc=_doc;
-			this.fechaIngreso=_fechaIngreso;
+			this.fechaNac = _fechaNac;
+			this.cantOrdenesAcum = 0;
+			this.cantTicketAcum = 0;
+			this.antSalud= (_antSalud != null) ? _antSalud : new ArrayList<String>();
+			this.doc = _doc;
+			this.fechaIngreso = _fechaIngreso;
 			this.benef = new HashSet<BeneficioAnual>();
+			this.reservas = new HashSet<Reserva>();
 	}
 	
 	public HashSet<Reserva> get_reservas() {
