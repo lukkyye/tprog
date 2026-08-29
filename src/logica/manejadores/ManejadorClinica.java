@@ -78,5 +78,5 @@ public class ManejadorClinica {
     	
     	return res;
     	
-    }//hola
+    }
 }
