@@ -30,9 +30,11 @@ public class EstacionTrabajo extends JFrame { //ventana externa
 
         JMenuItem itemAltaUsuario = new JMenuItem("Alta de Usuario");
         JMenuItem itemConsultaUsuario = new JMenuItem("Consulta de Usuario");
+        // aagregar el resto claramente
 
         menuUsuarios.add(itemAltaUsuario);
         menuUsuarios.add(itemConsultaUsuario);
+        //agregar el resto claramente
 
         menuBar.add(menuUsuarios);
 
