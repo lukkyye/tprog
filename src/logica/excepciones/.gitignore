@@ -2,3 +2,5 @@
 /NicknameAlreadyExistsException.class
 /SpecialityNotFoundException.class
 /UserNotFoundException.class
+/ReservaAlreadyExistsException.class
+/NoNumberAvailableException.class

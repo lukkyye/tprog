@@ -15,6 +15,8 @@ import logica.clases.Usuario;
 import logica.clases.Paciente;
 import logica.clases.Reserva;
 import java.time.LocalDate;
+import logica.excepciones.NoNumberAvailableException;
+import logica.excepciones.ReservaAlreadyExistsException;
 
 public class ControladorClinica {
 
@@ -66,11 +68,11 @@ public class ControladorClinica {
 		 Paciente p = (Paciente) u;
 		 Consulta c = mc.get_consulta(nomC);
 		 if (c.tieneReserva(nicknamePaciente)) {// ya tiene una reserva
-			 return;// es una salida facil por ahora ver mas adelante bien
+			 throw new ReservaAlreadyExistsException("El paciente ya tiene una reserva para esta consulta");
 		    }
 		 int numero = c.obtenerNumeroDisponible();
 		 if (numero == -1) {// no hay numeros disp
-			 return;// es una salida facil por ahora ver mas adelante bien
+			 throw new NoNumberAvailableException("No hay números disponibles para esta consulta");
 		    }
 		 float costo = c.getCostoC();
 		 boolean aplicaBenef = false;
