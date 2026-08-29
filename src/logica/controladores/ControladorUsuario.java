@@ -56,7 +56,10 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(String nomR) {
-		return null;
+	public DTResConsultaDetalle listarDatosResConsulta(
+	        String nicknameUsu, int numReserva) {
+
+	    return ManejadorUsuario.get_instance()
+	            .datosResConsulta(nicknameUsu, numReserva);
 	}
 }
