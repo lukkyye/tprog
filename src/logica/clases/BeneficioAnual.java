@@ -5,7 +5,7 @@ public class BeneficioAnual {
 	private int cantOrdenes;
 	private int cantTicket;
 	
-	public BeneficioAnual (int anio, int cantOrdenes, int cantTicket)
+	public BeneficioAnual (int anio, int cantOrdenes, int cantTicket) {
 		this.anio = anio;
 		this.cantOrdenes = cantOrdenes;
 		this.cantTicket = cantTicket;

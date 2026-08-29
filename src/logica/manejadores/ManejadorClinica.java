@@ -18,9 +18,10 @@ public class ManejadorClinica {
     private Map<String, DiaConsulta> diasConsultas;
     private ManejadorClinica() {
         clinicas = new HashMap<>();
+        diasConsultas = new HashMap<>();
     }
 
-    public static ManejadorClinica getInstancia() {
+    public static ManejadorClinica get_instance() {
 
         if (instancia == null) {
             instancia = new ManejadorClinica();

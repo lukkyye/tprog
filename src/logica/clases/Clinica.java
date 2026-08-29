@@ -13,6 +13,7 @@ public class Clinica {
 	private String dir;
 	private String desc;
 	private HashSet<DiaConsulta> diasconsulta;
+	 diasconsulta = new HashSet<>();
 	//medicos ??
 	//agregaria que medicos trabajen en cierta clinica.
 	
