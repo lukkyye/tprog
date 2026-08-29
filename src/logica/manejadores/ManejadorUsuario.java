@@ -6,6 +6,7 @@ import logica.clases.Especialidad;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ArrayList;
 import logica.datatypes.*;
 import logica.excepciones.*;
 
@@ -97,7 +98,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("No existe paciente con el nickname ingresado.");
 	}
 	
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom) {
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -105,20 +106,19 @@ public class ManejadorUsuario {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
 		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
-		Espoecialidad esp = ManejadorEspecialidad.get_instance().creoEsp(espNom, espPorc);
+		Especialidad esp = ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
 		m1.agregarEspecialidad(esp);
 		usuarios.put(nickname, m1);
 	}
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, ArrayList<String> _antSalud, int _doc, LocalDate _fechaIngreso){
+	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
-		LocalDate fecha_ahora = LocalDate.now();
-		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _antSalud, _doc, fecha_ahora);
+		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
 		usuarios.put(nickname, p1);
 	}
 	

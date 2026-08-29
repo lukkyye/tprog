@@ -9,7 +9,7 @@ public class ManejadorEspecialidad {
 	
 	private HashSet<Especialidad> especialidades;
 	
-	public ManejadorEspecialidad get_instance() {
+	public static ManejadorEspecialidad get_instance() {
 		if (instance==null) {
 			return new ManejadorEspecialidad();
 		}
