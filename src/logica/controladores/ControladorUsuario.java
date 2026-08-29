@@ -17,6 +17,6 @@ public class ControladorUsuario {
 		ManejadorUsuario mu = ManejadorUsuario.get_instance();
 		mu.agregar_paciente(nickname, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 		return true;
-	}
+	}//Falta
 	
 }

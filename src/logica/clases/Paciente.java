@@ -31,7 +31,7 @@ public class Paciente extends Usuario{
 	}
 	
 	public DTPaciente get_dtpaciente( ) {
-		return new DTPaciente(fechaNac, cantOrdenesAcum, cantTicketAcum, antSalud, doc, fechaIngreso);
+		return new DTPaciente(fechaNac, cantOrdenesAcum, cantTicketAcum, antSalud, doc, fechaIn);
 	}
 	
-}
+}//cambios

@@ -44,6 +44,6 @@ public class ManejadorEspecialidad {
 			especialidades.add(e);
 		}
 		return e;
-	}
+	}//cambios
 	
 }
