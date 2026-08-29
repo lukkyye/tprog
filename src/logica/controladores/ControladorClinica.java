@@ -29,5 +29,5 @@ public class ControladorClinica {
 		return res;
 		
 	}
-}
+}//comentrario ejej
 

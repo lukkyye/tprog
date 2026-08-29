@@ -13,7 +13,6 @@ public class Clinica {
 	private String dir;
 	private String desc;
 	private HashSet<DiaConsulta> diasconsulta;
-	 diasconsulta = new HashSet<>();
 	//medicos ??
 	//agregaria que medicos trabajen en cierta clinica.
 	
@@ -25,6 +24,6 @@ public class Clinica {
 		diasconsulta.forEach(
 					dc -> result.add(dc.getDTDiaConsulta())
 				);
-		return result;
+		return result;//hola
 	}
 }

@@ -23,4 +23,4 @@ public class ManejadorConsulta {
 		}
 		throw new ConsultaNotFoundException();
 	}
-}
+}//hola
