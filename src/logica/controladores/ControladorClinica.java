@@ -11,6 +11,10 @@ import java.util.Set;
 import java.util.HashSet;
 import logica.datatypes.DTPaciente;
 import logica.manejadores.ManejadorUsuario;
+import logica.clases.Usuario;
+import logica.clases.Paciente;
+import logica.clases.Reserva;
+import java.time.LocalDate;
 
 public class ControladorClinica {
 
@@ -56,8 +60,28 @@ public class ControladorClinica {
 	}
 	
 	public void reservarConsulta(String nicknamePaciente, String nomC) {
-		ManejadorUsuario mu = ManejadorUsuario.g
-		
+		 ManejadorUsuario mu = ManejadorUsuario.get_instance();
+		 ManejadorConsulta mc = ManejadorConsulta.get_instance();
+		 Usuario u = mu.get_usuario(nicknamePaciente);
+		 Paciente p = (Paciente) u;
+		 Consulta c = mc.get_consulta(nomC);
+		 if (c.tieneReserva(nicknamePaciente)) {// ya tiene una reserva
+			 return;// es una salida facil por ahora ver mas adelante bien
+		    }
+		 int numero = c.obtenerNumeroDisponible();
+		 if (numero == -1) {// no hay numeros disp
+			 return;// es una salida facil por ahora ver mas adelante bien
+		    }
+		 float costo = c.getCostoC();
+		 boolean aplicaBenef = false;
+		 if (p.esMayorDe60()) {
+		        costo = costo * 0.8f;
+		        aplicaBenef = true;
+		    }
+		 Reserva r = new Reserva(nicknamePaciente,nomC,LocalDate.now(),numero,aplicaBenef,costo);
+		 p.agregarReserva(r);
+		 c.agregarReserva(r);
 	}
+	
 }
 
