@@ -24,6 +24,6 @@ public class Clinica {
 		diasconsulta.forEach(
 					dc -> result.add(dc.getDTDiaConsulta())
 				);
-		return result;//hola
+		return result;
 	}
 }
