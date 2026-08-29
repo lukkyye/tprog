@@ -34,4 +34,11 @@ public class Paciente extends Usuario{
 		return new DTPaciente(fechaNac, cantOrdenesAcum, cantTicketAcum, antSalud, doc, fechaIn);
 	}
 	
-}//cambios
+	public boolean esMayorDe60() {
+	    return fechaNac.plusYears(60).isBefore(LocalDate.now());
+	}
+	
+	public void agregarReserva(Reserva r) {
+	    reservas.add(r);
+	}
+}

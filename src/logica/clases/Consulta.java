@@ -28,6 +28,14 @@ public class Consulta {
 	    reservas.add(r);
 	}
 	
+	public HashSet<Reserva> getReservas() {
+	    return reservas;
+	}
+	
+	public float getCostoC() {
+	    return costoC;
+	}
+	
 	public DTConsultaDetalle getDataConsultaDetalle() { 
 		HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
 		for(Reserva r : reservas) {
@@ -43,4 +51,28 @@ public class Consulta {
 		return consulta;
 	}
 	
+	public int obtenerNumeroDisponible() {
+	    for (int i = 1; i <= cantNum; i++) {
+	        boolean ocupado = false;
+	        for (Reserva r : reservas) {
+	            if (r.getNumReserva() == i) {
+	                ocupado = true;
+	                break;
+	            }
+	        }
+	        if (!ocupado) {
+	            return i;
+	        }
+	    }
+	    return -1;
+	}
+	
+	public boolean tieneReserva(String nicknamePaciente) {
+	    for (Reserva r : reservas) {
+	        if (r.getNicknamePaciente().equals(nicknamePaciente)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 }

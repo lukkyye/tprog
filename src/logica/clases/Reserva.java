@@ -2,15 +2,17 @@ package logica.clases;
 import java.time.LocalDate;
 
 public class Reserva {
+	private String nicknamePaciente;
 	private String nom_consulta_asoc;
 	private LocalDate fechaRS;
     private int numReserva;
     private boolean aplicaBenef;
     private float costoR;
 	
-    public Reserva(String nom_consulta_aso, LocalDate fechaRS, int numReserva,
+    public Reserva(String nicknamePaciente,String nom_consulta_aso, LocalDate fechaRS, int numReserva,
             boolean aplicaBenef, float costoR) {
 
+    		this.nicknamePaciente = nicknamePaciente;
     		this.nom_consulta_asoc = nom_consulta_aso;
     		this.fechaRS = fechaRS;
     		this.numReserva = numReserva;
@@ -18,7 +20,10 @@ public class Reserva {
     		this.costoR = costoR;
     }
 	
-	
+    public String getNicknamePaciente() {
+        return nicknamePaciente;
+    }
+    
 	public String get_consultaAsociada() {
 		return nom_consulta_asoc;
 	}
