@@ -85,13 +85,12 @@ public class ManejadorUsuario {
 	}
 	
 	//Pacientes
-	public HashSet<DTConsulta> reservasConsultasAsociadas(String nicknameUsu){
+	public HashSet<DTResConsulta> reservasConsultasAsociadas(String nicknameUsu){
 		Usuario u = get_usuario(nicknameUsu);
 		if (u instanceof Paciente p) {
-			ManejadorConsulta c = ManejadorConsulta.get_instance();
-			HashSet<DTConsulta> result = new HashSet<DTConsulta>();
+			HashSet<DTResConsulta> result = new HashSet<DTResConsulta>();
 			p.get_reservas().forEach(
-						r-> result.add(c.get_consulta(r.get_consultaAsociada()).getDataConsulta())
+						r-> result.add(r.getDataResConsulta())
 					);
 			return result;
 		}

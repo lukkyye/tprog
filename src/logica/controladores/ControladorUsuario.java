@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import logica.datatypes.*;
+import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
+import logica.clases.Especialidad;
+
 public class ControladorUsuario {
 	
 	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
@@ -18,5 +21,31 @@ public class ControladorUsuario {
 		mu.agregar_paciente(nickname, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 		return true;
 	}//Falta
+	
+	public boolean ingresoEspecialidad(String nickname, String espNom, int espPorc) {
+		Especialidad esp = ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
+		ManejadorUsuario.get_instance().agregarEspecialidadAMedico(nickname, esp);
+		return true;
+	}
+	
+	public HashSet<DTUsuario> listarUsuarios() {
+		return ManejadorUsuario.get_instance().get_usuarios();
+	}
+	
+	public DTMedico listarDatosMedico(String nicknameUsu) {
+		return ManejadorUsuario.get_instance().datosMedico(nicknameUsu);
+	}
+	
+	public DTPaciente listarDatosPaciente(String nicknameUsu) {
+		return ManejadorUsuario.get_instance().datosPaciente(nicknameUsu);
+	}
+	
+	public HashSet<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
+		return ManejadorUsuario.get_instance().consultasAsociadas(nicknameUsu);
+	}
+	
+	public HashSet<DTResConsulta> listarResConsultas(String nicknameUsu) {
+		return ManejadorUsuario.get_instance().reservasConsultasAsociadas(nicknameUsu);
+	}
 	
 }

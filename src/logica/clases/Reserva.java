@@ -1,5 +1,6 @@
 package logica.clases;
 import java.time.LocalDate;
+import logica.datatypes.DTResConsulta;
 
 public class Reserva {
 	private String nicknamePaciente;
@@ -42,6 +43,10 @@ public class Reserva {
 
     public float getCostoR() {
         return costoR;
+    }
+    
+    public DTResConsulta getDataResConsulta() {
+    	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
     }
 }
 
