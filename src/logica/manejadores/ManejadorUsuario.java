@@ -132,5 +132,14 @@ public class ManejadorUsuario {
 					}
 				);
 		return result;
+	}
+	
+	public void agregarEspecialidadAMedico(String nickname, Especialidad esp) {
+		Usuario u = get_usuario(nickname);
+		if (u instanceof Medico m) {
+			m.agregarEspecialidad(esp);
+		} else {
+			throw new UserNotFoundException("El usuario no es de tipo Medico");
+		}
 	}//cambios
 }
