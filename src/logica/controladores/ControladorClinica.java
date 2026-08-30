@@ -20,6 +20,9 @@ import logica.clases.Reserva;
 import java.time.LocalDate;
 import logica.excepciones.NoNumberAvailableException;
 import logica.excepciones.ReservaAlreadyExistsException;
+import logica.excepciones.ConsultaNombreAlreadyExistsException;
+import logica.excepciones.MedicoSinEspecialidadException;
+import logica.excepciones.FechaDiaSemanaInvalidaException;
 
 
 
