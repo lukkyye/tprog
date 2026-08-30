@@ -2,7 +2,6 @@ package logica.manejadores;
 import logica.clases.Clinica;
 import logica.clases.DiaConsulta;
 import logica.datatypes.DTConsulta;
-import logica.excepciones.ClinicaNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +33,7 @@ public class ManejadorClinica {
     public Map<String, Clinica> getClinicas() {
         return clinicas;
     }
-   
+
     public boolean memberClinica(String nombre) {
         return clinicas.containsKey(nombre);
     }
@@ -44,7 +43,8 @@ public class ManejadorClinica {
         if (memberClinica(nombre)) {
             return clinicas.get(nombre);
         }
-        throw new ClinicaNotFoundException();
+
+        return null;
     }
 
     public Map<String, DiaConsulta> getDiaConsulta() {

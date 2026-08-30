@@ -1,13 +1,11 @@
 package gui;
 
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import logica.excepciones.*;
 import javax.swing.ButtonGroup;
@@ -273,13 +271,9 @@ public class AltaDeUsuario extends JInternalFrame {
 			if (!e.getValueIsAdjusting()) {
 				
 				for (String elemento : list.getSelectedValuesList()) {
-					//si el elemento ya esta en la box entonces no se agrega
-					
-					if (!selections.contains(elemento)) {
-						JLabel label = new JLabel(elemento);
-						selections.add(elemento);
-						panelEspSelected.add(label);
-					}
+					JLabel label = new JLabel(elemento);
+					panelEspSelected.add(label);
+					selections.add(elemento);
 				}
 				
 				panelEspSelected.revalidate();
