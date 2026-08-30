@@ -85,6 +85,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("El usuario encontrado no es de tipo Medico");
 	}
 	
+	
 	//Pacientes
 	public HashSet<DTResConsulta> reservasConsultasAsociadas(String nicknameUsu){
 		Usuario u = get_usuario(nicknameUsu);
@@ -141,6 +142,18 @@ public class ManejadorUsuario {
 					(name, user) -> {
 						if (user instanceof Paciente p) {
 							result.add(p.get_dtpaciente());
+						}
+					}
+				);
+		return result;
+	}
+	
+	public HashSet<DTMedico> get_dtmedicos(){
+		HashSet<DTMedico> result = new HashSet<DTMedico>();
+		usuarios.forEach(
+					(name, user) -> {
+						if (user instanceof Medico m) {
+							result.add(m.get_dtmedico());
 						}
 					}
 				);

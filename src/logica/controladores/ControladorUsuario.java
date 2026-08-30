@@ -33,6 +33,11 @@ public class ControladorUsuario {
 		return true;
 	}
 	
+	public boolean altaEspecialidad(String espNom, int espPorc) {
+		ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
+		return true;
+	}
+	
 	public HashSet<DTUsuario> listarUsuarios() {
 		return ManejadorUsuario.get_instance().get_usuarios();
 	}
@@ -55,6 +60,10 @@ public class ControladorUsuario {
 	
 	public HashSet<DTPaciente> listarPacientes() {
 		return ManejadorUsuario.get_instance().get_dtpacientes();
+	}
+	
+	public HashSet<DTMedico> listarMedicos() {
+		return ManejadorUsuario.get_instance().get_dtmedicos();
 	}
 	
 	public DTPaciente seleccionarPaciente(String nickname) {
