@@ -59,6 +59,9 @@ public class EstacionTrabajo extends JFrame { //ventana externa
                 
         	}
         });
+        
+        JMenuItem mntmNewMenuItem_1 = new JMenuItem("Consulta de Día de Consulta");
+        mnNewMenu.add(mntmNewMenuItem_1);
         mnNewMenu.add(mntmNewMenuItem);
     }
 
