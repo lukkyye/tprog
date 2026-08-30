@@ -72,6 +72,12 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         
         
         JMenuItem consultadiaConsultaItem = new JMenuItem("Consulta de Día de Consulta");
+        consultadiaConsultaItem.addActionListener(e->{
+        	ConsultaDeDiaDeConsulta ventana = new ConsultaDeDiaDeConsulta();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        
         consultaMenu.add(consultadiaConsultaItem);
         consultaMenu.add(reservaConsultaItem);
         consultaMenu.add(consultaClinicaItem);
