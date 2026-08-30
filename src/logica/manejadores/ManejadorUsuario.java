@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import logica.datatypes.*;
 import logica.excepciones.*;
+import logica.clases.Reserva;
 
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
@@ -110,12 +111,25 @@ public class ManejadorUsuario {
 		usuarios.put(nickname, m1);
 	}
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+		}
+		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
+		usuarios.put(nickname, m1);
+	}
+	
+	
+	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+		if (existe(nickname)) {
+			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
+		}
+		if (existe_correo(correo)) {
+			throw new EmailAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
 		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
 		usuarios.put(nickname, p1);
@@ -141,4 +155,27 @@ public class ManejadorUsuario {
 			throw new UserNotFoundException("El usuario no es de tipo Medico");
 		}
 	}//cambios
+	
+	public DTResConsultaDetalle datosResConsulta(String nicknameUsu, int numReserva) {
+
+	    Usuario u = get_usuario(nicknameUsu);
+
+	    if (u instanceof Paciente p) {
+
+	        for (logica.clases.Reserva r : p.get_reservas()) {
+
+	            if (r.getNumReserva() == numReserva) {
+	                return r.getDataResConsultaDetalle();
+	            }
+	        }
+
+	        throw new UserNotFoundException(
+	            "No se encontró la reserva seleccionada."
+	        );
+	    }
+
+	    throw new UserNotFoundException(
+	        "El usuario no es de tipo Paciente."
+	    );
+	}
 }
