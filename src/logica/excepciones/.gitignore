@@ -4,3 +4,5 @@
 /UserNotFoundException.class
 /ReservaAlreadyExistsException.class
 /NoNumberAvailableException.class
+/EmailAlreadyExistsException.class
+/NombreClinicaAlreadyExistsException.class

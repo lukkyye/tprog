@@ -178,4 +178,5 @@ public class ManejadorUsuario {
 	        "El usuario no es de tipo Paciente."
 	    );
 	}
+
 }

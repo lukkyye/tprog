@@ -84,6 +84,13 @@ public class ControladorClinica {
 		 p.agregarReserva(r);
 		 c.agregarReserva(r);
 	}
-	
+	public Set<DTConsulta> listarConsultas() {
+	    ManejadorConsulta mc = ManejadorConsulta.get_instance();
+	    Set<DTConsulta> result = new HashSet<>();
+	    for (Consulta c : mc.get_consultas().values()) {
+	        result.add(c.getDataConsulta());
+	    }
+	    return result;
+	}
 }
 
