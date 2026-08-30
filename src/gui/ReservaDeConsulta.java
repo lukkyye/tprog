@@ -38,7 +38,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         ControladorClinica controlador = new ControladorClinica();
         
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{197, 197, 197, 0};
+        gridBagLayout.columnWidths = new int[]{197, 244, 197, 0};
         gridBagLayout.rowHeights = new int[]{0, 60, 97, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
         gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -46,7 +46,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         
         JLabel lblNewLabel = new JLabel(" Día de consulta:");
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+        gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
         gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
         gbc_lblNewLabel.gridx = 0;
@@ -66,7 +66,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         
         JLabel lblNewLabel_1 = new JLabel("Consulta:");
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-        gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+        gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_1.fill = GridBagConstraints.VERTICAL;
         gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
         gbc_lblNewLabel_1.gridx = 0;
@@ -92,7 +92,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         
         JLabel lblNewLabel_2 = new JLabel("Paciente:");
         GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-        gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
+        gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
         gbc_lblNewLabel_2.gridx = 0;
         gbc_lblNewLabel_2.gridy = 3;
