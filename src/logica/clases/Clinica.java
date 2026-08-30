@@ -1,6 +1,7 @@
 package logica.clases;
 import java.util.HashSet;
 
+import logica.datatypes.DTClinica;
 import logica.datatypes.DTDiaConsulta;
 
 public class Clinica {
@@ -25,5 +26,8 @@ public class Clinica {
 					dc -> result.add(dc.getDTDiaConsulta())
 				);
 		return result;
+	}
+	public DTClinica get_dt() {
+		return new DTClinica(nombre,desc, dir, web, cTicket, cConsulta);
 	}
 }

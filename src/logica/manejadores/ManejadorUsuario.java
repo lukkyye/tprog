@@ -110,6 +110,23 @@ public class ManejadorUsuario {
 		usuarios.put(nickname, m1);
 	}
 	
+<<<<<<< Updated upstream
+=======
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+		if (existe(nickname)) {
+			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
+		}
+		if (existe_correo(correo)) {
+			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+		}
+		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
+		usuarios.put(nickname, m1);
+
+	}
+	
+	
+>>>>>>> Stashed changes
 	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
