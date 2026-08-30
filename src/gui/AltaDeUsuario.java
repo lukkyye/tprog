@@ -3,13 +3,13 @@ package gui;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import logica.excepciones.*;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -20,27 +20,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.TipoMes;
 import logica.manejadores.ManejadorEspecialidad;
-import logica.manejadores.ManejadorUsuario;
-
-import javax.swing.JSlider;
-import javax.swing.JTextArea;
-import java.awt.List;
 import javax.swing.AbstractListModel;
-import java.awt.Scrollbar;
 import java.awt.BorderLayout;
-import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import javax.swing.ListSelectionModel;
 
 public class AltaDeUsuario extends JInternalFrame {
@@ -417,16 +405,22 @@ public class AltaDeUsuario extends JInternalFrame {
 			
 			ControladorUsuario cu = new ControladorUsuario();
 			ArrayList<String> antssalud = Collections.list(modeloAntSalud.elements());
-			LocalDate fechaNac = LocalDate.of(Integer.parseInt(yyyyfield.getText()),Integer.parseInt(mmfield.getText()), 
-					Integer.parseInt(ddfield.getText()));
+			try {
+			LocalDate fechaNac = LocalDate.of(yyyyfield.getText()==null || yyyyfield.getText().equals("") ? 0:Integer.parseInt(yyyyfield.getText()),mmfield.getText()==null || mmfield.getText().equals("") ? 0:Integer.parseInt(mmfield.getText()), 
+					ddfield.getText()==null || ddfield.getText().equals("") ? 0:Integer.parseInt(ddfield.getText()));
 			if (validar_paciente(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
 					emailField.getText(), fechaNac, Integer.parseInt(documentoField.getText()))){
 				try {
 					cu.ingresarPaciente(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, LocalDate.now(),Integer.parseInt(documentoField.getText()),antssalud);
-			        JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+					JOptionPane.showMessageDialog(this, "Operacion realizada con exito");
 				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
-			        JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
+			}  else {
+				JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
+			}
+			} catch (DateTimeException e) {
+		        JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		
@@ -434,18 +428,22 @@ public class AltaDeUsuario extends JInternalFrame {
 			
 			ControladorUsuario cu = new ControladorUsuario();
 			
-			if (validar_medico(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
-					emailField.getText(), porcCostField.getText()==null || porcCostField.getText().equals("") ? 0: Integer.parseInt(nroRegField.getText()), nroRegField.getText()==null || nroRegField.getText().equals("") ? 0 : Integer.parseInt(porcCostField.getText()), linkField.getText(), selections)){
-				try {
-					cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , Integer.parseInt(nroRegField.getText()), 
-							TipoMes.values()[mesLicField.getSelectedIndex()], Integer.parseInt(porcCostField.getText()), linkField.getText(), selections);
-			        JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
-				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
-			        JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			try {
+				if (validar_medico(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
+						emailField.getText(), Integer.parseInt(nroRegField.getText()), Integer.parseInt(porcCostField.getText()), linkField.getText(), selections)){
+					try {
+						cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , Integer.parseInt(nroRegField.getText()), 
+								TipoMes.values()[mesLicField.getSelectedIndex()], Integer.parseInt(porcCostField.getText()), linkField.getText(), selections);
+						JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+					} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
+						JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
+					
 				}
-			} else {
-		        JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
-
+			} catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		
