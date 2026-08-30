@@ -1,5 +1,8 @@
 package logica.clases;
 import java.time.LocalDate;
+import java.util.HashSet;
+
+import logica.datatypes.DTConsultaDetalle;
 import logica.datatypes.DTResConsulta;
 
 public class Reserva {
@@ -48,5 +51,15 @@ public class Reserva {
     public DTResConsulta getDataResConsulta() {
     	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
     }
+    
+    //public DTResConsultaDetalle getDataResConsultaDetalle() { 
+		//HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
+		//for(Reserva r : reservas) {
+		//	DTResConsulta dt = new DTResConsulta(r.getFechaRS(),r.getNumReserva(),r.getAplicaBenef(),r.getCostoR());
+		//	arg.add(dt);
+		//}
+		//DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC);
+		//return consultaDetalle;
+	//}
 }
 

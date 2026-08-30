@@ -3,6 +3,7 @@ import logica.clases.Usuario;
 import logica.clases.Medico;
 import logica.clases.Paciente;
 import logica.clases.Especialidad;
+import logica.clases.Reserva;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import logica.excepciones.*;
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
 	private HashMap<String, Usuario> usuarios;
+	private HashMap<String, Reserva> reservas;
 	
 	private ManejadorUsuario() {
 		usuarios = new HashMap<String,Usuario>();
@@ -52,6 +54,13 @@ public class ManejadorUsuario {
 			return usuarios.get(nickname);
 		}
 		throw new UserNotFoundException("No se encontro usuario con el nickname: " + nickname);
+	}
+	
+	public Reserva get_reserva(String numReserva) { //REVISAR
+		if(reservas.containsKey(numReserva)) {
+			return reservas.get(numReserva);
+		}
+		return null;
 	}
 	
 	public DTMedico datosMedico(String nickname) {
