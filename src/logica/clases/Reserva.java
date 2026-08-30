@@ -1,8 +1,8 @@
 package logica.clases;
 import java.time.LocalDate;
-import java.util.HashSet;
-
+import logica.datatypes.DTResConsultaDetalle;
 import logica.datatypes.DTConsultaDetalle;
+import logica.manejadores.ManejadorConsulta;
 import logica.datatypes.DTResConsulta;
 
 public class Reserva {
@@ -52,14 +52,25 @@ public class Reserva {
     	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
     }
     
-    //public DTResConsultaDetalle getDataResConsultaDetalle() { 
-		//HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
-		//for(Reserva r : reservas) {
-		//	DTResConsulta dt = new DTResConsulta(r.getFechaRS(),r.getNumReserva(),r.getAplicaBenef(),r.getCostoR());
-		//	arg.add(dt);
-		//}
-		//DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC);
-		//return consultaDetalle;
-	//}
-}
+    public DTResConsultaDetalle getDataResConsultaDetalle() {
+
+        ManejadorConsulta mc = ManejadorConsulta.get_instance();
+        Consulta c = mc.get_consulta(nom_consulta_asoc);
+
+        DTConsultaDetalle dtConsulta = c.getDataConsultaDetalle();
+
+        return new DTResConsultaDetalle(
+            fechaRS,
+            numReserva,
+            aplicaBenef,
+            dtConsulta.medico(),
+            dtConsulta.nomC(),
+            dtConsulta.fechaC(),
+            dtConsulta.sala(),
+            dtConsulta.cantNum(),
+            dtConsulta.costoC(),
+            costoR
+        );
+    }
+ }
 
