@@ -47,11 +47,11 @@ public class EstacionTrabajo extends JFrame { //ventana externa
 
         setJMenuBar(menuBar);
         
-        JMenu mnNewMenu = new JMenu("Consultas");
-        menuBar.add(mnNewMenu);
+        JMenu consultaMenu = new JMenu("Consultas");
+        menuBar.add(consultaMenu);
         
-        JMenuItem mntmNewMenuItem = new JMenuItem("Reserva de Consulta");
-        mntmNewMenuItem.addActionListener(new ActionListener() {
+        JMenuItem reservaConsultaItem = new JMenuItem("Reserva de Consulta");
+        reservaConsultaItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		ReservaDeConsulta ventana = new ReservaDeConsulta();
                 desktopPane.add(ventana);
@@ -60,9 +60,21 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	}
         });
         
-        JMenuItem mntmNewMenuItem_1 = new JMenuItem("Consulta de Día de Consulta");
-        mnNewMenu.add(mntmNewMenuItem_1);
-        mnNewMenu.add(mntmNewMenuItem);
+        JMenuItem consultaClinicaItem = new JMenuItem("Consulta de Clinica");
+        consultaClinicaItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ConsultaDeClinica ventana = new ConsultaDeClinica();
+                desktopPane.add(ventana);
+                ventana.setVisible(true);
+                
+        	}
+        });
+        
+        
+        JMenuItem consultadiaConsultaItem = new JMenuItem("Consulta de Día de Consulta");
+        consultaMenu.add(consultadiaConsultaItem);
+        consultaMenu.add(reservaConsultaItem);
+        consultaMenu.add(consultaClinicaItem);
     }
 
     public static void main(String[] args) {
