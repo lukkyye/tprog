@@ -1,12 +1,15 @@
 package logica.controladores;
 import logica.clases.Clinica;
 import logica.datatypes.DTDiaConsulta;
+import logica.datatypes.DTDiaSemana;
 import logica.manejadores.ManejadorClinica;
 import logica.datatypes.DTConsultaDetalle;
 import logica.manejadores.ManejadorConsulta;
 import logica.clases.Consulta;
 import logica.datatypes.DTConsulta;
 import logica.clases.DiaConsulta;
+import logica.clases.Medico;
+
 import java.util.Set;
 import java.util.HashSet;
 import logica.datatypes.DTPaciente;
@@ -17,6 +20,8 @@ import logica.clases.Reserva;
 import java.time.LocalDate;
 import logica.excepciones.NoNumberAvailableException;
 import logica.excepciones.ReservaAlreadyExistsException;
+
+
 
 public class ControladorClinica {
 
@@ -91,6 +96,30 @@ public class ControladorClinica {
 	        result.add(c.getDataConsulta());
 	    }
 	    return result;
+	}
+	
+	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
+		ManejadorConsulta mco = ManejadorConsulta.get_instance();
+		ManejadorClinica mcl = ManejadorClinica.get_instance();
+		ManejadorUsuario mu = ManejadorUsuario.get_instance();
+		
+		if (mco.get_consultas().containsKey(nomC)) {
+			throw new ConsultaNombreAlreadyExistsException("Ya existe una consulta con el nombre ingresado");
+		}
+		DiaConsulta diaConsulta = mcl.findDiasConsultas(nomD);
+		Usuario u = mu.get_usuario(med);
+		Medico medico = (Medico) u;
+		if (!medico.tieneEspecialidad(diaConsulta.get_especialidad().getNombre())) {
+			throw new MedicoSinEspecialidadException("El medico no tiene la espcialidad requerida para este dia de consulta");
+		}
+		if (diaConsulta.get_dia() != DTDiaSemana.values()[fecha.getDayOfWeek().getValue() - 1]) {
+			throw new FechaDiaSemanaInvalidaException("La fecha ingresada no corresponde al dia de la semana del dia de consulta");
+		}
+		float costoC = diaConsulta.get_costoD()* (1 + medico.get_porcentajeCosto()/100f);
+		Consulta c = new Consulta(nomD, med, nomC, fecha, sala, cantNum, costoC);
+		diaConsulta.agregarConsulta(c);
+		medico.agregarConsultaAsociada(nomC);
+		mco.agregarConsulta(c);
 	}
 }
 
