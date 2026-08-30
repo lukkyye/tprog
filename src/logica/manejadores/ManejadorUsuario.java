@@ -14,6 +14,7 @@ import logica.clases.Reserva;
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
 	private HashMap<String, Usuario> usuarios;
+	private HashMap<String, Reserva> reservas;
 	
 	private ManejadorUsuario() {
 		usuarios = new HashMap<String,Usuario>();
@@ -170,26 +171,26 @@ public class ManejadorUsuario {
 	}//cambios
 	
 	public DTResConsultaDetalle datosResConsulta(String nicknameUsu, int numReserva) {
-
 	    Usuario u = get_usuario(nicknameUsu);
-
 	    if (u instanceof Paciente p) {
-
 	        for (logica.clases.Reserva r : p.get_reservas()) {
-
 	            if (r.getNumReserva() == numReserva) {
 	                return r.getDataResConsultaDetalle();
 	            }
 	        }
-
 	        throw new UserNotFoundException(
 	            "No se encontró la reserva seleccionada."
 	        );
 	    }
-
 	    throw new UserNotFoundException(
 	        "El usuario no es de tipo Paciente."
 	    );
+	}
+	public Reserva get_reserva(String numReserva) { //REVISAR
+		if(reservas.containsKey(numReserva)) {
+			return reservas.get(numReserva);
+		}
+		return null;
 	}
 
 }

@@ -124,5 +124,12 @@ public class ControladorClinica {
 		medico.agregarConsultaAsociada(nomC);
 		mco.agregarConsulta(c);
 	}
+	
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+		ManejadorClinica mcl = ManejadorClinica.get_instance();
+		mcl.agregar_clinica(nombre, desc, dir, costoT, costoC, link);
+		return true;
+	}
+
 }
 

@@ -81,6 +81,19 @@ public class Consulta {
 
 	public String getDiaConsulta() {
 	    return diaConsulta;
+	}	
+	public String getMedicoC() {
+        return medico;
+    }
+	public LocalDate getFechaC() {
+        return fecha;
+    }
+	public int getSalaC() {
+        return sala;
 	}
+	public int getCantNumC() {
+        return cantNum;
+    }
+
 	
 }

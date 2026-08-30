@@ -2,6 +2,7 @@ package logica.manejadores;
 import logica.clases.Clinica;
 import logica.clases.DiaConsulta;
 import logica.datatypes.DTConsulta;
+import logica.excepciones.NombreClinicaAlreadyExistsException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,4 +80,14 @@ public class ManejadorClinica {
     	return res;
     	
     }
+    
+    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+		if (memberClinica(nombre)) {
+			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
+		}
+		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
+		clinicas.put(nombre, cl);
+	}
+
+    
 }

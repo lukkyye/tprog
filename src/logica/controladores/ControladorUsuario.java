@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import logica.datatypes.*;
+import logica.manejadores.ManejadorConsulta;
 import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
+import logica.clases.Consulta;
 import logica.clases.Especialidad;
+import logica.clases.Reserva;
 
 public class ControladorUsuario {
 	
@@ -76,4 +79,16 @@ public class ControladorUsuario {
 	    return ManejadorUsuario.get_instance()
 	            .datosResConsulta(nicknameUsu, numReserva);
 	}
+	
+	public DTResConsultaDetalle listarDatosResConsulta(String nomR) {
+		ManejadorUsuario musu = ManejadorUsuario.get_instance();
+		Reserva reserva = musu.get_reserva(nomR);
+		String nomC = reserva.get_consultaAsociada();
+		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
+		Consulta consulta = mcon.get_consulta(nomC);
+		DTResConsultaDetalle res = new DTResConsultaDetalle(reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), consulta.getMedicoC(), consulta.getNomC(), consulta.getFechaC(), consulta.getSalaC(), consulta.getCantNumC(), consulta.getCostoC(), reserva.getCostoR());
+		return res;
+	}
+
+	
 }
