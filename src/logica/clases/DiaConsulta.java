@@ -35,7 +35,20 @@ public class DiaConsulta {
 				);
 		return result;
 	}
+	
 	public DTDiaConsulta getDTDiaConsulta() {
 		return new DTDiaConsulta(nomD, descD, dia, horaIni, costoD);
+	}
+	
+	public void agregarConsulta(Consulta c) {
+		consultas.put(c.getNomC(),c);
+	}
+	
+	public DTDiaSemana get_dia() {
+		return dia;
+	}
+	
+	public float get_costoD() {
+		return costoD;
 	}
 }
