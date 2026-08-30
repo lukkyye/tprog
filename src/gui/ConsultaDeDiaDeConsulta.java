@@ -34,9 +34,9 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         ControladorClinica controlador = new ControladorClinica();
         
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{140, 0, 0, 0};
+        gridBagLayout.columnWidths = new int[]{0, 140, 0, 0, 0};
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+        gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
         gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         getContentPane().setLayout(gridBagLayout);
         
@@ -44,7 +44,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_lblDiaConsulta = new GridBagConstraints();
         gbc_lblDiaConsulta.anchor = GridBagConstraints.WEST;
         gbc_lblDiaConsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_lblDiaConsulta.gridx = 0;
+        gbc_lblDiaConsulta.gridx = 1;
         gbc_lblDiaConsulta.gridy = 0;
         getContentPane().add(lblDiaConsulta, gbc_lblDiaConsulta);
         
@@ -52,7 +52,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_comboBoxDiaConsulta = new GridBagConstraints();
         gbc_comboBoxDiaConsulta.insets = new Insets(0, 0, 5, 5);
         gbc_comboBoxDiaConsulta.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBoxDiaConsulta.gridx = 1;
+        gbc_comboBoxDiaConsulta.gridx = 2;
         gbc_comboBoxDiaConsulta.gridy = 0;
         getContentPane().add(comboBoxDiaConsulta, gbc_comboBoxDiaConsulta);
         for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
@@ -64,7 +64,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_lablenombredia = new GridBagConstraints();
         gbc_lablenombredia.anchor = GridBagConstraints.WEST;
         gbc_lablenombredia.insets = new Insets(0, 0, 5, 5);
-        gbc_lablenombredia.gridx = 0;
+        gbc_lablenombredia.gridx = 1;
         gbc_lablenombredia.gridy = 1;
         getContentPane().add(lablenombredia, gbc_lablenombredia);
         
@@ -74,13 +74,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel camponombredia = new JLabel("New label");
         GridBagConstraints gbc_camponombredia = new GridBagConstraints();
         gbc_camponombredia.insets = new Insets(0, 0, 5, 5);
-        gbc_camponombredia.gridx = 1;
+        gbc_camponombredia.gridx = 2;
         gbc_camponombredia.gridy = 1;
         getContentPane().add(camponombredia, gbc_camponombredia);
         GridBagConstraints gbc_descripciondia = new GridBagConstraints();
         gbc_descripciondia.anchor = GridBagConstraints.WEST;
         gbc_descripciondia.insets = new Insets(0, 0, 5, 5);
-        gbc_descripciondia.gridx = 0;
+        gbc_descripciondia.gridx = 1;
         gbc_descripciondia.gridy = 2;
         getContentPane().add(descripciondia, gbc_descripciondia);
         
@@ -90,13 +90,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campodescripciondia = new JLabel("New label");
         GridBagConstraints gbc_campodescripciondia = new GridBagConstraints();
         gbc_campodescripciondia.insets = new Insets(0, 0, 5, 5);
-        gbc_campodescripciondia.gridx = 1;
+        gbc_campodescripciondia.gridx = 2;
         gbc_campodescripciondia.gridy = 2;
         getContentPane().add(campodescripciondia, gbc_campodescripciondia);
         GridBagConstraints gbc_Diadia = new GridBagConstraints();
         gbc_Diadia.anchor = GridBagConstraints.WEST;
         gbc_Diadia.insets = new Insets(0, 0, 5, 5);
-        gbc_Diadia.gridx = 0;
+        gbc_Diadia.gridx = 1;
         gbc_Diadia.gridy = 3;
         getContentPane().add(Diadia, gbc_Diadia);
         
@@ -106,13 +106,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campodiadia = new JLabel("New label");
         GridBagConstraints gbc_campodiadia = new GridBagConstraints();
         gbc_campodiadia.insets = new Insets(0, 0, 5, 5);
-        gbc_campodiadia.gridx = 1;
+        gbc_campodiadia.gridx = 2;
         gbc_campodiadia.gridy = 3;
         getContentPane().add(campodiadia, gbc_campodiadia);
         GridBagConstraints gbc_horainidia = new GridBagConstraints();
         gbc_horainidia.insets = new Insets(0, 0, 5, 5);
         gbc_horainidia.anchor = GridBagConstraints.WEST;
-        gbc_horainidia.gridx = 0;
+        gbc_horainidia.gridx = 1;
         gbc_horainidia.gridy = 4;
         getContentPane().add(horainidia, gbc_horainidia);
         
@@ -122,13 +122,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campohorainidia = new JLabel("New label");
         GridBagConstraints gbc_campohorainidia = new GridBagConstraints();
         gbc_campohorainidia.insets = new Insets(0, 0, 5, 5);
-        gbc_campohorainidia.gridx = 1;
+        gbc_campohorainidia.gridx = 2;
         gbc_campohorainidia.gridy = 4;
         getContentPane().add(campohorainidia, gbc_campohorainidia);
         GridBagConstraints gbc_costodia = new GridBagConstraints();
         gbc_costodia.anchor = GridBagConstraints.WEST;
         gbc_costodia.insets = new Insets(0, 0, 5, 5);
-        gbc_costodia.gridx = 0;
+        gbc_costodia.gridx = 1;
         gbc_costodia.gridy = 5;
         getContentPane().add(costodia, gbc_costodia);
         
@@ -138,13 +138,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campocostodia = new JLabel("New label");
         GridBagConstraints gbc_campocostodia = new GridBagConstraints();
         gbc_campocostodia.insets = new Insets(0, 0, 5, 5);
-        gbc_campocostodia.gridx = 1;
+        gbc_campocostodia.gridx = 2;
         gbc_campocostodia.gridy = 5;
         getContentPane().add(campocostodia, gbc_campocostodia);
         GridBagConstraints gbc_cosnsulta = new GridBagConstraints();
         gbc_cosnsulta.anchor = GridBagConstraints.WEST;
         gbc_cosnsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_cosnsulta.gridx = 0;
+        gbc_cosnsulta.gridx = 1;
         gbc_cosnsulta.gridy = 6;
         getContentPane().add(cosnsulta, gbc_cosnsulta);
         
@@ -154,7 +154,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_comboBoxConsultas = new GridBagConstraints();
         gbc_comboBoxConsultas.insets = new Insets(0, 0, 5, 5);
         gbc_comboBoxConsultas.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBoxConsultas.gridx = 1;
+        gbc_comboBoxConsultas.gridx = 2;
         gbc_comboBoxConsultas.gridy = 6;
         getContentPane().add(comboBoxConsultas, gbc_comboBoxConsultas);
         
@@ -163,7 +163,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_nombreconsulta = new GridBagConstraints();
         gbc_nombreconsulta.anchor = GridBagConstraints.WEST;
         gbc_nombreconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_nombreconsulta.gridx = 0;
+        gbc_nombreconsulta.gridx = 1;
         gbc_nombreconsulta.gridy = 7;
         getContentPane().add(nombreconsulta, gbc_nombreconsulta);
         
@@ -173,13 +173,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel camponombreconsulta = new JLabel("New label");
         GridBagConstraints gbc_camponombreconsulta = new GridBagConstraints();
         gbc_camponombreconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_camponombreconsulta.gridx = 1;
+        gbc_camponombreconsulta.gridx = 2;
         gbc_camponombreconsulta.gridy = 7;
         getContentPane().add(camponombreconsulta, gbc_camponombreconsulta);
         GridBagConstraints gbc_medicoconsulta = new GridBagConstraints();
         gbc_medicoconsulta.anchor = GridBagConstraints.WEST;
         gbc_medicoconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_medicoconsulta.gridx = 0;
+        gbc_medicoconsulta.gridx = 1;
         gbc_medicoconsulta.gridy = 8;
         getContentPane().add(medicoconsulta, gbc_medicoconsulta);
         
@@ -189,13 +189,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campomedicoconsulta = new JLabel("New label");
         GridBagConstraints gbc_campomedicoconsulta = new GridBagConstraints();
         gbc_campomedicoconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_campomedicoconsulta.gridx = 1;
+        gbc_campomedicoconsulta.gridx = 2;
         gbc_campomedicoconsulta.gridy = 8;
         getContentPane().add(campomedicoconsulta, gbc_campomedicoconsulta);
         GridBagConstraints gbc_fechaconsulta = new GridBagConstraints();
         gbc_fechaconsulta.anchor = GridBagConstraints.WEST;
         gbc_fechaconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_fechaconsulta.gridx = 0;
+        gbc_fechaconsulta.gridx = 1;
         gbc_fechaconsulta.gridy = 9;
         getContentPane().add(fechaconsulta, gbc_fechaconsulta);
         
@@ -205,13 +205,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campofechaconsulta = new JLabel("New label");
         GridBagConstraints gbc_campofechaconsulta = new GridBagConstraints();
         gbc_campofechaconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_campofechaconsulta.gridx = 1;
+        gbc_campofechaconsulta.gridx = 2;
         gbc_campofechaconsulta.gridy = 9;
         getContentPane().add(campofechaconsulta, gbc_campofechaconsulta);
         GridBagConstraints gbc_salaconsulta = new GridBagConstraints();
         gbc_salaconsulta.anchor = GridBagConstraints.WEST;
         gbc_salaconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_salaconsulta.gridx = 0;
+        gbc_salaconsulta.gridx = 1;
         gbc_salaconsulta.gridy = 10;
         getContentPane().add(salaconsulta, gbc_salaconsulta);
         
@@ -221,13 +221,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel camposalaconsulta = new JLabel("New label");
         GridBagConstraints gbc_camposalaconsulta = new GridBagConstraints();
         gbc_camposalaconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_camposalaconsulta.gridx = 1;
+        gbc_camposalaconsulta.gridx = 2;
         gbc_camposalaconsulta.gridy = 10;
         getContentPane().add(camposalaconsulta, gbc_camposalaconsulta);
         GridBagConstraints gbc_cantidadnumconsulta = new GridBagConstraints();
         gbc_cantidadnumconsulta.anchor = GridBagConstraints.WEST;
         gbc_cantidadnumconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_cantidadnumconsulta.gridx = 0;
+        gbc_cantidadnumconsulta.gridx = 1;
         gbc_cantidadnumconsulta.gridy = 11;
         getContentPane().add(cantidadnumconsulta, gbc_cantidadnumconsulta);
         
@@ -237,20 +237,20 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel campocantnumconsulta = new JLabel("New label");
         GridBagConstraints gbc_campocantnumconsulta = new GridBagConstraints();
         gbc_campocantnumconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_campocantnumconsulta.gridx = 1;
+        gbc_campocantnumconsulta.gridx = 2;
         gbc_campocantnumconsulta.gridy = 11;
         getContentPane().add(campocantnumconsulta, gbc_campocantnumconsulta);
         GridBagConstraints gbc_costoconsulta = new GridBagConstraints();
         gbc_costoconsulta.anchor = GridBagConstraints.WEST;
         gbc_costoconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_costoconsulta.gridx = 0;
+        gbc_costoconsulta.gridx = 1;
         gbc_costoconsulta.gridy = 12;
         getContentPane().add(costoconsulta, gbc_costoconsulta);
         
         JLabel campocostoconsulta = new JLabel("New label");
         GridBagConstraints gbc_campocostoconsulta = new GridBagConstraints();
         gbc_campocostoconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_campocostoconsulta.gridx = 1;
+        gbc_campocostoconsulta.gridx = 2;
         gbc_campocostoconsulta.gridy = 12;
         getContentPane().add(campocostoconsulta, gbc_campocostoconsulta);
         
@@ -258,7 +258,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_reservaconsulta = new GridBagConstraints();
         gbc_reservaconsulta.anchor = GridBagConstraints.WEST;
         gbc_reservaconsulta.insets = new Insets(0, 0, 5, 5);
-        gbc_reservaconsulta.gridx = 0;
+        gbc_reservaconsulta.gridx = 1;
         gbc_reservaconsulta.gridy = 13;
         getContentPane().add(reservaconsulta, gbc_reservaconsulta);
         
@@ -266,7 +266,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_comboBoxreservas = new GridBagConstraints();
         gbc_comboBoxreservas.insets = new Insets(0, 0, 5, 5);
         gbc_comboBoxreservas.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBoxreservas.gridx = 1;
+        gbc_comboBoxreservas.gridx = 2;
         gbc_comboBoxreservas.gridy = 13;
         getContentPane().add(comboBoxreservas, gbc_comboBoxreservas);
         
@@ -274,14 +274,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_fechareserva = new GridBagConstraints();
         gbc_fechareserva.anchor = GridBagConstraints.WEST;
         gbc_fechareserva.insets = new Insets(0, 0, 5, 5);
-        gbc_fechareserva.gridx = 0;
+        gbc_fechareserva.gridx = 1;
         gbc_fechareserva.gridy = 14;
         getContentPane().add(fechareserva, gbc_fechareserva);
         
         JLabel campofechareserva = new JLabel("New label");
         GridBagConstraints gbc_campofechareserva = new GridBagConstraints();
         gbc_campofechareserva.insets = new Insets(0, 0, 5, 5);
-        gbc_campofechareserva.gridx = 1;
+        gbc_campofechareserva.gridx = 2;
         gbc_campofechareserva.gridy = 14;
         getContentPane().add(campofechareserva, gbc_campofechareserva);
         
@@ -289,14 +289,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_numeroreserva = new GridBagConstraints();
         gbc_numeroreserva.anchor = GridBagConstraints.WEST;
         gbc_numeroreserva.insets = new Insets(0, 0, 5, 5);
-        gbc_numeroreserva.gridx = 0;
+        gbc_numeroreserva.gridx = 1;
         gbc_numeroreserva.gridy = 15;
         getContentPane().add(numeroreserva, gbc_numeroreserva);
         
         JLabel camponumreserva = new JLabel("New label");
         GridBagConstraints gbc_camponumreserva = new GridBagConstraints();
         gbc_camponumreserva.insets = new Insets(0, 0, 5, 5);
-        gbc_camponumreserva.gridx = 1;
+        gbc_camponumreserva.gridx = 2;
         gbc_camponumreserva.gridy = 15;
         getContentPane().add(camponumreserva, gbc_camponumreserva);
         
@@ -304,14 +304,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_beneficioreserva = new GridBagConstraints();
         gbc_beneficioreserva.anchor = GridBagConstraints.WEST;
         gbc_beneficioreserva.insets = new Insets(0, 0, 5, 5);
-        gbc_beneficioreserva.gridx = 0;
+        gbc_beneficioreserva.gridx = 1;
         gbc_beneficioreserva.gridy = 16;
         getContentPane().add(beneficioreserva, gbc_beneficioreserva);
         
         JLabel campobeneficioreserva = new JLabel("New label");
         GridBagConstraints gbc_campobeneficioreserva = new GridBagConstraints();
         gbc_campobeneficioreserva.insets = new Insets(0, 0, 5, 5);
-        gbc_campobeneficioreserva.gridx = 1;
+        gbc_campobeneficioreserva.gridx = 2;
         gbc_campobeneficioreserva.gridy = 16;
         getContentPane().add(campobeneficioreserva, gbc_campobeneficioreserva);
         
@@ -319,14 +319,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         GridBagConstraints gbc_costoreserva = new GridBagConstraints();
         gbc_costoreserva.anchor = GridBagConstraints.WEST;
         gbc_costoreserva.insets = new Insets(0, 0, 0, 5);
-        gbc_costoreserva.gridx = 0;
+        gbc_costoreserva.gridx = 1;
         gbc_costoreserva.gridy = 17;
         getContentPane().add(costoreserva, gbc_costoreserva);
         
         JLabel campocostoreserva = new JLabel("New label");
         GridBagConstraints gbc_campocostoreserva = new GridBagConstraints();
         gbc_campocostoreserva.insets = new Insets(0, 0, 0, 5);
-        gbc_campocostoreserva.gridx = 1;
+        gbc_campocostoreserva.gridx = 2;
         gbc_campocostoreserva.gridy = 17;
         getContentPane().add(campocostoreserva, gbc_campocostoreserva);
         
