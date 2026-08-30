@@ -75,4 +75,12 @@ public class Consulta {
 	    }
 	    return false;
 	}
+	public String getNomC() {
+	    return nomC;
+	}
+
+	public String getDiaConsulta() {
+	    return diaConsulta;
+	}
+	
 }

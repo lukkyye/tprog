@@ -1,5 +1,8 @@
 package logica.clases;
 import java.time.LocalDate;
+import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DTConsultaDetalle;
+import logica.manejadores.ManejadorConsulta;
 import logica.datatypes.DTResConsulta;
 
 public class Reserva {
@@ -48,5 +51,26 @@ public class Reserva {
     public DTResConsulta getDataResConsulta() {
     	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
     }
-}
+    
+    public DTResConsultaDetalle getDataResConsultaDetalle() {
+
+        ManejadorConsulta mc = ManejadorConsulta.get_instance();
+        Consulta c = mc.get_consulta(nom_consulta_asoc);
+
+        DTConsultaDetalle dtConsulta = c.getDataConsultaDetalle();
+
+        return new DTResConsultaDetalle(
+            fechaRS,
+            numReserva,
+            aplicaBenef,
+            dtConsulta.medico(),
+            dtConsulta.nomC(),
+            dtConsulta.fechaC(),
+            dtConsulta.sala(),
+            dtConsulta.cantNum(),
+            dtConsulta.costoC(),
+            costoR
+        );
+    }
+ }
 

@@ -15,6 +15,11 @@ public class ControladorUsuario {
 		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, espNom, espPorc);
 		return true;
 	}
+	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+		ManejadorUsuario mu = ManejadorUsuario.get_instance();
+		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
+		return true;
+	}
 	
 	public boolean ingresarPaciente(String nickname, String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
 		ManejadorUsuario mu = ManejadorUsuario.get_instance();
@@ -25,6 +30,11 @@ public class ControladorUsuario {
 	public boolean ingresoEspecialidad(String nickname, String espNom, int espPorc) {
 		Especialidad esp = ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
 		ManejadorUsuario.get_instance().agregarEspecialidadAMedico(nickname, esp);
+		return true;
+	}
+	
+	public boolean altaEspecialidad(String espNom, int espPorc) {
+		ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
 		return true;
 	}
 	
@@ -52,11 +62,18 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().get_dtpacientes();
 	}
 	
+	public HashSet<DTMedico> listarMedicos() {
+		return ManejadorUsuario.get_instance().get_dtmedicos();
+	}
+	
 	public DTPaciente seleccionarPaciente(String nickname) {
 		return ManejadorUsuario.get_instance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(String nomR) {
-		return null;
+	public DTResConsultaDetalle listarDatosResConsulta(
+	        String nicknameUsu, int numReserva) {
+
+	    return ManejadorUsuario.get_instance()
+	            .datosResConsulta(nicknameUsu, numReserva);
 	}
 }

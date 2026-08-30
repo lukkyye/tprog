@@ -12,10 +12,25 @@ public class Medico extends Usuario{
 	
 	public Medico(String _nickname, String _nombre, String _apellido, String _correo, int _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
 		super(_nickname, _nombre, _apellido, _correo);
-		this.nroReg=_nroReg;
-		this.mesLic=_mesLic;
-		this.porcentajeCosto=_porcentajeCosto;
-		this.link=_link;
+		this.nroReg = _nroReg;
+		this.mesLic = _mesLic;
+		this.porcentajeCosto = _porcentajeCosto;
+		this.link = _link;
+		consultasAsociadas = new HashSet<String>();
+		especialidades = new HashSet<Especialidad>();
+	}
+	
+	public void agregarConsultaAsociada(String nomC) {
+		consultasAsociadas.add(nomC);
+	}
+	
+	public boolean tieneEspecialidad(String espNom) {
+		for (Especialidad e : especialidades) {
+			if (e.getNombre().equals(espNom)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void agregarEspecialidad(Especialidad e) {
@@ -54,4 +69,5 @@ public class Medico extends Usuario{
 	public void set_porcentajeCosto(int _porcentajeCosto) { 
 		this.porcentajeCosto=_porcentajeCosto;
 	}
+	
 }
