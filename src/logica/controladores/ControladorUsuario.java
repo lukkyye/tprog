@@ -12,7 +12,12 @@ public class ControladorUsuario {
 	
 	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
 		ManejadorUsuario mu = ManejadorUsuario.get_instance();
-		mu.agregar_medico(nickname, nombre, nombre, correo, nroReg, licencia, porcCost, link, espNom, espPorc);
+		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, espNom, espPorc);
+		return true;
+	}
+	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+		ManejadorUsuario mu = ManejadorUsuario.get_instance();
+		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 		return true;
 	}
 	
@@ -48,4 +53,18 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().reservasConsultasAsociadas(nicknameUsu);
 	}
 	
+	public HashSet<DTPaciente> listarPacientes() {
+		return ManejadorUsuario.get_instance().get_dtpacientes();
+	}
+	
+	public DTPaciente seleccionarPaciente(String nickname) {
+		return ManejadorUsuario.get_instance().datosPaciente(nickname);
+	}
+	
+	public DTResConsultaDetalle listarDatosResConsulta(
+	        String nicknameUsu, int numReserva) {
+
+	    return ManejadorUsuario.get_instance()
+	            .datosResConsulta(nicknameUsu, numReserva);
+	}
 }

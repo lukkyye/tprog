@@ -2,24 +2,28 @@ package logica.excepciones;
 
 public class NoNumberAvailableException extends RuntimeException {
 
-    public NoNumberAvailableException() {
-        super();
-    }
+	public NoNumberAvailableException() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public NoNumberAvailableException(String message) {
-        super(message);
-    }
+	public NoNumberAvailableException(String message) {
+		super(message);
+		// TODO Auto-generated constructor stub
+	}
 
-    public NoNumberAvailableException(Throwable cause) {
-        super(cause);
-    }
+	public NoNumberAvailableException(Throwable cause) {
+		super(cause);
+		// TODO Auto-generated constructor stub
+	}
 
-    public NoNumberAvailableException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	public NoNumberAvailableException(String message, Throwable cause) {
+		super(message, cause);
+		// TODO Auto-generated constructor stub
+	}
 
-    public NoNumberAvailableException(String message, Throwable cause,
-            boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+	public NoNumberAvailableException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+		// TODO Auto-generated constructor stub
+	}
 }
