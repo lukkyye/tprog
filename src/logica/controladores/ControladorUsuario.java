@@ -15,6 +15,11 @@ public class ControladorUsuario {
 		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, espNom, espPorc);
 		return true;
 	}
+	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+		ManejadorUsuario mu = ManejadorUsuario.get_instance();
+		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
+		return true;
+	}
 	
 	public boolean ingresarPaciente(String nickname, String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
 		ManejadorUsuario mu = ManejadorUsuario.get_instance();

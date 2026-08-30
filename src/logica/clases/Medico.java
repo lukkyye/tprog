@@ -16,6 +16,7 @@ public class Medico extends Usuario{
 		this.mesLic=_mesLic;
 		this.porcentajeCosto=_porcentajeCosto;
 		this.link=_link;
+		especialidades=new HashSet<Especialidad>();
 	}
 	
 	public void agregarEspecialidad(Especialidad e) {
@@ -54,4 +55,5 @@ public class Medico extends Usuario{
 	public void set_porcentajeCosto(int _porcentajeCosto) { 
 		this.porcentajeCosto=_porcentajeCosto;
 	}
+	
 }

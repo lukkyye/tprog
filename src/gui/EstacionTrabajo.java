@@ -29,6 +29,11 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         JMenu menuUsuarios = new JMenu("Usuarios"); //menu en menu
 
         JMenuItem itemAltaUsuario = new JMenuItem("Alta de Usuario");
+        itemAltaUsuario.addActionListener(e->{
+        	AltaDeUsuario newwindow = new AltaDeUsuario();
+        	desktopPane.add(newwindow);
+        	newwindow.setVisible(true);
+        });
         JMenuItem itemConsultaUsuario = new JMenuItem("Consulta de Usuario");
         // aagregar el resto claramente
 
