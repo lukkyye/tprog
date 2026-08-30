@@ -6,6 +6,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EstacionTrabajo extends JFrame { //ventana externa
 
@@ -44,6 +46,20 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         menuBar.add(menuUsuarios);
 
         setJMenuBar(menuBar);
+        
+        JMenu mnNewMenu = new JMenu("Consultas");
+        menuBar.add(mnNewMenu);
+        
+        JMenuItem mntmNewMenuItem = new JMenuItem("Reserva de Consulta");
+        mntmNewMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ReservaDeConsulta ventana = new ReservaDeConsulta();
+                desktopPane.add(ventana);
+                ventana.setVisible(true);
+                
+        	}
+        });
+        mnNewMenu.add(mntmNewMenuItem);
     }
 
     public static void main(String[] args) {

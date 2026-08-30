@@ -112,8 +112,17 @@ public class ReservaDeConsulta extends JInternalFrame {
         JButton btnReserva = new JButton("Reservar");
         btnReserva.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String consulta = comboBox_Consulta.getSelectedItem().toString();
-                String paciente = comboBox_Paciente.getSelectedItem().toString();
+            	if (comboBox_Consulta.getSelectedItem() == null || comboBox_Paciente.getSelectedItem() == null) {
+            		    JOptionPane.showMessageDialog(
+            		        null,
+            		        "Debe seleccionar una consulta y un paciente.",
+            		        "Datos incompletos",
+            		        JOptionPane.WARNING_MESSAGE
+            		    );
+            		    return;
+            		}
+            		String consulta = comboBox_Consulta.getSelectedItem().toString();
+            		String paciente = comboBox_Paciente.getSelectedItem().toString();
                 try {
                     controlador.reservarConsulta(paciente, consulta);
                     JOptionPane.showMessageDialog(
