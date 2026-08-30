@@ -14,9 +14,9 @@ import java.awt.event.ActionEvent;
 import logica.controladores.ControladorClinica;
 import logica.datatypes.DTDiaConsulta;
 import logica.datatypes.DTConsulta;
+import logica.datatypes.DTResConsulta;
+import logica.datatypes.DTConsultaDetalle;
 
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTConsulta;
 
 public class ConsultaDeDiaDeConsulta extends JInternalFrame {
 
@@ -35,9 +35,9 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{140, 0, 0, 0};
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         getContentPane().setLayout(gridBagLayout);
         
         JLabel lblDiaConsulta = new JLabel("Día de Consulta:");
@@ -244,6 +244,78 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campocostoconsulta.gridy = 12;
         getContentPane().add(campocostoconsulta, gbc_campocostoconsulta);
         
+        JLabel reservaconsulta = new JLabel("Reservas:");
+        GridBagConstraints gbc_reservaconsulta = new GridBagConstraints();
+        gbc_reservaconsulta.anchor = GridBagConstraints.EAST;
+        gbc_reservaconsulta.insets = new Insets(0, 0, 5, 5);
+        gbc_reservaconsulta.gridx = 0;
+        gbc_reservaconsulta.gridy = 13;
+        getContentPane().add(reservaconsulta, gbc_reservaconsulta);
+        
+        JComboBox comboBoxreservas = new JComboBox();
+        GridBagConstraints gbc_comboBoxreservas = new GridBagConstraints();
+        gbc_comboBoxreservas.insets = new Insets(0, 0, 5, 5);
+        gbc_comboBoxreservas.fill = GridBagConstraints.HORIZONTAL;
+        gbc_comboBoxreservas.gridx = 1;
+        gbc_comboBoxreservas.gridy = 13;
+        getContentPane().add(comboBoxreservas, gbc_comboBoxreservas);
+        
+        JLabel fechareserva = new JLabel("Fecha:");
+        GridBagConstraints gbc_fechareserva = new GridBagConstraints();
+        gbc_fechareserva.insets = new Insets(0, 0, 5, 5);
+        gbc_fechareserva.gridx = 0;
+        gbc_fechareserva.gridy = 14;
+        getContentPane().add(fechareserva, gbc_fechareserva);
+        
+        JLabel campofechareserva = new JLabel("New label");
+        GridBagConstraints gbc_campofechareserva = new GridBagConstraints();
+        gbc_campofechareserva.insets = new Insets(0, 0, 5, 5);
+        gbc_campofechareserva.gridx = 1;
+        gbc_campofechareserva.gridy = 14;
+        getContentPane().add(campofechareserva, gbc_campofechareserva);
+        
+        JLabel numeroreserva = new JLabel("Número:");
+        GridBagConstraints gbc_numeroreserva = new GridBagConstraints();
+        gbc_numeroreserva.insets = new Insets(0, 0, 5, 5);
+        gbc_numeroreserva.gridx = 0;
+        gbc_numeroreserva.gridy = 15;
+        getContentPane().add(numeroreserva, gbc_numeroreserva);
+        
+        JLabel camponumreserva = new JLabel("New label");
+        GridBagConstraints gbc_camponumreserva = new GridBagConstraints();
+        gbc_camponumreserva.insets = new Insets(0, 0, 5, 5);
+        gbc_camponumreserva.gridx = 1;
+        gbc_camponumreserva.gridy = 15;
+        getContentPane().add(camponumreserva, gbc_camponumreserva);
+        
+        JLabel beneficioreserva = new JLabel("Beneficio:");
+        GridBagConstraints gbc_beneficioreserva = new GridBagConstraints();
+        gbc_beneficioreserva.insets = new Insets(0, 0, 5, 5);
+        gbc_beneficioreserva.gridx = 0;
+        gbc_beneficioreserva.gridy = 16;
+        getContentPane().add(beneficioreserva, gbc_beneficioreserva);
+        
+        JLabel campobeneficioreserva = new JLabel("New label");
+        GridBagConstraints gbc_campobeneficioreserva = new GridBagConstraints();
+        gbc_campobeneficioreserva.insets = new Insets(0, 0, 5, 5);
+        gbc_campobeneficioreserva.gridx = 1;
+        gbc_campobeneficioreserva.gridy = 16;
+        getContentPane().add(campobeneficioreserva, gbc_campobeneficioreserva);
+        
+        JLabel costoreserva = new JLabel("Costo:");
+        GridBagConstraints gbc_costoreserva = new GridBagConstraints();
+        gbc_costoreserva.insets = new Insets(0, 0, 0, 5);
+        gbc_costoreserva.gridx = 0;
+        gbc_costoreserva.gridy = 17;
+        getContentPane().add(costoreserva, gbc_costoreserva);
+        
+        JLabel campocostoreserva = new JLabel("New label");
+        GridBagConstraints gbc_campocostoreserva = new GridBagConstraints();
+        gbc_campocostoreserva.insets = new Insets(0, 0, 0, 5);
+        gbc_campocostoreserva.gridx = 1;
+        gbc_campocostoreserva.gridy = 17;
+        getContentPane().add(campocostoreserva, gbc_campocostoreserva);
+        
         camponombredia.setVisible(false);
         campodescripciondia.setVisible(false);
         campodiadia.setVisible(false);
@@ -256,6 +328,21 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         camposalaconsulta.setVisible(false);
         campocantnumconsulta.setVisible(false);
         campocostoconsulta.setVisible(false);
+        
+        reservaconsulta.setVisible(false);
+        comboBoxreservas.setVisible(false);
+
+        fechareserva.setVisible(false);
+        campofechareserva.setVisible(false);
+
+        numeroreserva.setVisible(false);
+        camponumreserva.setVisible(false);
+
+        beneficioreserva.setVisible(false);
+        campobeneficioreserva.setVisible(false);
+
+        costoreserva.setVisible(false);
+        campocostoreserva.setVisible(false);
         
         comboBoxDiaConsulta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -300,6 +387,110 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 }
             }
         });
+        comboBoxConsultas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                if (comboBoxConsultas.getSelectedItem() == null) {
+                    return;
+                }
+
+                String nombreConsulta =
+                        comboBoxConsultas.getSelectedItem().toString();
+
+                DTConsultaDetalle consulta =
+                        controlador.listarDatosConsulta(nombreConsulta);
+                
+                fechareserva.setVisible(false);
+                campofechareserva.setVisible(false);
+
+                numeroreserva.setVisible(false);
+                camponumreserva.setVisible(false);
+
+                beneficioreserva.setVisible(false);
+                campobeneficioreserva.setVisible(false);
+
+                costoreserva.setVisible(false);
+                campocostoreserva.setVisible(false);
+
+                camponombreconsulta.setText(consulta.nomC());
+                campomedicoconsulta.setText(consulta.medico());
+                campofechaconsulta.setText(consulta.fechaC().toString());
+                camposalaconsulta.setText(String.valueOf(consulta.sala()));
+                campocantnumconsulta.setText(String.valueOf(consulta.cantNum()));
+                campocostoconsulta.setText(String.valueOf(consulta.costoC()));
+
+                nombreconsulta.setVisible(true);
+                medicoconsulta.setVisible(true);
+                fechaconsulta.setVisible(true);
+                salaconsulta.setVisible(true);
+                cantidadnumconsulta.setVisible(true);
+                costoconsulta.setVisible(true);
+
+                camponombreconsulta.setVisible(true);
+                campomedicoconsulta.setVisible(true);
+                campofechaconsulta.setVisible(true);
+                camposalaconsulta.setVisible(true);
+                campocantnumconsulta.setVisible(true);
+                campocostoconsulta.setVisible(true);
+                
+                reservaconsulta.setVisible(true);
+                comboBoxreservas.setVisible(true);
+
+                comboBoxreservas.removeAllItems();
+
+                for (DTResConsulta r : consulta.reservas()) {
+                    comboBoxreservas.addItem(r.numReserva());
+                }
+                
+                
+            }
+        });
+        
+        
+        comboBoxreservas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                if (comboBoxreservas.getSelectedItem() == null) {
+                    return;
+                }
+
+                int numero =
+                        (int) comboBoxreservas.getSelectedItem();
+
+                String nombreConsulta =
+                        comboBoxConsultas.getSelectedItem().toString();
+
+                DTConsultaDetalle consulta =
+                        controlador.listarDatosConsulta(nombreConsulta);
+
+                for (DTResConsulta r : consulta.reservas()) {
+
+                    if (r.numReserva() == numero) {
+
+                        campofechareserva.setText(r.fechaRes().toString());
+                        camponumreserva.setText(String.valueOf(r.numReserva()));
+                        campobeneficioreserva.setText(String.valueOf(r.aplicaBenef()));
+                        campocostoreserva.setText(String.valueOf(r.costoR()));
+
+                        reservaconsulta.setVisible(true);
+                        fechareserva.setVisible(true);
+                        campofechareserva.setVisible(true);
+
+                        numeroreserva.setVisible(true);
+                        camponumreserva.setVisible(true);
+
+                        beneficioreserva.setVisible(true);
+                        campobeneficioreserva.setVisible(true);
+
+                        costoreserva.setVisible(true);
+                        campocostoreserva.setVisible(true);
+
+                        break;
+                    }
+                }
+            }
+        });
+        
         
    }
     
