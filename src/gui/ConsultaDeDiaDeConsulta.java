@@ -62,6 +62,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel lablenombredia = new JLabel("Nombre:");
         lablenombredia.setVisible(false);
         GridBagConstraints gbc_lablenombredia = new GridBagConstraints();
+        gbc_lablenombredia.anchor = GridBagConstraints.WEST;
         gbc_lablenombredia.insets = new Insets(0, 0, 5, 5);
         gbc_lablenombredia.gridx = 0;
         gbc_lablenombredia.gridy = 1;
@@ -77,6 +78,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_camponombredia.gridy = 1;
         getContentPane().add(camponombredia, gbc_camponombredia);
         GridBagConstraints gbc_descripciondia = new GridBagConstraints();
+        gbc_descripciondia.anchor = GridBagConstraints.WEST;
         gbc_descripciondia.insets = new Insets(0, 0, 5, 5);
         gbc_descripciondia.gridx = 0;
         gbc_descripciondia.gridy = 2;
@@ -92,6 +94,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campodescripciondia.gridy = 2;
         getContentPane().add(campodescripciondia, gbc_campodescripciondia);
         GridBagConstraints gbc_Diadia = new GridBagConstraints();
+        gbc_Diadia.anchor = GridBagConstraints.WEST;
         gbc_Diadia.insets = new Insets(0, 0, 5, 5);
         gbc_Diadia.gridx = 0;
         gbc_Diadia.gridy = 3;
@@ -108,7 +111,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         getContentPane().add(campodiadia, gbc_campodiadia);
         GridBagConstraints gbc_horainidia = new GridBagConstraints();
         gbc_horainidia.insets = new Insets(0, 0, 5, 5);
-        gbc_horainidia.anchor = GridBagConstraints.EAST;
+        gbc_horainidia.anchor = GridBagConstraints.WEST;
         gbc_horainidia.gridx = 0;
         gbc_horainidia.gridy = 4;
         getContentPane().add(horainidia, gbc_horainidia);
@@ -123,6 +126,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campohorainidia.gridy = 4;
         getContentPane().add(campohorainidia, gbc_campohorainidia);
         GridBagConstraints gbc_costodia = new GridBagConstraints();
+        gbc_costodia.anchor = GridBagConstraints.WEST;
         gbc_costodia.insets = new Insets(0, 0, 5, 5);
         gbc_costodia.gridx = 0;
         gbc_costodia.gridy = 5;
@@ -138,7 +142,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campocostodia.gridy = 5;
         getContentPane().add(campocostodia, gbc_campocostodia);
         GridBagConstraints gbc_cosnsulta = new GridBagConstraints();
-        gbc_cosnsulta.anchor = GridBagConstraints.EAST;
+        gbc_cosnsulta.anchor = GridBagConstraints.WEST;
         gbc_cosnsulta.insets = new Insets(0, 0, 5, 5);
         gbc_cosnsulta.gridx = 0;
         gbc_cosnsulta.gridy = 6;
@@ -157,6 +161,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         JLabel nombreconsulta = new JLabel("Nombre:");
         nombreconsulta.setVisible(false);
         GridBagConstraints gbc_nombreconsulta = new GridBagConstraints();
+        gbc_nombreconsulta.anchor = GridBagConstraints.WEST;
         gbc_nombreconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_nombreconsulta.gridx = 0;
         gbc_nombreconsulta.gridy = 7;
@@ -172,6 +177,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_camponombreconsulta.gridy = 7;
         getContentPane().add(camponombreconsulta, gbc_camponombreconsulta);
         GridBagConstraints gbc_medicoconsulta = new GridBagConstraints();
+        gbc_medicoconsulta.anchor = GridBagConstraints.WEST;
         gbc_medicoconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_medicoconsulta.gridx = 0;
         gbc_medicoconsulta.gridy = 8;
@@ -187,6 +193,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campomedicoconsulta.gridy = 8;
         getContentPane().add(campomedicoconsulta, gbc_campomedicoconsulta);
         GridBagConstraints gbc_fechaconsulta = new GridBagConstraints();
+        gbc_fechaconsulta.anchor = GridBagConstraints.WEST;
         gbc_fechaconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_fechaconsulta.gridx = 0;
         gbc_fechaconsulta.gridy = 9;
@@ -202,6 +209,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campofechaconsulta.gridy = 9;
         getContentPane().add(campofechaconsulta, gbc_campofechaconsulta);
         GridBagConstraints gbc_salaconsulta = new GridBagConstraints();
+        gbc_salaconsulta.anchor = GridBagConstraints.WEST;
         gbc_salaconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_salaconsulta.gridx = 0;
         gbc_salaconsulta.gridy = 10;
@@ -217,6 +225,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_camposalaconsulta.gridy = 10;
         getContentPane().add(camposalaconsulta, gbc_camposalaconsulta);
         GridBagConstraints gbc_cantidadnumconsulta = new GridBagConstraints();
+        gbc_cantidadnumconsulta.anchor = GridBagConstraints.WEST;
         gbc_cantidadnumconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_cantidadnumconsulta.gridx = 0;
         gbc_cantidadnumconsulta.gridy = 11;
@@ -232,6 +241,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campocantnumconsulta.gridy = 11;
         getContentPane().add(campocantnumconsulta, gbc_campocantnumconsulta);
         GridBagConstraints gbc_costoconsulta = new GridBagConstraints();
+        gbc_costoconsulta.anchor = GridBagConstraints.WEST;
         gbc_costoconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_costoconsulta.gridx = 0;
         gbc_costoconsulta.gridy = 12;
@@ -246,7 +256,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         JLabel reservaconsulta = new JLabel("Reservas:");
         GridBagConstraints gbc_reservaconsulta = new GridBagConstraints();
-        gbc_reservaconsulta.anchor = GridBagConstraints.EAST;
+        gbc_reservaconsulta.anchor = GridBagConstraints.WEST;
         gbc_reservaconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_reservaconsulta.gridx = 0;
         gbc_reservaconsulta.gridy = 13;
@@ -262,6 +272,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         JLabel fechareserva = new JLabel("Fecha:");
         GridBagConstraints gbc_fechareserva = new GridBagConstraints();
+        gbc_fechareserva.anchor = GridBagConstraints.WEST;
         gbc_fechareserva.insets = new Insets(0, 0, 5, 5);
         gbc_fechareserva.gridx = 0;
         gbc_fechareserva.gridy = 14;
@@ -276,6 +287,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         JLabel numeroreserva = new JLabel("Número:");
         GridBagConstraints gbc_numeroreserva = new GridBagConstraints();
+        gbc_numeroreserva.anchor = GridBagConstraints.WEST;
         gbc_numeroreserva.insets = new Insets(0, 0, 5, 5);
         gbc_numeroreserva.gridx = 0;
         gbc_numeroreserva.gridy = 15;
@@ -290,6 +302,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         JLabel beneficioreserva = new JLabel("Beneficio:");
         GridBagConstraints gbc_beneficioreserva = new GridBagConstraints();
+        gbc_beneficioreserva.anchor = GridBagConstraints.WEST;
         gbc_beneficioreserva.insets = new Insets(0, 0, 5, 5);
         gbc_beneficioreserva.gridx = 0;
         gbc_beneficioreserva.gridy = 16;
@@ -304,6 +317,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         JLabel costoreserva = new JLabel("Costo:");
         GridBagConstraints gbc_costoreserva = new GridBagConstraints();
+        gbc_costoreserva.anchor = GridBagConstraints.WEST;
         gbc_costoreserva.insets = new Insets(0, 0, 0, 5);
         gbc_costoreserva.gridx = 0;
         gbc_costoreserva.gridy = 17;
