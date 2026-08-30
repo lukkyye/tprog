@@ -48,6 +48,10 @@ public class Reserva {
         return costoR;
     }
     
+    public DTResConsulta getDataResConsulta() {
+    	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
+    }
+    
     public DTResConsultaDetalle getDataResConsultaDetalle() {
 
         ManejadorConsulta mc = ManejadorConsulta.get_instance();
