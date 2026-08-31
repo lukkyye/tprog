@@ -37,7 +37,7 @@ public class ControladorUsuario {
 	}
 	
 	public boolean altaEspecialidad(String espNom, int espPorc) {
-		ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
+		ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
 		return true;
 	}
 	
