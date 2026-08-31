@@ -91,11 +91,11 @@ public class ManejadorClinica {
     
     public void agregarDiaConsulta(DiaConsulta dia) {
 
-        if (memberDiaConsulta(dia.getNomD())) {
+        if (memberDiaConsulta(dia.getNom())) {
             throw new RuntimeException("Ya existe un día de consulta con ese nombre");
         }
 
-        diasConsultas.put(dia.getNomD(), dia);
+        diasConsultas.put(dia.getNom(), dia);
     }
 
     
