@@ -73,14 +73,7 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(
-	        String nicknameUsu, int numReserva) {
-
-	    return ManejadorUsuario.get_instance()
-	            .datosResConsulta(nicknameUsu, numReserva);
-	}
-	
-	public DTResConsultaDetalle listarDatosResConsulta(String nomR) {
+	public DTResConsultaDetalle listarDatosResConsulta(String nomR) { // Seguir aca
 		ManejadorUsuario musu = ManejadorUsuario.get_instance();
 		Reserva reserva = musu.get_reserva(nomR);
 		String nomC = reserva.get_consultaAsociada();

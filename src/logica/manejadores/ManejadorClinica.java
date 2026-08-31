@@ -1,8 +1,13 @@
 package logica.manejadores;
 import logica.clases.Clinica;
 import logica.clases.DiaConsulta;
+import logica.clases.Especialidad;
+import logica.clases.Medico;
 import logica.datatypes.DTConsulta;
 import logica.excepciones.NombreClinicaAlreadyExistsException;
+import logica.datatypes.TipoMes;
+import logica.excepciones.NicknameAlreadyExistsException;
+import logica.excepciones.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,13 +70,20 @@ public class ManejadorClinica {
         return null;
     }
 
+    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+		if (memberClinica(nombre)) {
+			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
+		}
+		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
+		clinicas.put(nombre, cl);
+	}
     public void add(Clinica c) {
 
         if (!clinicas.containsKey(c.getNombre())) {
             clinicas.put(c.getNombre(), c);
         }
     }
-    public Set<DTConsulta> getConsultasd(String nomD){
+    public Set<DTConsulta> getConsultasd(String nomD){ //REVISAR ESTA d AL FINAL DEL NOMBRE, ESTA BIEN? DEBERIA DE ESTAR?
     	Set<DTConsulta> res = new HashSet<>();
     	DiaConsulta aux = findDiasConsultas(nomD);
     	

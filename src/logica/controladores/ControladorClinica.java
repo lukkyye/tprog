@@ -13,6 +13,7 @@ import logica.clases.Medico;
 import java.util.Set;
 import java.util.HashSet;
 import logica.datatypes.DTPaciente;
+import logica.datatypes.DTResConsultaDetalle;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Usuario;
 import logica.clases.Paciente;
@@ -37,6 +38,12 @@ public class ControladorClinica {
 	    return res;
 	}
 	
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+		ManejadorClinica mcl = ManejadorClinica.get_instance();
+		mcl.agregar_clinica(nombre, desc, dir, costoT, costoC, link);
+		return true;
+	}
+	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
 		DTConsultaDetalle res;
 		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
@@ -44,6 +51,15 @@ public class ControladorClinica {
 		res = cons.getDataConsultaDetalle();
 		return res;
 		
+	}
+	
+	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	    ManejadorConsulta mc = ManejadorConsulta.get_instance();
+	    Consulta c = mc.get_consulta(nomC);
+	    if (c != null) {
+	        return c.listarDatosResConsultaC(numReserva);
+	    }
+	    return null;
 	}
 	
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 
@@ -63,6 +79,7 @@ public class ControladorClinica {
 		return res;
 		
 	}
+	
 	
 	public Set<DTPaciente> listarPacientes() {
 	    ManejadorUsuario mu = ManejadorUsuario.get_instance();
@@ -125,11 +142,6 @@ public class ControladorClinica {
 		mco.agregarConsulta(c);
 	}
 	
-	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
-		ManejadorClinica mcl = ManejadorClinica.get_instance();
-		mcl.agregar_clinica(nombre, desc, dir, costoT, costoC, link);
-		return true;
-	}
 
 }
 

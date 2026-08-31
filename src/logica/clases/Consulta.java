@@ -1,6 +1,9 @@
 package logica.clases;
 import java.time.LocalDate;
 import logica.datatypes.*;
+import logica.manejadores.ManejadorConsulta;
+import logica.manejadores.ManejadorUsuario;
+
 import java.util.HashSet;
 
 public class Consulta {
@@ -23,6 +26,24 @@ public class Consulta {
 		this.medico = medico;
 		this.reservas = new HashSet<Reserva>();
 	}
+	
+	public String getMedicoC() {
+        return medico;
+    }
+	
+	public String getNomC() {
+        return nomC;
+    }
+	
+	public LocalDate getFechaC() {
+        return fecha;
+    }
+	public int getSalaC() {
+        return sala;
+    }
+	public int getCantNumC() {
+        return cantNum;
+    }
 	
 	public void agregarReserva(Reserva r) {
 	    reservas.add(r);
@@ -75,25 +96,20 @@ public class Consulta {
 	    }
 	    return false;
 	}
-	public String getNomC() {
-	    return nomC;
-	}
 
 	public String getDiaConsulta() {
 	    return diaConsulta;
 	}	
-	public String getMedicoC() {
-        return medico;
-    }
-	public LocalDate getFechaC() {
-        return fecha;
-    }
-	public int getSalaC() {
-        return sala;
+
+	
+	public DTResConsultaDetalle listarDatosResConsultaC(int numReserva) {
+	    for (Reserva r : reservas) {
+	        if (r.getNumReserva() == numReserva) {
+	            return r.getDataResConsultaDetalle();
+	        }
+	    }
+	    return null;
 	}
-	public int getCantNumC() {
-        return cantNum;
-    }
 
 	
 }

@@ -52,9 +52,10 @@ public class DiaConsulta {
 		return dia;
 	}
 	
-	public String getNom() {
+	public String get_nom() {
 		return nomD;
 	}
+	
 	public float get_costoD() {
 		return costoD;
 	}
