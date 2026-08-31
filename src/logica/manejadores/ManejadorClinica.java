@@ -88,6 +88,15 @@ public class ManejadorClinica {
 		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
 		clinicas.put(nombre, cl);
 	}
+    
+    public void agregarDiaConsulta(DiaConsulta dia) {
+
+        if (memberDiaConsulta(dia.getNomD())) {
+            throw new RuntimeException("Ya existe un día de consulta con ese nombre");
+        }
+
+        diasConsultas.put(dia.getNomD(), dia);
+    }
 
     
 }
