@@ -1,5 +1,5 @@
 package logica.datatypes;
 
-public record DTMedico(int nroReg, TipoMes mesLic, Integer porcentajeCost, String link){
+public record DTMedico(String nickname, int nroReg, TipoMes mesLic, Integer porcentajeCost, String link){
 	
 }

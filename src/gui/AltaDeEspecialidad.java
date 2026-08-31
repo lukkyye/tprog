@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class AltaDeEspecialidad extends JInternalFrame {
+	private static final long serialVersionUID = -6141709894943702613L;
 	private JTextField espNomField;
 	private JTextField espPorcField;
 
