@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 
+import logica.excepciones.DiaConsultaAlreadyExistsException;
+
 
 
 public class ManejadorClinica {
@@ -92,16 +94,24 @@ public class ManejadorClinica {
     	return res;
     	
     }
+   
     
-    
-    public void agregarDiaConsulta(DiaConsulta dia) {
+    public void agregarDiaConsulta(DiaConsulta diaConsulta) {
 
-        if (memberDiaConsulta(dia.get_nom())) {
-            throw new RuntimeException("Ya existe un día de consulta con ese nombre");
+        if (memberDiaConsulta(diaConsulta.get_nom())) {
+            throw new DiaConsultaAlreadyExistsException(
+                "Ya existe un día de consulta con el nombre ingresado"
+            );
         }
 
-        diasConsultas.put(dia.get_nom(), dia);
+        diasConsultas.put(
+            diaConsulta.get_nom(),
+            diaConsulta
+        );
     }
+    
+    
+    
 
     
 }
