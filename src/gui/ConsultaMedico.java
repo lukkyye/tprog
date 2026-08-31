@@ -237,6 +237,31 @@ public class ConsultaMedico extends JInternalFrame {
 
             listaConsultas.setListData(consultasParaMostrar);
             listaConsultas.setEnabled(true);
+            
+            listaConsultas.addListSelectionListener(e -> {
+
+                if (!e.getValueIsAdjusting()) {
+
+                    int indice = listaConsultas.getSelectedIndex();
+
+                    if (indice != -1) {
+
+                        DTConsulta consultaSeleccionada =
+                                consultasMedico.get(indice);
+
+                        DTConsultaDetalle detalle =
+                                controlador.listarDatosConsulta(
+                                        consultaSeleccionada.nomC()
+                                );
+
+                        ConsultaDetalle ventanaDetalle =
+                                new ConsultaDetalle(detalle);
+
+                        getDesktopPane().add(ventanaDetalle);
+                        ventanaDetalle.setVisible(true);
+                    }
+                }
+            });
         }
     }
 	}
