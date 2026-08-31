@@ -9,11 +9,21 @@ import logica.controladores.ControladorUsuario;
 import logica.datatypes.*;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
+import java.util.HashSet;
+import logica.datatypes.DTResConsulta;
+
+import java.util.ArrayList;
+
+
 
 
 public class ConsultaPaciente extends JInternalFrame {
 
     private String nickname;
+    
+    private ArrayList<DTResConsulta> reservasPaciente;
 
     public ConsultaPaciente(String nickname) {
         super(
@@ -138,13 +148,13 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNewLabel_6.gridy = 8;
         getContentPane().add(lblNewLabel_6, gbc_lblNewLabel_6);
         
-        JList list = new JList();
-        GridBagConstraints gbc_list = new GridBagConstraints();
-        gbc_list.insets = new Insets(0, 0, 5, 0);
-        gbc_list.fill = GridBagConstraints.BOTH;
-        gbc_list.gridx = 3;
-        gbc_list.gridy = 8;
-        getContentPane().add(list, gbc_list);
+        JList listaAntecedentes = new JList();
+        GridBagConstraints gbc_listaAntecedentes = new GridBagConstraints();
+        gbc_listaAntecedentes.insets = new Insets(0, 0, 5, 0);
+        gbc_listaAntecedentes.fill = GridBagConstraints.BOTH;
+        gbc_listaAntecedentes.gridx = 3;
+        gbc_listaAntecedentes.gridy = 8;
+        getContentPane().add(listaAntecedentes, gbc_listaAntecedentes);
         
         JLabel lblNewLabel_6_1 = new JLabel("Reservas de Consultas:");
         GridBagConstraints gbc_lblNewLabel_6_1 = new GridBagConstraints();
@@ -175,11 +185,79 @@ public class ConsultaPaciente extends JInternalFrame {
                 String.valueOf(paciente.cantTicketAcum())
         );
         
-        JList list_1 = new JList();
-        GridBagConstraints gbc_list_1 = new GridBagConstraints();
-        gbc_list_1.fill = GridBagConstraints.BOTH;
-        gbc_list_1.gridx = 3;
-        gbc_list_1.gridy = 10;
-        getContentPane().add(list_1, gbc_list_1);
+        JList listaReservas = new JList();
+        listaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        GridBagConstraints gbc_listaReservas = new GridBagConstraints();
+        gbc_listaReservas.fill = GridBagConstraints.BOTH;
+        gbc_listaReservas.gridx = 3;
+        gbc_listaReservas.gridy = 10;
+        getContentPane().add(listaReservas, gbc_listaReservas);
+        
+        if (paciente.antSalud() == null || paciente.antSalud().isEmpty()) {
+
+        	listaAntecedentes.setListData(
+                new String[] {"Sin antecedentes de salud"}
+            );
+
+        } else {
+
+        	listaAntecedentes.setListData(
+                paciente.antSalud().toArray(new String[0])
+            );
+        }
+        
+        HashSet<DTResConsulta> reservas =
+                controlador.listarResConsultas(nickname);
+
+        // Guardamos las reservas para poder saber después
+        // cuál seleccionó el administrador
+        reservasPaciente = new ArrayList<>(reservas);
+
+        if (reservasPaciente.isEmpty()) {
+
+            listaReservas.setListData(
+                new String[] {"No tiene reservas de consultas"}
+            );
+
+            listaReservas.setEnabled(false);
+
+        } else {
+
+            String[] reservasParaMostrar = reservasPaciente.stream()
+                    .map(reserva ->
+                        "Reserva " + reserva.numReserva()
+                        + " - " + reserva.fechaRes()
+                        + " - $" + reserva.costoR()
+                    )
+                    .toArray(String[]::new);
+
+            listaReservas.setListData(reservasParaMostrar);
+            listaReservas.setEnabled(true);
+        }
+        
+        listaReservas.addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting()) {
+
+                int indice = listaReservas.getSelectedIndex();
+
+                if (indice != -1 && !reservasPaciente.isEmpty()) {
+
+                    DTResConsulta reservaSeleccionada =
+                            reservasPaciente.get(indice);
+
+                    int numeroReserva =
+                            reservaSeleccionada.numReserva();
+
+                    DTResConsultaDetalle detalle =
+                            controlador.listarDatosResConsulta(
+                                    nickname,
+                                    numeroReserva
+                            );
+
+                    // acá abriremos la ventana con el detalle
+                }
+            }
+        });
     }
 }
