@@ -149,6 +149,15 @@ public class ReservaDeConsulta extends JInternalFrame {
             		        .atZone(ZoneId.systemDefault())
             		        .toLocalDate();
             		
+            		if (fechaReserva.isBefore(LocalDate.now())) {
+            			JOptionPane.showMessageDialog(
+            				    null,
+            					 "La fecha de reserva no puede ser anterior a hoy.",
+            					 "Fecha inválida",
+            					 JOptionPane.WARNING_MESSAGE);
+            			 return;
+            		}
+            		
                 try {
                 	controlador.reservarConsulta(paciente, consulta, fechaReserva);
                     JOptionPane.showMessageDialog(
