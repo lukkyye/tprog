@@ -49,7 +49,6 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         lblTituloPaso.setBounds(30, 10, 440, 20);
         getContentPane().add(lblTituloPaso);
 
-        // ================= PASO 1: LISTA DE PACIENTES =================
         modelListaPacientes = new DefaultListModel<>();
         listaPacientes = new JList<>(modelListaPacientes);
         listaPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -77,12 +76,10 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         btnSeleccionarPaciente.setBounds(300, 290, 170, 30);
         getContentPane().add(btnSeleccionarPaciente);
 
-        // ================= PASO 2: LISTA DE RESERVAS (FORMATEADA) =================
         modelListaReservas = new DefaultListModel<>();
         listaReservas = new JList<>(modelListaReservas);
         listaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Renderizador en tarjetas para evitar el toString() crudo de la reserva
         listaReservas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(3, 1, 2, 2));
             panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.numReserva()));
@@ -108,7 +105,6 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         btnSeleccionarReserva.setVisible(false);
         getContentPane().add(btnSeleccionarReserva);
 
-        // ================= SINCRONIZACIÓN DE SELECCIÓN =================
         listaPacientes.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 DTPaciente seleccionado = listaPacientes.getSelectedValue();
@@ -127,7 +123,6 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             }
         });
 
-        // ================= ACCIONES DE BOTONES =================
         btnSeleccionarPaciente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nickname = (String) comboNicknames.getSelectedItem();
@@ -150,7 +145,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
                 Integer numReserva = (Integer) comboNumReservas.getSelectedItem();
 
                 if (nickname != null && numReserva != null) {
-                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname, numReserva);
+                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname, numReserva); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
                     if (detalle != null) {
                         mostrarPopUpDetalle(numReserva, detalle);
                     } else {
@@ -194,7 +189,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         btnSeleccionarReserva.setVisible(true);
     }
 
-    // Ventana emergente (Pop-up) con la información completa de la Reserva y la Consulta
+  
     private void mostrarPopUpDetalle(Integer numReserva, DTResConsultaDetalle detalle) {
         StringBuilder sb = new StringBuilder();
         sb.append("=========================================\n");

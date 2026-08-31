@@ -54,7 +54,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         lblTituloPaso.setBounds(30, 10, 450, 20);
         getContentPane().add(lblTituloPaso);
 
-        // ================= PASO 1: LISTA DÍAS DE CONSULTA =================
         modelListaDias = new DefaultListModel<>();
         listaDias = new JList<>(modelListaDias);
         listaDias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -82,12 +81,10 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarDia.setBounds(310, 290, 180, 30);
         getContentPane().add(btnSeleccionarDia);
 
-        // ================= PASO 2: LISTA CONSULTAS =================
         modelListaConsultas = new DefaultListModel<>();
         listaConsultas = new JList<>(modelListaConsultas);
         listaConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Renderizador formateado para la lista de consultas
         listaConsultas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
             panel.setBorder(BorderFactory.createTitledBorder("Consulta: " + value.nomC()));
@@ -115,7 +112,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.setVisible(false);
         getContentPane().add(btnSeleccionarConsulta);
 
-        // ================= SINCRONIZACIÓN DE SELECCIÓN =================
         listaConsultas.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 DTConsulta seleccionada = listaConsultas.getSelectedValue();
@@ -134,7 +130,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
             }
         });
 
-        // ================= ACCIONES DE BOTONES =================
         btnSeleccionarDia.addActionListener(e -> {
             String nomD = (String) comboNomD.getSelectedItem();
             if (nomD != null) {
@@ -195,12 +190,10 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.setVisible(true);
     }
 
-    // Ventana emergente (Pop-up) con datos y lista de reservas formateada
     private void mostrarPopUpDetalle(String nomC, DTConsultaDetalle detalle) {
         JPanel panelPopUp = new JPanel(new BorderLayout(10, 10));
         panelPopUp.setPreferredSize(new Dimension(460, 340));
 
-        // 1. Información de la Consulta
         JTextArea areaDetalle = new JTextArea();
         areaDetalle.setEditable(false);
         areaDetalle.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -214,7 +207,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         );
         panelPopUp.add(new JScrollPane(areaDetalle), BorderLayout.NORTH);
 
-        // 2. JList de Reservas con Formato Personalizado
         DefaultListModel<DTResConsulta> modelReservasPopUp = new DefaultListModel<>();
         if (detalle.reservas() != null) {
             for (DTResConsulta r : detalle.reservas()) {
@@ -239,7 +231,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         scrollReservasPopUp.setBorder(BorderFactory.createTitledBorder("Reservas asociadas (Seleccione una):"));
         panelPopUp.add(scrollReservasPopUp, BorderLayout.CENTER);
 
-        // 3. Botón para inspeccionar detalle completo de la Reserva
         JButton btnVerReservaPopUp = new JButton("Ver Detalle de Reserva");
         btnVerReservaPopUp.addActionListener(e -> {
             DTResConsulta reservaSel = listaReservasPopUp.getSelectedValue();
@@ -268,7 +259,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         });
         panelPopUp.add(btnVerReservaPopUp, BorderLayout.SOUTH);
 
-        // Lanzar Pop-Up
         JOptionPane.showMessageDialog(this, panelPopUp, "Detalle de Consulta: " + nomC, JOptionPane.PLAIN_MESSAGE);
     }
 }
