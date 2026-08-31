@@ -12,6 +12,14 @@ import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 
+import java.util.HashSet;
+import logica.datatypes.*;
+import logica.controladores.*;
+
+import javax.swing.JOptionPane;
+import javax.swing.JDesktopPane;
+import logica.datatypes.DTPaciente;
+
 public class ConsultaDeUsuario extends JInternalFrame {
 
     private JTextField txtIngreseUsuario;
@@ -80,27 +88,21 @@ public class ConsultaDeUsuario extends JInternalFrame {
             ListSelectionModel.SINGLE_SELECTION
         );
 
-        listaUsuarios.setModel(new AbstractListModel<String>() {
+        listaUsuarios.setSelectionMode(
+                ListSelectionModel.SINGLE_SELECTION
+        );
 
-            String[] values = new String[] {
-                "juapPerez23",
-                "lulitapanizzi",
-                "mickeyMouse1890"
-            };
+        ControladorUsuario controlador = new ControladorUsuario();
 
-            public int getSize() {
-                return values.length;
-            }
+        HashSet<DTUsuario> usuarios = controlador.listarUsuarios();
 
-            public String getElementAt(int index) {
-                return values[index];
-            }
-        });
+        String[] nicknames = usuarios.stream()
+                .map(DTUsuario::nickname)
+                .toArray(String[]::new);
 
-        scrollPane.setViewportView(listaUsuarios);
-
-
-
+        listaUsuarios.setListData(nicknames);
+        
+        
         JLabel lblNickname = new JLabel("Ingrese Nickname:");
 
         GridBagConstraints gbc_lblNickname = new GridBagConstraints();
@@ -138,6 +140,66 @@ public class ConsultaDeUsuario extends JInternalFrame {
 
         JButton btnSeleccionar =
             new JButton("Seleccionar");
+        
+        btnSeleccionar.addActionListener(e -> {
+
+            String nickname = txtIngreseUsuario.getText().trim();
+
+            // 1. Verificar que haya escrito algo
+            if (nickname.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Ingrese un nickname.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // 2. Verificar que el usuario exista
+            boolean existeUsuario = controlador.listarUsuarios()
+                    .stream()
+                    .anyMatch(usuario -> usuario.nickname().equals(nickname));
+
+            if (!existeUsuario) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Ingrese un nickname válido.",
+                    "Usuario no encontrado",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // 3. Averiguar si es paciente
+            boolean esPaciente = controlador.listarPacientes()
+                    .stream()
+                    .anyMatch(paciente -> paciente.nickname().equals(nickname));
+
+            // El JDesktopPane donde están abiertas las ventanas
+            JDesktopPane desktopPane = getDesktopPane();
+
+            if (esPaciente) {
+
+                ConsultaPaciente ventanaPaciente =
+                        new ConsultaPaciente(nickname);
+
+                desktopPane.add(ventanaPaciente);
+                ventanaPaciente.setVisible(true);
+
+            } else {
+
+                ConsultaMedico ventanaMedico =
+                        new ConsultaMedico(nickname);
+
+                desktopPane.add(ventanaMedico);
+                ventanaMedico.setVisible(true);
+            }
+
+            // 4. Cerrar ConsultaDeUsuario SOLO si todo salió bien
+            dispose();
+        });
+        
 
         GridBagConstraints gbc_btnSeleccionar =
             new GridBagConstraints();
