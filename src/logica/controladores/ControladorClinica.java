@@ -19,11 +19,16 @@ import logica.clases.Usuario;
 import logica.clases.Paciente;
 import logica.clases.Reserva;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import logica.excepciones.NoNumberAvailableException;
 import logica.excepciones.ReservaAlreadyExistsException;
 import logica.excepciones.ConsultaNombreAlreadyExistsException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.FechaDiaSemanaInvalidaException;
+
+import logica.clases.Especialidad;
+import logica.manejadores.ManejadorEspecialidad;
+import logica.excepciones.DiaConsultaAlreadyExistsException;
 
 
 
@@ -142,6 +147,87 @@ public class ControladorClinica {
 		mco.agregarConsulta(c);
 	}
 	
+	public Set<String> listarClinicas() {
 
+	    ManejadorClinica mc = ManejadorClinica.get_instance();
+
+	    return new HashSet<String>(
+	        mc.getClinicas().keySet()
+	    );
+	}
+	
+	public Set<String> listarEspecialidades() {
+
+	    ManejadorEspecialidad me =
+	            ManejadorEspecialidad.get_instance();
+
+	    return new HashSet<String>(
+	            me.get_especialidades()
+	    );
+	}
+
+
+	public void ingresarDiaConsulta(
+	        String nombre,
+	        String descripcion,
+	        DTDiaSemana dia,
+	        LocalTime horaInicio,
+	        String nombreEspecialidad,
+	        String nombreClinica) {
+
+	    ManejadorClinica mc =
+	            ManejadorClinica.get_instance();
+
+	    ManejadorEspecialidad me =
+	            ManejadorEspecialidad.get_instance();
+
+
+	    // Verificar que el nombre sea único
+	    if (mc.memberDiaConsulta(nombre)) {
+
+	        throw new DiaConsultaAlreadyExistsException(
+	                "Ya existe un día de consulta con ese nombre"
+	        );
+	    }
+
+
+	    // Buscar clínica
+	    Clinica clinica =
+	            mc.findClinica(nombreClinica);
+
+
+	    // Buscar especialidad
+	    Especialidad especialidad =
+	            me.getEspecialidad(nombreEspecialidad);
+
+
+	    // Calcular costo del día de consulta
+	    float costoBase =
+	            clinica.getCostoConsulta();
+
+	    float costoDia =
+	            costoBase *
+	            (1 + especialidad.getPorcentajeAdicional() / 100f);
+
+
+	    // Crear el día
+	    DiaConsulta nuevoDia =
+	            new DiaConsulta(
+	                    nombre,
+	                    costoDia,
+	                    horaInicio,
+	                    dia,
+	                    descripcion,
+	                    especialidad
+	            );
+
+
+	    // Guardarlo en el manejador
+	    mc.agregarDiaConsulta(nuevoDia);
+
+
+	    // Asociarlo a la clínica
+	    clinica.agregarDiaConsulta(nuevoDia);
+	}
 }
 
