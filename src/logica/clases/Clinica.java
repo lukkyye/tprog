@@ -42,4 +42,14 @@ public class Clinica {
 	public DTClinica get_dt() {
 		return new DTClinica(nombre, desc, dir, web, cTicket, cConsulta);
 	}
+	
+	public float getCostoConsulta() {
+	    return cConsulta;
+	}
+
+	public void agregarDiaConsulta(DiaConsulta diaConsulta) {
+	    diasconsulta.add(diaConsulta);
+	}
+	
+	
 }
