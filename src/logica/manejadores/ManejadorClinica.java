@@ -92,4 +92,23 @@ public class ManejadorClinica {
     	return res;
     	
     }
+    
+    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+		if (memberClinica(nombre)) {
+			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
+		}
+		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
+		clinicas.put(nombre, cl);
+	}
+    
+    public void agregarDiaConsulta(DiaConsulta dia) {
+
+        if (memberDiaConsulta(dia.getNom())) {
+            throw new RuntimeException("Ya existe un día de consulta con ese nombre");
+        }
+
+        diasConsultas.put(dia.getNom(), dia);
+    }
+
+    
 }

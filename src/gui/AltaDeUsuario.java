@@ -1,10 +1,13 @@
 package gui;
 
+import com.toedter.calendar.JDateChooser;
+
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import logica.excepciones.*;
@@ -45,13 +48,10 @@ public class AltaDeUsuario extends JInternalFrame {
 	private DefaultListModel<String> pacienteListModel = new DefaultListModel<>();
 	private JList<String> pacienteList;
 	private JTextField documentoField;
-	private JTextField ddfield;
 	private JTextField antTextfield;
 	private JTextField linkField;
 	private JTextField nroRegField;
 	private JTextField porcCostField;
-	private JTextField mmfield;
-	private JTextField yyyyfield;
 
 	public AltaDeUsuario() {
 		super(
@@ -61,7 +61,6 @@ public class AltaDeUsuario extends JInternalFrame {
 				true,              // se puede maximizar
 				true               // se puede minimizar
 				);
-		ManejadorEspecialidad.get_instance().test_add_basics();
 		
 		setSize(600, 500);
 	
@@ -301,21 +300,12 @@ public class AltaDeUsuario extends JInternalFrame {
 		documentoField = new JTextField();
 		documentoField.setColumns(10);
 		
-		ddfield = new JTextField();
-		ddfield.setColumns(10);
-		
 		JLabel selector_label_1_1_1 = new JLabel("Antecedentes de salud:");
 		
 		antTextfield = new JTextField();
 		antTextfield.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Añadir");
-		
-		mmfield = new JTextField();
-		mmfield.setColumns(10);
-		
-		yyyyfield = new JTextField();
-		yyyyfield.setColumns(10);
 		SpringLayout sl_panelPaciente = new SpringLayout();
 		sl_panelPaciente.putConstraint(SpringLayout.NORTH, selector_label_1_1_1, 31, SpringLayout.NORTH, panelPaciente);
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, selector_label_1_1_1, 389, SpringLayout.WEST, panelPaciente);
@@ -327,15 +317,6 @@ public class AltaDeUsuario extends JInternalFrame {
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, btnNewButton, 313, SpringLayout.WEST, panelPaciente);
 		sl_panelPaciente.putConstraint(SpringLayout.SOUTH, btnNewButton, 75, SpringLayout.NORTH, panelPaciente);
 		sl_panelPaciente.putConstraint(SpringLayout.EAST, btnNewButton, 407, SpringLayout.WEST, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.NORTH, yyyyfield, 54, SpringLayout.NORTH, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.WEST, yyyyfield, 244, SpringLayout.WEST, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.EAST, yyyyfield, 294, SpringLayout.WEST, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.NORTH, mmfield, 54, SpringLayout.NORTH, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.WEST, mmfield, 209, SpringLayout.WEST, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.EAST, mmfield, 232, SpringLayout.WEST, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.NORTH, ddfield, 54, SpringLayout.NORTH, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.WEST, ddfield, 180, SpringLayout.WEST, panelPaciente);
-		sl_panelPaciente.putConstraint(SpringLayout.EAST, ddfield, 203, SpringLayout.WEST, panelPaciente);
 		sl_panelPaciente.putConstraint(SpringLayout.NORTH, documentoField, 106, SpringLayout.NORTH, panelPaciente);
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, documentoField, 180, SpringLayout.WEST, panelPaciente);
 		sl_panelPaciente.putConstraint(SpringLayout.NORTH, selector_label_1, 56, SpringLayout.NORTH, panelPaciente);
@@ -347,9 +328,6 @@ public class AltaDeUsuario extends JInternalFrame {
 		panelPaciente.add(selector_label_1_1);
 		panelPaciente.add(selector_label_1);
 		panelPaciente.add(documentoField);
-		panelPaciente.add(ddfield);
-		panelPaciente.add(mmfield);
-		panelPaciente.add(yyyyfield);
 		panelPaciente.add(btnNewButton);
 		panelPaciente.add(antTextfield);
 		panelPaciente.add(selector_label_1_1_1);
@@ -380,6 +358,12 @@ public class AltaDeUsuario extends JInternalFrame {
 		sl_panelPaciente.putConstraint(SpringLayout.NORTH, cancelPacButton, 0, SpringLayout.NORTH, okPacButton);
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, cancelPacButton, 6, SpringLayout.EAST, okPacButton);
 		panelPaciente.add(cancelPacButton);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		sl_panelPaciente.putConstraint(SpringLayout.NORTH, dateChooser, 0, SpringLayout.NORTH, selector_label_1);
+		sl_panelPaciente.putConstraint(SpringLayout.WEST, dateChooser, 0, SpringLayout.WEST, documentoField);
+		sl_panelPaciente.putConstraint(SpringLayout.EAST, dateChooser, 0, SpringLayout.EAST, documentoField);
+		panelPaciente.add(dateChooser);
 	
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 	
@@ -406,21 +390,21 @@ public class AltaDeUsuario extends JInternalFrame {
 			ControladorUsuario cu = new ControladorUsuario();
 			ArrayList<String> antssalud = Collections.list(modeloAntSalud.elements());
 			try {
-			LocalDate fechaNac = LocalDate.of(yyyyfield.getText()==null || yyyyfield.getText().equals("") ? 0:Integer.parseInt(yyyyfield.getText()),mmfield.getText()==null || mmfield.getText().equals("") ? 0:Integer.parseInt(mmfield.getText()), 
-					ddfield.getText()==null || ddfield.getText().equals("") ? 0:Integer.parseInt(ddfield.getText()));
+			LocalDate fechaNac = LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault());
 			if (validar_paciente(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
 					emailField.getText(), fechaNac, Integer.parseInt(documentoField.getText()))){
 				try {
 					cu.ingresarPaciente(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, LocalDate.now(),Integer.parseInt(documentoField.getText()),antssalud);
-					JOptionPane.showMessageDialog(this, "Operacion realizada con exito");
+					JOptionPane.showMessageDialog(this, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+					this.dispose();
 				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
 					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}  else {
-				JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.WARNING_MESSAGE);
 			}
-			} catch (DateTimeException e) {
-		        JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
+			} catch (DateTimeException | java.lang.NullPointerException e) {
+		        JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		
@@ -434,12 +418,13 @@ public class AltaDeUsuario extends JInternalFrame {
 					try {
 						cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , Integer.parseInt(nroRegField.getText()), 
 								TipoMes.values()[mesLicField.getSelectedIndex()], Integer.parseInt(porcCostField.getText()), linkField.getText(), selections);
-						JOptionPane.showMessageDialog(null, "Operacion realizada con exito");
+						JOptionPane.showMessageDialog(null, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+						this.dispose();
 					} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
 						JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.WARNING_MESSAGE);
 					
 				}
 			} catch (NumberFormatException e){
@@ -457,7 +442,7 @@ public class AltaDeUsuario extends JInternalFrame {
 	
 	public boolean validar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc){
 		if (validar_usuario(nickname,nombre, apellido,correo)) {
-			return true && (_fechaNac!=null);
+			return nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$")&& apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$") && (_fechaNac!=null) && (Integer.toString(_doc).length()==8);
 		}
 		return false;
 	}

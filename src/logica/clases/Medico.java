@@ -42,14 +42,16 @@ public class Medico extends Usuario{
 	}
 	
 	public DTMedico get_dtmedico() {
-		return new DTMedico(nroReg, mesLic, porcentajeCosto, link);
+		return new DTMedico(nickname, nroReg, mesLic, porcentajeCosto, link);
 	}
 	
 	public HashSet<String> get_consultassoc(){
 		return consultasAsociadas;
 	}
 	
-	
+	public String get_nicknameM() {
+		return this.nickname;
+	}
 	public int get_nroReg(){ 
 		return this.nroReg; 
 	}

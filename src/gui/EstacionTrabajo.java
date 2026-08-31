@@ -40,6 +40,11 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	newwindow.setVisible(true);
         });
         JMenuItem itemConsultaUsuario = new JMenuItem("Consulta de Usuario");
+        itemConsultaUsuario.addActionListener(e->{
+        	ConsultaDeUsuario newwindow = new ConsultaDeUsuario();
+        	desktopPane.add(newwindow);
+        	newwindow.setVisible(true);
+        });
         // aagregar el resto claramente
 
         menuUsuarios.add(itemAltaUsuario);
@@ -53,6 +58,16 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         
         JMenu consultaMenu = new JMenu("Consultas");
         menuBar.add(consultaMenu);
+        
+        JMenuItem altaConsultaMenuItem = new JMenuItem("Alta de Consulta");
+        altaConsultaMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		AltaDeConsulta ventana = new AltaDeConsulta();
+                desktopPane.add(ventana);
+                ventana.setVisible(true);
+                
+        	}
+        });
         
         JMenuItem reservaConsultaItem = new JMenuItem("Reserva de Consulta");
         reservaConsultaItem.addActionListener(new ActionListener() {
@@ -110,12 +125,23 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	desktopPane.add(ventana);
         	ventana.setVisible(true);
         });
-        consultaMenu.add(consultaConsultaItem);
-        consultaMenu.add(consultaDeReservaDeConsultaItem);
+        
+
+        consultaMenu.add(altaConsultaMenuItem);
         consultaMenu.add(consultadiaConsultaItem);
         consultaMenu.add(reservaConsultaItem);
-        menuClinicas.add(altaClinicaItem);
-        menuClinicas.add(consultaClinicaItem);
+        consultaMenu.add(consultaClinicaItem);
+        
+        JMenu especialidadMenu = new JMenu("Especialidades");
+        menuBar.add(especialidadMenu);
+        
+        JMenuItem altaEspecialidadItem = new JMenuItem("Alta de Especialidad");
+        altaEspecialidadItem.addActionListener(e->{
+        	AltaDeEspecialidad ventana = new AltaDeEspecialidad();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        especialidadMenu.add(altaEspecialidadItem);
     }
 
     public static void main(String[] args) {

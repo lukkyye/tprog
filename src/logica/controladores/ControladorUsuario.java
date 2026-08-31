@@ -37,7 +37,7 @@ public class ControladorUsuario {
 	}
 	
 	public boolean altaEspecialidad(String espNom, int espPorc) {
-		ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
+		ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
 		return true;
 	}
 	
@@ -82,5 +82,14 @@ public class ControladorUsuario {
 		DTResConsultaDetalle res = new DTResConsultaDetalle(reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), consulta.getMedicoC(), consulta.getNomC(), consulta.getFechaC(), consulta.getSalaC(), consulta.getCantNumC(), consulta.getCostoC(), reserva.getCostoR());
 		return res;
 	}
+	
+	public DTConsultaDetalle listarDatosConsulta(String nomC) {
+	    ManejadorConsulta manejador = ManejadorConsulta.get_instance();
+
+	    Consulta consulta = manejador.get_consulta(nomC);
+
+	    return consulta.getDataConsultaDetalle();
+	}
+
 	
 }
