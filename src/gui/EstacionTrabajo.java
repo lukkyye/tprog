@@ -126,7 +126,18 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	ventana.setVisible(true);
         });
         
-
+        
+        //Alta dia consulta
+        JMenuItem altaDiaConsultaMenuItem = new JMenuItem("Alta dia de Consulta");
+        altaDiaConsultaMenuItem.addActionListener(e->{
+        	AltaDeDiaDeConsulta ventana = new AltaDeDiaDeConsulta();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        consultaMenu.add(altaDiaConsultaMenuItem);
+        	
+        
+        
         consultaMenu.add(altaConsultaMenuItem);
         consultaMenu.add(consultadiaConsultaItem);
         consultaMenu.add(reservaConsultaItem);
