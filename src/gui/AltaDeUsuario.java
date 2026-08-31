@@ -61,7 +61,6 @@ public class AltaDeUsuario extends JInternalFrame {
 				true,              // se puede maximizar
 				true               // se puede minimizar
 				);
-		ManejadorEspecialidad.get_instance().test_add_basics();
 		
 		setSize(600, 500);
 	

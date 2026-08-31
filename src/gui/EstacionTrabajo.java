@@ -81,6 +81,17 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         consultaMenu.add(consultadiaConsultaItem);
         consultaMenu.add(reservaConsultaItem);
         consultaMenu.add(consultaClinicaItem);
+        
+        JMenu especialidadMenu = new JMenu("Especialidades");
+        menuBar.add(especialidadMenu);
+        
+        JMenuItem altaEspecialidadItem = new JMenuItem("Alta de Especialidad");
+        altaEspecialidadItem.addActionListener(e->{
+        	AltaDeEspecialidad ventana = new AltaDeEspecialidad();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        especialidadMenu.add(altaEspecialidadItem);
     }
 
     public static void main(String[] args) {
