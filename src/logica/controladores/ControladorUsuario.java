@@ -73,13 +73,17 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(
-	        String nicknameUsu, int numReserva) {
-
-	    return ManejadorUsuario.get_instance()
-	            .datosResConsulta(nicknameUsu, numReserva);
+	public DTResConsultaDetalle listarDatosResConsulta(String nomR) { // Seguir aca
+		ManejadorUsuario musu = ManejadorUsuario.get_instance();
+		Reserva reserva = musu.get_reserva(nomR);
+		String nomC = reserva.get_consultaAsociada();
+		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
+		Consulta consulta = mcon.get_consulta(nomC);
+		DTResConsultaDetalle res = new DTResConsultaDetalle(reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), consulta.getMedicoC(), consulta.getNomC(), consulta.getFechaC(), consulta.getSalaC(), consulta.getCantNumC(), consulta.getCostoC(), reserva.getCostoR());
+		return res;
 	}
 	
+<<<<<<< HEAD
 	public DTResConsultaDetalle listarDatosResConsulta(String nomR) {
 		ManejadorUsuario musu = ManejadorUsuario.get_instance();
 		Reserva reserva = musu.get_reserva(nomR);
@@ -91,4 +95,6 @@ public class ControladorUsuario {
 	}
 
 	
+=======
+>>>>>>> 6986b17c421b0266bf41994a9f17c74fe478bdc4
 }

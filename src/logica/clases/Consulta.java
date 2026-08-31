@@ -27,6 +27,24 @@ public class Consulta {
 		this.reservas = new HashSet<Reserva>();
 	}
 	
+	public String getMedicoC() {
+        return medico;
+    }
+	
+	public String getNomC() {
+        return nomC;
+    }
+	
+	public LocalDate getFechaC() {
+        return fecha;
+    }
+	public int getSalaC() {
+        return sala;
+    }
+	public int getCantNumC() {
+        return cantNum;
+    }
+	
 	public void agregarReserva(Reserva r) {
 	    reservas.add(r);
 	}

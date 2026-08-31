@@ -1,22 +1,31 @@
 package logica.clases;
+import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import logica.datatypes.DTClinica;
 import logica.datatypes.DTDiaConsulta;
+import logica.datatypes.DTDiaSemana;
 
 public class Clinica {
-	//atributos
 	
 	private String nombre;
-	private float cConsulta;  //calculable
+	private float cConsulta;  
 	private float cTicket;
 	private String web;
 	private String dir;
 	private String desc;
 	private HashSet<DiaConsulta> diasconsulta;
-	//medicos ??
-	//agregaria que medicos trabajen en cierta clinica.
 	
+	public Clinica(String nomClinica, String desc, String direc, float costoTicket, float costoConsulta, String link) {
+		this.nombre= nomClinica;
+		this.desc = desc;
+		this.dir = direc;
+		this.cTicket = costoTicket;
+		this.cConsulta = costoConsulta;
+		this.web = link;
+		this.diasconsulta=new HashSet<DiaConsulta>();
+	}
 	public String getNombre() {
 		return this.nombre;
 	};
