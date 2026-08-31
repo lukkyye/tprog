@@ -2,24 +2,39 @@ package gui;
 
 import javax.swing.JInternalFrame;
 import javax.swing.SpringLayout;
-import javax.swing.JList;
-import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import java.time.LocalDate;
+import java.time.DateTimeException;
+
+import logica.controladores.*;
+import logica.datatypes.DTDiaConsulta;
+import logica.datatypes.DTMedico;
+import logica.excepciones.ConsultaNombreAlreadyExistsException;
+import logica.excepciones.MedicoSinEspecialidadException;
+import logica.excepciones.FechaDiaSemanaInvalidaException;
+
 public class AltaDeConsulta extends JInternalFrame {
 	private static final long serialVersionUID = -6141709894943702613L;
-	private JTextField nomDField;
-	private JTextField medField;
+	JComboBox<String> DiasConsultasBox;
+	JComboBox<String> MedicosBox;
 	private JTextField nomCField;
 	private JTextField salaField;
 	private JTextField cantNumField;
 	private JTextField ddField;
 	private JTextField mmField;
 	private JTextField yyyyField;
+	
+	private ControladorClinica controladorClinica = new ControladorClinica();
+	private ControladorUsuario controladorUsuario = new ControladorUsuario();
 
     public AltaDeConsulta() {
         super(
@@ -37,7 +52,7 @@ public class AltaDeConsulta extends JInternalFrame {
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
 		
-		JComboBox DiasConsultasBox = new JComboBox();
+		DiasConsultasBox = new JComboBox<String>();
 		springLayout.putConstraint(SpringLayout.NORTH, DiasConsultasBox, 40, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, DiasConsultasBox, 245, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, DiasConsultasBox, -74, SpringLayout.EAST, getContentPane());
@@ -50,7 +65,7 @@ public class AltaDeConsulta extends JInternalFrame {
 		DiaConsultaLabel.setFont(new Font("Dialog", Font.BOLD, 14));
 		getContentPane().add(DiaConsultaLabel);
 		
-		JComboBox MedicosBox = new JComboBox();
+		MedicosBox = new JComboBox<String>();
 		springLayout.putConstraint(SpringLayout.NORTH, MedicosBox, 37, SpringLayout.SOUTH, DiasConsultasBox);
 		springLayout.putConstraint(SpringLayout.WEST, MedicosBox, 245, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, MedicosBox, 0, SpringLayout.EAST, DiasConsultasBox);
@@ -62,37 +77,13 @@ public class AltaDeConsulta extends JInternalFrame {
 		MedicosLabel.setFont(new Font("Dialog", Font.BOLD, 14));
 		getContentPane().add(MedicosLabel);
 		
-		JLabel nomDLabel = new JLabel("Nombre del Dia de Consulta:");
-		springLayout.putConstraint(SpringLayout.WEST, nomDLabel, 0, SpringLayout.WEST, DiaConsultaLabel);
-		springLayout.putConstraint(SpringLayout.SOUTH, nomDLabel, -289, SpringLayout.SOUTH, getContentPane());
-		getContentPane().add(nomDLabel);
-		
-		nomDField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, nomDField, -2, SpringLayout.NORTH, nomDLabel);
-		springLayout.putConstraint(SpringLayout.WEST, nomDField, 23, SpringLayout.EAST, nomDLabel);
-		springLayout.putConstraint(SpringLayout.EAST, nomDField, 0, SpringLayout.EAST, DiasConsultasBox);
-		getContentPane().add(nomDField);
-		nomDField.setColumns(10);
-		
-		JLabel medLabel = new JLabel("Nickname del Médico:");
-		springLayout.putConstraint(SpringLayout.NORTH, medLabel, 25, SpringLayout.SOUTH, nomDLabel);
-		springLayout.putConstraint(SpringLayout.WEST, medLabel, 0, SpringLayout.WEST, DiaConsultaLabel);
-		getContentPane().add(medLabel);
-		
-		medField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, medField, -2, SpringLayout.NORTH, medLabel);
-		springLayout.putConstraint(SpringLayout.WEST, medField, 72, SpringLayout.EAST, medLabel);
-		springLayout.putConstraint(SpringLayout.EAST, medField, 0, SpringLayout.EAST, DiasConsultasBox);
-		medField.setColumns(10);
-		getContentPane().add(medField);
-		
 		JLabel nomCLabel = new JLabel("Nombre de la Consulta:");
-		springLayout.putConstraint(SpringLayout.NORTH, nomCLabel, 25, SpringLayout.SOUTH, medLabel);
+		springLayout.putConstraint(SpringLayout.NORTH, nomCLabel, 246, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, nomCLabel, 0, SpringLayout.WEST, DiaConsultaLabel);
 		getContentPane().add(nomCLabel);
 		
 		nomCField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, nomCField, 23, SpringLayout.SOUTH, medField);
+		springLayout.putConstraint(SpringLayout.NORTH, nomCField, 246, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, nomCField, 59, SpringLayout.EAST, nomCLabel);
 		springLayout.putConstraint(SpringLayout.EAST, nomCField, 0, SpringLayout.EAST, DiasConsultasBox);
 		getContentPane().add(nomCField);
@@ -104,15 +95,15 @@ public class AltaDeConsulta extends JInternalFrame {
 		getContentPane().add(fechaLabel);
 		
 		ddField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, ddField, 21, SpringLayout.SOUTH, nomCField);
+		springLayout.putConstraint(SpringLayout.NORTH, ddField, 0, SpringLayout.NORTH, fechaLabel);
 		springLayout.putConstraint(SpringLayout.WEST, ddField, 72, SpringLayout.EAST, fechaLabel);
-		springLayout.putConstraint(SpringLayout.EAST, ddField, 102, SpringLayout.EAST, fechaLabel);
 		getContentPane().add(ddField);
 		ddField.setColumns(10);
 		
 		mmField = new JTextField();
+		springLayout.putConstraint(SpringLayout.WEST, mmField, 374, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, ddField, -45, SpringLayout.WEST, mmField);
 		springLayout.putConstraint(SpringLayout.NORTH, mmField, 0, SpringLayout.NORTH, fechaLabel);
-		springLayout.putConstraint(SpringLayout.WEST, mmField, 45, SpringLayout.EAST, ddField);
 		mmField.setColumns(10);
 		getContentPane().add(mmField);
 		
@@ -143,21 +134,77 @@ public class AltaDeConsulta extends JInternalFrame {
 		
 		cantNumField = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, cantNumField, 17, SpringLayout.SOUTH, salaField);
-		springLayout.putConstraint(SpringLayout.WEST, cantNumField, 0, SpringLayout.WEST, nomDField);
-		springLayout.putConstraint(SpringLayout.EAST, cantNumField, 0, SpringLayout.EAST, DiasConsultasBox);
+		springLayout.putConstraint(SpringLayout.WEST, cantNumField, 67, SpringLayout.EAST, cantNumLabel);
+		springLayout.putConstraint(SpringLayout.EAST, cantNumField, -74, SpringLayout.EAST, getContentPane());
 		getContentPane().add(cantNumField);
 		cantNumField.setColumns(10);
 		
 		JButton cancelarButton = new JButton("Cancelar");
+		cancelarButton.addActionListener(e -> dispose());
 		springLayout.putConstraint(SpringLayout.SOUTH, cancelarButton, -25, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, cancelarButton, 0, SpringLayout.EAST, DiasConsultasBox);
 		getContentPane().add(cancelarButton);
 		
 		JButton aceptarButton = new JButton("Aceptar");
+		aceptarButton.addActionListener(e -> onAceptar());
 		springLayout.putConstraint(SpringLayout.SOUTH, aceptarButton, 0, SpringLayout.SOUTH, cancelarButton);
 		springLayout.putConstraint(SpringLayout.EAST, aceptarButton, 0, SpringLayout.EAST, mmField);
 		getContentPane().add(aceptarButton);
 		
+		cargarCombos();
    }
+    
+   private void cargarCombos() {
+	   for (DTDiaConsulta d : controladorClinica.listarDatosDiaConsulta()) {
+		   DiasConsultasBox.addItem(d.nomD());
+	   }
+	   for (DTMedico m : controladorUsuario.listarMedicos()) {
+		   MedicosBox.addItem(m.nickname());
+	   }
+   }
+   
+   private void onAceptar() {
+	   String nomD = (String) DiasConsultasBox.getSelectedItem();
+	   String nicknameM = (String) MedicosBox.getSelectedItem();
+	   if (nomD == null || nicknameM == null) {
+		   JOptionPane.showMessageDialog(this, "Debe seleccionar al menos un día de consulta y un médico dado de alta", "Datos insuficientes", JOptionPane.WARNING_MESSAGE);
+		   return;
+	   }
+	   String nomC = nomCField.getText().trim();
+	   if (nomC.isEmpty() || ddField.getText().trim().isEmpty() || mmField.getText().trim().isEmpty() || yyyyField.getText().trim().isEmpty() || salaField.getText().trim().isEmpty() || cantNumField.getText().trim().isEmpty()) {
+		   JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Datos incompletos", JOptionPane.WARNING_MESSAGE);
+		   return;
+	   }
+	   int sala, cantNum, dd, mm, yyyy;
+	   try {
+		   sala = Integer.parseInt(salaField.getText().trim());
+		   cantNum = Integer.parseInt(cantNumField.getText().trim());
+		   dd = Integer.parseInt(ddField.getText().trim());
+		   mm = Integer.parseInt(mmField.getText().trim());
+		   yyyy = Integer.parseInt(yyyyField.getText().trim());
+	   } catch (NumberFormatException ex) {
+		   JOptionPane.showMessageDialog(this, "Sala, Cantidad de números y Fecha deben ser valores numéricos", "Dato inválido", JOptionPane.ERROR_MESSAGE);
+		   return;
+	   }
+	   LocalDate fecha;
+	   try {
+		   fecha = LocalDate.of(yyyy,mm,dd);
+	   } catch (DateTimeException ex) {
+		   JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida", "Fecha inválida", JOptionPane.ERROR_MESSAGE);
+		   return;
+	   }
+	   try {
+		   controladorClinica.ingresarConsulta(nomD, nicknameM, nomC, fecha, sala, cantNum);
+		   JOptionPane.showMessageDialog(this, "Consulta dada de alta correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+	   } catch (ConsultaNombreAlreadyExistsException ex) {
+		   JOptionPane.showMessageDialog(this, ex.getMessage(), "Nombre en uso", JOptionPane.ERROR_MESSAGE);
+	   } catch (MedicoSinEspecialidadException ex) {
+		   JOptionPane.showMessageDialog(this, ex.getMessage(), "Especialidad no coincide", JOptionPane.ERROR_MESSAGE);
+	   } catch (FechaDiaSemanaInvalidaException ex) {
+		   JOptionPane.showMessageDialog(this, ex.getMessage(), "Fecha inválida", JOptionPane.ERROR_MESSAGE);
+	   }
+	   
+   }
+   
 }
 
