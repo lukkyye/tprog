@@ -29,28 +29,22 @@ public class ConsultaDeConsulta extends JInternalFrame {
     private JButton btnSeleccionarConsulta;
     private JScrollPane scrollConsultas;
 
-    private JTextArea areaDetalleConsulta;
-    private JScrollPane scrollDetalleConsulta;
-    private DefaultListModel<DTResConsulta> modelListaReservas;
-    private JList<DTResConsulta> listaReservas;
-    private JScrollPane scrollReservas;
-    private JButton btnVerReserva;
-
     private JLabel lblTituloPaso;
 
     private ControladorClinica controladorClinica;
     private ControladorUsuario controladorUsuario;
 
     public ConsultaDeConsulta() {
-    	super(
+        super(
                 "Consulta de Consulta", // título
                 true,              // se puede redimensionar
                 true,              // se puede cerrar
                 true,              // se puede maximizar
                 true               // se puede minimizar
         );
-        setBounds(100, 100, 540, 500);
+        setBounds(100, 100, 540, 420);
         getContentPane().setLayout(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         controladorClinica = new ControladorClinica();
         controladorUsuario = new ControladorUsuario();
@@ -60,8 +54,10 @@ public class ConsultaDeConsulta extends JInternalFrame {
         lblTituloPaso.setBounds(30, 10, 450, 20);
         getContentPane().add(lblTituloPaso);
 
+        // ================= PASO 1: LISTA DÍAS DE CONSULTA =================
         modelListaDias = new DefaultListModel<>();
         listaDias = new JList<>(modelListaDias);
+        listaDias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaDias.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
             panel.setBorder(BorderFactory.createTitledBorder("Día: " + value.nomD()));
@@ -86,9 +82,24 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarDia.setBounds(310, 290, 180, 30);
         getContentPane().add(btnSeleccionarDia);
 
+        // ================= PASO 2: LISTA CONSULTAS =================
         modelListaConsultas = new DefaultListModel<>();
         listaConsultas = new JList<>(modelListaConsultas);
-        
+        listaConsultas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Renderizador formateado para la lista de consultas
+        listaConsultas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
+            JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
+            panel.setBorder(BorderFactory.createTitledBorder("Consulta: " + value.nomC()));
+            panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
+            panel.add(new JLabel(" Nombre: " + value.nomC()));
+            panel.add(new JLabel(" Fecha: " + value.fechaC()));
+            panel.add(new JLabel(" Sala: " + value.sala()));
+            panel.add(new JLabel(" Cant. Números: " + value.cantNum()));
+            panel.add(new JLabel(" Costo: $" + value.costoC()));
+            return panel;
+        });
+
         scrollConsultas = new JScrollPane(listaConsultas);
         scrollConsultas.setBounds(30, 35, 460, 240);
         scrollConsultas.setVisible(false);
@@ -104,26 +115,26 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.setVisible(false);
         getContentPane().add(btnSeleccionarConsulta);
 
-        areaDetalleConsulta = new JTextArea();
-        areaDetalleConsulta.setEditable(false);
-        scrollDetalleConsulta = new JScrollPane(areaDetalleConsulta);
-        scrollDetalleConsulta.setBounds(30, 35, 460, 140);
-        scrollDetalleConsulta.setVisible(false);
-        getContentPane().add(scrollDetalleConsulta);
+        // ================= SINCRONIZACIÓN DE SELECCIÓN =================
+        listaConsultas.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                DTConsulta seleccionada = listaConsultas.getSelectedValue();
+                if (seleccionada != null) {
+                    comboNomC.setSelectedItem(seleccionada.nomC());
+                }
+            }
+        });
 
-        modelListaReservas = new DefaultListModel<>();
-        listaReservas = new JList<>(modelListaReservas);
-        scrollReservas = new JScrollPane(listaReservas);
-        scrollReservas.setBorder(BorderFactory.createTitledBorder("Reservas asociadas:"));
-        scrollReservas.setBounds(30, 185, 460, 120);
-        scrollReservas.setVisible(false);
-        getContentPane().add(scrollReservas);
+        listaDias.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                DTDiaConsulta seleccionado = listaDias.getSelectedValue();
+                if (seleccionado != null) {
+                    comboNomD.setSelectedItem(seleccionado.nomD());
+                }
+            }
+        });
 
-        btnVerReserva = new JButton("Ver Detalle Reserva");
-        btnVerReserva.setBounds(310, 315, 180, 30);
-        btnVerReserva.setVisible(false);
-        getContentPane().add(btnVerReserva);
-
+        // ================= ACCIONES DE BOTONES =================
         btnSeleccionarDia.addActionListener(e -> {
             String nomD = (String) comboNomD.getSelectedItem();
             if (nomD != null) {
@@ -131,8 +142,10 @@ public class ConsultaDeConsulta extends JInternalFrame {
                 if (consultas != null && !consultas.isEmpty()) {
                     mostrarPaso2(consultas);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El día seleccionado no tiene consultas asociadas.");
+                    JOptionPane.showMessageDialog(this, "El día seleccionado no tiene consultas asociadas.", "Sin Consultas", JOptionPane.INFORMATION_MESSAGE);
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione un día de la lista.", "Atención", JOptionPane.WARNING_MESSAGE);
             }
         });
 
@@ -141,37 +154,12 @@ public class ConsultaDeConsulta extends JInternalFrame {
             if (nomC != null) {
                 DTConsultaDetalle detalle = controladorClinica.listarDatosConsulta(nomC);
                 if (detalle != null) {
-                    mostrarPaso3(detalle);
-                }
-            }
-        });
-
-        btnVerReserva.addActionListener(e -> {
-            DTResConsulta reserva = listaReservas.getSelectedValue();
-            String nomC = (String) comboNomC.getSelectedItem();
-
-            if (reserva != null && nomC != null) {
-             
-                DTResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reserva.numReserva());
-                
-                if (resDetalle != null) {
-                    JOptionPane.showMessageDialog(this, 
-                        "DATOS DE LA RESERVA:\n\n" +
-                        "Número de Reserva: " + resDetalle.numReserva() + "\n" +
-                        "Fecha Reserva: " + resDetalle.fechaRes() + "\n" +
-                        "Aplica Beneficio: " + (resDetalle.aplicaBenef() ? "Sí" : "No") + "\n" +
-                        "Costo Reserva: $" + resDetalle.costoR() + "\n\n" +
-                        "DATOS DE LA CONSULTA:\n" +
-                        "Consulta: " + resDetalle.numReserva() + "\n" +
-                        "Médico: " + resDetalle.medicoC() + "\n" +
-                        "Fecha Consulta: " + resDetalle.fechaC() + "\n" +
-                        "Sala: " + resDetalle.salaC(), 
-                        "Detalle de la Reserva", JOptionPane.INFORMATION_MESSAGE);
+                    mostrarPopUpDetalle(nomC, detalle);
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se encontraron detalles para la reserva indicada.");
+                    JOptionPane.showMessageDialog(this, "No se encontraron detalles para la consulta seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Seleccione una reserva de la lista.");
+                JOptionPane.showMessageDialog(this, "Seleccione una consulta de la lista.", "Atención", JOptionPane.WARNING_MESSAGE);
             }
         });
 
@@ -207,30 +195,80 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.setVisible(true);
     }
 
-    private void mostrarPaso3(DTConsultaDetalle detalle) {
-        scrollConsultas.setVisible(false);
-        comboNomC.setVisible(false);
-        btnSeleccionarConsulta.setVisible(false);
+    // Ventana emergente (Pop-up) con datos y lista de reservas formateada
+    private void mostrarPopUpDetalle(String nomC, DTConsultaDetalle detalle) {
+        JPanel panelPopUp = new JPanel(new BorderLayout(10, 10));
+        panelPopUp.setPreferredSize(new Dimension(460, 340));
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Consulta: ").append(detalle.nomC()).append("\n");
-        sb.append("Médico: ").append(detalle.medico()).append("\n");
-        sb.append("Fecha: ").append(detalle.fechaC()).append("\n");
-        sb.append("Sala: ").append(detalle.sala()).append("\n");
-        sb.append("Cantidad de números: ").append(detalle.cantNum()).append("\n");
-        sb.append("Costo: $").append(detalle.costoC());
-        areaDetalleConsulta.setText(sb.toString());
+        // 1. Información de la Consulta
+        JTextArea areaDetalle = new JTextArea();
+        areaDetalle.setEditable(false);
+        areaDetalle.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        areaDetalle.setText(
+            "Consulta: " + detalle.nomC() + "\n" +
+            "Médico: " + detalle.medico() + "\n" +
+            "Fecha: " + detalle.fechaC() + "\n" +
+            "Sala: " + detalle.sala() + "\n" +
+            "Cantidad de números: " + detalle.cantNum() + "\n" +
+            "Costo: $" + detalle.costoC()
+        );
+        panelPopUp.add(new JScrollPane(areaDetalle), BorderLayout.NORTH);
 
-        modelListaReservas.clear();
+        // 2. JList de Reservas con Formato Personalizado
+        DefaultListModel<DTResConsulta> modelReservasPopUp = new DefaultListModel<>();
         if (detalle.reservas() != null) {
             for (DTResConsulta r : detalle.reservas()) {
-                modelListaReservas.addElement(r);
+                modelReservasPopUp.addElement(r);
             }
         }
+        
+        JList<DTResConsulta> listaReservasPopUp = new JList<>(modelReservasPopUp);
+        listaReservasPopUp.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        listaReservasPopUp.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
+            JPanel panel = new JPanel(new GridLayout(3, 1, 1, 1));
+            panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.numReserva()));
+            panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
+            panel.add(new JLabel(" N° Reserva: " + value.numReserva()));
+            panel.add(new JLabel(" Fecha: " + value.fechaRes()));
+            panel.add(new JLabel(" Beneficio: " + (value.aplicaBenef() ? "Sí" : "No")));
+            return panel;
+        });
 
-        lblTituloPaso.setText("Detalle de la Consulta");
-        scrollDetalleConsulta.setVisible(true);
-        scrollReservas.setVisible(true);
-        btnVerReserva.setVisible(true);
+        JScrollPane scrollReservasPopUp = new JScrollPane(listaReservasPopUp);
+        scrollReservasPopUp.setBorder(BorderFactory.createTitledBorder("Reservas asociadas (Seleccione una):"));
+        panelPopUp.add(scrollReservasPopUp, BorderLayout.CENTER);
+
+        // 3. Botón para inspeccionar detalle completo de la Reserva
+        JButton btnVerReservaPopUp = new JButton("Ver Detalle de Reserva");
+        btnVerReservaPopUp.addActionListener(e -> {
+            DTResConsulta reservaSel = listaReservasPopUp.getSelectedValue();
+            if (reservaSel != null) {
+                DTResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.numReserva());
+                if (resDetalle != null) {
+                    JOptionPane.showMessageDialog(this,
+                        "=== DATOS DE LA RESERVA ===\n" +
+                        "Número de Reserva: " + resDetalle.numReserva() + "\n" +
+                        "Fecha Reserva: " + resDetalle.fechaRes() + "\n" +
+                        "Aplica Beneficio: " + (resDetalle.aplicaBenef() ? "Sí" : "No") + "\n" +
+                        "Costo Reserva: $" + resDetalle.costoR() + "\n\n" +
+                        "=== DATOS DE LA CONSULTA ===\n" +
+                        "Consulta: " + nomC + "\n" +
+                        "Médico: " + resDetalle.medicoC() + "\n" +
+                        "Fecha Consulta: " + resDetalle.fechaC() + "\n" +
+                        "Sala: " + resDetalle.salaC(),
+                        "Detalle de Reserva #" + resDetalle.numReserva(),
+                        JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontraron detalles para la reserva indicada.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una reserva de la lista.", "Atención", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        panelPopUp.add(btnVerReservaPopUp, BorderLayout.SOUTH);
+
+        // Lanzar Pop-Up
+        JOptionPane.showMessageDialog(this, panelPopUp, "Detalle de Consulta: " + nomC, JOptionPane.PLAIN_MESSAGE);
     }
 }

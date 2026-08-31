@@ -6,3 +6,9 @@
 /NoNumberAvailableException.class
 /EmailAlreadyExistsException.class
 /NombreClinicaAlreadyExistsException.class
+/ClinicaNotFoundException.class
+/ConsultaNombreAlreadyExistsException.class
+/DiaConsultaAlreadyExistsException.class
+/EspecialidadAlreadyExistsException.class
+/FechaDiaSemanaInvalidaException.class
+/MedicoSinEspecialidadException.class

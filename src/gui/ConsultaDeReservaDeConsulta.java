@@ -25,9 +25,6 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
     private JButton btnSeleccionarReserva;
     private JScrollPane scrollReservas;
 
-    private JTextArea areaDetalleReserva;
-    private JScrollPane scrollDetalle;
-
     private JLabel lblTituloPaso;
 
     private ControladorUsuario controladorUsuario;
@@ -41,7 +38,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             true                               // Minimizable
         );
         
-        setBounds(100, 100, 520, 480);
+        setBounds(100, 100, 520, 400);
         getContentPane().setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -52,8 +49,10 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         lblTituloPaso.setBounds(30, 10, 440, 20);
         getContentPane().add(lblTituloPaso);
 
+        // ================= PASO 1: LISTA DE PACIENTES =================
         modelListaPacientes = new DefaultListModel<>();
         listaPacientes = new JList<>(modelListaPacientes);
+        listaPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         listaPacientes.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(4, 1, 2, 2));
@@ -78,8 +77,21 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         btnSeleccionarPaciente.setBounds(300, 290, 170, 30);
         getContentPane().add(btnSeleccionarPaciente);
 
+        // ================= PASO 2: LISTA DE RESERVAS (FORMATEADA) =================
         modelListaReservas = new DefaultListModel<>();
         listaReservas = new JList<>(modelListaReservas);
+        listaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Renderizador en tarjetas para evitar el toString() crudo de la reserva
+        listaReservas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
+            JPanel panel = new JPanel(new GridLayout(3, 1, 2, 2));
+            panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.numReserva()));
+            panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
+            panel.add(new JLabel(" N° Reserva: " + value.numReserva()));
+            panel.add(new JLabel(" Fecha Reserva: " + value.fechaRes()));
+            panel.add(new JLabel(" Aplica Beneficio: " + (value.aplicaBenef() ? "Sí" : "No")));
+            return panel;
+        });
 
         scrollReservas = new JScrollPane(listaReservas);
         scrollReservas.setBounds(30, 35, 440, 240);
@@ -96,15 +108,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         btnSeleccionarReserva.setVisible(false);
         getContentPane().add(btnSeleccionarReserva);
 
-        areaDetalleReserva = new JTextArea();
-        areaDetalleReserva.setEditable(false);
-        areaDetalleReserva.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        
-        scrollDetalle = new JScrollPane(areaDetalleReserva);
-        scrollDetalle.setBounds(30, 35, 440, 380);
-        scrollDetalle.setVisible(false);
-        getContentPane().add(scrollDetalle);
-
+        // ================= SINCRONIZACIÓN DE SELECCIÓN =================
         listaPacientes.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 DTPaciente seleccionado = listaPacientes.getSelectedValue();
@@ -114,6 +118,16 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             }
         });
 
+        listaReservas.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                DTResConsulta seleccionada = listaReservas.getSelectedValue();
+                if (seleccionada != null) {
+                    comboNumReservas.setSelectedItem(seleccionada.numReserva());
+                }
+            }
+        });
+
+        // ================= ACCIONES DE BOTONES =================
         btnSeleccionarPaciente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nickname = (String) comboNicknames.getSelectedItem();
@@ -122,10 +136,10 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
                     if (reservas != null && !reservas.isEmpty()) {
                         mostrarPaso2(nickname, reservas);
                     } else {
-                        JOptionPane.showMessageDialog(null, "El paciente seleccionado no posee reservas asociadas.");
+                        JOptionPane.showMessageDialog(ConsultaDeReservaDeConsulta.this, "El paciente seleccionado no posee reservas asociadas.", "Sin Reservas", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione un paciente.");
+                    JOptionPane.showMessageDialog(ConsultaDeReservaDeConsulta.this, "Seleccione un paciente.", "Atención", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -136,14 +150,14 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
                 Integer numReserva = (Integer) comboNumReservas.getSelectedItem();
 
                 if (nickname != null && numReserva != null) {
-                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname);
+                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname, numReserva);
                     if (detalle != null) {
-                        mostrarPaso3(detalle);
+                        mostrarPopUpDetalle(numReserva, detalle);
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontraron detalles para la reserva indicada.");
+                        JOptionPane.showMessageDialog(ConsultaDeReservaDeConsulta.this, "No se encontraron detalles para la reserva indicada.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione una reserva de la lista.");
+                    JOptionPane.showMessageDialog(ConsultaDeReservaDeConsulta.this, "Seleccione una reserva de la lista.", "Atención", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -180,19 +194,16 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         btnSeleccionarReserva.setVisible(true);
     }
 
-    private void mostrarPaso3(DTResConsultaDetalle detalle) {
-        scrollReservas.setVisible(false);
-        comboNumReservas.setVisible(false);
-        btnSeleccionarReserva.setVisible(false);
-
+    // Ventana emergente (Pop-up) con la información completa de la Reserva y la Consulta
+    private void mostrarPopUpDetalle(Integer numReserva, DTResConsultaDetalle detalle) {
         StringBuilder sb = new StringBuilder();
         sb.append("=========================================\n");
         sb.append("          DETALLE DE LA RESERVA          \n");
-        sb.append("=========================================\n\n");
+        sb.append("=========================================\n");
         sb.append("Número de Reserva: ").append(detalle.numReserva()).append("\n");
         sb.append("Fecha de Reserva:  ").append(detalle.fechaRes()).append("\n");
         sb.append("Aplica Beneficio:  ").append(detalle.aplicaBenef() ? "Sí" : "No").append("\n");
-        sb.append("Costo Final:       $").append(detalle.costoR()).append("\n\n");
+        sb.append("Costo Reserva:     $").append(detalle.costoR()).append("\n\n");
         sb.append("-----------------------------------------\n");
         sb.append("         INFORMACIÓN DE CONSULTA         \n");
         sb.append("-----------------------------------------\n");
@@ -203,9 +214,13 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         sb.append("Cantidad Números:  ").append(detalle.cantNumC()).append("\n");
         sb.append("Costo Consulta:    $").append(detalle.costoC()).append("\n");
 
-        areaDetalleReserva.setText(sb.toString());
+        JTextArea areaDetalle = new JTextArea(sb.toString());
+        areaDetalle.setEditable(false);
+        areaDetalle.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
-        lblTituloPaso.setText("Datos Detallados de la Reserva");
-        scrollDetalle.setVisible(true);
+        JScrollPane scrollPopUp = new JScrollPane(areaDetalle);
+        scrollPopUp.setPreferredSize(new Dimension(420, 280));
+
+        JOptionPane.showMessageDialog(this, scrollPopUp, "Detalle de Reserva #" + numReserva, JOptionPane.INFORMATION_MESSAGE);
     }
 }
