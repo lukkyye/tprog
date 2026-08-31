@@ -64,9 +64,9 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		setSize(600, 500);
 	
-		setMaximizable(true);
+		setMaximizable(false);
 		setTitle("Alta Usuario");
-		setResizable(true);
+		setResizable(false);
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
 		

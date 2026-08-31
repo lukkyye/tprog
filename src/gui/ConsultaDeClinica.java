@@ -38,6 +38,8 @@ public class ConsultaDeClinica extends JInternalFrame {
 
         
         setSize(600, 500);
+        setResizable(false);
+        setMaximizable(false);
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
         
