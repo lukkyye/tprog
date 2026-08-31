@@ -17,15 +17,6 @@ public class Clinica {
 	private String desc;
 	private HashSet<DiaConsulta> diasconsulta;
 	
-	public Clinica(String nomClinica, String desc, String direc, float costoTicket, float costoConsulta, String link) {
-		this.nombre= nomClinica;
-		this.desc = desc;
-		this.dir = direc;
-		this.cTicket = costoTicket;
-		this.cConsulta = costoConsulta;
-		this.web = link;
-		this.diasconsulta=new HashSet<DiaConsulta>();
-	}
 	public String getNombre() {
 		return this.nombre;
 	};

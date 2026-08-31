@@ -17,22 +17,18 @@ import logica.controladores.ControladorUsuario;
 
 public class ConsultaDeConsulta extends JInternalFrame {
 
-	
-    // COMPONENTES DIAS
     private DefaultListModel<DTDiaConsulta> modelListaDias;
     private JList<DTDiaConsulta> listaDias;
     private JComboBox<String> comboNomD;
     private JButton btnSeleccionarDia;
     private JScrollPane scrollDias;
 
-    // COMPONENTES CONSULTA
     private DefaultListModel<DTConsulta> modelListaConsultas;
     private JList<DTConsulta> listaConsultas;
     private JComboBox<String> comboNomC;
     private JButton btnSeleccionarConsulta;
     private JScrollPane scrollConsultas;
 
-    // COMPONENTE DETALLE CONSULTA Y RESERVAS
     private JTextArea areaDetalleConsulta;
     private JScrollPane scrollDetalleConsulta;
     private DefaultListModel<DTResConsulta> modelListaReservas;
@@ -40,10 +36,8 @@ public class ConsultaDeConsulta extends JInternalFrame {
     private JScrollPane scrollReservas;
     private JButton btnVerReserva;
 
-    // TITULO
     private JLabel lblTituloPaso;
 
-    // CONTROLADORES
     private ControladorClinica controladorClinica;
     private ControladorUsuario controladorUsuario;
 
@@ -66,7 +60,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         lblTituloPaso.setBounds(30, 10, 450, 20);
         getContentPane().add(lblTituloPaso);
 
-        //SELECCIONO DIA
         modelListaDias = new DefaultListModel<>();
         listaDias = new JList<>(modelListaDias);
         listaDias.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
@@ -93,7 +86,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarDia.setBounds(310, 290, 180, 30);
         getContentPane().add(btnSeleccionarDia);
 
-        //SELECCIONO CONSULTA
         modelListaConsultas = new DefaultListModel<>();
         listaConsultas = new JList<>(modelListaConsultas);
         
@@ -112,7 +104,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.setVisible(false);
         getContentPane().add(btnSeleccionarConsulta);
 
-        //DETALLE CONSULTA Y SELECCIONO RESERVA
         areaDetalleConsulta = new JTextArea();
         areaDetalleConsulta.setEditable(false);
         scrollDetalleConsulta = new JScrollPane(areaDetalleConsulta);
@@ -132,8 +123,6 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnVerReserva.setBounds(310, 315, 180, 30);
         btnVerReserva.setVisible(false);
         getContentPane().add(btnVerReserva);
-
-        //VENTANAS
 
         btnSeleccionarDia.addActionListener(e -> {
             String nomD = (String) comboNomD.getSelectedItem();
@@ -212,7 +201,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
             comboNomC.addItem(c.nomC());
         }
 
-        lblTituloPaso.setText("Paso 2: Seleccione una Consulta asociada");
+        lblTituloPaso.setText("Seleccione una Consulta asociada");
         scrollConsultas.setVisible(true);
         comboNomC.setVisible(true);
         btnSeleccionarConsulta.setVisible(true);
@@ -239,7 +228,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
             }
         }
 
-        lblTituloPaso.setText("Paso 3: Detalle de la Consulta");
+        lblTituloPaso.setText("Detalle de la Consulta");
         scrollDetalleConsulta.setVisible(true);
         scrollReservas.setVisible(true);
         btnVerReserva.setVisible(true);

@@ -83,18 +83,4 @@ public class ControladorUsuario {
 		return res;
 	}
 	
-<<<<<<< HEAD
-	public DTResConsultaDetalle listarDatosResConsulta(String nomR) {
-		ManejadorUsuario musu = ManejadorUsuario.get_instance();
-		Reserva reserva = musu.get_reserva(nomR);
-		String nomC = reserva.get_consultaAsociada();
-		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
-		Consulta consulta = mcon.get_consulta(nomC);
-		DTResConsultaDetalle res = new DTResConsultaDetalle(reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), consulta.getMedicoC(), consulta.getNomC(), consulta.getFechaC(), consulta.getSalaC(), consulta.getCantNumC(), consulta.getCostoC(), reserva.getCostoR());
-		return res;
-	}
-
-	
-=======
->>>>>>> 6986b17c421b0266bf41994a9f17c74fe478bdc4
 }

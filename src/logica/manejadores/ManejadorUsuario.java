@@ -194,11 +194,5 @@ public class ManejadorUsuario {
 	        "El usuario no es de tipo Paciente."
 	    );
 	}
-	public Reserva get_reserva(String numReserva) { //REVISAR
-		if(reservas.containsKey(numReserva)) {
-			return reservas.get(numReserva);
-		}
-		return null;
-	}
 
 }

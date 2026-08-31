@@ -96,25 +96,11 @@ public class Consulta {
 	    }
 	    return false;
 	}
-	public String getNomC() {
-	    return nomC;
-	}
 
 	public String getDiaConsulta() {
 	    return diaConsulta;
 	}	
-	public String getMedicoC() {
-        return medico;
-    }
-	public LocalDate getFechaC() {
-        return fecha;
-    }
-	public int getSalaC() {
-        return sala;
-	}
-	public int getCantNumC() {
-        return cantNum;
-    }
+
 	
 	public DTResConsultaDetalle listarDatosResConsultaC(int numReserva) {
 	    for (Reserva r : reservas) {

@@ -4,13 +4,10 @@ import logica.clases.DiaConsulta;
 import logica.clases.Especialidad;
 import logica.clases.Medico;
 import logica.datatypes.DTConsulta;
-<<<<<<< HEAD
 import logica.excepciones.NombreClinicaAlreadyExistsException;
-=======
 import logica.datatypes.TipoMes;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.*;
->>>>>>> 6986b17c421b0266bf41994a9f17c74fe478bdc4
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,17 +92,4 @@ public class ManejadorClinica {
     	return res;
     	
     }
-    
-<<<<<<< HEAD
-    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
-		if (memberClinica(nombre)) {
-			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
-		}
-		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
-		clinicas.put(nombre, cl);
-	}
-
-    
-=======
->>>>>>> 6986b17c421b0266bf41994a9f17c74fe478bdc4
 }
