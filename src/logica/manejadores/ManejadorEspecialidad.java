@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import logica.clases.Especialidad;
 import logica.excepciones.SpecialityNotFoundException;
+import logica.excepciones.EspecialidadAlreadyExistsException;
 
 public class ManejadorEspecialidad {
 	private static ManejadorEspecialidad instance;
@@ -62,4 +63,12 @@ public class ManejadorEspecialidad {
 		return e;
 	}
 	
+	public Especialidad altaEspecialidad(String espNom, int espPorc) {
+		if (existeEsp(espNom)) {
+			throw new EspecialidadAlreadyExistsException("Ya existe una especialidad con el nombre ingresado");
+		}
+		Especialidad e = new Especialidad(espNom, espPorc);
+		especialidades.add(e);
+		return e;
+	}
 }
