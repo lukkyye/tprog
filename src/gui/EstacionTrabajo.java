@@ -55,6 +55,16 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         JMenu consultaMenu = new JMenu("Consultas");
         menuBar.add(consultaMenu);
         
+        JMenuItem altaConsultaMenuItem = new JMenuItem("Alta de Consulta");
+        altaConsultaMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		AltaDeConsulta ventana = new AltaDeConsulta();
+                desktopPane.add(ventana);
+                ventana.setVisible(true);
+                
+        	}
+        });
+        
         JMenuItem reservaConsultaItem = new JMenuItem("Reserva de Consulta");
         reservaConsultaItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -83,6 +93,8 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	ventana.setVisible(true);
         });
         
+
+        consultaMenu.add(altaConsultaMenuItem);
         consultaMenu.add(consultadiaConsultaItem);
         consultaMenu.add(reservaConsultaItem);
         consultaMenu.add(consultaClinicaItem);
