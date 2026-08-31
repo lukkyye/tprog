@@ -364,6 +364,17 @@ public class AltaDeUsuario extends JInternalFrame {
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, dateChooser, 0, SpringLayout.WEST, documentoField);
 		sl_panelPaciente.putConstraint(SpringLayout.EAST, dateChooser, 0, SpringLayout.EAST, documentoField);
 		panelPaciente.add(dateChooser);
+		
+		JLabel selector_label_1_2 = new JLabel("Fecha de ingreso:");
+		sl_panelPaciente.putConstraint(SpringLayout.NORTH, selector_label_1_2, 25, SpringLayout.SOUTH, selector_label_1_1);
+		sl_panelPaciente.putConstraint(SpringLayout.WEST, selector_label_1_2, 0, SpringLayout.WEST, selector_label_1_1);
+		panelPaciente.add(selector_label_1_2);
+		
+		JDateChooser dateChooser_1 = new JDateChooser();
+		sl_panelPaciente.putConstraint(SpringLayout.WEST, dateChooser_1, 0, SpringLayout.WEST, documentoField);
+		sl_panelPaciente.putConstraint(SpringLayout.SOUTH, dateChooser_1, 0, SpringLayout.SOUTH, panel_1);
+		sl_panelPaciente.putConstraint(SpringLayout.EAST, dateChooser_1, 0, SpringLayout.EAST, documentoField);
+		panelPaciente.add(dateChooser_1);
 	
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 	
@@ -390,11 +401,48 @@ public class AltaDeUsuario extends JInternalFrame {
 			ControladorUsuario cu = new ControladorUsuario();
 			ArrayList<String> antssalud = Collections.list(modeloAntSalud.elements());
 			try {
-			LocalDate fechaNac = LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault());
+
+			    // Verificar que se hayan seleccionado las dos fechas
+			    if (dateChooser.getDate() == null || dateChooser_1.getDate() == null) {
+			        JOptionPane.showMessageDialog(
+			            this,
+			            "Debe ingresar la fecha de nacimiento y la fecha de ingreso.",
+			            "Datos incompletos",
+			            JOptionPane.WARNING_MESSAGE
+			        );
+			        return;
+			    }
+
+			    // Fecha de nacimiento elegida por el usuario
+			    LocalDate fechaNac = LocalDate.ofInstant(
+			        dateChooser.getDate().toInstant(),
+			        ZoneId.systemDefault()
+			    );
+
+			    // Fecha de ingreso elegida por el usuario
+			    LocalDate fechaIngreso = LocalDate.ofInstant(
+			        dateChooser_1.getDate().toInstant(),
+			        ZoneId.systemDefault()
+			    );
+			    
+			    if (fechaNac.isAfter(LocalDate.now())) {
+			        JOptionPane.showMessageDialog(
+			            this, "La fecha de nacimiento no puede ser posterior a hoy.","Fecha inválida.",
+			            JOptionPane.WARNING_MESSAGE );
+			        return;
+			    }
+			    if (fechaIngreso.isBefore(fechaNac)) {
+			    	JOptionPane.showMessageDialog(
+			                this,		
+			                "La fecha de ingreso no puede ser anterior a la fecha de nacimiento.","Fecha inválida.",
+			                JOptionPane.WARNING_MESSAGE);
+			    	return;
+			    	}
+			    			
 			if (validar_paciente(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
 					emailField.getText(), fechaNac, Integer.parseInt(documentoField.getText()))){
 				try {
-					cu.ingresarPaciente(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, LocalDate.now(),Integer.parseInt(documentoField.getText()),antssalud);
+					cu.ingresarPaciente(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, fechaIngreso,Integer.parseInt(documentoField.getText()),antssalud);
 					JOptionPane.showMessageDialog(this, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
 				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
