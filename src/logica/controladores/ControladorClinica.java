@@ -91,7 +91,7 @@ public class ControladorClinica {
 	    return mu.get_dtpacientes();
 	}
 	
-	public void reservarConsulta(String nicknamePaciente, String nomC) {
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva) {
 		 ManejadorUsuario mu = ManejadorUsuario.get_instance();
 		 ManejadorConsulta mc = ManejadorConsulta.get_instance();
 		 Usuario u = mu.get_usuario(nicknamePaciente);
@@ -110,7 +110,7 @@ public class ControladorClinica {
 		        costo = costo * 0.8f;
 		        aplicaBenef = true;
 		    }
-		 Reserva r = new Reserva(nicknamePaciente,nomC,LocalDate.now(),numero,aplicaBenef,costo);
+		 Reserva r = new Reserva(nicknamePaciente, nomC, fechaReserva, numero, aplicaBenef, costo);
 		 p.agregarReserva(r);
 		 c.agregarReserva(r);
 	}
