@@ -251,10 +251,7 @@ public class ConsultaPaciente extends JInternalFrame {
                             reservaSeleccionada.numReserva();
 
                     DTResConsultaDetalle detalle =
-                            controlador.listarDatosResConsulta(
-                                    nickname,
-                                    numeroReserva
-                            );
+                            controlador.listarDatosResConsulta(nickname);//cambiosd aca
 
                     // acá abriremos la ventana con el detalle
                 }
