@@ -44,9 +44,9 @@ public class ConsultaPaciente extends JInternalFrame {
 
         setSize(600, 692);
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 109, 0};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 109, 0, 0};
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 22, 102, 41, 209, 0};
-        gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+        gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
         gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         getContentPane().setLayout(gridBagLayout);
         
@@ -60,7 +60,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JLabel lblNickname = new JLabel("lblNickname");
         GridBagConstraints gbc_lblNickname = new GridBagConstraints();
-        gbc_lblNickname.insets = new Insets(0, 0, 5, 0);
+        gbc_lblNickname.insets = new Insets(0, 0, 5, 5);
         gbc_lblNickname.gridx = 3;
         gbc_lblNickname.gridy = 1;
         getContentPane().add(lblNickname, gbc_lblNickname);
@@ -75,7 +75,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JLabel lblFechaNacimiento = new JLabel("lblFechaNacimiento");
         GridBagConstraints gbc_lblFechaNacimiento = new GridBagConstraints();
-        gbc_lblFechaNacimiento.insets = new Insets(0, 0, 5, 0);
+        gbc_lblFechaNacimiento.insets = new Insets(0, 0, 5, 5);
         gbc_lblFechaNacimiento.gridx = 3;
         gbc_lblFechaNacimiento.gridy = 2;
         getContentPane().add(lblFechaNacimiento, gbc_lblFechaNacimiento);
@@ -90,7 +90,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JLabel lblDocumento = new JLabel("lblDocumento");
         GridBagConstraints gbc_lblDocumento = new GridBagConstraints();
-        gbc_lblDocumento.insets = new Insets(0, 0, 5, 0);
+        gbc_lblDocumento.insets = new Insets(0, 0, 5, 5);
         gbc_lblDocumento.gridx = 3;
         gbc_lblDocumento.gridy = 3;
         getContentPane().add(lblDocumento, gbc_lblDocumento);
@@ -105,7 +105,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JLabel lblFechaIngreso = new JLabel("lblFechaIngreso");
         GridBagConstraints gbc_lblFechaIngreso = new GridBagConstraints();
-        gbc_lblFechaIngreso.insets = new Insets(0, 0, 5, 0);
+        gbc_lblFechaIngreso.insets = new Insets(0, 0, 5, 5);
         gbc_lblFechaIngreso.gridx = 3;
         gbc_lblFechaIngreso.gridy = 4;
         getContentPane().add(lblFechaIngreso, gbc_lblFechaIngreso);
@@ -120,7 +120,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JLabel lblOrdenes = new JLabel("lblOrdenes");
         GridBagConstraints gbc_lblOrdenes = new GridBagConstraints();
-        gbc_lblOrdenes.insets = new Insets(0, 0, 5, 0);
+        gbc_lblOrdenes.insets = new Insets(0, 0, 5, 5);
         gbc_lblOrdenes.gridx = 3;
         gbc_lblOrdenes.gridy = 5;
         getContentPane().add(lblOrdenes, gbc_lblOrdenes);
@@ -135,7 +135,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JLabel lblTickets = new JLabel("lblTickets");
         GridBagConstraints gbc_lblTickets = new GridBagConstraints();
-        gbc_lblTickets.insets = new Insets(0, 0, 5, 0);
+        gbc_lblTickets.insets = new Insets(0, 0, 5, 5);
         gbc_lblTickets.gridx = 3;
         gbc_lblTickets.gridy = 6;
         getContentPane().add(lblTickets, gbc_lblTickets);
@@ -150,7 +150,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         JList listaAntecedentes = new JList();
         GridBagConstraints gbc_listaAntecedentes = new GridBagConstraints();
-        gbc_listaAntecedentes.insets = new Insets(0, 0, 5, 0);
+        gbc_listaAntecedentes.insets = new Insets(0, 0, 5, 5);
         gbc_listaAntecedentes.fill = GridBagConstraints.BOTH;
         gbc_listaAntecedentes.gridx = 3;
         gbc_listaAntecedentes.gridy = 8;
@@ -188,6 +188,7 @@ public class ConsultaPaciente extends JInternalFrame {
         JList listaReservas = new JList();
         listaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         GridBagConstraints gbc_listaReservas = new GridBagConstraints();
+        gbc_listaReservas.insets = new Insets(0, 0, 0, 5);
         gbc_listaReservas.fill = GridBagConstraints.BOTH;
         gbc_listaReservas.gridx = 3;
         gbc_listaReservas.gridy = 10;
