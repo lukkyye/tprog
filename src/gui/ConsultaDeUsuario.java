@@ -143,40 +143,24 @@ public class ConsultaDeUsuario extends JInternalFrame {
         
         btnSeleccionar.addActionListener(e -> {
 
-            String nickname = txtIngreseUsuario.getText().trim();
+            String nickname = listaUsuarios.getSelectedValue();
 
-            // 1. Verificar que haya escrito algo
-            if (nickname.isEmpty()) {
+            if (nickname == null) {
                 JOptionPane.showMessageDialog(
                     this,
-                    "Ingrese un nickname.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
+                    "Seleccione un usuario de la lista.",
+                    "Usuario no seleccionado",
+                    JOptionPane.WARNING_MESSAGE
                 );
                 return;
             }
 
-            // 2. Verificar que el usuario exista
-            boolean existeUsuario = controlador.listarUsuarios()
-                    .stream()
-                    .anyMatch(usuario -> usuario.nickname().equals(nickname));
-
-            if (!existeUsuario) {
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Ingrese un nickname válido.",
-                    "Usuario no encontrado",
-                    JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }
-
-            // 3. Averiguar si es paciente
             boolean esPaciente = controlador.listarPacientes()
                     .stream()
-                    .anyMatch(paciente -> paciente.nickname().equals(nickname));
+                    .anyMatch(paciente ->
+                        paciente.nickname().equals(nickname)
+                    );
 
-            // El JDesktopPane donde están abiertas las ventanas
             JDesktopPane desktopPane = getDesktopPane();
 
             if (esPaciente) {
@@ -196,7 +180,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
                 ventanaMedico.setVisible(true);
             }
 
-            // 4. Cerrar ConsultaDeUsuario SOLO si todo salió bien
             dispose();
         });
         

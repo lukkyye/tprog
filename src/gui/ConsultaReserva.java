@@ -8,7 +8,7 @@ import java.awt.Insets;
 
 public class ConsultaReserva extends JInternalFrame{
 	public ConsultaReserva(DTResConsultaDetalle detalle) {
-	    super("Consulta de Reserva", true, true, true, true);
+	    super("Detalle de Reserva de Consulta", true, true, true, true);
 
 	    setSize(600, 500);
 	    GridBagLayout gridBagLayout = new GridBagLayout();
