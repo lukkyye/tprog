@@ -85,10 +85,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
         JList<String> listaUsuarios = new JList<String>();
 
         listaUsuarios.setSelectionMode(
-            ListSelectionModel.SINGLE_SELECTION
-        );
-
-        listaUsuarios.setSelectionMode(
                 ListSelectionModel.SINGLE_SELECTION
         );
 
@@ -101,6 +97,10 @@ public class ConsultaDeUsuario extends JInternalFrame {
                 .toArray(String[]::new);
 
         listaUsuarios.setListData(nicknames);
+
+        scrollPane.setViewportView(listaUsuarios);
+
+
         
         
         JLabel lblNickname = new JLabel("Ingrese Nickname:");
