@@ -1,6 +1,9 @@
 package logica.clases;
 import java.time.LocalDate;
 import logica.datatypes.*;
+import logica.manejadores.ManejadorConsulta;
+import logica.manejadores.ManejadorUsuario;
+
 import java.util.HashSet;
 
 public class Consulta {
@@ -94,6 +97,15 @@ public class Consulta {
 	public int getCantNumC() {
         return cantNum;
     }
+	
+	public DTResConsultaDetalle listarDatosResConsultaC(int numReserva) {
+	    for (Reserva r : reservas) {
+	        if (r.getNumReserva() == numReserva) {
+	            return r.getDataResConsultaDetalle();
+	        }
+	    }
+	    return null;
+	}
 
 	
 }

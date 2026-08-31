@@ -13,6 +13,7 @@ import logica.clases.Medico;
 import java.util.Set;
 import java.util.HashSet;
 import logica.datatypes.DTPaciente;
+import logica.datatypes.DTResConsultaDetalle;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Usuario;
 import logica.clases.Paciente;
@@ -44,6 +45,15 @@ public class ControladorClinica {
 		res = cons.getDataConsultaDetalle();
 		return res;
 		
+	}
+	
+	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	    ManejadorConsulta mc = ManejadorConsulta.get_instance();
+	    Consulta c = mc.get_consulta(nomC);
+	    if (c != null) {
+	        return c.listarDatosResConsultaC(numReserva);
+	    }
+	    return null;
 	}
 	
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 
