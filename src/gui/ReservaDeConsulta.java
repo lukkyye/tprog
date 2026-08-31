@@ -43,9 +43,9 @@ public class ReservaDeConsulta extends JInternalFrame {
         
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 197, 244, 197, 0};
-        gridBagLayout.rowHeights = new int[]{0, 60, 60, 60, 37, 0, 0};
+        gridBagLayout.rowHeights = new int[]{0, 60, 60, 60, 41, 0, 0};
         gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         getContentPane().setLayout(gridBagLayout);
         
         JLabel lblNewLabel = new JLabel("Día de consulta:");
@@ -182,9 +182,11 @@ public class ReservaDeConsulta extends JInternalFrame {
         gbc_lblNewLabel_3.gridx = 1;
         gbc_lblNewLabel_3.gridy = 4;
         getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
+        
+      
         GridBagConstraints gbc_dateChooser = new GridBagConstraints();
         gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
-        gbc_dateChooser.fill = GridBagConstraints.BOTH;
+        gbc_dateChooser.fill = GridBagConstraints.HORIZONTAL;
         gbc_dateChooser.gridx = 2;
         gbc_dateChooser.gridy = 4;
         getContentPane().add(dateChooser, gbc_dateChooser);
