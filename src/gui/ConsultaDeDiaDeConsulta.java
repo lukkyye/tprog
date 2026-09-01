@@ -19,7 +19,10 @@ import logica.datatypes.DTConsultaDetalle;
 
 
 public class ConsultaDeDiaDeConsulta extends JInternalFrame {
-
+	
+	private boolean cargando = false;
+	private boolean cargandoReservas = false;
+	
     public ConsultaDeDiaDeConsulta() {
 
         super(
@@ -391,11 +394,16 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                         comboBoxConsultas.setVisible(true);
 
                         comboBoxConsultas.removeAllItems();
+                        
+                        cargando = true;
 
                         for (DTConsulta c : controlador.selecListaConsultaDelDia(nombreDia)) {
                             comboBoxConsultas.addItem(c.nomC());
                         }
-
+                        
+                        comboBoxConsultas.setSelectedIndex(-1);
+                        cargando = false;
+                        
                         break;
                     }
                 }
@@ -404,6 +412,10 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         comboBoxConsultas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+            	if (cargando) {
+                    return;
+                }
+            	
                 if (comboBoxConsultas.getSelectedItem() == null) {
                     return;
                 }
@@ -428,6 +440,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
 
                 camponombreconsulta.setText(consulta.nomC());
                 campomedicoconsulta.setText(consulta.medico());
+
                 campofechaconsulta.setText(consulta.fechaC().toString());
                 camposalaconsulta.setText(String.valueOf(consulta.sala()));
                 campocantnumconsulta.setText(String.valueOf(consulta.cantNum()));
@@ -449,13 +462,18 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 
                 reservaconsulta.setVisible(true);
                 comboBoxreservas.setVisible(true);
+                
+                cargandoReservas = true;
 
                 comboBoxreservas.removeAllItems();
+                
+       
 
                 for (DTResConsulta r : consulta.reservas()) {
                     comboBoxreservas.addItem(r.numReserva());
                 }
-                
+                comboBoxreservas.setSelectedIndex(-1);
+                cargandoReservas = false;
                 
             }
         });
@@ -463,6 +481,10 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         
         comboBoxreservas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	
+            	if (cargandoReservas) {
+                    return;
+                }
 
                 if (comboBoxreservas.getSelectedItem() == null) {
                     return;
