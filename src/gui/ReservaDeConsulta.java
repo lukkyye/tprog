@@ -122,7 +122,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         
       
         
-        JLabel lblNewLabel_3 = new JLabel("Fecha de Reserva:");
+        JLabel lblNewLabel_3 = new JLabel("Fecha de reservacion:");
         GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
         gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);

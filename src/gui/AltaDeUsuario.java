@@ -371,7 +371,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		sl_panelPaciente.putConstraint(SpringLayout.EAST, dateChooser_ing, 0, SpringLayout.EAST, documentoField);
 		panelPaciente.add(dateChooser_ing);
 		
-		JLabel fechaIngresoLabel = new JLabel("Documento de identidad:");
+		JLabel fechaIngresoLabel = new JLabel("Fecha de Ingreso:");
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, fechaIngresoLabel, 0, SpringLayout.WEST, selector_label_1_1);
 		sl_panelPaciente.putConstraint(SpringLayout.SOUTH, fechaIngresoLabel, 0, SpringLayout.SOUTH, panel_1);
 		panelPaciente.add(fechaIngresoLabel);
