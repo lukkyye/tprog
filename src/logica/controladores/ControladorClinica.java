@@ -91,7 +91,7 @@ public class ControladorClinica {
 	    return mu.get_dtpacientes();
 	}
 	
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva) {
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
 		 ManejadorUsuario mu = ManejadorUsuario.get_instance();
 		 ManejadorConsulta mc = ManejadorConsulta.get_instance();
 		 Usuario u = mu.get_usuario(nicknamePaciente);
@@ -105,10 +105,10 @@ public class ControladorClinica {
 			 throw new NoNumberAvailableException("No hay números disponibles para esta consulta");
 		    }
 		 float costo = c.getCostoC();
-		 boolean aplicaBenef = false;
+		 //boolean aplicaBenef = false;
 		 if (p.esMayorDe60()) {
 		        costo = costo * 0.8f;
-		        aplicaBenef = true;
+		        //aplicaBenef = true;
 		    }
 		 Reserva r = new Reserva(nicknamePaciente, nomC, fechaReserva, numero, aplicaBenef, costo);
 		 p.agregarReserva(r);

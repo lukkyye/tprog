@@ -25,6 +25,7 @@ import com.toedter.calendar.JDateChooser;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import javax.swing.JRadioButton;
 
 public class ReservaDeConsulta extends JInternalFrame {
 
@@ -43,9 +44,9 @@ public class ReservaDeConsulta extends JInternalFrame {
         
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 197, 244, 197, 0};
-        gridBagLayout.rowHeights = new int[]{0, 60, 60, 60, 41, 0, 0};
+        gridBagLayout.rowHeights = new int[]{0, 60, 60, 60, 41, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         getContentPane().setLayout(gridBagLayout);
         
         JLabel lblNewLabel = new JLabel("Día de consulta:");
@@ -119,6 +120,26 @@ public class ReservaDeConsulta extends JInternalFrame {
         	}
         });
         
+      
+        
+        JLabel lblNewLabel_3 = new JLabel("Fecha de Reserva:");
+        GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+        gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
+        gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+        gbc_lblNewLabel_3.gridx = 1;
+        gbc_lblNewLabel_3.gridy = 4;
+        getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
+        
+      
+        GridBagConstraints gbc_dateChooser = new GridBagConstraints();
+        gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
+        gbc_dateChooser.fill = GridBagConstraints.HORIZONTAL;
+        gbc_dateChooser.gridx = 2;
+        gbc_dateChooser.gridy = 4;
+        getContentPane().add(dateChooser, gbc_dateChooser);
+        
+        JRadioButton rdbtnBeneficioAnual = new JRadioButton("Beneficio anual");
+        
         JButton btnReserva = new JButton("Reservar");
         btnReserva.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -157,9 +178,10 @@ public class ReservaDeConsulta extends JInternalFrame {
             					 JOptionPane.WARNING_MESSAGE);
             			 return;
             		}
+            		boolean usaBeneficio = rdbtnBeneficioAnual.isSelected(); //acaaaaa
             		
                 try {
-                	controlador.reservarConsulta(paciente, consulta, fechaReserva);
+                	controlador.reservarConsulta(paciente, consulta, fechaReserva, usaBeneficio); // modificar
                     JOptionPane.showMessageDialog(
                         null,
                         "Reserva realizada correctamente."
@@ -182,27 +204,16 @@ public class ReservaDeConsulta extends JInternalFrame {
             }
         });
         
-      
-        
-        JLabel lblNewLabel_3 = new JLabel("Fecha de Reserva:");
-        GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-        gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
-        gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel_3.gridx = 1;
-        gbc_lblNewLabel_3.gridy = 4;
-        getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
-        
-      
-        GridBagConstraints gbc_dateChooser = new GridBagConstraints();
-        gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
-        gbc_dateChooser.fill = GridBagConstraints.HORIZONTAL;
-        gbc_dateChooser.gridx = 2;
-        gbc_dateChooser.gridy = 4;
-        getContentPane().add(dateChooser, gbc_dateChooser);
+       // JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+        GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
+        gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 5);
+        gbc_rdbtnNewRadioButton.gridx = 2;
+        gbc_rdbtnNewRadioButton.gridy = 5;
+        getContentPane().add(rdbtnBeneficioAnual, gbc_rdbtnNewRadioButton);
         GridBagConstraints gbc_btnReserva = new GridBagConstraints();
         gbc_btnReserva.insets = new Insets(0, 0, 0, 5);
         gbc_btnReserva.gridx = 2;
-        gbc_btnReserva.gridy = 5;
+        gbc_btnReserva.gridy = 7;
         getContentPane().add(btnReserva, gbc_btnReserva);
    }
 }
