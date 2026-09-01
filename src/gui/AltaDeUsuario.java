@@ -400,61 +400,55 @@ public class AltaDeUsuario extends JInternalFrame {
 			
 			ControladorUsuario cu = new ControladorUsuario();
 			ArrayList<String> antssalud = Collections.list(modeloAntSalud.elements());
-			try {
+		    if (dateChooser.getDate() == null || dateChooser_1.getDate() == null) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Debe ingresar la fecha de nacimiento y la fecha de ingreso.",
+		            "Datos incompletos",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
 
-			    // Verificar que se hayan seleccionado las dos fechas
-			    if (dateChooser.getDate() == null || dateChooser_1.getDate() == null) {
-			        JOptionPane.showMessageDialog(
-			            this,
-			            "Debe ingresar la fecha de nacimiento y la fecha de ingreso.",
-			            "Datos incompletos",
-			            JOptionPane.WARNING_MESSAGE
-			        );
-			        return;
-			    }
+		    LocalDate fechaNac = LocalDate.ofInstant(
+		        dateChooser.getDate().toInstant(),
+		        ZoneId.systemDefault()
+		    );
 
-			    // Fecha de nacimiento elegida por el usuario
-			    LocalDate fechaNac = LocalDate.ofInstant(
-			        dateChooser.getDate().toInstant(),
-			        ZoneId.systemDefault()
-			    );
-
-			    // Fecha de ingreso elegida por el usuario
-			    LocalDate fechaIngreso = LocalDate.ofInstant(
-			        dateChooser_1.getDate().toInstant(),
-			        ZoneId.systemDefault()
-			    );
+		    LocalDate fechaIngreso = LocalDate.ofInstant(
+		        dateChooser_1.getDate().toInstant(),
+		        ZoneId.systemDefault()
+		    );
+		    
+		    if (fechaNac.isAfter(LocalDate.now())) {
+		        JOptionPane.showMessageDialog(
+		            this, "La fecha de nacimiento no puede ser posterior a hoy.","Fecha inválida.",
+		            JOptionPane.WARNING_MESSAGE );
+		        return;
+		    }
+		    if (fechaIngreso.isBefore(fechaNac)) {
+		    	JOptionPane.showMessageDialog(
+		                this,		
+		                "La fecha de ingreso no puede ser anterior a la fecha de nacimiento.","Fecha inválida.",
+		                JOptionPane.WARNING_MESSAGE);
+		    	return;
+		    }
 			    
-			    if (fechaNac.isAfter(LocalDate.now())) {
-			        JOptionPane.showMessageDialog(
-			            this, "La fecha de nacimiento no puede ser posterior a hoy.","Fecha inválida.",
-			            JOptionPane.WARNING_MESSAGE );
-			        return;
-			    }
-			    if (fechaIngreso.isBefore(fechaNac)) {
-			    	JOptionPane.showMessageDialog(
-			                this,		
-			                "La fecha de ingreso no puede ser anterior a la fecha de nacimiento.","Fecha inválida.",
-			                JOptionPane.WARNING_MESSAGE);
-			    	return;
-			    	}
-			    			
-			if (validar_paciente(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
-					emailField.getText(), fechaNac, Integer.parseInt(documentoField.getText()))){
-				try {
-					cu.ingresarPaciente(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, fechaIngreso,Integer.parseInt(documentoField.getText()),antssalud);
-					JOptionPane.showMessageDialog(this, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
-					this.dispose();
-				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
-					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}  else {
+		    try {
+		    	if (validar_medico(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
+						emailField.getText(), Integer.parseInt(nroRegField.getText()), Integer.parseInt(porcCostField.getText()), linkField.getText(), selections)){
+						cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , Integer.parseInt(nroRegField.getText()), 
+								TipoMes.values()[mesLicField.getSelectedIndex()], Integer.parseInt(porcCostField.getText()), linkField.getText(), selections);
+						JOptionPane.showMessageDialog(null, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+						this.dispose();
+		    	}
+		    } catch (NumberFormatException numformerror) {
 				JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.WARNING_MESSAGE);
-			}
-			} catch (DateTimeException | java.lang.NullPointerException e) {
-		        JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		});
+		    } catch (NicknameAlreadyExistsException | EmailAlreadyExistsException nickexists) {
+				JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n", "Error", JOptionPane.ERROR_MESSAGE);
+		    }
+			
+			});
 		
 		okMedButton.addActionListener(a -> {
 			
