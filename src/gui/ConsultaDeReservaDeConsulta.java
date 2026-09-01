@@ -145,7 +145,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
                 Integer numReserva = (Integer) comboNumReservas.getSelectedItem();
 
                 if (nickname != null && numReserva != null) {
-                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname, numReserva); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
+                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
                     if (detalle != null) {
                         mostrarPopUpDetalle(numReserva, detalle);
                     } else {
