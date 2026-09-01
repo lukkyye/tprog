@@ -303,7 +303,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_camponumreserva.gridy = 15;
         getContentPane().add(camponumreserva, gbc_camponumreserva);
         
-        JLabel beneficioreserva = new JLabel("Beneficio:");
+        JLabel beneficioreserva = new JLabel("Beneficio anual:");
         GridBagConstraints gbc_beneficioreserva = new GridBagConstraints();
         gbc_beneficioreserva.anchor = GridBagConstraints.WEST;
         gbc_beneficioreserva.insets = new Insets(0, 0, 5, 5);
@@ -505,7 +505,9 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
 
                         campofechareserva.setText(r.fechaRes().toString());
                         camponumreserva.setText(String.valueOf(r.numReserva()));
-                        campobeneficioreserva.setText(String.valueOf(r.aplicaBenef()));
+                        campobeneficioreserva.setText(
+                        	    r.aplicaBenef() ? "Aplica" : "No aplica"
+                        	);
                         campocostoreserva.setText(String.valueOf(r.costoR()));
 
                         reservaconsulta.setVisible(true);
