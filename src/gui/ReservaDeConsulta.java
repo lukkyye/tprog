@@ -165,6 +165,7 @@ public class ReservaDeConsulta extends JInternalFrame {
                 		        "Error en fecha",
                 		        JOptionPane.WARNING_MESSAGE
                 		    );
+            			return;
             		}
             		
             		if (dateChooser.getDate() == null) {
