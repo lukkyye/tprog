@@ -120,7 +120,16 @@ public class ManejadorUsuario {
 		m1.agregarEspecialidad(esp);
 		usuarios.put(nickname, m1);
 	}
-	
+	public boolean existe_nroReg(int nroReg) {
+		for (Usuario u: usuarios.values()) {
+			if (u instanceof Medico m) {
+				if (m.get_nroReg()==nroReg) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
@@ -128,7 +137,11 @@ public class ManejadorUsuario {
 		if (existe_correo(correo)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
+		if (existe_nroReg(nroReg)) {
+			throw new NumeroDeRegistroAlreadyExistsException("Ya existe un numero de registro en el sistema");
+		}
 		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+	
 		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
 		usuarios.put(nickname, m1);
 	}

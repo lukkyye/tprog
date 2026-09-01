@@ -448,6 +448,8 @@ public class AltaDeUsuario extends JInternalFrame {
 						this.dispose();
 					} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
 						JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (NumeroDeRegistroAlreadyExistsException err) {
+						JOptionPane.showMessageDialog(null, "Ya existe un medico en el sistema con el numero de registro proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.WARNING_MESSAGE);
