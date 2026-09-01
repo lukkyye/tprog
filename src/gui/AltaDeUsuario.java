@@ -415,6 +415,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		                this,		
 		                "La fecha de ingreso no puede ser anterior a la fecha de nacimiento.","Fecha inválida.",
 		                JOptionPane.WARNING_MESSAGE);
+		    		return;
 		    }
 			if (validar_paciente(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
 					emailField.getText(), fechaNac, Integer.parseInt(documentoField.getText()))){

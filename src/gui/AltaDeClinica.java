@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logica.controladores.ControladorClinica;
+import logica.excepciones.NombreClinicaAlreadyExistsException;
 
 public class AltaDeClinica extends JInternalFrame {
 
@@ -126,19 +127,19 @@ public class AltaDeClinica extends JInternalFrame {
                 }
 
                 ControladorClinica cc = new ControladorClinica();
-                boolean exito = cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
-
-                if (exito) {
-                    JOptionPane.showMessageDialog(AltaDeClinica.this, 
-                        "Clínica ingresada con éxito.", 
-                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(AltaDeClinica.this,
-                        "Ya existe una clínica registrada con el nombre: '" + nombre + "'.\nPor favor, ingrese un nombre diferente.",
-                        "Nombre Duplicado", JOptionPane.ERROR_MESSAGE);
-                    nombreField.requestFocus();
+                try {                	
+                	cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
+                	JOptionPane.showMessageDialog(AltaDeClinica.this, 
+                            "Clínica ingresada con éxito.", 
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                } catch (NombreClinicaAlreadyExistsException ex) {
+                	JOptionPane.showMessageDialog(AltaDeClinica.this,
+                            "Ya existe una clínica registrada con el nombre: '" + nombre + "'.\nPor favor, ingrese un nombre diferente.",
+                            "Nombre Duplicado", JOptionPane.ERROR_MESSAGE);
+                        nombreField.requestFocus();
                 }
+
             }
         });
     }
