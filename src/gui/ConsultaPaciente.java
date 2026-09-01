@@ -3,17 +3,20 @@ package gui;
 import javax.swing.JInternalFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.*;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 import java.util.HashSet;
-import logica.datatypes.DTResConsulta;
-
 import java.util.ArrayList;
 
 
@@ -148,7 +151,7 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNewLabel_6.gridy = 8;
         getContentPane().add(lblNewLabel_6, gbc_lblNewLabel_6);
         
-        JList listaAntecedentes = new JList();
+        JList<String> listaAntecedentes = new JList<String>();
         GridBagConstraints gbc_listaAntecedentes = new GridBagConstraints();
         gbc_listaAntecedentes.insets = new Insets(0, 0, 5, 5);
         gbc_listaAntecedentes.fill = GridBagConstraints.BOTH;
@@ -185,7 +188,7 @@ public class ConsultaPaciente extends JInternalFrame {
                 String.valueOf(paciente.cantTicketAcum())
         );
         
-        JList listaReservas = new JList();
+        JList<String> listaReservas = new JList<String>();
         listaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         GridBagConstraints gbc_listaReservas = new GridBagConstraints();
         gbc_listaReservas.insets = new Insets(0, 0, 0, 5);
@@ -251,11 +254,40 @@ public class ConsultaPaciente extends JInternalFrame {
                             reservaSeleccionada.numReserva();
 
                     DTResConsultaDetalle detalle =
-                            controlador.listarDatosResConsulta(nickname);//cambiosd aca
+                            controlador.listarDatosResConsulta(nickname, numeroReserva);//cambiosd aca
 
                     // acá abriremos la ventana con el detalle
+                    mostrarPopUpDetalle(numeroReserva, detalle);
                 }
             }
         });
+    }
+    private void mostrarPopUpDetalle(Integer numReserva, DTResConsultaDetalle detalle) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=========================================\n");
+        sb.append("          DETALLE DE LA RESERVA          \n");
+        sb.append("=========================================\n");
+        sb.append("Número de Reserva: ").append(detalle.numReserva()).append("\n");
+        sb.append("Fecha de Reserva:  ").append(detalle.fechaRes()).append("\n");
+        sb.append("Aplica Beneficio:  ").append(detalle.aplicaBenef() ? "Sí" : "No").append("\n");
+        sb.append("Costo Reserva:     $").append(detalle.costoR()).append("\n\n");
+        sb.append("-----------------------------------------\n");
+        sb.append("         INFORMACIÓN DE CONSULTA         \n");
+        sb.append("-----------------------------------------\n");
+        sb.append("Nombre Consulta:   ").append(detalle.nomC()).append("\n");
+        sb.append("Médico a Cargo:    ").append(detalle.medicoC()).append("\n");
+        sb.append("Fecha Consulta:    ").append(detalle.fechaC()).append("\n");
+        sb.append("Número de Sala:    ").append(detalle.salaC()).append("\n");
+        sb.append("Cantidad Números:  ").append(detalle.cantNumC()).append("\n");
+        sb.append("Costo Consulta:    $").append(detalle.costoC()).append("\n");
+
+        JTextArea areaDetalle = new JTextArea(sb.toString());
+        areaDetalle.setEditable(false);
+        areaDetalle.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+        JScrollPane scrollPopUp = new JScrollPane(areaDetalle);
+        scrollPopUp.setPreferredSize(new Dimension(420, 280));
+
+        JOptionPane.showMessageDialog(this, scrollPopUp, "Detalle de Reserva #" + numReserva, JOptionPane.INFORMATION_MESSAGE);
     }
 }

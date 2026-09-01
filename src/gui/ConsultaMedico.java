@@ -255,7 +255,7 @@ public class ConsultaMedico extends JInternalFrame {
                                 );
 
                         ConsultaDetalle ventanaDetalle =
-                                new ConsultaDetalle(detalle);
+                                new ConsultaDetalle(detalle, usuario.nickname());
 
                         getDesktopPane().add(ventanaDetalle);
                         ventanaDetalle.setVisible(true);

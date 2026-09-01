@@ -14,7 +14,8 @@ public class EstacionTrabajo extends JFrame { //ventana externa
     private JDesktopPane desktopPane; //zona grande donde después se abren las ventanas internas
 
     public EstacionTrabajo() {
-
+    	
+    
         setTitle("Estación de Trabajo");
         setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

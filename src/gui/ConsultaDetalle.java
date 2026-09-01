@@ -3,21 +3,29 @@ package gui;
 import javax.swing.JInternalFrame;
 import java.awt.GridBagLayout;
 
+import logica.controladores.ControladorUsuario;
 import logica.datatypes.DTConsultaDetalle;
 import javax.swing.JLabel;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import java.util.HashSet;
 import logica.datatypes.DTResConsulta;
+import logica.datatypes.DTResConsultaDetalle;
 
 public class ConsultaDetalle extends JInternalFrame {
-
+	private String nickname;
     private DTConsultaDetalle detalle;
 
-    public ConsultaDetalle(DTConsultaDetalle detalle) {
-
+    public ConsultaDetalle(DTConsultaDetalle detalle, String nickname) {
+    	
         super(
             "Detalle de Consulta Asociada",
             true,
@@ -25,6 +33,7 @@ public class ConsultaDetalle extends JInternalFrame {
             true,
             true
         );
+        this.nickname=nickname;
 
         this.detalle = detalle;
 
@@ -127,7 +136,7 @@ public class ConsultaDetalle extends JInternalFrame {
         gbc_lblNewLabel_1_1_1_1_1_2.gridy = 8;
         getContentPane().add(lblNewLabel_1_1_1_1_1_2, gbc_lblNewLabel_1_1_1_1_1_2);
         
-        JList listaReservas = new JList();
+        JList<String> listaReservas = new JList<String>();
         GridBagConstraints gbc_listaReservas = new GridBagConstraints();
         gbc_listaReservas.insets = new Insets(0, 0, 0, 5);
         gbc_listaReservas.fill = GridBagConstraints.BOTH;
@@ -162,7 +171,7 @@ public class ConsultaDetalle extends JInternalFrame {
                         + " - $" + reserva.costoR()
                     )
                     .toArray(String[]::new);
-
+            
             listaReservas.setListData(reservasParaMostrar);
             listaReservas.setEnabled(true);
         }

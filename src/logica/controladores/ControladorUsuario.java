@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import logica.datatypes.*;
+import logica.excepciones.ReservaDoesntExistsException;
 import logica.manejadores.ManejadorConsulta;
 import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Consulta;
 import logica.clases.Especialidad;
+import logica.clases.Paciente;
 import logica.clases.Reserva;
 
 public class ControladorUsuario {
@@ -73,14 +75,17 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(String nomR) { // Seguir aca
+	public DTResConsultaDetalle listarDatosResConsulta(String nickname, int numReserva) { // Seguir aca
+		
 		ManejadorUsuario musu = ManejadorUsuario.get_instance();
-		Reserva reserva = musu.get_reserva(nomR);
-		String nomC = reserva.get_consultaAsociada();
-		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
-		Consulta consulta = mcon.get_consulta(nomC);
-		DTResConsultaDetalle res = new DTResConsultaDetalle(reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), consulta.getMedicoC(), consulta.getNomC(), consulta.getFechaC(), consulta.getSalaC(), consulta.getCantNumC(), consulta.getCostoC(), reserva.getCostoR());
-		return res;
+		if (musu.get_usuario(nickname) instanceof Paciente p) {
+			for (Reserva r: p.get_reservas()) {
+				if (r.getNumReserva()==numReserva) {
+					return r.getDataResConsultaDetalle();
+				}
+			}
+		}
+		throw new ReservaDoesntExistsException();
 	}
 	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {

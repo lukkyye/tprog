@@ -14,11 +14,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import logica.datatypes.DTPaciente;
+import logica.clases.Consulta;
 import logica.controladores.ControladorClinica;
 import logica.datatypes.DTConsulta;
 import logica.datatypes.DTDiaConsulta;
 
 import logica.excepciones.ReservaAlreadyExistsException;
+import logica.manejadores.ManejadorConsulta;
 import logica.excepciones.NoNumberAvailableException;
 import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
@@ -154,6 +156,16 @@ public class ReservaDeConsulta extends JInternalFrame {
             		}
             		String consulta = comboBox_Consulta.getSelectedItem().toString();
             		String paciente = comboBox_Paciente.getSelectedItem().toString();
+            		
+            		Consulta a = ManejadorConsulta.get_instance().get_consulta(comboBox_Consulta.getSelectedItem().toString());
+            		if (!a.getFechaC().isAfter(LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault()))) {
+            			JOptionPane.showMessageDialog(
+                		        null,
+                		        "La fecha de la reserva debe de ser anterior a la fecha de la consulta.",
+                		        "Error en fecha",
+                		        JOptionPane.WARNING_MESSAGE
+                		    );
+            		}
             		
             		if (dateChooser.getDate() == null) {
             		    JOptionPane.showMessageDialog(
