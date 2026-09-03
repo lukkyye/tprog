@@ -82,7 +82,7 @@ public class CargadorCSV {
 
 			if (tipo.equals("M")) {
 				String[] datosMedico = medicosPorRef.get(ref);
-				int nroReg = Integer.parseInt(datosMedico[1].trim().substring(3, 7)); //replace later;
+				String nroReg = datosMedico[1]; //replace later;
 				TipoMes mesLic = TipoMes.valueOf(datosMedico[2]);
 				String sitioWeb = datosMedico[3].isEmpty() ? "" : datosMedico[3];
 				int porcAdicional = Integer.parseInt(datosMedico[4].trim());

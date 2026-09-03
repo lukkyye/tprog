@@ -108,7 +108,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("No existe paciente con el nickname ingresado.");
 	}
 	
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -120,17 +120,17 @@ public class ManejadorUsuario {
 		m1.agregarEspecialidad(esp);
 		usuarios.put(nickname, m1);
 	}
-	public boolean existe_nroReg(int nroReg) {
+	public boolean existe_nroReg(String nroReg) {
 		for (Usuario u: usuarios.values()) {
 			if (u instanceof Medico m) {
-				if (m.get_nroReg()==nroReg) {
+				if (m.get_nroReg().equals(nroReg)) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+	public void agregar_medico(String nickname, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
 		if (existe(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}

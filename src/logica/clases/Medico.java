@@ -3,14 +3,14 @@ import logica.datatypes.*;
 import java.util.HashSet;
 
 public class Medico extends Usuario{
-	private int nroReg;
+	private String nroReg;
 	private TipoMes mesLic;
 	private int porcentajeCosto;
 	private String link;
 	private HashSet<String> consultasAsociadas;
 	private HashSet<Especialidad> especialidades;
 	
-	public Medico(String _nickname, String _nombre, String _apellido, String _correo, int _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
+	public Medico(String _nickname, String _nombre, String _apellido, String _correo, String _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
 		super(_nickname, _nombre, _apellido, _correo);
 		this.nroReg = _nroReg;
 		this.mesLic = _mesLic;
@@ -52,7 +52,7 @@ public class Medico extends Usuario{
 	public String get_nicknameM() {
 		return this.nickname;
 	}
-	public int get_nroReg(){ 
+	public String get_nroReg(){ 
 		return this.nroReg; 
 	}
 	public TipoMes get_mesLic() {

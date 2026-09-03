@@ -440,9 +440,9 @@ public class AltaDeUsuario extends JInternalFrame {
 			
 			try {
 				if (validar_medico(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
-						emailField.getText(), Integer.parseInt(nroRegField.getText()), Integer.parseInt(porcCostField.getText()), linkField.getText(), selections)){
+						emailField.getText(), nroRegField.getText(), Integer.parseInt(porcCostField.getText()), linkField.getText(), selections)){
 					try {
-						cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , Integer.parseInt(nroRegField.getText()), 
+						cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , nroRegField.getText(), 
 								TipoMes.values()[mesLicField.getSelectedIndex()], Integer.parseInt(porcCostField.getText()), linkField.getText(), selections);
 						JOptionPane.showMessageDialog(null, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 						this.dispose();
@@ -452,8 +452,11 @@ public class AltaDeUsuario extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Ya existe un medico en el sistema con el numero de registro proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.WARNING_MESSAGE);
-					
+					if (!nroRegField.getText().contains("REG")) {
+						JOptionPane.showMessageDialog(this, "Numero de registro invalido", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica los campos", "Error", JOptionPane.WARNING_MESSAGE);
+					}
 				}
 			} catch (NumberFormatException e){
 				JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\nVerifica que no queden campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
@@ -475,7 +478,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		return false;
 	}
 	
-	public boolean validar_medico(String _nickname, String _nombre, String _apellido, String _correo, int _nroReg, int _porcentajeCosto, String _link, ArrayList<String> espnom) {
-		return validar_usuario(_nickname, _nombre, _apellido, _correo) && _nroReg!=0 && (!espnom.isEmpty());
+	public boolean validar_medico(String _nickname, String _nombre, String _apellido, String _correo, String _nroReg, int _porcentajeCosto, String _link, ArrayList<String> espnom) {
+		return validar_usuario(_nickname, _nombre, _apellido, _correo) && _nroReg.contains("REG") && (!espnom.isEmpty());
 	}
 }

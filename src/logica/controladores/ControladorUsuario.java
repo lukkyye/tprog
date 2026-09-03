@@ -15,12 +15,12 @@ import logica.clases.Reserva;
 
 public class ControladorUsuario {
 	
-	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
+	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, String espNom, int espPorc) {
 		ManejadorUsuario mu = ManejadorUsuario.get_instance();
 		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, espNom, espPorc);
 		return true;
 	}
-	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, int nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+	public boolean ingresarMedico(String nickname, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
 		ManejadorUsuario mu = ManejadorUsuario.get_instance();
 		mu.agregar_medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 		return true;
