@@ -33,6 +33,7 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         
         // Menú Clinica
         JMenu menuClinicas = new JMenu("Clinicas");
+        
 
         JMenuItem itemAltaUsuario = new JMenuItem("Alta de Usuario");
         itemAltaUsuario.addActionListener(e->{
@@ -168,6 +169,18 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	ventana.setVisible(true);
         });
         especialidadMenu.add(altaEspecialidadItem);
+        
+        
+        JMenu menuTest = new JMenu("Test");
+        menuBar.add(menuTest);
+        JMenuItem cargaDatosItem = new JMenuItem("Cargar datos");
+        menuTest.add(cargaDatosItem);
+        cargaDatosItem.addActionListener(e->{
+        	DatosPrueba ventana = new DatosPrueba();
+        	ventana.setSize(256, 200);
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
     }
 
     public static void main(String[] args) {
