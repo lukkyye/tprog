@@ -28,15 +28,6 @@ public class ManejadorEspecialidad {
 		}
 		return false;
 	}
-	public void test_add_basics() {
-		especialidades.add(new Especialidad("Cardiologo", 2));
-		especialidades.add(new Especialidad("Urologo", 2));
-		especialidades.add(new Especialidad("Neurologo", 2));
-		especialidades.add(new Especialidad("Pediatra", 2));
-		especialidades.add(new Especialidad("Ginecologo", 2));
-		especialidades.add(new Especialidad("Neumologo", 2));
-		especialidades.add(new Especialidad("Traumatologo", 2));
-	}
 	
 	public Especialidad getEspecialidad(String espNom) {
 		for (Especialidad e: especialidades) {
@@ -52,16 +43,7 @@ public class ManejadorEspecialidad {
 		return result;
 	}
 	//creoEsp me parece que devolvia Especialidad si encontraba alguna y si no, la creaba. cualquier cosa es corregible.
-	public Especialidad find_or_create(String _espNom, int _espPorc) {
-		Especialidad e;
-		try {
-			e = this.getEspecialidad(_espNom);
-		} catch (SpecialityNotFoundException c) {
-			e = new Especialidad(_espNom, _espPorc);
-			especialidades.add(e);
-		}
-		return e;
-	}
+	
 	
 	public Especialidad altaEspecialidad(String espNom, int espPorc) {
 		if (existeEsp(espNom)) {
