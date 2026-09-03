@@ -2,12 +2,17 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
+import logica.datatypes.DTDiaSemana;
+import logica.datatypes.TipoMes;
 import logica.excepciones.*;
 import logica.manejadores.ManejadorEspecialidad;
 
@@ -17,23 +22,31 @@ class CargadorCSVTest {
 	private static final ControladorClinica controladorClinica = new ControladorClinica();
 	private static final ManejadorEspecialidad manejadorEspecialidad = ManejadorEspecialidad.get_instance();
 	
+	@BeforeAll
+	static void cargarDatos() {
+		CargadorCSV cargador = new CargadorCSV();
+		cargador.cargarTodo();
+	}
 
 	@Test
 	void unicidadNicknamePaciente_AltaDeUsuario() {
-		controladorUsuario.ingresarPaciente("nick1", "asd", "asd", "asd1@", LocalDate.now(), LocalDate.now(), 54849456, null);
-		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("nick1", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});
+		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});
 	}
 	@Test
 	void unicidadEmailPaciente_AltaDeUsuario() {
-		controladorUsuario.ingresarPaciente("nick2", "asd2", "asd2", "asd@", LocalDate.now(), LocalDate.now(), 54849458, null);
-		assertThrows(EmailAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("nick3", "asd", "asd", "asd@", LocalDate.now(), LocalDate.now(), 54849459, null);});
+		assertThrows(EmailAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("nick3", "asd", "asd", "carla.rodriguez@hospital.com", LocalDate.now(), LocalDate.now(), 54849459, null);});
 	}
 	
 	@Test
+	void unicidadNicknameMedico_AltaDeUsuario() {
+		assertThrows(NicknameAlreadyExistsException.class, ()->{
+			controladorUsuario.ingresarMedico("bsilva", "asd", "asd", "asd", "REG9999", TipoMes.Enero, 0, " ", new ArrayList<String>(List.of("Pediatría")));		
+		});
+	}
+	@Test
 	void unicidadNombreEspecialidad_AltaDeEspecialidad() {
-		manejadorEspecialidad.altaEspecialidad("esp1", 0);
 		assertThrows(EspecialidadAlreadyExistsException.class, ()->{
-			manejadorEspecialidad.altaEspecialidad("esp1", 1);
+			manejadorEspecialidad.altaEspecialidad("Pediatría", 1);
 		;});
 	}
 	
@@ -44,4 +57,55 @@ class CargadorCSVTest {
 			controladorClinica.ingresarClinica("cl1", "asd", "asd", 1, 2, "web.com");
 		});
 	}
-}
+	
+	@Test
+	void medicoDebeTenerAlMenosUnaEspecialidad() {
+		assertThrows(MedicoSinEspecialidadException.class, ()->{ controladorUsuario.ingresarMedico("nick44", "asd", "asd", "asd", "REG2003", TipoMes.Enero, 0, " ", new ArrayList<String>());});
+	}
+	
+	@Test
+	void unicidadReserva_ReservaDeConsulta() {
+		assertThrows(ReservaAlreadyExistsException.class, ()->{controladorClinica.reservarConsulta("s.lopez", "Pediatría 080926", LocalDate.of(1990,9,4), false);});
+	}
+	
+	@Test 
+	void unicidadDiaDeConsulta_AltaDiaDeConsulta(){
+		assertThrows(DiaConsultaAlreadyExistsException.class, ()->{
+			controladorClinica.ingresarDiaConsulta("Pediatría - Martes", " ", DTDiaSemana.Martes, LocalTime.now(), "Pediatría", "CASMU");
+		});
+	}
+	
+	@Test
+	void unicidadNumRegistro_AltaDeUsuario() {
+		assertThrows(NumeroDeRegistroAlreadyExistsException.class, ()->{
+			controladorUsuario.ingresarMedico("qwertyuiop", "asd", "asd", "asd", "REG1001", TipoMes.Enero, 0, " ", new ArrayList<String>(List.of("Pediatría")));		
+		});
+	}
+	
+	@Test
+	void consultaFueraDeFecha() {
+		assertThrows(FechaDiaSemanaInvalidaException.class, () -> {
+			controladorClinica.ingresarConsulta("Pediatría - Martes", "bsilva", "asd", LocalDate.of(2000, 9, 7), 1, 1);
+		});
+	};
+	
+	
+	@Test
+	void reservarSinCupos() {
+		assertThrows(NoNumberAvailableException.class, ()->{
+			controladorClinica.reservarConsulta("mar.fernandez", "Pediatría 080926", LocalDate.of(1990, 9, 7), false);
+		});
+	}
+	
+	@Test
+	void unicidadConsulta() {
+		assertThrows(ConsultaNombreAlreadyExistsException.class, ()->{
+			controladorClinica.ingresarConsulta("Pediatría - Martes", "bsilva", "Pediatría 080926", LocalDate.of(2026, 9, 15), 1, 1);
+		});
+	}
+	
+	
+	
+	
+
+} 

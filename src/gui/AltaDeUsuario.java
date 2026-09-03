@@ -450,6 +450,8 @@ public class AltaDeUsuario extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					} catch (NumeroDeRegistroAlreadyExistsException err) {
 						JOptionPane.showMessageDialog(null, "Ya existe un medico en el sistema con el numero de registro proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (MedicoSinEspecialidadException err) {
+						JOptionPane.showMessageDialog(null, "Ingrese al menos una especialidad.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					if (!nroRegField.getText().contains("REG")) {
@@ -479,6 +481,6 @@ public class AltaDeUsuario extends JInternalFrame {
 	}
 	
 	public boolean validar_medico(String _nickname, String _nombre, String _apellido, String _correo, String _nroReg, int _porcentajeCosto, String _link, ArrayList<String> espnom) {
-		return validar_usuario(_nickname, _nombre, _apellido, _correo) && _nroReg.contains("REG") && (!espnom.isEmpty());
+		return validar_usuario(_nickname, _nombre, _apellido, _correo) && _nroReg.contains("REG");
 	}
 }

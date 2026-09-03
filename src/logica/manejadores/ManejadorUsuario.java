@@ -140,6 +140,9 @@ public class ManejadorUsuario {
 		if (existe_nroReg(nroReg)) {
 			throw new NumeroDeRegistroAlreadyExistsException("Ya existe un numero de registro en el sistema");
 		}
+		if (specs.isEmpty()) {
+			throw new MedicoSinEspecialidadException();
+		}
 		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
 	
 		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
