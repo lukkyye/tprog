@@ -158,7 +158,7 @@ public class ReservaDeConsulta extends JInternalFrame {
             		String paciente = comboBox_Paciente.getSelectedItem().toString();
             		
             		Consulta a = ManejadorConsulta.get_instance().get_consulta(comboBox_Consulta.getSelectedItem().toString());
-            		if (!a.getFechaC().isAfter(LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault()))) {
+            		if (a.getFechaC().isBefore(LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault()))) {
             			JOptionPane.showMessageDialog(
                 		        null,
                 		        "La fecha de la reserva debe de ser anterior a la fecha de la consulta.",
