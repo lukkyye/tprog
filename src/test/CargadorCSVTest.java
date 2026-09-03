@@ -9,9 +9,14 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import logica.clases.Especialidad;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
+import logica.datatypes.DTDiaConsulta;
 import logica.datatypes.DTDiaSemana;
+import logica.datatypes.DTMedico;
+import logica.datatypes.DTPaciente;
+import logica.datatypes.DTUsuario;
 import logica.datatypes.TipoMes;
 import logica.excepciones.*;
 import logica.manejadores.ManejadorEspecialidad;
@@ -28,6 +33,58 @@ class CargadorCSVTest {
 		cargador.cargarTodo();
 	}
 
+	@Test
+	void consultarUsuario_Medico(){
+		//s.perez
+		DTMedico dtmedico_expected = new DTMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
+		DTUsuario dtusuario_expected = new DTUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
+		
+		DTMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
+		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
+				.stream()
+				.filter(u->u.nickname().equals("bsilva"))
+				.findFirst()
+				.orElse(null);
+		
+		assertAll(
+				()->assertEquals(dtusuario, dtusuario_expected),
+				()->assertEquals(dtmedico, dtmedico_expected)
+				);
+	}
+	
+	@Test
+	void consultarUsuario_Paciente() {
+		//String nickname,LocalDate fechaNac, int cantOrdenesAcum, int cantTicketAcum, ArrayList<String> antSalud, int doc, LocalDate fechaIngreso
+		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
+		DTUsuario dtusuario_expected = new DTUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
+		
+		DTPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
+		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
+				.stream()
+				.filter(u->u.nickname().equals("lgomez"))
+				.findFirst()
+				.orElse(null);
+		
+		assertAll(
+				()->assertEquals(dtpaciente, dtpaciente_expected),
+				()->assertEquals(dtusuario, dtusuario_expected)
+				);
+	}
+	
+	@Test
+	void consultarEspecialidad() {
+		Especialidad especialidad = manejadorEspecialidad.getEspecialidad("Cardiología");
+		assertAll(
+				()->assertEquals("Cardiología", especialidad.getNombre()),
+				()->assertEquals(20,especialidad.getPorcentajeAdicional())
+				);
+	}
+	
+	@Test
+	void consultarDiaConsulta() {
+
+	}
+	
 	@Test
 	void unicidadNicknamePaciente_AltaDeUsuario() {
 		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});

@@ -50,6 +50,7 @@ public class ManejadorUsuario {
 		return result;
 	}
 	
+
 	public Usuario get_usuario(String nickname){
 		if (usuarios.containsKey(nickname)) {
 			return usuarios.get(nickname);
