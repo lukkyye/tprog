@@ -86,7 +86,7 @@ public class ControladorClinica {
 	}
 	
 	
-	public Set<DTPaciente> listarPacientes() {
+	public HashSet<DTPaciente> listarPacientes() {
 	    ManejadorUsuario mu = ManejadorUsuario.get_instance();
 	    return mu.get_dtpacientes();
 	}

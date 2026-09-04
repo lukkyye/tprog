@@ -79,15 +79,7 @@ public class ManejadorClinica {
 		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
 		clinicas.put(nombre, cl);
 	}
-    public void add(Clinica c) {
-
-        if (!clinicas.containsKey(c.getNombre())) {
-            clinicas.put(c.getNombre(), c);
-        }
-    }
-    
-   
-    
+      
     public void agregarDiaConsulta(DiaConsulta diaConsulta) {
 
         if (memberDiaConsulta(diaConsulta.get_nom())) {

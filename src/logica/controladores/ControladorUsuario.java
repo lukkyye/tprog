@@ -28,12 +28,6 @@ public class ControladorUsuario {
 		return true;
 	}//Falta
 	
-	public boolean ingresoEspecialidad(String nickname, String espNom, int espPorc) {
-		Especialidad esp = ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
-		ManejadorUsuario.get_instance().agregarEspecialidadAMedico(nickname, esp);
-		return true;
-	}
-	
 	public boolean altaEspecialidad(String espNom, int espPorc) {
 		ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
 		return true;
@@ -72,16 +66,8 @@ public class ControladorUsuario {
 	}
 	
 	public DTResConsultaDetalle listarDatosResConsulta(String nickname, int numReserva) { // Seguir aca
-		
 		ManejadorUsuario musu = ManejadorUsuario.get_instance();
-		if (musu.get_usuario(nickname) instanceof Paciente p) {
-			for (Reserva r: p.get_reservas()) {
-				if (r.getNumReserva()==numReserva) {
-					return r.getDataResConsultaDetalle();
-				}
-			}
-		}
-		throw new ReservaDoesntExistsException();
+		return musu.datosResConsulta(nickname, numReserva);
 	}
 	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
