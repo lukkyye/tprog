@@ -85,15 +85,7 @@ public class ManejadorClinica {
             clinicas.put(c.getNombre(), c);
         }
     }
-    public Set<DTConsulta> getConsultasd(String nomD){ //REVISAR ESTA d AL FINAL DEL NOMBRE, ESTA BIEN? DEBERIA DE ESTAR?
-    	Set<DTConsulta> res = new HashSet<>();
-    	DiaConsulta aux = findDiasConsultas(nomD);
-    	
-    		res = aux.get_dtconsultas();
-    	
-    	return res;
-    	
-    }
+    
    
     
     public void agregarDiaConsulta(DiaConsulta diaConsulta) {

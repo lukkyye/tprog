@@ -117,7 +117,7 @@ public class ManejadorUsuario {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
 		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
-		Especialidad esp = ManejadorEspecialidad.get_instance().find_or_create(espNom, espPorc);
+		Especialidad esp = ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
 		m1.agregarEspecialidad(esp);
 		usuarios.put(nickname, m1);
 	}

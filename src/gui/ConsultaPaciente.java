@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.*;
+import logica.manejadores.ManejadorUsuario;
+
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -166,7 +168,15 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNewLabel_6_1.gridy = 10;
         getContentPane().add(lblNewLabel_6_1, gbc_lblNewLabel_6_1);
         
-        lblNickname.setText(paciente.nickname());
+        DTUsuario usuario = ManejadorUsuario.get_instance().get_usuario(paciente.nickname()).get_dt();
+        
+        lblNickname.setText(usuario.nickname());
+        
+        // esto hay que poner lblNombre.setText(usuario.nombre());
+        
+        // esto hay que poner lblApellido.setText(usuario.apellido());
+        
+        // esto hay que poner lblCorreo.setText(usuario.correo());
 
         lblFechaNacimiento.setText(
                 paciente.fechaNac().toString()

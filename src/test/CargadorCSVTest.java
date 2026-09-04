@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -12,13 +13,18 @@ import org.junit.jupiter.api.Test;
 import logica.clases.Especialidad;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
+import logica.datatypes.DTClinica;
+import logica.datatypes.DTConsulta;
 import logica.datatypes.DTDiaConsulta;
 import logica.datatypes.DTDiaSemana;
 import logica.datatypes.DTMedico;
 import logica.datatypes.DTPaciente;
+import logica.datatypes.DTResConsulta;
+import logica.datatypes.DTResConsultaDetalle;
 import logica.datatypes.DTUsuario;
 import logica.datatypes.TipoMes;
 import logica.excepciones.*;
+import logica.manejadores.ManejadorClinica;
 import logica.manejadores.ManejadorEspecialidad;
 
 class CargadorCSVTest {
@@ -35,42 +41,39 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarUsuario_Medico(){
-		//s.perez
 		DTMedico dtmedico_expected = new DTMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
 		DTUsuario dtusuario_expected = new DTUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
-		
+		HashSet<DTConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
 		DTMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.nickname().equals("bsilva"))
 				.findFirst()
 				.orElse(null);
-		
+
 		assertAll(
 				()->assertEquals(dtusuario, dtusuario_expected),
 				()->assertEquals(dtmedico, dtmedico_expected)
 				);
 	}
-	
+
 	@Test
 	void consultarUsuario_Paciente() {
-		//String nickname,LocalDate fechaNac, int cantOrdenesAcum, int cantTicketAcum, ArrayList<String> antSalud, int doc, LocalDate fechaIngreso
 		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
 		DTUsuario dtusuario_expected = new DTUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
-		
 		DTPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
+		HashSet<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.nickname().equals("lgomez"))
 				.findFirst()
 				.orElse(null);
-		
 		assertAll(
 				()->assertEquals(dtpaciente, dtpaciente_expected),
 				()->assertEquals(dtusuario, dtusuario_expected)
 				);
 	}
-	
+
 	@Test
 	void consultarEspecialidad() {
 		Especialidad especialidad = manejadorEspecialidad.getEspecialidad("Cardiología");
@@ -78,13 +81,65 @@ class CargadorCSVTest {
 				()->assertEquals("Cardiología", especialidad.getNombre()),
 				()->assertEquals(20,especialidad.getPorcentajeAdicional())
 				);
+
+	}
+
+	@Test
+	void consultarClinica() {
+		DTClinica clinica_expected = new DTClinica("Hospital Británico", "Hospital general privado", "Av. Italia 2420", "https://www.hospitalbritanico.org.uy/", 350, 1200);
+		String c = controladorClinica.listarClinicas()
+                .stream()
+                .filter(b -> b.equals("Hospital Británico"))
+                .findFirst()
+                .orElse(null);
+		DTClinica nclinica = ManejadorClinica.get_instance().findClinica(c).get_dt();
+		
+		assertAll(
+				()->assertEquals(clinica_expected,nclinica)
+			);
 	}
 	
 	@Test
 	void consultarDiaConsulta() {
+		DTDiaConsulta diaconsulta_expected = new DTDiaConsulta("Cardiología - Lunes", "Atención cardiológica semanal", DTDiaSemana.Lunes, LocalTime.of(9, 00), 1440);
+		DTDiaConsulta d = controladorClinica.listarDatosDiaConsulta()
+                .stream()
+                .filter(b -> b.nomD().equals("Cardiología - Lunes"))
+                .findFirst()
+                .orElse(null);
+		assertAll(
+				()->assertEquals(diaconsulta_expected,d)
+			);
+	}
 
+	@Test
+	void consultarConsulta() {
+		DTConsulta consulta_expected = new DTConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656);
+		DTConsulta co = controladorClinica.listarConsultas()
+                .stream()
+                .filter(b -> b.nomC().equals("Cardiología 240826"))
+                .findFirst()
+                .orElse(null);
+		assertAll(
+				()->assertEquals(consulta_expected,co)
+			);
 	}
 	
+	@Test
+	void consultarDeReservaDeConsulta() {
+		DTResConsultaDetalle reserva_expected = new DTResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656);
+		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
+		DTPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
+		
+		String nomP = dtpaciente.nickname();
+		DTResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomP, 1);
+		assertAll(
+				()->assertEquals(reserva_expected,res)
+			);
+		
+		
+		//hacer
+	}
 	@Test
 	void unicidadNicknamePaciente_AltaDeUsuario() {
 		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});
@@ -160,8 +215,6 @@ class CargadorCSVTest {
 			controladorClinica.ingresarConsulta("Pediatría - Martes", "bsilva", "Pediatría 080926", LocalDate.of(2026, 9, 15), 1, 1);
 		});
 	}
-	
-	
 	
 	
 
