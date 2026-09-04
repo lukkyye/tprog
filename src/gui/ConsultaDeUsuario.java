@@ -12,7 +12,11 @@ import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import logica.datatypes.*;
 import logica.controladores.*;
 
@@ -164,9 +168,13 @@ public class ConsultaDeUsuario extends JInternalFrame {
             JDesktopPane desktopPane = getDesktopPane();
 
             if (esPaciente) {
-
+            	//solo tiene un elemento y es el DTUsuario que tiene unickname=nickname
+            	DTUsuario pseudolista = usuarios
+            			.stream()
+            			.filter(u->u.nickname().equals(nickname))
+            			.collect(Collectors.toList()).getFirst();
                 ConsultaPaciente ventanaPaciente =
-                        new ConsultaPaciente(nickname);
+                        new ConsultaPaciente(nickname, pseudolista.nombre(), pseudolista.apellido(),pseudolista.correo());
 
                 desktopPane.add(ventanaPaciente);
                 ventanaPaciente.setVisible(true);

@@ -4,14 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import logica.datatypes.*;
-import logica.excepciones.ReservaDoesntExistsException;
 import logica.manejadores.ManejadorConsulta;
 import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Consulta;
-import logica.clases.Especialidad;
-import logica.clases.Paciente;
-import logica.clases.Reserva;
+
 
 public class ControladorUsuario {
 	
