@@ -12,3 +12,5 @@
 /EspecialidadAlreadyExistsException.class
 /FechaDiaSemanaInvalidaException.class
 /MedicoSinEspecialidadException.class
+/NumeroDeRegistroAlreadyExistsException.class
+/ReservaDoesntExistsException.class
