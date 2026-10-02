@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link rel="stylesheet" href="../../styles/login_styles.css">
-          <script src="../../scripts/login_scripts.js" defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="../../scripts/login_scripts.js" defer></script>
+        <title>Entrar al sitio</title>
+        <link rel="icon" type="image/png" href="../../src/img/favicon_salud_uy_64.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     </head>
-    <body>
-        <main>
-            <div class="centered--box">
-                <div class="title--box">
-                    <h1>Ingresar</h1>
-                </div>
-                <div class="form--box">
-                    <form >
-                        <div class="textfield_label--container" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-                            <label for="username">Cédula de Identidad:</label>
-                            <input name="username" class="form--field" id="form--id--textfield" type="text" placeholder="12345678">
-                        </div>
-                        <div class="textfield_label--container" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-                            <label for="pw">Contraseña:</label>
-                            <input name="pw" class="form--field" id="form--email--textfield" type="password">
-                        </div>
-                        <div class="submit--container">
-                            <input id="form--submit" value="Entrar" type="submit">
-                        </div>
-                    </form>
-                </div>
+
+    <body class="d-flex justify-content-center align-items-center pt-5 flex-column vw-100">
+        <form class="form-signin m-auto w-25 pt-5 d-flex flex-column">
+            <div class="text-center mb-4">
+                <img class="mb-4" src="../../src/img/layout_set_logo.png" alt="" width="100%" height="auto">
+                <h1 class="h3 mb-3 font-weight-normal">Salud.uy</h1>
+                <p>Entrar al sitio.</p>
             </div>
-        </main>
+
+            <div class="form-label-group d-flex flex-column gap-2 justify-content-start">
+                <input type="text" id="inputId" class="form-control" placeholder="Cedula de Identidad (ej: 34567890)" required="True">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+                <button id="submit-button" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+            </div>
+        </form>
     </body>
 </html>
