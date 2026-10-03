@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta de Dia de Consulta</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 </head>
+
 <body>
+<main class="container py-5">
+
+        <h1 class="mb-4">Consulta de Dia de Consulta</h1>
+
+        <form action="listaDiasConsultaVisitante.html" method="get">
+
+            <div class="mb-4">
+
+                <label for="diaConsulta" class="form-label">
+                    Seleccione un dia de consulta:
+                </label>
+<select id="diaConsulta"
+                        name="diaConsulta"
+                        class="form-select">
+
+                    <option value="" selected disabled>
+                        Seleccione un dia de consulta
+                    </option>
+
+                    <option value="cardiologia-lunes">
+                        Cardiologia - Lunes
+                    </option>
+                    <option value="pediatria-miercoles">
+                        Pediatira - Miercoles
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Ver datos
+            </button>
+
+        </form>
+
+        <a href="../index.html"
+           class="btn btn-secondary mt-4">
+            Volver
+        </a>
+
+    </main>
 
 </body>
+
 </html>
