@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+              <title>Clínicas</title>
+              <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 </head>
 <body>
+	<main class="container py-5">
+	<h1 class="mb-4">Clínicas</h1>    
+	
+	  <form action="detailClinicasPaciente.html" method="get">
+	  
+		<div class="mb-4">
+			<label for="clinica" class="form-label">
+				Seleccione una clínica:
+			</label>
+    		  <select id="clinica"
+                        name="clinica"
+                        class="form-select">
+				<option value="" selected disabled>
+					Seleccione una clínica:
+				</option>
+				
+				<option value="clinica1">
+					Clínica1
+				</option>
+				 <option value="clinica2">
+					Clínica2
+				</option>
+			 </select>
+		</div>
 
+			<button type="submit" class="btn btn-primary">
+                Ver datos
+            </button>
+
+        </form>
+        
+		<a href="../index.html"
+			class="btn btn-secondary mt-4">
+			Volver
+		</a>
+	</main>
 </body>
 </html>
