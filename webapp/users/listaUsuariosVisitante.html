@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta de Usuario</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 </head>
+
 <body>
 
+    <!-- BARRA SUPERIOR -->
+    <header class="mb-2">
+
+        <nav class="navbar navbar-expand-lg"
+             style="width: 100%;">
+
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+
+                <!-- LOGO -->
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../img/layout_set_logo.png"
+                         width="120px">
+                </a>
+
+                <!-- BUSCADOR -->
+                <form class="d-flex mx-auto"
+                      style="max-width: 500px; width: 100%;">
+
+                    <input class="form-control me-2"
+                           type="search"
+                           placeholder="Buscar..."
+                           aria-label="Buscar">
+
+                    <button class="btn btn-outline-success"
+                            type="submit">
+                        Buscar
+                    </button>
+
+                </form>
+
+                <!-- BOTONES -->
+                <div class="d-flex">
+
+                    <form action="../auth/login.html">
+                        <button class="btn btn-primary me-2">
+                            Entrar
+                        </button>
+                    </form>
+
+                    <a href="../auth/signUp.html"
+                       class="btn btn-secondary">
+                        Registrarse
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <hr class="text-black m-0">
+
+    </header>
+
+
+    <!-- CONTENIDO -->
+    <main class="container py-5">
+
+        <h1 class="mb-4">
+            Consulta de Usuario
+        </h1>
+
+        <form action="detailPacienteVisitante.html"
+              method="get">
+
+            <div class="mb-4">
+
+                <label for="usuario"
+                       class="form-label">
+                    Seleccione un usuario:
+                </label>
+
+                <select id="usuario"
+                        name="usuario"
+                        class="form-select">
+
+                    <option value=""
+                            selected
+                            disabled>
+                        Seleccione un usuario
+                    </option>
+
+                    <option value="paciente">
+                        Paciente
+                    </option>
+
+                    <option value="medico">
+                        Medico
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Ver datos
+            </button>
+
+        </form>
+
+        <a href="../index.html"
+           class="btn btn-secondary mt-4">
+            Volver
+        </a>
+
+    </main>
+
 </body>
+
 </html>
