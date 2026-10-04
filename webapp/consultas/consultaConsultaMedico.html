@@ -136,35 +136,44 @@
             </div>
 
         </div>
-		<main class="container py-5">
-			<h1 class="mb.4">Detalle de la consulta</h1>
-			<div class="card mb-4">
-				<div class="card-body">
-					<p>
-						<strong>Nombre:</strong>
-						Cardiología 240826
-					</p>
-					<p>
-						<strong>Médico:</strong>
-						ana.perez
-					</p>
-					<p>
-						<strong>Fecha:</strong>
-						24/08/2026
-					</p>
-					<p>
-						<strong>Número de sala:</strong>
-						101
-					</p>
-					<p>
-						<strong>Cantidad de números:</strong>
-						3
-					</p>
-					<p>
-						<strong>Costo:</strong>
-						$ 1656
-					</p>
-				</div>
+		<div class="col-md-9 pe-5 d-flex flex-column gap-4">
+			<h3 class="mb-4">Detalle de la consulta</h1>
+		 	<div class="card shadow rounded-4 border-0 bg-light p-4">
+		    	<div class="d-flex align-items-center mb-3">
+		        	<div class="col-3 text-center">
+		            	<img style="max-height: 100px; width: auto; object-fit: contain;" src="../img/CARDIOLOGIA.png" alt="Cardiología">
+		        	</div>
+		        	<div class="col-9 ps-3">
+		            	<h4 class="m-0 fw-bold">Consulta: Cardiología 240826</h4>
+		            	<p class="mb-0 text-muted mt-2">
+							<strong>Nombre:</strong>
+							Cardiología 240826
+						</p>
+						<p class="mb-0 text-muted mt-2">
+							<strong>Médico:</strong>
+							ana.perez
+						</p>
+						<p class="mb-0 text-muted mt-2">
+							<strong>Fecha:</strong>
+							24/08/2026
+						</p>
+						<p class="mb-0 text-muted mt-2">
+							<strong>Número de sala:</strong>
+							101
+						</p>
+						<p class="mb-0 text-muted mt-2">
+							<strong>Cantidad de números:</strong>
+							3
+						</p>
+						<p class="mb-0 text-muted mt-2">
+							<strong>Costo:</strong>
+							$ 1656
+						</p>
+		        	</div>
+		    	</div>
+		    	<div class="d-flex justify-content-center gap-2 pt-2 border-top">
+		        	<a href="listaConsultasDiaAprobadaMedico.html" class="btn btn-primary">Volver</a>
+		    	</div>
 			</div>
 			
 			<!--Solo si el médico es médico de la consulta-->
@@ -196,9 +205,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<a href="listaConsultasDiaAprobadaMedico.html" class="btn btn-secundary mt-4">
-				Volver
-			</a>
 		</main>
 
 </body>
