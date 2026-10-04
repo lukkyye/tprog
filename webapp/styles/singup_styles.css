@@ -51,3 +51,19 @@ body {
     padding: 48px 32px;
 }
 
+.alta-clinica {
+    min-height: 100vh;
+    background-image: url("../img/hospital.png");
+    background-size: 100% auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f8f9fa;
+}
+
+.alta-clinica .panel-registro {
+    margin: 40px 0 40px 5%;
+}
+
+
+}
