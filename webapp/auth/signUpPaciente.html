@@ -5,16 +5,25 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Nuevo paciente</title>
+    <title>Nuevo paciente | salud.uy</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
-	<link rel="stylesheet" href="../styles/singup_styles.css">
+    <link rel="stylesheet" href="../styles/singup_styles.css">
 </head>
 
 <body class="registro-paciente">
+
+    <header class="border-bottom bg-white px-4 py-3">
+        <a href="../index.html">
+            <img src="../img/LOGOGENERAL.png"
+                 alt="salud.uy"
+                 width="150">
+        </a>
+    </header>
+
     <main class="container panel-registro">
         <h1 class="mb-3">Nuevo paciente</h1>
 
@@ -25,7 +34,7 @@
         </p>
 
         <form>
-            <h2 class="h5 mt-4 mb-3">Datos de la cuenta</h2>
+            <h2 class="h5 mt-4 mb-3">Crear nueva cuenta</h2>
 
             <div class="mb-3">
                 <label for="nickname" class="form-label">
@@ -109,9 +118,7 @@
                           class="form-control" rows="3"
                           aria-describedby="ayudaAntecedentes"
                           required></textarea>
-                <div id="ayudaAntecedentes" class="form-text">
-                    Si no tenés antecedentes, escribí “Sin antecedentes”.
-                </div>
+
             </div>
 
             <div class="mb-4">
@@ -123,14 +130,16 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <a href="signup.html" class="btn btn-secondary">
+                <a href="signUp.html" class="btn btn-secondary">
                     Volver
                 </a>
+
                 <button type="submit" class="btn btn-primary">
                     Registrarse
                 </button>
             </div>
-        </form>
+         <form action="../indexPaciente.html" method="get">
     </main>
+
 </body>
 </html>
