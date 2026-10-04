@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Salud.uy - Detalle de la consulta</title>
-    <link rel="icon" type="image/png" href="../img/favicon_salud_uy_64.png">
-    <style>
-        .hoverable:hover {
-            background-color: rgba(180, 180, 180, 0.8);
-        }
-        /* Personalización de la barra de scroll para la columna lateral */
-        .sidebar-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .sidebar-scroll::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <title>Salud.uy - Detalle de la consulta</title>
+        <link rel="icon" type="image/png" href="../img/favicon_salud_uy_64.png">
+        <style>
+            .hoverable:hover {
+                background-color: rgba(180, 180, 180, 0.8);
+            }
+            /* Personalización de la barra de scroll para la columna lateral */
+            .sidebar-scroll::-webkit-scrollbar {
+                width: 6px;
+            }
+            .sidebar-scroll::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+            }
+        </style>
+    </head>
 <body class="min-vh-100 container-fluid bg-body vh-100">
     
     <header class="mb-2">
@@ -45,11 +45,11 @@
         <hr class="text-black m-0">
     </header>
 
-    <main class="container-fluid d-flex h-75 mt-5 gap-4">
+    <main class="container-fluid d-flex flex-row h-75 mt-5 gap-4">
 
-        <div class="d-flex flex-column gap-4 ms-5 p-0 pe-2 sidebar-scroll" style="flex: 1 1 0%; max-width: 25%; max-height: 100%; overflow-y: auto;">
+        <div class="container d-flex flex-column gap-4 ms-5 p-0 sidebar-scroll" style="max-height: 100%; overflow-y: auto;">
 
-            <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow justify-content-center align-items-center">
+            <div class="container d-flex p-0 flex-column w-100 rounded-4 bg-light shadow justify-content-center align-items-center">
                 <div class="pt-2"><h5 class="pt-2">Alta</h5></div>
                 <div class="m-0 p-0 w-100">
                     <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3" style="width: 100%;">
@@ -101,8 +101,8 @@
 
             <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow justify-content-center align-items-center mb-2">
                 <div class="pt-2"><h5 class="pt-2">Consultar</h5></div>
-                <div class="m-0 p-0 w-100">
-                    <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3" style="width: 100%;">
+                <div class="m-0 p-0">
+                    <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3">
                         <li class="nav-item hoverable w-100">
                             <a class="text-muted text-decoration-none" href="../users/listaUsuariosPaciente.html" style="font-size: 11pt;">Usuarios</a>
                         </li>
@@ -119,41 +119,45 @@
                             <a class="text-muted text-decoration-none" href="../beneficioAnual/detailBeneficioAnualPaciente.html" style="font-size: 11pt;">Beneficio Anual</a>
                         </li>
                     </ul>
-                    </ul>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="container col-9 mb-5">
+        <div>
+            <h1 class="mb.4">Detalle de la consulta</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p>
+                        <strong>Nombre:</strong>
+                        Cardiología 240826
+                    </p>
+                    <p>
+                        <strong>Médico:</strong>
+                        ana.perez
+                    </p>
+                    <p>
+                        <strong>Fecha:</strong>
+                        24/08/2026
+                    </p>
+                    <p>
+                        <strong>Número de sala:</strong>
+                        101
+                    </p>
+                    <p>
+                        <strong>Cantidad de números:</strong>
+                        3
+                    </p>
+                    <p>
+                        <strong>Costo:</strong>
+                        $ 1656
+                    </p>
                 </div>
             </div>
-
         </div>
-		<main class="container py-5">
-			<h1 class="mb.4">Detalle de la consulta</h1>
-			<div class="card mb-4">
-				<div class="card-body">
-					<p>
-						<strong>Nombre:</strong>
-						Cardiología 240826
-					</p>
-					<p>
-						<strong>Médico:</strong>
-						ana.perez
-					</p>
-					<p>
-						<strong>Fecha:</strong>
-						24/08/2026
-					</p>
-					<p>
-						<strong>Número de sala:</strong>
-						101
-					</p>
-					<p>
-						<strong>Cantidad de números:</strong>
-						3
-					</p>
-					<p>
-						<strong>Costo:</strong>
-						$ 1656
-					</p>
-				</div>
-			</div>
+        <div>
+            
 			<h2 class="h4">Mi reserva</h2>
 			<div class="card">
 				<div class="card-body">
@@ -174,10 +178,10 @@
 					</a>
 				</div>
 			</div>
-			<a href="listaConsultasDiaAprobadaPaciente.html" class="btn btn-secundary mt-4">
+			<a class="btn btn-secondary mt-2" href="listaConsultasDiaAprobadaPaciente.html">
 				Volver
 			</a>
-		</main>
-
+		</div>
+        </div>
 </body>
 </html>
