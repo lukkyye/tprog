@@ -17,8 +17,12 @@ body {
 
 .registro-medico {
     background-image: url("../img/fondo_medico.png");
+    background-size: 100% auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f8f9fa;
 }
-
 
 .panel-registro {
     width: calc(100% - 32px);

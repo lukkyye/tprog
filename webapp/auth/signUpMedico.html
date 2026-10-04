@@ -5,36 +5,298 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Registrarse</title>
+    <title>Nuevo médico | salud.uy</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/singup_styles.css">
 </head>
 
-<body>
-    <main class="container min-vh-100 d-flex flex-column
-                 justify-content-center align-items-center">
+<body class="registro-medico">
 
-        <h1 class="mb-3">Nuevo usuario</h1>
-        <p class="mb-4">Seleccione su perfil:</p>
-
-        <div class="d-flex flex-column flex-sm-row gap-4">
-            <a href="singupmedico.html"
-               class="btn btn-primary btn-lg px-5 py-4">
-                Médico
-            </a>
-
-            <a href="signuppaciente.html"
-               class="btn btn-primary btn-lg px-5 py-4">
-                Paciente
-            </a>
-        </div>
-
-        <a href="../index.html" class="mt-4">
-            Cancelar
+    <header class="border-bottom bg-white px-4 py-3">
+        <a href="../index.html">
+            <img src="../img/LOGOGENERAL.png"
+                 alt="salud.uy"
+                 width="150">
         </a>
+    </header>
 
+    <main class="container panel-registro">
+        <h1 class="mb-3">Nuevo médico</h1>
+
+        <p>
+            Los campos marcados con
+            <span class="text-danger">*</span>
+            son obligatorios.
+        </p>
+
+        <form action="../home/indexMedico.html" method="get">
+
+            <h2 class="h5 mt-4 mb-3">Crear nueva cuenta</h2>
+
+            <div class="mb-3">
+                <label for="nickname" class="form-label">
+                    Nickname <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="nickname" name="nickname"
+                       class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="correo" class="form-label">
+                    Correo electrónico
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="email" id="correo" name="correo"
+                       class="form-control"
+                       placeholder="tuemail@ejemplo.com" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">
+                    Contraseña <span class="text-danger">*</span>
+                </label>
+                <input type="password" id="contrasena"
+                       class="form-control"
+                       autocomplete="new-password" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmacion" class="form-label">
+                    Confirmar contraseña
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="password" id="confirmacion"
+                       class="form-control"
+                       autocomplete="new-password" required>
+            </div>
+
+            <h2 class="h5 mt-4 mb-3">Datos personales</h2>
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">
+                    Nombre <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="nombre" name="nombre"
+                       class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="apellido" class="form-label">
+                    Apellido <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="apellido" name="apellido"
+                       class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="numeroRegistro" class="form-label">
+                    Número de registro
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="numeroRegistro"
+                       name="numeroRegistro"
+                       class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="mesLicencia" class="form-label">
+                    Mes de licencia <span class="text-danger">*</span>
+                </label>
+
+                <select id="mesLicencia" name="mesLicencia"
+                        class="form-select" required>
+                    <option value="" selected disabled>
+                        Seleccioná un mes
+                    </option>
+                    <option value="Enero">Enero</option>
+                    <option value="Febrero">Febrero</option>
+                    <option value="Marzo">Marzo</option>
+                    <option value="Abril">Abril</option>
+                    <option value="Mayo">Mayo</option>
+                    <option value="Junio">Junio</option>
+                    <option value="Julio">Julio</option>
+                    <option value="Agosto">Agosto</option>
+                    <option value="Septiembre">Septiembre</option>
+                    <option value="Octubre">Octubre</option>
+                    <option value="Noviembre">Noviembre</option>
+                    <option value="Diciembre">Diciembre</option>
+                </select>
+            </div>
+
+            <fieldset class="mb-3">
+                <legend class="fs-6">
+                    Especialidades <span class="text-danger">*</span>
+                </legend>
+
+                <p class="form-text mt-0">
+                    Seleccioná al menos una especialidad.
+                </p>
+
+                <div class="row g-2">
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="cardiologia"
+                                   name="especialidades"
+                                   value="Cardiología">
+                            <label class="form-check-label"
+                                   for="cardiologia">
+                                Cardiología
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="pediatria"
+                                   name="especialidades"
+                                   value="Pediatría">
+                            <label class="form-check-label"
+                                   for="pediatria">
+                                Pediatría
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="fisioterapia"
+                                   name="especialidades"
+                                   value="Fisioterapia">
+                            <label class="form-check-label"
+                                   for="fisioterapia">
+                                Fisioterapia
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="nutricion"
+                                   name="especialidades"
+                                   value="Nutrición">
+                            <label class="form-check-label"
+                                   for="nutricion">
+                                Nutrición
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="ginecologia"
+                                   name="especialidades"
+                                   value="Ginecología">
+                            <label class="form-check-label"
+                                   for="ginecologia">
+                                Ginecología
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="oncologia"
+                                   name="especialidades"
+                                   value="Oncología">
+                            <label class="form-check-label"
+                                   for="oncologia">
+                                Oncología
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="medicinaGeneral"
+                                   name="especialidades"
+                                   value="Medicina General">
+                            <label class="form-check-label"
+                                   for="medicinaGeneral">
+                                Medicina General
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="oftalmologia"
+                                   name="especialidades"
+                                   value="Oftalmología">
+                            <label class="form-check-label"
+                                   for="oftalmologia">
+                                Oftalmología
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <div class="mb-3">
+                <label for="porcentajeAdicional" class="form-label">
+                    Porcentaje adicional para el costo de consultas
+                    <span class="text-danger">*</span>
+                </label>
+
+                <div class="input-group">
+                    <input type="number" id="porcentajeAdicional"
+                           name="porcentajeAdicional"
+                           class="form-control"
+                           min="0" step="1" required>
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="sitioWeb" class="form-label">
+                    Sitio web (opcional)
+                </label>
+                <input type="url" id="sitioWeb" name="sitioWeb"
+                       class="form-control"
+                       placeholder="https://www.ejemplo.com">
+            </div>
+
+            <div class="mb-4">
+                <label for="imagen" class="form-label">
+                    Imagen de perfil (opcional)
+                </label>
+                <input type="file" id="imagen" name="imagen"
+                       class="form-control" accept="image/*">
+            </div>
+
+            <div class="d-flex justify-content-end gap-3">
+                <a href="signUp.html" class="btn btn-secondary">
+                    Volver
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    Registrarse
+                </button>
+            </div>
+
+        </form>
     </main>
+
 </body>
 </html>
