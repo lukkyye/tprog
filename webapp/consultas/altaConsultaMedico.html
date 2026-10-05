@@ -1,12 +1,137 @@
 <!-- ALTA CONSULTA, INGRESAR DATOS DESDE MEDICO-->
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Salud.uy - Alta de Consulta</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 </head>
+
 <body>
-<p>ALTA CONSULTA</p>
+    <header class="border-bottom bg-white px-4 py-3">
+        <nav class="d-flex justify-content-between align-items-center">
+            <a href="../home/indexMedico.html">
+                <img src="../img/LOGOGENERAL.png"
+                     alt="salud.uy" width="150">
+            </a>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="../index.html" class="btn btn-secondary">
+                    Cerrar sesión
+                </a>
+                <img src="../img/MEDICO.png"
+                     alt="Perfil médico" width="40">
+                <span class="fw-bold">ana.perez</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-5">
+        <section class="bg-light rounded-4 shadow p-4 p-sm-5 mx-auto"
+                 style="max-width: 760px;">
+
+            <h1 class="h2 fw-bold mb-3">Alta de consulta</h1>
+
+            <p class="text-secondary">
+                Seleccioná un día de consulta y los datos de la consulta que quiera ingresar.
+            </p>
+
+            <p>
+                Los campos marcados con
+                <span class="text-danger">*</span>
+                son obligatorios.
+            </p>
+
+
+                <div class="mb-3">
+                    <label for="diaConsulta" class="form-label">
+                        Día de consulta <span class="text-danger">*</span>
+                    </label>
+
+                    <select id="diaConsulta" name="diaConsulta"
+                            class="form-select" required>
+                        <option value="" selected disabled>
+                            Seleccioná un día de consulta
+                        </option>
+                        <option value="Cardiología - Lunes">
+                            Cardiología - Lunes
+                        </option>
+                        <option value="Pediatría - Martes">
+							Pediatría - Martes
+                        </option>
+                        <option value="Medicina General Central - Miércoles">
+                            Medicina General Central - Miércoles
+                        </option>
+                    </select>
+                </div>
+				
+				<div class="mb-3">
+				    <label for="nomC" class="form-label">
+				        Nombre <span class="text-danger">*</span>
+				    </label>
+				    <input type="text" id="nomC" name="nomC"
+				           class="form-control" required>
+				</div>
+				<div class="mb-3">
+				    <label for="fechaC" class="form-label">
+				        Fecha de consulta
+				        <span class="text-danger">*</span>
+				    </label>
+				    <input type="date" id="fechaC"
+				           name="fechaC"
+				           class="form-control" required>
+				</div>
+				
+       
+                <div class="mb-3">
+                    <label for="numSala" class="form-label">
+                        Número de sala
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="number" id="numSal" name="numSal"
+                           class="form-control"
+                           min="0" step="1" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="cantNum" class="form-label">
+                        Cantidad de números
+                        <span class="text-danger">*</span>
+                    </label>
+
+                    <input type="number" id="cantNum" name="cantNum"
+                           class="form-control"
+                           min="0" step="1" required>
+                </div>
+				
+				<div class="mb-4">
+				    <label for="imagen" class="form-label">
+				        Imagen de consulta (opcional)
+				    </label>
+				    <input type="file" id="imagen" name="imagen"
+				           class="form-control" accept="image/*">
+				</div>
+
+                <div class="d-flex justify-content-end gap-3">
+                    <a href="../home/indexMedico.html"
+                       class="btn btn-secondary">
+                        Cancelar
+                    </a>
+
+                    <a href="altaConsultaConfirmacion.html" class="btn btn-primary">
+                        Confirmar alta
+                    </button>
+                </div>
+
+        </section>
+    </main>
 </body>
 </html>
