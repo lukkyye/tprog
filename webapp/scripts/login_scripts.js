@@ -1,9 +1,9 @@
-document.getElementById("submit-button").addEventListener("click", 
-    function() {
-        let elem = document.getElementById("inputId").value;
-       let text = parseInt(elem);
-       if (Number.isNaN(text) || elem.length!==8){
-           alert("Por favor, ingrese una cédula de identidad valida.")
-        } 
+document.getElementById("ok").addEventListener("click", (event) => {
+    let field1 = document.getElementById("contrasena");
+    let field2 = document.getElementById("confirmacion");
+
+    if (field1.value !== field2.value) {
+        event.preventDefault();
+        alert("Las contraseñas no coinciden");
     }
-);
+}); 
