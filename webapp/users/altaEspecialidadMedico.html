@@ -137,16 +137,23 @@
 
         </div>
 <div class="col-md-9 pe-5 d-flex flex-column gap-4">
+	<section class="bg-light rounded-4 shadow p-4 p-sm-5 mx-auto"
+	style="max-width: 760px;">
 
-    <h1 class="mb-4">Alta de Especialidad</h1>
+    <h1 class="h2 fw-bold mb-3">Alta de Especialidad</h1>
 
+	<p>
+	    Los campos marcados con
+	    <span class="text-danger">*</span>
+	    son obligatorios.
+	</p>
 
     <form action="altaEspecialidadMedico.html" method="get">
 
         <div class="mb-3">
 
             <label for="nombreEspecialidad" class="form-label">
-                Nombre de la especialidad:
+                Nombre de la especialidad:<span class="text-danger">*</span>
             </label>
 
             <input type="text"
@@ -161,7 +168,7 @@
         <div class="mb-4">
 
             <label for="porcentaje" class="form-label">
-                Porcentaje adicional para el costo de consultas:
+                Porcentaje adicional para el costo de consultas:<span class="text-danger">*</span>
             </label>
 
             <input type="number"
@@ -175,17 +182,18 @@
         </div>
 
 
-        <button type="submit"
-                class="btn btn-primary">
-            Dar de alta
-        </button>
+		<div class="d-flex justify-content-end gap-3">
+		    <a href="../home/indexMedico.html"
+		       class="btn btn-secondary">
+		        Cancelar
+		    </a>
 
-        <a href="../home/indexMedico.html"
-           class="btn btn-secondary ms-2">
-            Cancelar
-        </a>
-
+			<button type="submit" class="btn btn-primary">
+			    Confirmar alta
+			</button>
+		</div>
     </form>
+	</section>
 </div>
 </main>
 
