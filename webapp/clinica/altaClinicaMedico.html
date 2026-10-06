@@ -7,9 +7,7 @@
 
     <title>Salud.uy - Alta de Clínica</title>
     <link rel="icon" type="image/png" href="../img/FAVICON.png">
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="../styles/singup_styles.css">
 </head>
@@ -17,13 +15,10 @@
 <body class="alta-clinica">
 
     <header class="border-bottom bg-white px-4 py-3">
-        <nav class="d-flex flex-wrap justify-content-between
-                    align-items-center gap-3">
+        <nav class="d-flex flex-wrap justify-content-between align-items-center gap-3">
 
             <a href="../home/indexMedico.html">
-                <img src="../img/LOGOGENERAL.png"
-                     alt="salud.uy"
-                     width="150">
+                <img src="../img/LOGOGENERAL.png" alt="salud.uy" width="150">
             </a>
 
             <div class="d-flex align-items-center gap-3">
@@ -31,10 +26,7 @@
                     Cerrar sesión
                 </a>
 
-                <img src="../img/MEDICO.png"
-                     alt="Perfil médico"
-                     class="rounded-circle border"
-                     width="40" height="40">
+                <img src="../img/MEDICO.png" alt="Perfil médico" class="rounded-circle border" width="40" height="40">
 
                 <span class="fw-bold">ana.perez</span>
             </div>
@@ -61,12 +53,7 @@
                     <span class="text-danger">*</span>
                 </label>
 
-                <input type="text"
-                       id="nombreClinica"
-                       name="nombreClinica"
-                       class="form-control"
-                       aria-describedby="ayudaNombre"
-                       required>
+                <input type="text" id="nombreClinica" name="nombreClinica" class="form-control" aria-describedby="ayudaNombre" required>
 
                 <div id="ayudaNombre" class="form-text">
                     El nombre debe ser único en la plataforma.
@@ -78,11 +65,7 @@
                     Descripción <span class="text-danger">*</span>
                 </label>
 
-                <textarea id="descripcion"
-                          name="descripcion"
-                          class="form-control"
-                          rows="3"
-                          required></textarea>
+                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required></textarea>
             </div>
 
             <div class="mb-3">
@@ -90,12 +73,7 @@
                     Dirección <span class="text-danger">*</span>
                 </label>
 
-                <input type="text"
-                       id="direccion"
-                       name="direccion"
-                       class="form-control"
-                       placeholder="Calle, número y localidad"
-                       required>
+                <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Calle, número y localidad" required>
             </div>
 
             <h2 class="h5 mt-4 mb-3">Costos</h2>
@@ -106,13 +84,7 @@
                     <span class="text-danger">*</span>
                 </label>
 
-                <input type="number"
-                       id="costoTicket"
-                       name="costoTicket"
-                       class="form-control"
-                       min="0"
-                       step="0.01"
-                       required>
+                <input type="number" id="costoTicket" name="costoTicket" class="form-control" min="0" step="0.01" required>
             </div>
 
             <div class="mb-3">
@@ -121,13 +93,7 @@
                     <span class="text-danger">*</span>
                 </label>
 
-                <input type="number"
-                       id="costoOrden"
-                       name="costoOrden"
-                       class="form-control"
-                       min="0"
-                       step="0.01"
-                       required>
+                <input type="number" id="costoOrden" name="costoOrden" class="form-control" min="0" step="0.01" required>
             </div>
 
             <h2 class="h5 mt-4 mb-3">Información adicional</h2>
@@ -137,11 +103,7 @@
                     Sitio web (opcional)
                 </label>
 
-                <input type="url"
-                       id="sitioWeb"
-                       name="sitioWeb"
-                       class="form-control"
-                       placeholder="https://www.ejemplo.com">
+                <input type="url" id="sitioWeb" name="sitioWeb" class="form-control" placeholder="https://www.ejemplo.com">
             </div>
 
             <div class="mb-4">
@@ -149,16 +111,11 @@
                     Imagen de la clínica (opcional)
                 </label>
 
-                <input type="file"
-                       id="imagen"
-                       name="imagen"
-                       class="form-control"
-                       accept="image/*">
+                <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <a href="../home/indexMedico.html"
-                   class="btn btn-secondary">
+                <a href="../home/indexMedico.html" class="btn btn-secondary">
                     Cancelar
                 </a>
 
