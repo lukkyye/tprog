@@ -1,5 +1,6 @@
 package logica.clases;
 import logica.datatypes.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Medico extends Usuario{
@@ -70,6 +71,24 @@ public class Medico extends Usuario{
 	}
 	public void set_porcentajeCosto(int _porcentajeCosto) { 
 		this.porcentajeCosto=_porcentajeCosto;
+	}
+	
+	public void set_nroReg(String _nroReg) {
+		this.nroReg=_nroReg;
+	}
+	
+	public void set_mesLic(TipoMes _mesLic) {
+		this.mesLic=_mesLic;
+	}
+	
+	public void set_especialidades(HashSet<Especialidad> _especialidades) {
+		this.especialidades = _especialidades;
+	}
+	
+	public ArrayList<String> get_nombresEspecialidades() {
+		ArrayList<String> result = new ArrayList<String>();
+		especialidades.forEach(e -> result.add(e.getNombre()));
+		return result;
 	}
 	
 }
