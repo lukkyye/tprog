@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.HashSet;
 import logica.datatypes.DTPaciente;
 import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.EstadoConsulta;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Usuario;
 import logica.clases.Paciente;
@@ -144,7 +145,8 @@ public class ControladorClinica {
 			throw new FechaDiaSemanaInvalidaException("La fecha ingresada no corresponde al dia de la semana del dia de consulta");
 		}
 		float costoC = diaConsulta.get_costoD()* (1 + medico.get_porcentajeCosto()/100f);
-		Consulta c = new Consulta(nomD, med, nomC, fecha, sala, cantNum, costoC);
+		EstadoConsulta estado = EstadoConsulta.Ingresada;
+		Consulta c = new Consulta(nomD, med, nomC, fecha, sala, cantNum, costoC, estado);
 		diaConsulta.agregarConsulta(c);
 		medico.agregarConsultaAsociada(nomC);
 		mco.agregarConsulta(c);

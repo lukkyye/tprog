@@ -14,9 +14,10 @@ public class Consulta {
 	private int sala;
 	private LocalDate fecha;
 	private String nomC;
+	private EstadoConsulta estado;
 	private HashSet<Reserva> reservas;
 	
-	public Consulta(String diaConsulta, String medico, String nomC, LocalDate fecha, int sala, int cantNum, float costoC) { //Ver costoC
+	public Consulta(String diaConsulta, String medico, String nomC, LocalDate fecha, int sala, int cantNum, float costoC, EstadoConsulta estado) { //Ver costoC
 		this.nomC = nomC;
 		this.fecha = fecha;
 		this.sala = sala;
@@ -24,6 +25,7 @@ public class Consulta {
 		this.costoC = costoC; //verificar esto
 		this.diaConsulta = diaConsulta;
 		this.medico = medico;
+		this.estado = estado;
 		this.reservas = new HashSet<Reserva>();
 	}
 	
@@ -57,18 +59,22 @@ public class Consulta {
 	    return costoC;
 	}
 	
+	public EstadoConsulta getEstado() {
+		return estado;
+	}
+	
 	public DTConsultaDetalle getDataConsultaDetalle() { 
 		HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
 		for(Reserva r : reservas) {
 			DTResConsulta dt = new DTResConsulta(r.getFechaRS(),r.getNumReserva(),r.getAplicaBenef(),r.getCostoR());
 			arg.add(dt);
 		}
-		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC);
+		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC, estado);
 		return consultaDetalle;
 	}
 	
 	public DTConsulta getDataConsulta() {
-		DTConsulta consulta = new DTConsulta(nomC, fecha, sala, cantNum, costoC);
+		DTConsulta consulta = new DTConsulta(nomC, fecha, sala, cantNum, costoC, estado);
 		return consulta;
 	}
 	
