@@ -85,7 +85,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 				true
 				);
 
-		setSize(660, 700);
+		setSize(660, 600);
 		getContentPane().setLayout(new BorderLayout());
 
 		JPanel seleccionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
