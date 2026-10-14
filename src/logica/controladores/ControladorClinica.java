@@ -110,6 +110,9 @@ public class ControladorClinica {
 		        costo = costo * 0.8f;
 		        //aplicaBenef = true;
 		    }
+		 if (aplicaBenef) {
+			 costo = 0.0f;
+		 }
 		 Reserva r = new Reserva(nicknamePaciente, nomC, fechaReserva, numero, aplicaBenef, costo);
 		 p.agregarReserva(r);
 		 c.agregarReserva(r);
