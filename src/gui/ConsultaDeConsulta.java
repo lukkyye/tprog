@@ -94,6 +94,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
             panel.add(new JLabel(" Sala: " + value.sala()));
             panel.add(new JLabel(" Cant. Números: " + value.cantNum()));
             panel.add(new JLabel(" Costo: $" + value.costoC()));
+            panel.add(new JLabel(" Estado: " + value.estado()));
             return panel;
         });
 

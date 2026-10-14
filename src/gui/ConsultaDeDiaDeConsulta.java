@@ -33,7 +33,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
             true               // se puede minimizar
         );
 
-        setSize(600, 500);
+        setSize(600, 480);
         ControladorClinica controlador = new ControladorClinica();
         
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -257,12 +257,28 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_campocostoconsulta.gridy = 12;
         getContentPane().add(campocostoconsulta, gbc_campocostoconsulta);
         
+        JLabel estadoconsulta = new JLabel("Estado:");
+        costoconsulta.setVisible(false);
+        
+        JLabel campoestadoconsulta = new JLabel("New label");
+        GridBagConstraints gbc_campoestadoconsulta = new GridBagConstraints();
+        gbc_campoestadoconsulta.insets = new Insets(0, 0, 5, 5);
+        gbc_campoestadoconsulta.gridx = 2;
+        gbc_campoestadoconsulta.gridy = 13;
+        getContentPane().add(campoestadoconsulta, gbc_campoestadoconsulta);
+        GridBagConstraints gbc_estadoconsulta = new GridBagConstraints();
+        gbc_estadoconsulta.anchor = GridBagConstraints.WEST;
+        gbc_estadoconsulta.insets = new Insets(0, 0, 5, 5);
+        gbc_estadoconsulta.gridx = 1;
+        gbc_estadoconsulta.gridy = 13;
+        getContentPane().add(estadoconsulta, gbc_estadoconsulta);
+        
         JLabel reservaconsulta = new JLabel("Reservas:");
         GridBagConstraints gbc_reservaconsulta = new GridBagConstraints();
         gbc_reservaconsulta.anchor = GridBagConstraints.WEST;
         gbc_reservaconsulta.insets = new Insets(0, 0, 5, 5);
         gbc_reservaconsulta.gridx = 1;
-        gbc_reservaconsulta.gridy = 13;
+        gbc_reservaconsulta.gridy = 14;
         getContentPane().add(reservaconsulta, gbc_reservaconsulta);
         
         JComboBox comboBoxreservas = new JComboBox();
@@ -270,7 +286,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_comboBoxreservas.insets = new Insets(0, 0, 5, 5);
         gbc_comboBoxreservas.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBoxreservas.gridx = 2;
-        gbc_comboBoxreservas.gridy = 13;
+        gbc_comboBoxreservas.gridy = 14;
         getContentPane().add(comboBoxreservas, gbc_comboBoxreservas);
         
         JLabel fechareserva = new JLabel("Fecha:");
@@ -278,14 +294,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_fechareserva.anchor = GridBagConstraints.WEST;
         gbc_fechareserva.insets = new Insets(0, 0, 5, 5);
         gbc_fechareserva.gridx = 1;
-        gbc_fechareserva.gridy = 14;
+        gbc_fechareserva.gridy = 15;
         getContentPane().add(fechareserva, gbc_fechareserva);
         
         JLabel campofechareserva = new JLabel("New label");
         GridBagConstraints gbc_campofechareserva = new GridBagConstraints();
         gbc_campofechareserva.insets = new Insets(0, 0, 5, 5);
         gbc_campofechareserva.gridx = 2;
-        gbc_campofechareserva.gridy = 14;
+        gbc_campofechareserva.gridy = 15;
         getContentPane().add(campofechareserva, gbc_campofechareserva);
         
         JLabel numeroreserva = new JLabel("Número:");
@@ -293,14 +309,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_numeroreserva.anchor = GridBagConstraints.WEST;
         gbc_numeroreserva.insets = new Insets(0, 0, 5, 5);
         gbc_numeroreserva.gridx = 1;
-        gbc_numeroreserva.gridy = 15;
+        gbc_numeroreserva.gridy = 16;
         getContentPane().add(numeroreserva, gbc_numeroreserva);
         
         JLabel camponumreserva = new JLabel("New label");
         GridBagConstraints gbc_camponumreserva = new GridBagConstraints();
         gbc_camponumreserva.insets = new Insets(0, 0, 5, 5);
         gbc_camponumreserva.gridx = 2;
-        gbc_camponumreserva.gridy = 15;
+        gbc_camponumreserva.gridy = 16;
         getContentPane().add(camponumreserva, gbc_camponumreserva);
         
         JLabel beneficioreserva = new JLabel("Beneficio anual:");
@@ -308,29 +324,29 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_beneficioreserva.anchor = GridBagConstraints.WEST;
         gbc_beneficioreserva.insets = new Insets(0, 0, 5, 5);
         gbc_beneficioreserva.gridx = 1;
-        gbc_beneficioreserva.gridy = 16;
+        gbc_beneficioreserva.gridy = 17;
         getContentPane().add(beneficioreserva, gbc_beneficioreserva);
         
         JLabel campobeneficioreserva = new JLabel("New label");
         GridBagConstraints gbc_campobeneficioreserva = new GridBagConstraints();
         gbc_campobeneficioreserva.insets = new Insets(0, 0, 5, 5);
         gbc_campobeneficioreserva.gridx = 2;
-        gbc_campobeneficioreserva.gridy = 16;
+        gbc_campobeneficioreserva.gridy = 17;
         getContentPane().add(campobeneficioreserva, gbc_campobeneficioreserva);
         
         JLabel costoreserva = new JLabel("Costo:");
         GridBagConstraints gbc_costoreserva = new GridBagConstraints();
         gbc_costoreserva.anchor = GridBagConstraints.WEST;
-        gbc_costoreserva.insets = new Insets(0, 0, 0, 5);
+        gbc_costoreserva.insets = new Insets(0, 0, 5, 5);
         gbc_costoreserva.gridx = 1;
-        gbc_costoreserva.gridy = 17;
+        gbc_costoreserva.gridy = 18;
         getContentPane().add(costoreserva, gbc_costoreserva);
         
         JLabel campocostoreserva = new JLabel("New label");
         GridBagConstraints gbc_campocostoreserva = new GridBagConstraints();
-        gbc_campocostoreserva.insets = new Insets(0, 0, 0, 5);
+        gbc_campocostoreserva.insets = new Insets(0, 0, 5, 5);
         gbc_campocostoreserva.gridx = 2;
-        gbc_campocostoreserva.gridy = 17;
+        gbc_campocostoreserva.gridy = 18;
         getContentPane().add(campocostoreserva, gbc_campocostoreserva);
         
         camponombredia.setVisible(false);
@@ -391,6 +407,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                         campocostodia.setVisible(true);
 
                         cosnsulta.setVisible(true);
+                        
                         comboBoxConsultas.setVisible(true);
 
                         comboBoxConsultas.removeAllItems();
@@ -445,6 +462,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 camposalaconsulta.setText(String.valueOf(consulta.sala()));
                 campocantnumconsulta.setText(String.valueOf(consulta.cantNum()));
                 campocostoconsulta.setText(String.valueOf(consulta.costoC()));
+                campoestadoconsulta.setText(String.valueOf(consulta.estado()));
 
                 nombreconsulta.setVisible(true);
                 medicoconsulta.setVisible(true);
@@ -459,6 +477,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 camposalaconsulta.setVisible(true);
                 campocantnumconsulta.setVisible(true);
                 campocostoconsulta.setVisible(true);
+                estadoconsulta.setVisible(true);
                 
                 reservaconsulta.setVisible(true);
                 comboBoxreservas.setVisible(true);

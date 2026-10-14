@@ -129,6 +129,20 @@ public class ConsultaDetalle extends JInternalFrame {
         gbc_lblCosto.gridy = 6;
         getContentPane().add(lblCosto, gbc_lblCosto);
         
+        JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Estado:");
+        GridBagConstraints gbc_lblNewLabel_1_1_1_1_1_1 = new GridBagConstraints();
+        gbc_lblNewLabel_1_1_1_1_1_1.insets = new Insets(0, 0, 5, 5);
+        gbc_lblNewLabel_1_1_1_1_1_1.gridx = 5;
+        gbc_lblNewLabel_1_1_1_1_1_1.gridy = 7;
+        getContentPane().add(lblNewLabel_1_1_1_1_1_1, gbc_lblNewLabel_1_1_1_1_1_1);
+        
+        JLabel lblEstado = new JLabel("New label");
+        GridBagConstraints gbc_lblEstado = new GridBagConstraints();
+        gbc_lblEstado.insets = new Insets(0, 0, 5, 5);
+        gbc_lblEstado.gridx = 7;
+        gbc_lblEstado.gridy = 7;
+        getContentPane().add(lblEstado, gbc_lblEstado);
+        
         JLabel lblNewLabel_1_1_1_1_1_2 = new JLabel("Reservas Asociadas:");
         GridBagConstraints gbc_lblNewLabel_1_1_1_1_1_2 = new GridBagConstraints();
         gbc_lblNewLabel_1_1_1_1_1_2.insets = new Insets(0, 0, 0, 5);
@@ -151,6 +165,7 @@ public class ConsultaDetalle extends JInternalFrame {
         lblSala.setText(String.valueOf(detalle.sala()));
         lblCantidadNumeros.setText(String.valueOf(detalle.cantNum()));
         lblCosto.setText("$" + detalle.costoC());
+        lblEstado.setText(String.valueOf(detalle.estado()));
         
         HashSet<DTResConsulta> reservas = detalle.reservas();
 
