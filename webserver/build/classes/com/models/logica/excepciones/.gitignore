@@ -1,0 +1,14 @@
+/ConsultaNotFoundException.class
+/NicknameAlreadyExistsException.class
+/SpecialityNotFoundException.class
+/UserNotFoundException.class
+/ReservaAlreadyExistsException.class
+/NoNumberAvailableException.class
+/EmailAlreadyExistsException.class
+/NombreClinicaAlreadyExistsException.class
+/ClinicaNotFoundException.class
+/ConsultaNombreAlreadyExistsException.class
+/DiaConsultaAlreadyExistsException.class
+/EspecialidadAlreadyExistsException.class
+/FechaDiaSemanaInvalidaException.class
+/MedicoSinEspecialidadException.class

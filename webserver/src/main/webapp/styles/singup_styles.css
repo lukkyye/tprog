@@ -1,0 +1,69 @@
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: #212529;
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.registro-paciente {
+    background-image: url("../img/fondo-paciente.png");
+}
+
+.registro-medico {
+    background-image: url("../img/fondo_medico.png");
+    background-size: 100% auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f8f9fa;
+}
+
+.panel-registro {
+    width: calc(100% - 32px);
+    max-width: 760px;
+    margin: 40px 0 40px 5%;
+    padding: 32px;
+    background-color: rgba(248, 249, 250, 0.95);
+    border-radius: 24px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.panel-registro h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+
+.seleccion-registro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-seleccion {
+    max-width: 600px;
+    padding: 48px 32px;
+}
+
+.alta-clinica {
+    min-height: 100vh;
+    background-image: url("../img/hospital.png");
+    background-size: 100% auto;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f8f9fa;
+}
+
+.alta-clinica .panel-registro {
+    margin: 40px 0 40px 5%;
+}
+
+
+}
