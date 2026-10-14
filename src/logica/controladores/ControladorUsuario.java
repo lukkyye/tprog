@@ -87,7 +87,7 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().beneficiosAnuales(nickname);
 	}
 	
-	public DTBeneficioAnual listarDatosBeneficioAnul(String nickname, int anio) {
+	public DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
 		return ManejadorUsuario.get_instance().datosBeneficio(nickname, anio);
 	}
 	

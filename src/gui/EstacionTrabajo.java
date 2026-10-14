@@ -47,10 +47,17 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	desktopPane.add(newwindow);
         	newwindow.setVisible(true);
         });
+        JMenuItem itemModificarUsuario = new JMenuItem("Modificar Datos de Usuario");
+        itemModificarUsuario.addActionListener(e->{
+        	ModificarDatosDeUsuario newwindow = new ModificarDatosDeUsuario();
+        	desktopPane.add(newwindow);
+        	newwindow.setVisible(true);
+        });
         // aagregar el resto claramente
 
         menuUsuarios.add(itemAltaUsuario);
         menuUsuarios.add(itemConsultaUsuario);
+        menuUsuarios.add(itemModificarUsuario);
         //agregar el resto claramente
 
         menuBar.add(menuUsuarios);
@@ -143,7 +150,7 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         consultaMenu.add(altaConsultaMenuItem);
         consultaMenu.add(consultadiaConsultaItem);
         consultaMenu.add(reservaConsultaItem);
-        consultaMenu.add(consultaClinicaItem);
+        //consultaMenu.add(consultaClinicaItem);
         menuClinicas.add(altaClinicaItem);
         consultaMenu.add(consultaConsultaItem);
 
@@ -169,6 +176,26 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         	ventana.setVisible(true);
         });
         especialidadMenu.add(altaEspecialidadItem);
+        
+        
+        JMenu menuBeneficios = new JMenu("Beneficios");
+        menuBar.add(menuBeneficios);
+        
+        JMenuItem altaBeneficioItem = new JMenuItem("Alta de Beneficio Anual");
+        altaBeneficioItem.addActionListener(e->{
+        	AltaDeBeneficioAnual ventana = new AltaDeBeneficioAnual();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        menuBeneficios.add(altaBeneficioItem);
+        
+        JMenuItem consultaBeneficioItem = new JMenuItem("Consulta de Beneficio Anual");
+        consultaBeneficioItem.addActionListener(e->{
+        	ConsultaDeBeneficioAnual ventana = new ConsultaDeBeneficioAnual();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        menuBeneficios.add(consultaBeneficioItem);
         
         
         JMenu menuTest = new JMenu("Test");
