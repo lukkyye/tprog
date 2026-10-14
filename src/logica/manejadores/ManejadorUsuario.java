@@ -106,8 +106,8 @@ public class ManejadorUsuario {
 		}
 		return false;
 	}
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
-		if (usuarios.containsKey(nickname)) {
+	public void agregar_medico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
@@ -119,20 +119,32 @@ public class ManejadorUsuario {
 		if (specs.isEmpty()) {
 			throw new MedicoSinEspecialidadException();
 		}
-		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+		Medico m1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
 		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
 		usuarios.put(nickname, m1);	
 	}
 	
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+	/**
+	 * Chequea existencia de usuario dado un nickname
+	 * @param nickname Nombre de usuario
+	 * @return True si y solo si existe un usuario con el nickname pasado
+	 * */
+	public boolean exists(String nickname) {
 		if (usuarios.containsKey(nickname)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void agregar_paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
 			throw new EmailAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
-		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
+		Paciente p1 = new Paciente(nickname, password, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
 		usuarios.put(nickname, p1);
 	}
 	

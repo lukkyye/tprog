@@ -14,8 +14,8 @@ public class Paciente extends Usuario{
 	private HashSet<BeneficioAnual> benef;
 	private HashSet<Reserva> reservas;
 	
-	public Paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
-			super(nickname, nombre, apellido, correo);
+	public Paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+			super(nickname, password,nombre, apellido, correo);
 			this.fechaNac = _fechaNac;
 			//this.cantOrdenesAcum = 0;
 			//this.cantTicketAcum = 0;

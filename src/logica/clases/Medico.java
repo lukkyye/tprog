@@ -11,8 +11,8 @@ public class Medico extends Usuario{
 	private HashSet<String> consultasAsociadas;
 	private HashSet<Especialidad> especialidades;
 	
-	public Medico(String _nickname, String _nombre, String _apellido, String _correo, String _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
-		super(_nickname, _nombre, _apellido, _correo);
+	public Medico(String _nickname, String _password, String _nombre, String _apellido, String _correo, String _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
+		super(_nickname, _password,  _nombre, _apellido, _correo);
 		this.nroReg = _nroReg;
 		this.mesLic = _mesLic;
 		this.porcentajeCosto = _porcentajeCosto;

@@ -52,6 +52,8 @@ public class AltaDeUsuario extends JInternalFrame {
 	private JTextField linkField;
 	private JTextField nroRegField;
 	private JTextField porcCostField;
+	private JTextField passwordField;
+	private JTextField passwordConfirmationfield;
 
 	public AltaDeUsuario() {
 		super(
@@ -375,6 +377,28 @@ public class AltaDeUsuario extends JInternalFrame {
 		sl_panelPaciente.putConstraint(SpringLayout.WEST, fechaIngresoLabel, 0, SpringLayout.WEST, selector_label_1_1);
 		sl_panelPaciente.putConstraint(SpringLayout.SOUTH, fechaIngresoLabel, 0, SpringLayout.SOUTH, panel_1);
 		panelPaciente.add(fechaIngresoLabel);
+		
+		passwordField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, passwordField, -2, SpringLayout.NORTH, nameLabel);
+		springLayout.putConstraint(SpringLayout.EAST, passwordField, -10, SpringLayout.EAST, getContentPane());
+		passwordField.setColumns(10);
+		getContentPane().add(passwordField);
+		
+		passwordConfirmationfield = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, passwordConfirmationfield, -2, SpringLayout.NORTH, surnameLabel);
+		springLayout.putConstraint(SpringLayout.WEST, passwordConfirmationfield, 0, SpringLayout.WEST, passwordField);
+		passwordConfirmationfield.setColumns(10);
+		getContentPane().add(passwordConfirmationfield);
+		
+		JLabel pwLabel = new JLabel("Contraseña:");
+		springLayout.putConstraint(SpringLayout.NORTH, pwLabel, 0, SpringLayout.NORTH, nameLabel);
+		springLayout.putConstraint(SpringLayout.EAST, pwLabel, -6, SpringLayout.WEST, passwordField);
+		getContentPane().add(pwLabel);
+		
+		JLabel lblConfirmacionContrasea = new JLabel("Confirmacion Contraseña:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblConfirmacionContrasea, 0, SpringLayout.NORTH, surnameLabel);
+		springLayout.putConstraint(SpringLayout.EAST, lblConfirmacionContrasea, -6, SpringLayout.WEST, passwordConfirmationfield);
+		getContentPane().add(lblConfirmacionContrasea);
 	
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 	
@@ -417,10 +441,10 @@ public class AltaDeUsuario extends JInternalFrame {
 		                JOptionPane.WARNING_MESSAGE);
 		    		return;
 		    }
-			if (validar_paciente(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
+			if (validar_paciente(nicknameField.getText(), passwordField.getText(), passwordConfirmationfield.getText(), nameField.getText(), surnameField.getText(), 
 					emailField.getText(), fechaNac, Integer.parseInt(documentoField.getText()))){
 				try {
-					cu.ingresarPaciente(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, fechaIng,Integer.parseInt(documentoField.getText()),antssalud);
+					cu.ingresarPaciente(nicknameField.getText(), passwordField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, fechaIng,Integer.parseInt(documentoField.getText()),antssalud);
 					JOptionPane.showMessageDialog(this, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
 				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
@@ -439,10 +463,10 @@ public class AltaDeUsuario extends JInternalFrame {
 			ControladorUsuario cu = new ControladorUsuario();
 			
 			try {
-				if (validar_medico(nicknameField.getText(), nameField.getText(), surnameField.getText(), 
+				if (validar_medico(nicknameField.getText(),passwordField.getText(), passwordConfirmationfield.getText(), nameField.getText(), surnameField.getText(), 
 						emailField.getText(), nroRegField.getText(), Integer.parseInt(porcCostField.getText()), linkField.getText(), selections)){
 					try {
-						cu.ingresarMedico(nicknameField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , nroRegField.getText(), 
+						cu.ingresarMedico(nicknameField.getText(),passwordField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , nroRegField.getText(), 
 								TipoMes.values()[mesLicField.getSelectedIndex()], Integer.parseInt(porcCostField.getText()), linkField.getText(), selections);
 						JOptionPane.showMessageDialog(null, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 						this.dispose();
@@ -473,14 +497,14 @@ public class AltaDeUsuario extends JInternalFrame {
 		return false;
 	}
 	
-	public boolean validar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc){
+	public boolean validar_paciente(String nickname, String pw, String pwConf, String nombre, String apellido, String correo, LocalDate _fechaNac, int _doc){
 		if (validar_usuario(nickname,nombre, apellido,correo)) {
-			return nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$")&& apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$") && (_fechaNac!=null) && (Integer.toString(_doc).length()==8);
+			return nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$")&& apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$") && (_fechaNac!=null) && (Integer.toString(_doc).length()==8) && (pw.equals(pwConf));
 		}
 		return false;
 	}
 	
-	public boolean validar_medico(String _nickname, String _nombre, String _apellido, String _correo, String _nroReg, int _porcentajeCosto, String _link, ArrayList<String> espnom) {
-		return validar_usuario(_nickname, _nombre, _apellido, _correo) && _nroReg.contains("REG");
+	public boolean validar_medico(String _nickname, String pw, String pwConf, String _nombre, String _apellido, String _correo, String _nroReg, int _porcentajeCosto, String _link, ArrayList<String> espnom) {
+		return validar_usuario(_nickname, _nombre, _apellido, _correo) && _nroReg.contains("REG") && (pw.equals(pwConf));
 	}
 }
