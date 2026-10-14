@@ -121,7 +121,7 @@ public class ManejadorUsuario {
 		}
 		Medico m1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
 		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
-		usuarios.put(nickname, m1);	
+		usuarios.put(nickname, m1);
 	}
 	
 	
@@ -201,7 +201,7 @@ public class ManejadorUsuario {
 		if (u instanceof Medico m) {
 			return m;
 		}
-		throw new UserNotFoundException("El usuario no es de tipo Paciente");
+		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
 	
 	private void validar_beneficio(int anio, int cantOrdenes, int cantTicket) {

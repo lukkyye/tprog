@@ -22,6 +22,7 @@ import logica.datatypes.DTPaciente;
 import logica.datatypes.DTResConsulta;
 import logica.datatypes.DTResConsultaDetalle;
 import logica.datatypes.DTUsuario;
+import logica.datatypes.EstadoConsulta;
 import logica.datatypes.TipoMes;
 import logica.excepciones.*;
 import logica.manejadores.ManejadorClinica;
@@ -114,7 +115,7 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarConsulta() {
-		DTConsulta consulta_expected = new DTConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656);
+		DTConsulta consulta_expected = new DTConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656, EstadoConsulta.Aceptada );
 		DTConsulta co = controladorClinica.listarConsultas()
                 .stream()
                 .filter(b -> b.nomC().equals("Cardiología 240826"))
@@ -142,17 +143,17 @@ class CargadorCSVTest {
 	}
 	@Test
 	void unicidadNicknamePaciente_AltaDeUsuario() {
-		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});
+		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});
 	}
 	@Test
 	void unicidadEmailPaciente_AltaDeUsuario() {
-		assertThrows(EmailAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("nick3", "asd", "asd", "carla.rodriguez@hospital.com", LocalDate.now(), LocalDate.now(), 54849459, null);});
+		assertThrows(EmailAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("nick3", "", "asd", "asd", "carla.rodriguez@hospital.com", LocalDate.now(), LocalDate.now(), 54849459, null);});
 	}
 	
 	@Test
 	void unicidadNicknameMedico_AltaDeUsuario() {
 		assertThrows(NicknameAlreadyExistsException.class, ()->{
-			controladorUsuario.ingresarMedico("bsilva", "asd", "asd", "asd", "REG9999", TipoMes.Enero, 0, " ", new ArrayList<String>(List.of("Pediatría")));		
+			controladorUsuario.ingresarMedico("bsilva", "","asd", "asd", "asd", "REG9999", TipoMes.Enero, 0, " ", new ArrayList<String>(List.of("Pediatría")));		
 		});
 	}
 	@Test
@@ -172,7 +173,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void medicoDebeTenerAlMenosUnaEspecialidad() {
-		assertThrows(MedicoSinEspecialidadException.class, ()->{ controladorUsuario.ingresarMedico("nick44", "asd", "asd", "asd", "REG2003", TipoMes.Enero, 0, " ", new ArrayList<String>());});
+		assertThrows(MedicoSinEspecialidadException.class, ()->{ controladorUsuario.ingresarMedico("nick44", "", "asd", "asd", "asd", "REG2003", TipoMes.Enero, 0, " ", new ArrayList<String>());});
 	}
 	
 	@Test
@@ -190,7 +191,7 @@ class CargadorCSVTest {
 	@Test
 	void unicidadNumRegistro_AltaDeUsuario() {
 		assertThrows(NumeroDeRegistroAlreadyExistsException.class, ()->{
-			controladorUsuario.ingresarMedico("qwertyuiop", "asd", "asd", "asd", "REG1001", TipoMes.Enero, 0, " ", new ArrayList<String>(List.of("Pediatría")));		
+			controladorUsuario.ingresarMedico("qwertyuiop", "", "asd", "asd", "asd", "REG1001", TipoMes.Enero, 0, " ", new ArrayList<String>(List.of("Pediatría")));		
 		});
 	}
 	

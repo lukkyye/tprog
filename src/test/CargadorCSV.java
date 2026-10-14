@@ -93,7 +93,7 @@ public class CargadorCSV {
 					nombresEspecialidades.add(especialidadesPorRef.get(refEsp.trim()));
 				}
 
-				controladorUsuario.ingresarMedico(nickname, nombre, apellido, correo,
+				controladorUsuario.ingresarMedico(nickname,"", nombre, apellido, correo,
 						nroReg, mesLic, porcAdicional, sitioWeb, nombresEspecialidades);
 
 			} else if (tipo.equals("P")) {
@@ -108,7 +108,7 @@ public class CargadorCSV {
 					antSalud.add(antecedentes);
 				}
 
-				controladorUsuario.ingresarPaciente(nickname, nombre, apellido, correo,
+				controladorUsuario.ingresarPaciente(nickname, "", nombre, apellido, correo,
 						fechaNac, fechaIngreso, doc, antSalud);
 			}
 
