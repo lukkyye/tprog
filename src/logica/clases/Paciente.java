@@ -30,10 +30,6 @@ public class Paciente extends Usuario{
 		return reservas;
 	}
 	
-	public DTPaciente get_dtpaciente( ) {
-		return new DTPaciente(nickname,fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
-	}
-	
 	public boolean esMayorDe60() {
 	    return fechaNac.plusYears(60).isBefore(LocalDate.now());
 	}
@@ -56,6 +52,10 @@ public class Paciente extends Usuario{
 			total += b.getCantTicket();
 		}
 		return total;
+	}
+	
+	public DTPaciente get_dtpaciente( ) {
+		return new DTPaciente(nickname,fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
 	}
 	
 	public BeneficioAnual getBeneficio(int anio) {
