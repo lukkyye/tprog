@@ -34,12 +34,13 @@ public class LoginServlet extends HttpServlet {
 		String nickname_value = request.getParameter("nickname");
 		String password_value = request.getParameter("password");
 		if (nickname_value==null || password_value==null) {
+
 			//exception
 		}
-		
 		//bypass tempporal para debuggear
-		if (cu.login(nickname_value, password_value) || nickname_value.equals("lucas")){
+		if (cu.login(nickname_value, password_value)){
 			request.setAttribute("username", nickname_value);
+			System.out.println("llego hasta aca3");
 			request.getRequestDispatcher("/home").forward(request, response);
 		} else {
 			//informar contraseña o usuario incorrecto

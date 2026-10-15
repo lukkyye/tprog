@@ -29,7 +29,7 @@ public class ManejadorUsuario {
 	}
 	public boolean login(String nickname, String password) {
 		//unsafe af, lazy eval
-		if (usuarios.containsKey(nickname) && usuarios.get(nickname).get_password()==password) {
+		if (usuarios.containsKey(nickname) && usuarios.get(nickname).get_password().equals(password)) {
 			return true;
 		}
 		return false;
@@ -117,7 +117,7 @@ public class ManejadorUsuario {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
-			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+			throw new EmailAlreadyExistsException("Ya existe un usuario con el mail proporcionado");
 		}
 		if (existe_nroReg(nroReg)) {
 			throw new NumeroDeRegistroAlreadyExistsException("Ya existe un numero de registro en el sistema");
