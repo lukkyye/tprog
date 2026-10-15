@@ -79,10 +79,6 @@ public class ControladorUsuario {
 		ManejadorUsuario.get_instance().agregar_beneficio(nickname, anio, cantOrdenes, cantTicket);
 	}
 	
-	public void modificarBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) {
-		ManejadorUsuario.get_instance().modificar_beneficio(nickname, anio, cantOrdenes, cantTicket);
-	}
-	
 	public HashSet<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
 		return ManejadorUsuario.get_instance().beneficiosAnuales(nickname);
 	}

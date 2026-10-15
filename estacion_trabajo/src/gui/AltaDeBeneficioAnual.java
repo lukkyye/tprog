@@ -124,15 +124,7 @@ public class AltaDeBeneficioAnual extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "Beneficio anual dado de alta correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 		} catch (BeneficioAlreadyExistsException ex){
-			Object[] opciones = { "Editar beneficio", "Cancelar" };
-			int eleccion = JOptionPane.showOptionDialog(this, ex.getMessage() + ".\n¿Desea editarlo con los valores ingresados?", "Beneficio ya existe", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opciones, opciones[0]);
-			if (eleccion == 0) {
-				controlador.modificarBeneficioAnual(nickname, anio, cantOrdenes, cantTicket);
-				JOptionPane.showMessageDialog(this, "Beneficio anual dado de alta correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-				dispose();
-			} else if (eleccion == 1) {
-				dispose();
-			}
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "El paciente ya tiene beneficio para " + anio, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

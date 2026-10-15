@@ -22,12 +22,6 @@ public class BeneficioAnual {
 	public int getCantTicket() {
 		return cantTicket;
 	}
-	public void setCantOrdenes(int cantOrdenes) {
-		this.cantOrdenes = cantOrdenes;
-	}
-	public void setCantTicket(int cantTicket) {
-		this.cantTicket = cantTicket;
-	}
 	public DTBeneficioAnual getDataBeneficioAnual() {
 		return new DTBeneficioAnual(anio, cantOrdenes, cantTicket);
 	}

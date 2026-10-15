@@ -219,17 +219,6 @@ public class ManejadorUsuario {
 		p.agregarBeneficio(new BeneficioAnual(anio, cantOrdenes, cantTicket));
 	}
 	
-	public void modificar_beneficio(String nickname, int anio, int cantOrdenes, int cantTicket) {
-		validar_beneficio(anio, cantOrdenes, cantTicket);
-		Paciente p = get_paciente(nickname);
-		BeneficioAnual b = p.getBeneficio(anio);
-		if (b == null) {
-			throw new BeneficioNotFoundException("El paciente no tiene un beneficio anual para el año " + anio);
-		}
-		b.setCantOrdenes(cantOrdenes);
-		b.setCantTicket(cantTicket);
-	}
-	
 	public HashSet<DTBeneficioAnual> beneficiosAnuales(String nickname) {
 		return get_paciente(nickname).get_dtbeneficios();
 	}
