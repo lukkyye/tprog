@@ -23,7 +23,7 @@ public abstract class Usuario { // abstract xq tiene hijos
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
     public String getCorreo() { return correo; }
-    
+    public String get_password() {return password;}
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setApellido(String apellido) { this.apellido = apellido; }
 }

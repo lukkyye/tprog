@@ -27,7 +27,13 @@ public class ManejadorUsuario {
 		}
 		return instance;
 	}
-	
+	public boolean login(String nickname, String password) {
+		//unsafe af, lazy eval
+		if (usuarios.containsKey(nickname) && usuarios.get(nickname).get_password()==password) {
+			return true;
+		}
+		return false;
+	}
 	public boolean existe_correo(String correo) {
 		for (Usuario u: usuarios.values()) {
 			if (u.getCorreo().equals(correo)) {
