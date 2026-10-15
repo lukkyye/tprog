@@ -1,5 +1,6 @@
 package com.models.logica.manejadores;
 import com.models.logica.clases.Usuario;
+import com.models.logica.clases.BeneficioAnual;
 import com.models.logica.clases.Medico;
 import com.models.logica.clases.Paciente;
 import com.models.logica.clases.Especialidad;
@@ -26,7 +27,13 @@ public class ManejadorUsuario {
 		}
 		return instance;
 	}
-	
+	public boolean login(String nickname, String password) {
+		//unsafe af, lazy eval
+		if (usuarios.containsKey(nickname) && usuarios.get(nickname).get_password().equals(password)) {
+			return true;
+		}
+		return false;
+	}
 	public boolean existe_correo(String correo) {
 		for (Usuario u: usuarios.values()) {
 			if (u.getCorreo().equals(correo)) {
@@ -105,12 +112,12 @@ public class ManejadorUsuario {
 		}
 		return false;
 	}
-	public void agregar_medico(String nickname, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
-		if (usuarios.containsKey(nickname)) {
+	public void agregar_medico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
-			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+			throw new EmailAlreadyExistsException("Ya existe un usuario con el mail proporcionado");
 		}
 		if (existe_nroReg(nroReg)) {
 			throw new NumeroDeRegistroAlreadyExistsException("Ya existe un numero de registro en el sistema");
@@ -118,20 +125,32 @@ public class ManejadorUsuario {
 		if (specs.isEmpty()) {
 			throw new MedicoSinEspecialidadException();
 		}
-		Medico m1 = new Medico(nickname, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+		Medico m1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
 		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
-		usuarios.put(nickname, m1);	
+		usuarios.put(nickname, m1);
 	}
 	
 	
-	public void agregar_paciente(String nickname, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+	/**
+	 * Chequea existencia de usuario dado un nickname
+	 * @param nickname Nombre de usuario
+	 * @return True si y solo si existe un usuario con el nickname pasado
+	 * */
+	public boolean exists(String nickname) {
 		if (usuarios.containsKey(nickname)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void agregar_paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
 			throw new EmailAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
-		Paciente p1 = new Paciente(nickname, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
+		Paciente p1 = new Paciente(nickname, password, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
 		usuarios.put(nickname, p1);
 	}
 	
@@ -173,6 +192,99 @@ public class ManejadorUsuario {
 	        );
 	    }
 	    return null;
+	}
+	
+	private Paciente get_paciente(String nickname) {
+		Usuario u = get_usuario(nickname);
+		if (u instanceof Paciente p) {
+			return p;
+		}
+		throw new UserNotFoundException("El usuario no es de tipo Paciente");
+	}
+	
+	private Medico get_medico(String nickname) {
+		Usuario u = get_usuario(nickname);
+		if (u instanceof Medico m) {
+			return m;
+		}
+		throw new UserNotFoundException("El usuario no es de tipo Medico");
+	}
+	
+	private void validar_beneficio(int anio, int cantOrdenes, int cantTicket) {
+		if (anio < 1 || cantOrdenes < 0 || cantTicket < 0) {
+			throw new IllegalArgumentException("El año debe ser positivo y las cantidades no pueden ser negativas");
+		}
+	}
+	
+	public void agregar_beneficio(String nickname, int anio, int cantOrdenes, int cantTicket) {
+		validar_beneficio(anio, cantOrdenes, cantTicket);
+		Paciente p = get_paciente(nickname);
+		if (p.tieneBeneficio(anio)) {
+			throw new BeneficioAlreadyExistsException("El paciente ya tiene un beneficio anual para el año " + anio);
+		}
+		p.agregarBeneficio(new BeneficioAnual(anio, cantOrdenes, cantTicket));
+	}
+	
+	public void modificar_beneficio(String nickname, int anio, int cantOrdenes, int cantTicket) {
+		validar_beneficio(anio, cantOrdenes, cantTicket);
+		Paciente p = get_paciente(nickname);
+		BeneficioAnual b = p.getBeneficio(anio);
+		if (b == null) {
+			throw new BeneficioNotFoundException("El paciente no tiene un beneficio anual para el año " + anio);
+		}
+		b.setCantOrdenes(cantOrdenes);
+		b.setCantTicket(cantTicket);
+	}
+	
+	public HashSet<DTBeneficioAnual> beneficiosAnuales(String nickname) {
+		return get_paciente(nickname).get_dtbeneficios();
+	}
+	
+	public DTBeneficioAnual datosBeneficio(String nickname, int anio) {
+		BeneficioAnual b = get_paciente(nickname).getBeneficio(anio);
+		if (b == null) {
+			throw new BeneficioNotFoundException("El paciente no tiene un beneficio anual para el año " + anio);
+		}
+		return b.getDataBeneficioAnual();
+	}
+	
+	public DTUsuario datosUsuario(String nickname) {
+		return get_usuario(nickname).get_dt();
+	}
+	
+	public ArrayList<String> especialidadesMedico(String nickname) {
+		return get_medico(nickname).get_nombresEspecialidades();
+	}
+	
+	public void modificar_medico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, ArrayList<String> especialidades) {
+		Medico m = get_medico(nickname);
+		if (especialidades == null || especialidades.isEmpty()) {
+			throw new MedicoSinEspecialidadException("El médico debe tener al menos una especialidad");
+		}
+		if (!nroReg.equals(m.get_nroReg()) && existe_nroReg(nroReg)) {
+			throw new NumeroDeRegistroAlreadyExistsException("Ya existe este número de registro en el sistema");
+		}
+		HashSet<Especialidad> nuevas = new HashSet<Especialidad>();
+		for (String esp : especialidades) {
+			nuevas.add(ManejadorEspecialidad.get_instance().getEspecialidad(esp));
+		}
+		m.setNombre(nombre);
+		m.setApellido(apellido);
+		m.set_nroReg(nroReg);
+		m.set_mesLic(mesLic);
+		m.set_porcentajeCosto(porcCost);
+		m.set_link(link);
+		m.set_especialidades(nuevas);
+	}
+	
+	public void modificar_paciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
+		Paciente p = get_paciente(nickname);
+		p.setNombre(nombre);
+		p.setApellido(apellido);
+		p.setFechaNac(fechaNac);
+		p.setFechaIn(fechaIn);
+		p.setDoc(doc);
+		p.setAntSalud(antSalud);
 	}
 
 }

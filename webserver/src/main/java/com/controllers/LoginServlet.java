@@ -33,8 +33,18 @@ public class LoginServlet extends HttpServlet {
 		ControladorUsuario cu = new ControladorUsuario();
 		String nickname_value = request.getParameter("nickname");
 		String password_value = request.getParameter("password");
-		System.out.printf("{\n	nickname: %s,\n	password: %s\n}\n", request.getParameter("nickname"), request.getParameter("password"));
-		//validar aca
+		if (nickname_value==null || password_value==null) {
+
+			//exception
+		}
+		//bypass tempporal para debuggear
+		if (cu.login(nickname_value, password_value)){
+			request.setAttribute("username", nickname_value);
+			System.out.println("llego hasta aca3");
+			request.getRequestDispatcher("/home").forward(request, response);
+		} else {
+			//informar contraseña o usuario incorrecto
+		}
 		
 	}
 

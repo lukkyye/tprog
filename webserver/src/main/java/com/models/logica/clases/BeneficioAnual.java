@@ -1,5 +1,7 @@
 package com.models.logica.clases;
 
+import com.models.logica.datatypes.DTBeneficioAnual;
+
 public class BeneficioAnual {
 	private int anio;
 	private int cantOrdenes;
@@ -19,5 +21,14 @@ public class BeneficioAnual {
 	}
 	public int getCantTicket() {
 		return cantTicket;
+	}
+	public void setCantOrdenes(int cantOrdenes) {
+		this.cantOrdenes = cantOrdenes;
+	}
+	public void setCantTicket(int cantTicket) {
+		this.cantTicket = cantTicket;
+	}
+	public DTBeneficioAnual getDataBeneficioAnual() {
+		return new DTBeneficioAnual(anio, cantOrdenes, cantTicket);
 	}
 }
