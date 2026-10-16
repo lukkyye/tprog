@@ -25,6 +25,12 @@ public class ControladorUsuario {
 		return true;
 	}//Falta
 	
+	
+	
+	public boolean login(String nickname, String password) {
+		return ManejadorUsuario.get_instance().login(nickname, password);
+	}
+	
 	public boolean altaEspecialidad(String espNom, int espPorc) {
 		ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
 		return true;

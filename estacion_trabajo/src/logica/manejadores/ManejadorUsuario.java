@@ -21,6 +21,13 @@ public class ManejadorUsuario {
 		usuarios = new HashMap<String,Usuario>();
 	}
 	
+	public boolean login(String nickname, String password) {
+		if(usuarios.containsKey(nickname) && usuarios.get(nickname).getPassword().equals(password)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static ManejadorUsuario get_instance() {
 		if (instance == null) {
 			instance = new ManejadorUsuario();
@@ -111,7 +118,7 @@ public class ManejadorUsuario {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
 		if (existe_correo(correo)) {
-			throw new NicknameAlreadyExistsException("Ya existe usuario con el correo ingresado");
+			throw new EmailAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
 		if (existe_nroReg(nroReg)) {
 			throw new NumeroDeRegistroAlreadyExistsException("Ya existe un numero de registro en el sistema");
