@@ -34,6 +34,7 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         // Menú Clinica
         JMenu menuClinicas = new JMenu("Clinicas");
         
+        JMenu consultaMenu = new JMenu("Consultas");
 
         JMenuItem itemAltaUsuario = new JMenuItem("Alta de Usuario");
         itemAltaUsuario.addActionListener(e->{
@@ -62,11 +63,10 @@ public class EstacionTrabajo extends JFrame { //ventana externa
 
         menuBar.add(menuUsuarios);
         menuBar.add(menuClinicas);
+        menuBar.add(consultaMenu);
 
         setJMenuBar(menuBar);
         
-        JMenu consultaMenu = new JMenu("Consultas");
-        menuBar.add(consultaMenu);
         
         JMenuItem altaConsultaMenuItem = new JMenuItem("Alta de Consulta");
         altaConsultaMenuItem.addActionListener(new ActionListener() {
@@ -180,6 +180,15 @@ public class EstacionTrabajo extends JFrame { //ventana externa
         
         JMenu menuBeneficios = new JMenu("Beneficios");
         menuBar.add(menuBeneficios);
+        
+        JMenuItem aceptarRechazarConsulta = new JMenuItem("Aceptar o Rechazar consulta");
+        aceptarRechazarConsulta.addActionListener(e->{
+        	AceptarRechazarConsulta ventana = new AceptarRechazarConsulta();
+        	desktopPane.add(ventana);
+        	ventana.setVisible(true);
+        });
+        consultaMenu.add(aceptarRechazarConsulta);
+        
         
         JMenuItem altaBeneficioItem = new JMenuItem("Alta de Beneficio Anual");
         altaBeneficioItem.addActionListener(e->{

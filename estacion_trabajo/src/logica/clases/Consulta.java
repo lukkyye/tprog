@@ -117,5 +117,9 @@ public class Consulta {
 	    return null;
 	}
 
+	public void setEstado(EstadoConsulta estado) {
+		this.estado=estado;
+	}
+
 	
 }
