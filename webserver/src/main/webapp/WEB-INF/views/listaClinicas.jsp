@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Set" %>
+<%@ page import="com.gateway.delegators.ClinicControllerDelegator" %>
+<%
+    ClinicControllerDelegator clinicController =
+        new ClinicControllerDelegator();
+
+    Set<String> especialidades = clinicController.listarEspecialidades();
+%>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -76,59 +83,88 @@
 
         <aside class="d-flex flex-column gap-4 ms-5 p-0 pe-2 sidebar-scroll"
                style="flex: 1 1 0%; max-width: 25%; max-height: 75vh; overflow-y: auto;">
+               
+<div class="container d-flex p-0 flex-column rounded-4 bg-light shadow justify-content-center align-items-center">
+    <div class="pt-2">
+        <h5 class="pt-2">Dar de Alta</h5>
+    </div>
 
-            <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow align-items-center">
-                <h5 class="pt-3">Especialidades</h5>
+    <div class="m-0 p-0 w-100">
+        <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3"
+            style="width: 100%;">
 
-                <ul class="nav nav-fill d-flex flex-column gap-3 w-100 pb-3">
-                    <li class="nav-item hoverable">
+            <li class="nav-item hoverable w-100">
+                <a class="text-muted text-decoration-none"
+                   href="${pageContext.request.contextPath}/AltaDiaConsultaServlet"
+                   style="font-size: 11pt;">Dia de Consulta</a>
+            </li>
+            <hr class="w-75" style="margin: auto;">
+
+            <li class="nav-item hoverable w-100">
+                <a class="text-muted text-decoration-none"
+                   href="${pageContext.request.contextPath}/AltaConsultaServlet"
+                   style="font-size: 11pt;">Consulta</a>
+            </li>
+            <hr class="w-75" style="margin: auto;">
+
+            <li class="nav-item hoverable w-100">
+                <a class="text-muted text-decoration-none"
+                   href="${pageContext.request.contextPath}/AltaClinicaServlet"
+                   style="font-size: 11pt;">Clinica</a>
+            </li>
+            <hr class="w-75" style="margin: auto;">
+
+            <li class="nav-item hoverable w-100">
+                <a class="text-muted text-decoration-none"
+                   href="${pageContext.request.contextPath}/AltaBeneficioAnualServlet"
+                   style="font-size: 11pt;">Beneficio Anual</a>
+            </li>
+            <hr class="w-75" style="margin: auto;">
+
+            <li class="nav-item hoverable w-100">
+                <a class="text-muted text-decoration-none"
+                   href="${pageContext.request.contextPath}/AltaEspecialidadServlet"
+                   style="font-size: 11pt;">Especialidad</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+               
+
+            <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow justify-content-center align-items-center">
+    <div class="pt-2">
+        <h5 class="pt-2">Especialidades</h5>
+    </div>
+
+    <div class="m-0 p-0 w-100">
+        <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3"
+            style="width: 100%;">
+
+            <% if (especialidades != null && !especialidades.isEmpty()) {
+                for (String especialidad : especialidades) { %>
+
+                    <li class="nav-item hoverable w-100">
                         <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Cardiologia</a>
+                           href="${pageContext.request.contextPath}/ListarConsultasServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>"
+                           style="font-size: 11pt;">
+                            <%= especialidad %>
+                        </a>
                     </li>
-                    <hr class="w-75 m-auto">
 
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Pediatria</a>
-                    </li>
-                    <hr class="w-75 m-auto">
+                    <hr class="w-75" style="margin: auto;">
 
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Fisioterapia</a>
-                    </li>
-                    <hr class="w-75 m-auto">
+            <%  }
+               } else { %>
 
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Nutricion</a>
-                    </li>
-                    <hr class="w-75 m-auto">
+                <li class="nav-item text-muted py-2">
+                    No hay especialidades registradas
+                </li>
 
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Ginecologia</a>
-                    </li>
-                    <hr class="w-75 m-auto">
-
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Oncologia</a>
-                    </li>
-                    <hr class="w-75 m-auto">
-
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Medicina General</a>
-                    </li>
-                    <hr class="w-75 m-auto">
-
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/consultas/listaConsultasDiaAprobadaVisitante.html">Oftalmologia</a>
-                    </li>
-                </ul>
-            </div>
+            <% } %>
+        </ul>
+    </div>
+</div>
 
             <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow align-items-center">
                 <h5 class="pt-3">Consultar</h5>
@@ -149,7 +185,7 @@
         </aside>
 
         <section class="col-md-9 pe-5 d-flex flex-column gap-4">
-            <h1 class="mb-4">Clinicas</h1>
+            <h1 class="mb-4">Clínicas</h1>
 
             <form action="${pageContext.request.contextPath}/DetalleClinicaVisitante"
                   method="get">
