@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gateway.interfaces.IClinicController;
-import com.models.logica.controladores.ControladorClinica;
-import com.models.logica.datatypes.DTConsulta;
-import com.models.logica.datatypes.DTConsultaDetalle;
-import com.models.logica.datatypes.DTDiaConsulta;
-import com.models.logica.datatypes.DTDiaSemana;
-import com.models.logica.datatypes.DTPaciente;
-import com.models.logica.datatypes.DTResConsultaDetalle;
+import com.models.controladores.ControladorClinica;
+import com.models.datatypes.DTConsulta;
+import com.models.datatypes.DTConsultaDetalle;
+import com.models.datatypes.DTDiaConsulta;
+import com.models.datatypes.DTDiaSemana;
+import com.models.datatypes.DTPaciente;
+import com.models.datatypes.DTResConsultaDetalle;
 
 public class ClinicControllerConnector implements IClinicController {
 	private ControladorClinica cc;

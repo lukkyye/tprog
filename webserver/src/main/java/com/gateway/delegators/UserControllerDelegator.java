@@ -6,15 +6,15 @@ import java.util.HashSet;
 
 import com.gateway.connectors.UserControllerConnector;
 import com.gateway.interfaces.IUserController;
-import com.models.logica.datatypes.DTBeneficioAnual;
-import com.models.logica.datatypes.DTConsulta;
-import com.models.logica.datatypes.DTConsultaDetalle;
-import com.models.logica.datatypes.DTMedico;
-import com.models.logica.datatypes.DTPaciente;
-import com.models.logica.datatypes.DTResConsulta;
-import com.models.logica.datatypes.DTResConsultaDetalle;
-import com.models.logica.datatypes.DTUsuario;
-import com.models.logica.datatypes.TipoMes;
+import com.models.datatypes.DTBeneficioAnual;
+import com.models.datatypes.DTConsulta;
+import com.models.datatypes.DTConsultaDetalle;
+import com.models.datatypes.DTMedico;
+import com.models.datatypes.DTPaciente;
+import com.models.datatypes.DTResConsulta;
+import com.models.datatypes.DTResConsultaDetalle;
+import com.models.datatypes.DTUsuario;
+import com.models.datatypes.TipoMes;
 
 public class UserControllerDelegator implements IUserController {
 	private UserControllerConnector ucc;
