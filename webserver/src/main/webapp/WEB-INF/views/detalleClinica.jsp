@@ -89,11 +89,9 @@
 
                         <div class="col-md-5">
                             <%
-                                String imagen = clinica.img();
+                                String imagen = (new com.gateway.delegators.ImageHandlerDelegator()).get_img64(clinica.nombre());
                                 if (imagen != null && !imagen.isBlank()) {
-                                    String src = imagen.startsWith("data:image/")
-                                            ? imagen
-                                            : "data:image/jpeg;base64," + imagen;
+                                    String src = imagen;
                             %>
                                 <img class="clinic-image"
                                      src="<%= src %>"

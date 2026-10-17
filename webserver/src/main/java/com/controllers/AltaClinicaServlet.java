@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.MultipartConfig;
-import java.util.Base64;
 import jakarta.servlet.http.Part;
 
 @WebServlet("/AltaClinicaServlet")

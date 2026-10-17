@@ -4,18 +4,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
-
 import javax.imageio.ImageIO;
-
 import jakarta.servlet.http.Part;
 
 public class ManejadorImagen {
 	private static ManejadorImagen instance;
-	private HashMap<String, BufferedImage> imgs;
+	private static HashMap<String, BufferedImage> imgs;
 	
 	public static ManejadorImagen get_instance() {
 		if (instance==null) {
 			instance=new ManejadorImagen();
+			imgs=new HashMap<String, BufferedImage>();
 		}
 		return instance;
 	}
