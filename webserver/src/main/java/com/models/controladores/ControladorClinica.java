@@ -7,6 +7,7 @@ import com.models.manejadores.ManejadorClinica;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.manejadores.ManejadorConsulta;
 import com.models.clases.Consulta;
+import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTConsulta;
 import com.models.clases.DiaConsulta;
 import com.models.clases.Medico;
@@ -36,6 +37,7 @@ import com.models.excepciones.BeneficioSinOrdenesException;
 
 
 public class ControladorClinica {
+	
 
 	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
 	    Set<DTDiaConsulta> res = new HashSet<>();
@@ -46,9 +48,23 @@ public class ControladorClinica {
 	    return res;
 	}
 	
+	public DTClinica seleccionarClinica(String nombre) {
+		ManejadorClinica mc = ManejadorClinica.get_instance();
+		Clinica clinica = mc.findClinica(nombre);
+		if (clinica == null) {
+			return null;
+		}
+		return clinica.get_dt();
+	}
+	
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
 		ManejadorClinica mcl = ManejadorClinica.get_instance();
 		mcl.agregar_clinica(nombre, desc, dir, costoT, costoC, link);
+		return true;
+	}
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
+		ManejadorClinica mcl = ManejadorClinica.get_instance();
+		mcl.agregar_clinica(nombre, desc, dir, costoT, costoC, link, img);
 		return true;
 	}
 	

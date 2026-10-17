@@ -2,7 +2,6 @@ package com.models.clases;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
-
 import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTDiaConsulta;
 import com.models.datatypes.DTDiaSemana;
@@ -16,6 +15,7 @@ public class Clinica {
 	private String dir;
 	private String desc;
 	private HashSet<DiaConsulta> diasconsulta;
+	private String img;
 	
 	public String getNombre() {
 		return this.nombre;
@@ -29,6 +29,17 @@ public class Clinica {
 		this.cConsulta = costoConsulta;
 		this.web = link;
 		this.diasconsulta=new HashSet<DiaConsulta>();
+		this.img=null;
+	}
+	public Clinica(String nomClinica, String desc, String direc, float costoTicket, float costoConsulta, String link, String _img) {
+		this.nombre= nomClinica;
+		this.desc = desc;
+		this.dir = direc;
+		this.cTicket = costoTicket;
+		this.cConsulta = costoConsulta;
+		this.web = link;
+		this.diasconsulta=new HashSet<DiaConsulta>();
+		this.img=_img;
 	}
 	
 	public HashSet<DTDiaConsulta> mostrarDiasConsulta(){
@@ -40,8 +51,9 @@ public class Clinica {
 	}
 
 	public DTClinica get_dt() {
-		return new DTClinica(nombre, desc, dir, web, cTicket, cConsulta);
+		return new DTClinica(nombre, desc, dir, web, cTicket, cConsulta, img);
 	}
+	
 	
 	public float getCostoConsulta() {
 	    return cConsulta;

@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTConsulta;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.datatypes.DTDiaConsulta;
@@ -23,8 +24,12 @@ public interface IClinicController {
 	HashSet<DTPaciente> listarPacientes();
 	void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef);
 	Set<DTConsulta> listarConsultas();
+	public DTClinica seleccionarClinica(String nombre);
 	void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum);
 	Set<String> listarClinicas();
 	Set<String> listarEspecialidades();
+	
 	void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio, String nombreEspecialidad, String nombreClinica);
+	boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
+			String img);
 }

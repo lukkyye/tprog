@@ -79,6 +79,13 @@ public class ManejadorClinica {
 		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
 		clinicas.put(nombre, cl);
 	}
+    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
+		if (memberClinica(nombre)) {
+			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
+		}
+		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link, img);
+		clinicas.put(nombre, cl);
+	}
       
     public void agregarDiaConsulta(DiaConsulta diaConsulta) {
 

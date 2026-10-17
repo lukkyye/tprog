@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import com.gateway.connectors.ClinicControllerConnector;
 import com.gateway.interfaces.IClinicController;
+import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTConsulta;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.datatypes.DTDiaConsulta;
@@ -21,12 +22,21 @@ public class ClinicControllerDelegator implements IClinicController {
 	}
 	
 	@Override
+	public DTClinica seleccionarClinica(String nombre) {
+		return cc.seleccionarClinica(nombre);
+	}
+	
+	@Override
 	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
 		return cc.listarDatosDiaConsulta();
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
+	}
+	@Override
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
 		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.gateway.interfaces.IClinicController;
 import com.models.controladores.ControladorClinica;
+import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTConsulta;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.datatypes.DTDiaConsulta;
@@ -30,7 +31,11 @@ public class ClinicControllerConnector implements IClinicController {
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
 		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
-
+	@Override
+	public DTClinica seleccionarClinica(String nombre) {
+		return cc.seleccionarClinica(nombre);
+	}
+	
 	@Override
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
 		return cc.listarDatosConsulta(nomC);
@@ -85,5 +90,11 @@ public class ClinicControllerConnector implements IClinicController {
 	public void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) {
 		cc.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
+	}
+
+	@Override
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
+			String img) {
+		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
 	}
 }
