@@ -1,3 +1,4 @@
+```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Set" %>
@@ -28,39 +29,56 @@
        style="flex: 1 1 0%; max-width: 25%; max-height: 75vh; overflow-y: auto;">
 
     <!-- Dar de Alta -->
-    <div class="card shadow-sm rounded-4">
-        <div class="card-body">
-            <h5 class="text-center mb-3">Dar de Alta</h5>
-            <hr>
+    <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow
+                justify-content-center align-items-center">
+        <div class="pt-2">
+            <h5 class="pt-2">Dar de Alta</h5>
+        </div>
 
-            <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
-                <li>
+        <div class="m-0 p-0 w-100">
+            <ul class="nav nav-link nav-fill d-flex flex-column gap-3
+                       mx-0 mt-0 pb-3" style="width: 100%;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/AltaDiaConsultaServlet">
+                       href="${pageContext.request.contextPath}/AltaDiaConsultaServlet"
+                       style="font-size: 11pt;">
                         Dia de Consulta
                     </a>
                 </li>
-                <li>
+                <hr class="w-75" style="margin: auto;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/AltaConsultaServlet">
+                       href="${pageContext.request.contextPath}/AltaConsultaServlet"
+                       style="font-size: 11pt;">
                         Consulta
                     </a>
                 </li>
-                <li>
+                <hr class="w-75" style="margin: auto;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/AltaClinicaServlet">
+                       href="${pageContext.request.contextPath}/AltaClinicaServlet"
+                       style="font-size: 11pt;">
                         Clinica
                     </a>
                 </li>
-                <li>
+                <hr class="w-75" style="margin: auto;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/AltaBeneficioAnualServlet">
+                       href="${pageContext.request.contextPath}/AltaBeneficioAnualServlet"
+                       style="font-size: 11pt;">
                         Beneficio Anual
                     </a>
                 </li>
-                <li>
+                <hr class="w-75" style="margin: auto;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/AltaEspecialidadServlet">
+                       href="${pageContext.request.contextPath}/AltaEspecialidadServlet"
+                       style="font-size: 11pt;">
                         Especialidad
                     </a>
                 </li>
@@ -69,51 +87,73 @@
     </div>
 
     <!-- Especialidades -->
-    <div class="card shadow-sm rounded-4">
-        <div class="card-body">
-            <h5 class="text-center mb-3">Especialidades</h5>
-            <hr>
+    <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow
+                justify-content-center align-items-center">
+        <div class="pt-2">
+            <h5 class="pt-2">Especialidades</h5>
+        </div>
 
-            <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+        <div class="m-0 p-0 w-100">
+            <ul class="nav nav-link nav-fill d-flex flex-column gap-3
+                       mx-0 mt-0 pb-3" style="width: 100%;">
+
                 <% if (especialidades != null && !especialidades.isEmpty()) {
                     for (String especialidad : especialidades) { %>
-                        <li>
-                            <a class="text-muted text-decoration-none"
-                               href="${pageContext.request.contextPath}/ListarConsultasServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>">
-                                <%= especialidad %>
-                            </a>
-                        </li>
-                        <hr class="w-75 mx-auto">
+
+                    <li class="nav-item hoverable w-100">
+                        <a class="text-muted text-decoration-none"
+                           href="${pageContext.request.contextPath}/ListarConsultasServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>"
+                           style="font-size: 11pt;">
+                            <%= especialidad %>
+                        </a>
+                    </li>
+                    <hr class="w-75" style="margin: auto;">
+
                 <%  }
                    } else { %>
-                    <li class="text-muted">No hay especialidades disponibles.</li>
+
+                    <li class="nav-item text-muted">
+                        No hay especialidades disponibles.
+                    </li>
+
                 <% } %>
             </ul>
         </div>
     </div>
 
     <!-- Consultar -->
-    <div class="card shadow-sm rounded-4">
-        <div class="card-body">
-            <h5 class="text-center mb-3">Consultar</h5>
-            <hr>
+    <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow
+                justify-content-center align-items-center mb-2">
+        <div class="pt-2">
+            <h5 class="pt-2">Consultar</h5>
+        </div>
 
-            <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
-                <li>
+        <div class="m-0 p-0 w-100">
+            <ul class="nav nav-link nav-fill d-flex flex-column gap-3
+                       mx-0 mt-0 pb-3" style="width: 100%;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/UsuariosMedico">
+                       href="${pageContext.request.contextPath}/UsuariosMedico"
+                       style="font-size: 11pt;">
                         Usuarios
                     </a>
                 </li>
-                <li>
+                <hr class="w-75" style="margin: auto;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/ClinicasMedico">
+                       href="${pageContext.request.contextPath}/ClinicasMedico"
+                       style="font-size: 11pt;">
                         Clinicas
                     </a>
                 </li>
-                <li>
+                <hr class="w-75" style="margin: auto;">
+
+                <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/MisConsultasServlet">
+                       href="${pageContext.request.contextPath}/MisConsultasServlet"
+                       style="font-size: 11pt;">
                         Mis Consultas
                     </a>
                 </li>
@@ -122,3 +162,4 @@
     </div>
 
 </aside>
+```
