@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.gateway.connectors.ImageHandlerConnector;
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.models.datatypes.DTDiaSemana;
 
@@ -12,6 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
+import com.gateway.delegators.ImageHandlerDelegator;
 
 @WebServlet("/AltaDiaConsultaServlet")
 public class AltaDiaConsultaServlet extends HttpServlet {
@@ -73,8 +77,14 @@ public class AltaDiaConsultaServlet extends HttpServlet {
                     dia,
                     horaInicio,
                     nombreEspecialidad,
-                    nombreClinica
+                    nombreClinica    
             );
+            
+           
+        		ImageHandlerDelegator IMG = new ImageHandlerDelegator();
+                Part archivoImagen = request.getPart("imagen");
+
+        		IMG.add_img(archivoImagen, nombre+dia);
 
             request.setAttribute("mensaje",
                     "El dia de consulta se registro correctamente.");
