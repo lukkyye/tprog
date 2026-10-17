@@ -4,6 +4,7 @@ package com.controllers;
 import java.io.IOException;
 
 import com.gateway.delegators.ClinicControllerDelegator;
+import com.gateway.delegators.ImageHandlerDelegator;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -46,7 +47,6 @@ public class AltaClinicaServlet extends HttpServlet {
         String sitioWeb = request.getParameter("sitioWeb");
 
         Part archivoImagen = request.getPart("imagen");
-        String imagenBase64 = null;
 
         if (archivoImagen != null && archivoImagen.getSize() > 0) {
         	String tipoContenido = archivoImagen.getContentType();
@@ -58,10 +58,7 @@ public class AltaClinicaServlet extends HttpServlet {
         			.forward(request, response);
         		return;
         	}
-
-    byte[] bytesImagen = archivoImagen.getInputStream().readAllBytes();
-    imagenBase64 = Base64.getEncoder().encodeToString(bytesImagen);
-}
+        }
 
 
         try {
@@ -93,10 +90,11 @@ public class AltaClinicaServlet extends HttpServlet {
                     direccion.trim(),
                     costoTicket,
                     costoOrden,
-                    sitioWeb == null ? "" : sitioWeb.trim(),
-                    imagenBase64
-                    		
+                    sitioWeb == null ? "" : sitioWeb.trim()	
             );
+            
+            ImageHandlerDelegator ihd = new ImageHandlerDelegator();
+            ihd.add_img(archivoImagen, nombre);
 
             if (ingresada) {
                 request.setAttribute("mensaje",
