@@ -9,6 +9,21 @@
     Set<String> especialidades = clinicController.listarEspecialidades();
 %>
 
+<style>
+    .hoverable:hover {
+        background-color: rgba(180, 180, 180, 0.8);
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+</style>
+
 <aside class="d-flex flex-column gap-4 ms-5 p-0 pe-2 sidebar-scroll"
        style="flex: 1 1 0%; max-width: 25%; max-height: 75vh; overflow-y: auto;">
 
