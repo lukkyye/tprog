@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,21 +15,57 @@
           rel="stylesheet">
 </head>
 
-<body class="bg-light">
 
-    <header class="bg-white border-bottom p-3">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h2 class="text-primary mb-0">salud.uy</h2>
-            <a href="${pageContext.request.contextPath}/ListarClinicasServlet"
-               class="btn btn-outline-secondary">
-                Volver a clinicas
-            </a>
-        </div>
-    </header>
+<body class="min-vh-100 container-fluid bg-body">
 
-    <main class="container py-5">
-        <div class="card shadow-sm mx-auto" style="max-width: 750px;">
-            <div class="card-body p-4">
+    <%
+        if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
+    %>
+        <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+    <%
+        } else {
+    %>
+        <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+    <%
+        }
+    %>
+
+
+   
+<main class="container-fluid d-flex mt-5 gap-4">
+
+    <%
+        if ("MEDICO".equals(tipoUsuario)) {
+    %>
+        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+    <%
+        } else if ("PACIENTE".equals(tipoUsuario)) {
+    %>
+        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+    <%
+        } else {
+    %>
+        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+    <%
+        }
+    %>
+
+    
+<div class="col-md-9 pe-5 d-flex flex-column gap-4">
+    <section class="bg-light rounded-4 shadow p-4 p-sm-5 w-100">
+
+        <h1 class="h2 fw-bold mb-3">Alta de Dia Consulta</h1>
+
+        <p class="text-secondary">
+            Nuevo Dia de Consulta.
+        </p>
+
+        <p>
+            Los campos marcados con
+            <span class="text-danger">*</span>
+            son obligatorios.
+        </p>
+
 
                 <h1 class="h3 mb-4">Alta de Dia de Consulta</h1>
 
@@ -41,7 +81,7 @@
 
                     <div class="mb-3">
                         <label for="nombre" class="form-label">
-                            Nombre del dia de consulta *
+                            Nombre del dia de consulta <span class="text-danger">*</span>
                         </label>
                         <input type="text" id="nombre" name="nombre"
                                class="form-control" required>
@@ -49,7 +89,7 @@
 
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">
-                            Descripcion *
+                            Descripcion <span class="text-danger">*</span>
                         </label>
                         <textarea id="descripcion" name="descripcion"
                                   class="form-control" rows="3"
@@ -58,7 +98,7 @@
 
                     <div class="mb-3">
                         <label for="dia" class="form-label">
-                            Dia de la semana *
+                            Dia de la semana <span class="text-danger">*</span>
                         </label>
                         <select id="dia" name="dia" class="form-select" required>
                             <option value="">Seleccionar dia</option>
@@ -74,24 +114,14 @@
 
                     <div class="mb-3">
                         <label for="horaInicio" class="form-label">
-                            Hora de inicio *
+                            Hora de inicio <span class="text-danger">*</span>
                         </label>
                         <input type="time" id="horaInicio" name="horaInicio"
                                class="form-control" required>
                     </div>
-					<div class="mb-3">
-    					<label for="imagen" class="form-label">
-        					Imagen (opcional)
-    					</label>
-    					<input type="file"
-           					id="imagen"
-           					name="imagen"
-           					class="form-control"
-           					accept="image/*">
-					</div>
                     <div class="mb-3">
                         <label for="nombreEspecialidad" class="form-label">
-                            Especialidad *
+                            Especialidad <span class="text-danger">*</span>
                         </label>
                         <select id="nombreEspecialidad" name="nombreEspecialidad"
                                 class="form-select" required>
@@ -115,7 +145,7 @@
 
                     <div class="mb-3">
                         <label for="nombreClinica" class="form-label">
-                            Clinica *
+                            Clinica <span class="text-danger">*</span>
                         </label>
                         <select id="nombreClinica" name="nombreClinica"
                                 class="form-select" required>
@@ -136,6 +166,17 @@
                             %>
                         </select>
                     </div>
+                    
+                    	<div class="mb-3">
+    					<label for="imagen" class="form-label">
+        					Imagen (opcional)
+    					</label>
+    					<input type="file"
+           					id="imagen"
+           					name="imagen"
+           					class="form-control"
+           					accept="image/*">
+					</div>
 
                     <p class="form-text">
                         El costo del dia de consulta se calcula automaticamente
@@ -157,8 +198,8 @@
                 </form>
             </div>
         </div>
+         </section>
     </main>
 
 </body>
 </html>
-```
