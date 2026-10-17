@@ -5,6 +5,7 @@
 
 <%
     DTClinica clinica = (DTClinica) request.getAttribute("clinica");
+	String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 %>
 
 <!DOCTYPE html>
@@ -42,34 +43,28 @@
 
 <body class="min-vh-100 container-fluid bg-body">
 
-    <header class="mb-2">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
 
-                <a class="navbar-brand"
-                   href="${pageContext.request.contextPath}/index.html">
-                    <img src="${pageContext.request.contextPath}/img/LOGOGENERAL.png"
-                         width="120" alt="Salud.uy">
-                </a>
+    
+<main class="container-fluid d-flex mt-5 gap-4">
 
-                <div class="d-flex gap-2 align-items-center">
-                    <a href="${pageContext.request.contextPath}/auth/login.html"
-                       class="btn btn-secondary">Iniciar sesion</a>
+    <%
+        if ("MEDICO".equals(tipoUsuario)) {
+    %>
+        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+    <%
+        } else if ("PACIENTE".equals(tipoUsuario)) {
+    %>
+        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+    <%
+        } else {
+    %>
+        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+    <%
+        }
+    %>
 
-                    <a href="${pageContext.request.contextPath}/auth/signUp.html"
-                       class="btn btn-primary">Registrarse</a>
+    <section class="flex-grow-1 pe-4" style="min-width: 0;">
 
-                    <img style="height: 38px;"
-                         class="rounded-circle border"
-                         src="${pageContext.request.contextPath}/img/VISITANTE.png"
-                         alt="Perfil visitante">
-                </div>
-            </div>
-        </nav>
-        <hr class="text-black m-0">
-    </header>
-
-    <main class="container py-5">
 
         <% if (clinica != null) { %>
 
@@ -184,7 +179,7 @@
             </a>
 
         <% } %>
-
+ 		</section>
     </main>
 </body>
 </html>
