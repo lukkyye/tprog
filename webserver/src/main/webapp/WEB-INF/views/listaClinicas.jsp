@@ -7,6 +7,7 @@
         new ClinicControllerDelegator();
 
     Set<String> especialidades = clinicController.listarEspecialidades();
+    String tipoUsuario = (String) session.getAttribute("tipoUsuario"); // hay que ajustar tipo usuario y todo eso 
 %>
 
 <!DOCTYPE html>
@@ -37,152 +38,41 @@
 </head>
 
 <body class="min-vh-100 container-fluid bg-body">
-
-    <header class="mb-2">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-
-                <a class="navbar-brand"
-                   href="${pageContext.request.contextPath}/index.html">
-                    <img src="${pageContext.request.contextPath}/img/LOGOGENERAL.png"
-                         width="120" alt="Salud.uy">
-                </a>
-
-                <form class="d-flex mx-auto"
-                      style="max-width: 500px; width: 100%;"
-                      action="${pageContext.request.contextPath}/Buscar"
-                      method="get">
-                    <input class="form-control me-2"
-                           type="search"
-                           name="busqueda"
-                           placeholder="Buscar..."
-                           aria-label="Buscar">
-                    <button class="btn btn-outline-success" type="submit">
-                        Buscar
-                    </button>
-                </form>
-
-                <div class="d-flex gap-2 align-items-center">
-                    <a href="${pageContext.request.contextPath}/auth/login.html"
-                       class="btn btn-secondary">Iniciar sesion</a>
-
-                    <a href="${pageContext.request.contextPath}/auth/signUp.html"
-                       class="btn btn-primary">Registrarse</a>
-
-                    <img style="height: 38px;"
-                         class="rounded-circle border"
-                         src="${pageContext.request.contextPath}/img/VISITANTE.png"
-                         alt="Perfil visitante">
-                </div>
-            </div>
-        </nav>
-        <hr class="text-black m-0">
-    </header>
+    
+<%
+    if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
+%>
+    <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+<%
+    } else {
+%>
+    <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+<%
+    }
+%>
+    
 
     <main class="container-fluid d-flex mt-5 gap-4">
 
-        <aside class="d-flex flex-column gap-4 ms-5 p-0 pe-2 sidebar-scroll"
-               style="flex: 1 1 0%; max-width: 25%; max-height: 75vh; overflow-y: auto;">
-               
-<div class="container d-flex p-0 flex-column rounded-4 bg-light shadow justify-content-center align-items-center">
-    <div class="pt-2">
-        <h5 class="pt-2">Dar de Alta</h5>
-    </div>
 
-    <div class="m-0 p-0 w-100">
-        <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3"
-            style="width: 100%;">
+<%
+    if ("MEDICO".equals(tipoUsuario)) {
+%>
+    <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
 
-            <li class="nav-item hoverable w-100">
-                <a class="text-muted text-decoration-none"
-                   href="${pageContext.request.contextPath}/AltaDiaConsultaServlet"
-                   style="font-size: 11pt;">Dia de Consulta</a>
-            </li>
-            <hr class="w-75" style="margin: auto;">
+<%
+    } else if ("PACIENTE".equals(tipoUsuario)) {
+%>
+    <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
 
-            <li class="nav-item hoverable w-100">
-                <a class="text-muted text-decoration-none"
-                   href="${pageContext.request.contextPath}/AltaConsultaServlet"
-                   style="font-size: 11pt;">Consulta</a>
-            </li>
-            <hr class="w-75" style="margin: auto;">
+<%
+    } else {
+%>
+    <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+<%
+    }
+%>
 
-            <li class="nav-item hoverable w-100">
-                <a class="text-muted text-decoration-none"
-                   href="${pageContext.request.contextPath}/AltaClinicaServlet"
-                   style="font-size: 11pt;">Clinica</a>
-            </li>
-            <hr class="w-75" style="margin: auto;">
-
-            <li class="nav-item hoverable w-100">
-                <a class="text-muted text-decoration-none"
-                   href="${pageContext.request.contextPath}/AltaBeneficioAnualServlet"
-                   style="font-size: 11pt;">Beneficio Anual</a>
-            </li>
-            <hr class="w-75" style="margin: auto;">
-
-            <li class="nav-item hoverable w-100">
-                <a class="text-muted text-decoration-none"
-                   href="${pageContext.request.contextPath}/AltaEspecialidadServlet"
-                   style="font-size: 11pt;">Especialidad</a>
-            </li>
-
-        </ul>
-    </div>
-</div>
-               
-
-            <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow justify-content-center align-items-center">
-    <div class="pt-2">
-        <h5 class="pt-2">Especialidades</h5>
-    </div>
-
-    <div class="m-0 p-0 w-100">
-        <ul class="nav nav-link nav-fill d-flex flex-column gap-3 mx-0 mt-0 pb-3"
-            style="width: 100%;">
-
-            <% if (especialidades != null && !especialidades.isEmpty()) {
-                for (String especialidad : especialidades) { %>
-
-                    <li class="nav-item hoverable w-100">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/ListarConsultasServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>"
-                           style="font-size: 11pt;">
-                            <%= especialidad %>
-                        </a>
-                    </li>
-
-                    <hr class="w-75" style="margin: auto;">
-
-            <%  }
-               } else { %>
-
-                <li class="nav-item text-muted py-2">
-                    No hay especialidades registradas
-                </li>
-
-            <% } %>
-        </ul>
-    </div>
-</div>
-
-            <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow align-items-center">
-                <h5 class="pt-3">Consultar</h5>
-
-                <ul class="nav nav-fill d-flex flex-column gap-3 w-100 pb-3">
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/users/listaUsuariosVisitante.html">Usuarios</a>
-                    </li>
-                    <hr class="w-75 m-auto">
-
-                    <li class="nav-item hoverable">
-                        <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/ClinicasVisitante">Clinicas</a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
 
         <section class="col-md-9 pe-5 d-flex flex-column gap-4">
             <h1 class="mb-4">Clínicas</h1>
