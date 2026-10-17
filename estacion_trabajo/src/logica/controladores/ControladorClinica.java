@@ -1,4 +1,5 @@
 package logica.controladores;
+import logica.clases.BeneficioAnual;
 import logica.clases.Clinica;
 import logica.datatypes.DTDiaConsulta;
 import logica.datatypes.DTDiaSemana;
@@ -30,6 +31,7 @@ import logica.excepciones.FechaDiaSemanaInvalidaException;
 import logica.clases.Especialidad;
 import logica.manejadores.ManejadorEspecialidad;
 import logica.excepciones.DiaConsultaAlreadyExistsException;
+import logica.excepciones.BeneficioSinOrdenesException;
 
 
 
@@ -111,12 +113,20 @@ public class ControladorClinica {
 		        costo = costo * 0.8f;
 		        //aplicaBenef = true;
 		    }
+		 BeneficioAnual beneficio = null;
 		 if (aplicaBenef) {
+			 beneficio = p.beneficioConOrdenesMasAntiguo();
+			 if (beneficio == null) {
+				 throw new BeneficioSinOrdenesException("El paciente no tiene ordenes gratuitas disponibles");
+			 }
 			 costo = 0.0f;
 		 }
 		 Reserva r = new Reserva(nicknamePaciente, nomC, fechaReserva, numero, aplicaBenef, costo);
 		 p.agregarReserva(r);
 		 c.agregarReserva(r);
+		 if (beneficio != null) {
+			 beneficio.usarOrden();
+		 }
 	}
 	public Set<DTConsulta> listarConsultas() {
 	    ManejadorConsulta mc = ManejadorConsulta.get_instance();

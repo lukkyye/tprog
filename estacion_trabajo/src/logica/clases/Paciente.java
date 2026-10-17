@@ -98,4 +98,15 @@ public class Paciente extends Usuario{
 	public void setAntSalud(ArrayList<String> antSalud) {
 		this.antSalud = (antSalud != null) ? new ArrayList<String>(antSalud) : new ArrayList<String>();
 	}
+	
+	public BeneficioAnual beneficioConOrdenesMasAntiguo() {
+		BeneficioAnual elegido = null;
+		for (BeneficioAnual b : benef) {
+			boolean esMasAntiguo = (elegido == null || b.getAnio() < elegido.getAnio());
+			if (b.tieneOrdenesDisponibles() && esMasAntiguo) {
+				elegido = b;
+			}
+		}
+		return elegido;
+	}
 }

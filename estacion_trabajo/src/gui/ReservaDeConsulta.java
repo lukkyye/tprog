@@ -21,6 +21,7 @@ import logica.datatypes.DTDiaConsulta;
 
 import logica.excepciones.ReservaAlreadyExistsException;
 import logica.manejadores.ManejadorConsulta;
+import logica.excepciones.BeneficioSinOrdenesException;
 import logica.excepciones.NoNumberAvailableException;
 import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
@@ -206,6 +207,8 @@ public class ReservaDeConsulta extends JInternalFrame {
                         "No hay números disponibles",
                         JOptionPane.ERROR_MESSAGE
                     );
+                } catch (BeneficioSinOrdenesException ex) {
+                	JOptionPane.showMessageDialog(null, ex.getMessage(), "El paciente no tiene ordenes gratuitas disponibles", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
