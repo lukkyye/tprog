@@ -208,7 +208,7 @@ public class ReservaDeConsulta extends JInternalFrame {
                         JOptionPane.ERROR_MESSAGE
                     );
                 } catch (BeneficioSinOrdenesException ex) {
-                	JOptionPane.showMessageDialog(null, ex.getMessage(), "El paciente no tiene ordenes gratuitas disponibles", JOptionPane.ERROR_MESSAGE);
+                	JOptionPane.showMessageDialog(null, ex.getMessage(), "Sin beneficio disponible", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
