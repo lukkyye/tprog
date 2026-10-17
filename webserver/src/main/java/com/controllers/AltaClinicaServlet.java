@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.MultipartConfig;
+import java.util.Base64;
+import jakarta.servlet.http.Part;
 
 @WebServlet("/AltaClinicaServlet")
 @MultipartConfig
@@ -43,6 +45,25 @@ public class AltaClinicaServlet extends HttpServlet {
         String costoOrdenTexto = request.getParameter("costoOrden");
         String sitioWeb = request.getParameter("sitioWeb");
 
+        Part archivoImagen = request.getPart("imagen");
+        String imagenBase64 = null;
+
+        if (archivoImagen != null && archivoImagen.getSize() > 0) {
+        	String tipoContenido = archivoImagen.getContentType();
+
+        	if (tipoContenido == null || !tipoContenido.startsWith("image/")) {
+        		request.setAttribute("mensaje",
+        				"El archivo seleccionado no es una imagen.");
+        		request.getRequestDispatcher("/WEB-INF/views/altaClinica.jsp")
+        			.forward(request, response);
+        		return;
+        	}
+
+    byte[] bytesImagen = archivoImagen.getInputStream().readAllBytes();
+    imagenBase64 = Base64.getEncoder().encodeToString(bytesImagen);
+}
+
+
         try {
             if (nombre == null || nombre.isBlank()
                     || descripcion == null || descripcion.isBlank()
@@ -72,7 +93,9 @@ public class AltaClinicaServlet extends HttpServlet {
                     direccion.trim(),
                     costoTicket,
                     costoOrden,
-                    sitioWeb == null ? "" : sitioWeb.trim()
+                    sitioWeb == null ? "" : sitioWeb.trim(),
+                    imagenBase64
+                    		
             );
 
             if (ingresada) {

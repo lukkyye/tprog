@@ -37,7 +37,7 @@ public class ClinicControllerDelegator implements IClinicController {
 	}
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
-		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
+		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
 	}
 
 	@Override
