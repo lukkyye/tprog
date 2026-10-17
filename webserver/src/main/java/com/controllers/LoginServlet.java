@@ -1,7 +1,11 @@
 package com.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
+import com.models.datatypes.TipoMes;
 import com.models.excepciones.UserNotFoundException;
 
 import jakarta.servlet.ServletException;
@@ -32,9 +36,12 @@ public class LoginServlet extends HttpServlet {
 		    	usertype="Medico";
 		    }
 		    session.setAttribute("nickname", nickname);
-		    session.setAttribute("userProfileImg", password);
+		    session.setAttribute("error", null);
 		    session.setAttribute("usertype", usertype);
 		    response.sendRedirect("/home");
+		} else {
+			request.setAttribute("error", "Usuario o contraseña invalidas");
+			request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
 		}
 	}
 }
