@@ -28,10 +28,7 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if (request.getParameter("usertype")=="Paciente") {
-			
-		}
+		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 	}
 
 	/**

@@ -16,8 +16,8 @@
                     <a href="/home/my_profile" class="btn btn-primary">Mis Datos</a>
                     <div class="d-flex align-items-center gap-1">
                    		<%String nickname = (String) request.getAttribute("nickname");%>
-                        <img style="height: 38px;" class="rounded-circle border" src="<%=(new com.gateway.delegators.ImageHandlerDelegator()).get_img64(nickname)%>" alt="Perfil">
-                        <a href="../users/HAYQHACERLO.html" class="text-decoration-none fw-bold text-dark" style="font-size: 10pt;"></a>
+    					<img style="height: 38px;" class="rounded-circle border" src="<%=(new com.gateway.delegators.ImageHandlerDelegator()).get_img64(nickname)%>">
+                        <a href="../users/HAYQHACERLO.html" class="text-decoration-none fw-bold text-dark" style="font-size: 10pt;">${nickname}</a>
                     </div>
                 </div>
             </div>

@@ -20,29 +20,7 @@
 
 <body class="alta-clinica">
 
-    <header class="border-bottom bg-white px-4 py-3">
-        <nav class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-
-            <a href="${pageContext.request.contextPath}/home/indexMedico.html">
-                <img src="${pageContext.request.contextPath}/img/LOGOGENERAL.png"
-                     alt="salud.uy" width="150">
-            </a>
-
-            <div class="d-flex align-items-center gap-3">
-                <a href="${pageContext.request.contextPath}/index.html"
-                   class="btn btn-secondary">
-                    Cerrar sesion
-                </a>
-
-                <img src="${pageContext.request.contextPath}/img/MEDICO.png"
-                     alt="Perfil medico"
-                     class="rounded-circle border"
-                     width="40" height="40">
-
-                <span class="fw-bold">ana.perez</span>
-            </div>
-        </nav>
-    </header>
+    <jsp:include page="/WEB-INF/templates/navbar.jsp"></jsp:include>
 
     <main class="container panel-registro">
         <h1 class="mb-3">Alta de Clinica</h1>
