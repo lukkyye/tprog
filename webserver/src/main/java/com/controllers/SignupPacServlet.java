@@ -11,11 +11,11 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.gateway.delegators.UserControllerDelegator;
 import com.models.excepciones.EmailAlreadyExistsException;
+import com.models.excepciones.IdAlreadyExistsException;
 import com.models.excepciones.NicknameAlreadyExistsException;
 
 /**
@@ -58,11 +58,11 @@ public class SignupPacServlet extends HttpServlet {
 		ArrayList<String> ant = new ArrayList<String>(List.of(
 					request.getParameter("antecedentes").split("\n")
 				));
-		Part img= request.getPart("Imagen");
+		Part img= request.getPart("imagen");
 		
 		UserControllerDelegator cu = new UserControllerDelegator();
 		if (nickname!=null && lastname!=null && confirm != null && password != null && born!=null) {
-			if (confirm.equals(password) && !cu.login(nickname, password)) {
+			if (confirm.equals(password)) {
 				String state = null;
 				try {
 					cu.ingresarPaciente(nickname, password, name, lastname, mail, born, LocalDate.now(), id, ant);		
@@ -74,11 +74,14 @@ public class SignupPacServlet extends HttpServlet {
 					state = e.getMessage();
 				} catch (EmailAlreadyExistsException e2) {
 					state = e2.getMessage();
+				} catch (IdAlreadyExistsException e3) {
+					state = e3.getMessage();
 				}
 				request.setAttribute("success", state==null ? "Se registró correctamente! Por favor ingrese sesión." : state);
 				request.getRequestDispatcher("/WEB-INF/views/SignUpPac.jsp").forward(request, response);
-				if (state==null) {					
-					response.setHeader("Refresh", "4;url=/webserver/login");
+				response.setHeader("Refresh", "4;url=/webserver/login");
+				if (state==null) {
+					response.sendRedirect("/webserver/login");
 				}
 			} else {
 				request.setAttribute("success", "Por favor, intentelo de nuevo.");

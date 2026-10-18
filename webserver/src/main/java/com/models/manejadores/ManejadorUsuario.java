@@ -151,8 +151,17 @@ public class ManejadorUsuario {
 		if (existe_correo(correo)) {
 			throw new EmailAlreadyExistsException("Ya existe usuario con el correo ingresado");
 		}
+		if (existe_ci(_doc)) {
+			throw new IdAlreadyExistsException("Ya existe un usuario con la cedula ingresada");
+		}
 		Paciente p1 = new Paciente(nickname, password, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
 		usuarios.put(nickname, p1);
+	}
+	
+	public boolean existe_ci(int _doc) {
+		return usuarios.values()
+				.stream()
+				.anyMatch(u -> u instanceof Paciente p && p.getDoc()==_doc);
 	}
 	
 	public HashSet<DTPaciente> get_dtpacientes(){

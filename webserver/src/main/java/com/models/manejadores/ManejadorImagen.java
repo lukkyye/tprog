@@ -11,26 +11,30 @@ public class ManejadorImagen {
 	private static ManejadorImagen instance;
 	private static HashMap<String, BufferedImage> imgs;
 	
-	public static ManejadorImagen get_instance() {
-		if (instance==null) {
-			instance=new ManejadorImagen();
-			imgs=new HashMap<String, BufferedImage>();
-		}
-		return instance;
-	}
+	private ManejadorImagen() {
+        imgs = new HashMap<String, BufferedImage>();
+    }
+
+    public static ManejadorImagen get_instance() {
+        if (instance == null) {
+            instance = new ManejadorImagen();
+        }
+        return instance;
+    }
 	
-	public boolean add_img(Part prt, String key) {
-		BufferedImage imagen=null;
-		try {
-			imagen = ImageIO.read(prt.getInputStream());
-			imgs.put(key, imagen);
-			System.out.println(get_img64(key));
-		} catch (IOException e) {
-			return false;
-		}
-		
-		return true;
-	}
+    public boolean add_img(Part prt, String key) {
+        try {
+            BufferedImage imagen = ImageIO.read(prt.getInputStream());
+            if (imagen == null) {
+                return false;
+            }
+            imgs.put(key, imagen);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 	
 	public BufferedImage get_img(String key) {
 		if (imgs.containsKey(key)) {

@@ -109,4 +109,8 @@ public class Paciente extends Usuario{
 		}
 		return elegido;
 	}
+
+	public int getDoc() {
+		return this.doc;
+	}
 }
