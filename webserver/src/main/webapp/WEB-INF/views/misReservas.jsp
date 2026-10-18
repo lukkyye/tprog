@@ -91,6 +91,13 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                    <a href="${pageContext.request.contextPath}/DetalleReservaServlet?numReserva=<%= reserva.numReserva() %>" 
+                       class="btn btn-outline-primary btn-sm">
+                        Ver Detalle
+                    </a>
+                </div>
             </div>
 <%
         }
