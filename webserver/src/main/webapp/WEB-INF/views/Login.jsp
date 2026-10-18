@@ -164,7 +164,7 @@
 
                     <p class="text-center mt-4 mb-0">
                         ¿No tenés cuenta?
-                        <a href="/signup"
+                        <a href="/webserver/signup"
                            class="text-white fw-bold">
                             Registrate
                         </a>
