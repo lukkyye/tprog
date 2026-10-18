@@ -43,7 +43,17 @@
 
 <body class="min-vh-100 container-fluid bg-body">
 
-
+<%
+    if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
+%>
+    <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+<%
+    } else {
+%>
+    <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+<%
+    }
+%>
     
 <main class="container-fluid d-flex mt-5 gap-4">
 
