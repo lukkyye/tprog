@@ -9,12 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
@@ -23,37 +19,26 @@ import com.models.excepciones.EmailAlreadyExistsException;
 import com.models.excepciones.IdAlreadyExistsException;
 import com.models.excepciones.NicknameAlreadyExistsException;
 
-/**
- * Servlet implementation class SignUpMedServlet
- */
+
 @WebServlet("/signup/m")
 @MultipartConfig
 public class SignUpMedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public SignUpMedServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		(new UserControllerDelegator()).altaEspecialidad("Cardiología", 2);
-		(new UserControllerDelegator()).altaEspecialidad("Pediatría", 2);
+		//(new UserControllerDelegator()).altaEspecialidad("Cardiología", 2);
+		//(new UserControllerDelegator()).altaEspecialidad("Pediatría", 2);
 		ArrayList<String> specs = new ClinicControllerDelegator().listarEspecialidades().stream().collect(Collectors.toCollection(ArrayList::new));
 		request.setAttribute("specs", specs);
 		request.getRequestDispatcher("/WEB-INF/views/SignUpMed.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nickname=request.getParameter("nickname");
 		String name=request.getParameter("nombre");
