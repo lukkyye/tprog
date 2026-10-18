@@ -24,9 +24,11 @@ public class ManejadorImagen {
 		try {
 			imagen = ImageIO.read(prt.getInputStream());
 			imgs.put(key, imagen);
+			System.out.println(get_img64(key));
 		} catch (IOException e) {
 			return false;
 		}
+		
 		return true;
 	}
 	

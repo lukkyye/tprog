@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 		    session.setAttribute("tipoUsuario", usertype);
 		    response.sendRedirect("/webserver/home");
 		} else {
-			request.setAttribute("error", "Usuario o contraseña invalidas");
+			request.setAttribute("success", "Usuario o contraseña invalidas");
 			request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
 		}
 	}

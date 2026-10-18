@@ -12,11 +12,9 @@
                 </form>
                 
                 <div class="d-flex flex-row user-section gap-2 align-items-center">
-                    <a href="../auth/login.html" class="btn btn-secondary">Iniciar Sesion</a>
-                    <a href="../auth/signUp.html" class="btn btn-primary">Registrarse</a>
+                    <a href="/webserver/login" class="btn btn-secondary">Iniciar Sesion</a>
+                    <a href="/webserver/signup" class="btn btn-primary">Registrarse</a>
                     <div class="d-flex align-items-center gap-1">
-                   		<%String nickname = (String) request.getAttribute("nickname");%>
-                        <img style="height: 38px;" class="rounded-circle border" src="<%=(new com.gateway.delegators.ImageHandlerDelegator()).get_img64(nickname)%>" alt="Perfil">
                         <a href="../users/HAYQHACERLO.html" class="text-decoration-none fw-bold text-dark" style="font-size: 10pt;"></a>
                     </div>
                 </div>

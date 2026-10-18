@@ -28,6 +28,10 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getAttribute("nickname")!=null) {
+			String img = new com.gateway.delegators.ImageHandlerDelegator().get_img64(request.getParameter("nickname"));
+			request.setAttribute("profilePicture", img);
+		}
 		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 	}
 

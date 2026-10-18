@@ -29,7 +29,7 @@
 	%>
 	
 	<% if ("Paciente".equals(tipoUsuario) || "Medico".equals(tipoUsuario)) { %>
-    <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+    	<jsp:include page="/WEB-INF/templates/navbar.jsp" />
 	<% } else { %>
 	    <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
 	<% } %>
