@@ -18,7 +18,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">
     <link rel="icon" type="image/png"
-          href="${pageContext.request.contextPath}/img/FAVICON.png">
+          href="/webserver/img/FAVICON.png">
 
     <style>
         .clinic-image {
@@ -43,7 +43,17 @@
 
 <body class="min-vh-100 container-fluid bg-body">
 
-
+<%
+    if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
+%>
+    <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+<%
+    } else {
+%>
+    <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+<%
+    }
+%>
     
 <main class="container-fluid d-flex mt-5 gap-4">
 

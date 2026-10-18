@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Salud.uy - Registrarse</title>
-    <link rel="icon" type="image/png" href="../img/FAVICON.png">
+    <link rel="icon" type="image/png" href="/webserver/img/FAVICON.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="../styles/singup_styles.css">
@@ -16,8 +16,8 @@
 <body class="min-vh-100 d-flex flex-column">
 
 	<header class="border-bottom bg-white px-4 py-3">
-    	<a href="/">
-        	<img src="../img/LOGOGENERAL.png" alt="salud.uy" width="150">
+    	<a href="/webserver/home">
+        	<img src="/webserver/img/LOGOGENERAL.png" alt="salud.uy" width="150">
     	</a>
 	</header>
 
@@ -43,7 +43,7 @@
 
             </div>
 
-            <a href="../index.html" class="btn btn-outline-secondary mt-4">
+            <a href="/webserver/home" class="btn btn-outline-secondary mt-4">
                 Cancelar
             </a>
 

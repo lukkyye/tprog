@@ -156,7 +156,7 @@
                             Entrar
                         </button>
 
-                        <a href="/home"
+                        <a href="/webserver/home"
                            class="btn btn-outline-light w-100 mt-3">
                             Cancelar
                         </a>

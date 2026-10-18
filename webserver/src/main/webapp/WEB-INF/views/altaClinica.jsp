@@ -9,7 +9,7 @@
     <title>Salud.uy - Alta de Clinica</title>
 
     <link rel="icon" type="image/png"
-          href="${pageContext.request.contextPath}/img/FAVICON.png">
+          href="/webserver/img/FAVICON.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">

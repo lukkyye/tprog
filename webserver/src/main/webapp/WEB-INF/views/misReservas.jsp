@@ -12,9 +12,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Salud.uy - Mis Reservas</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/FAVICON.png">
+    <link rel="icon" type="image/png" href="/webserver/img/FAVICON.png">
 
     <style>
         .hoverable:hover {

@@ -19,7 +19,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/FAVICON.png">
+    <link rel="icon" type="image/png" href="/webserver/img/FAVICON.png">
 
     <style>
         .hoverable:hover {
@@ -120,7 +120,7 @@
                     Ver datos
                 </button>
 
-                <a href="${pageContext.request.contextPath}/index.html"
+                <a href="/webserver/home"
                    class="btn btn-secondary">
                     Volver
                 </a>

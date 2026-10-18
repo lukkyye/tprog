@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salud.uy - Nuevo Paciente</title>
-    <link rel="icon" type="image/png" href="../img/FAVICON.png">
+    <link rel="icon" type="image/png" href="/webserver/img/FAVICON.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../scripts/login_scripts.js" defer></script>
     <link rel="stylesheet" href="../styles/singup_styles.css">
