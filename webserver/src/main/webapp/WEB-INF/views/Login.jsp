@@ -84,8 +84,8 @@
 
 <header class="bg-white border-bottom px-4 py-3">
     <nav class="d-flex justify-content-between align-items-center">
-        <a href="../index.html">
-            <img src="/websever/img/LOGOGENERAL.png"
+        <a href="/webserver/home">
+            <img src="/webserver/img/LOGOGENERAL.png"
                  alt="salud.uy"
                  width="120">
         </a>
@@ -103,7 +103,7 @@
 
                     <a href="/home"
                        class="d-block w-100">
-                        <img src="../img/LOGOGENERAL.png"
+                        <img src="/webserver/img/LOGOGENERAL.png"
                              alt="salud.uy"
                              class="logo-grande">
                     </a>

@@ -14,7 +14,7 @@ public enum TipoMes {
 	Noviembre,
 	Diciembre;
 	
-	public TipoMes toString(String str) {
+	public static TipoMes fromString(String str) {
 		return switch (str.toLowerCase()) {
 		case "enero" -> TipoMes.Enero;
 		case "febrero" -> TipoMes.Febrero;
