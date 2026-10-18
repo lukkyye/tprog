@@ -77,12 +77,13 @@ public class SignupPacServlet extends HttpServlet {
 				} catch (IdAlreadyExistsException e3) {
 					state = e3.getMessage();
 				}
-				request.setAttribute("success", state==null ? "Se registró correctamente! Por favor ingrese sesión." : state);
-				request.getRequestDispatcher("/WEB-INF/views/SignUpPac.jsp").forward(request, response);
-				response.setHeader("Refresh", "4;url=/webserver/login");
-				if (state==null) {
-					response.sendRedirect("/webserver/login");
+				if (state == null) {
+				    request.setAttribute("success", "Se registró correctamente. Ahora podés iniciar sesión.");
+				} else {
+				    request.setAttribute("error", state);
 				}
+
+				request.getRequestDispatcher("/WEB-INF/views/SignUpPac.jsp").forward(request, response);
 			} else {
 				request.setAttribute("success", "Por favor, intentelo de nuevo.");
 				request.getRequestDispatcher("/WEB-INF/views/SignUpPac.jsp").forward(request, response);
