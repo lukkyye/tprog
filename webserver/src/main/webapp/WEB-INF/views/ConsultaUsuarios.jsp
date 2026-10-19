@@ -66,38 +66,11 @@
 
 <body>
 
-<header class="barra-superior border-bottom px-4 py-3">
-    <nav class="d-flex justify-content-between align-items-center">
-        <a href="${pageContext.request.contextPath}/home">
-            <img src="${pageContext.request.contextPath}/img/LOGOGENERAL.png"
-                 alt="Salud.uy"
-                 width="120">
-        </a>
-
-        <div class="d-flex align-items-center gap-3">
-            <% if (nicknameSesion != null) { %>
-                <a href="${pageContext.request.contextPath}/misdatos"
-                   class="btn btn-primary">
-                    Mis datos
-                </a>
-
-                <a href="${pageContext.request.contextPath}/logout"
-                   class="btn btn-secondary">
-                    Cerrar sesión
-                </a>
-
-                <span class="fw-bold text-dark">
-                    <%= nicknameSesion %>
-                </span>
-            <% } else { %>
-                <a href="${pageContext.request.contextPath}/login"
-                   class="btn btn-primary">
-                    Iniciar sesión
-                </a>
-            <% } %>
-        </div>
-    </nav>
-</header>
+<% if ("Medico".equals(tipoUsuario) || "Paciente".equals(tipoUsuario)) { %>
+	<jsp:include page="/WEB-INF/templates/navbar.jsp" />
+<% } else { %>
+    <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+<% } %>
 
 <main class="container-fluid py-4">
     <div class="layout-consulta d-flex align-items-start gap-4">
