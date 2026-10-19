@@ -79,8 +79,10 @@
             <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
         <% } else if ("Paciente".equals(tipoUsuario)) { %>
             <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-        <% } %>
-
+        <% } else { %>
+			<jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+		<%} %>
+		
         <section class="contenido">
             <div class="card tarjeta-consulta mx-auto">
                 <div class="card-body p-4 p-md-5">
