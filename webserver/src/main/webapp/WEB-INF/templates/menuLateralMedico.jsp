@@ -133,7 +133,7 @@
 
                 <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/UsuariosMedico"
+                       href="${pageContext.request.contextPath}/consultaUsuario"
                        style="font-size: 11pt;">
                         Usuarios
                     </a>
