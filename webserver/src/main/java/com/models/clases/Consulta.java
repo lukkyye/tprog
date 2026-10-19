@@ -55,6 +55,15 @@ public class Consulta {
 	    return reservas;
 	}
 	
+	public HashSet<DTResConsulta> getResConsultas(){
+		HashSet<DTResConsulta> dtReservas = new HashSet<DTResConsulta>();
+		for (Reserva r : reservas) {
+			
+			dtReservas.add(r.getDataResConsulta()); 
+		}
+		return dtReservas;
+	}
+	
 	public float getCostoC() {
 	    return costoC;
 	}

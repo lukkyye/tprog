@@ -108,11 +108,24 @@
 <%
     }
 %>
-
+			
             <div>
-                <a href="${pageContext.request.contextPath}/index.html" class="btn btn-secondary">
+<%
+    if ("MEDICO".equals(tipoUsuario)) {
+%>
+    <a href="${pageContext.request.contextPath}/MisConsultas" class="btn btn-secondary">
                     Volver
                 </a>
+<%
+    } else {
+%>
+    <a href="${pageContext.request.contextPath}/home" class="btn btn-secondary">
+                    Volver
+                </a>
+<%
+    }
+%>
+        
             </div>
         </section>
 

@@ -15,6 +15,7 @@ import com.models.clases.Medico;
 import java.util.Set;
 import java.util.HashSet;
 import com.models.datatypes.DTPaciente;
+import com.models.datatypes.DTResConsulta;
 import com.models.datatypes.DTResConsultaDetalle;
 import com.models.datatypes.EstadoConsulta;
 import com.models.manejadores.ManejadorUsuario;
@@ -84,6 +85,12 @@ public class ControladorClinica {
 	        return c.listarDatosResConsultaC(numReserva);
 	    }
 	    return null;
+	}
+	
+	public HashSet<DTResConsulta> getReservasConsulta(String nomC){
+		ManejadorConsulta mc = ManejadorConsulta.get_instance();
+		Consulta c = mc.get_consulta(nomC);
+		return c.getResConsultas();
 	}
 	
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 

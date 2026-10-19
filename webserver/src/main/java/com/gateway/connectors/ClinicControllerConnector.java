@@ -14,6 +14,7 @@ import com.models.datatypes.DTDiaConsulta;
 import com.models.datatypes.DTDiaSemana;
 import com.models.datatypes.DTPaciente;
 import com.models.datatypes.DTResConsultaDetalle;
+import com.models.datatypes.DTResConsulta;
 
 public class ClinicControllerConnector implements IClinicController {
 	private ControladorClinica cc;
@@ -46,6 +47,11 @@ public class ClinicControllerConnector implements IClinicController {
 		return cc.listarDatosResConsultaCC(nomC, numReserva);
 	}
 
+	@Override
+	public HashSet<DTResConsulta> listarReservasConsulta(String nomC) {
+		return cc.getReservasConsulta(nomC);
+	}
+	
 	@Override
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {
 		return cc.selecListaConsultaDelDia(nomD);
