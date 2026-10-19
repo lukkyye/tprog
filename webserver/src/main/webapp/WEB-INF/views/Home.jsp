@@ -65,10 +65,10 @@
             <div class="card shadow rounded-4 border-0 bg-light p-4">
                 <div class="d-flex align-items-center mb-3">
                     <div class="col-3 text-center">
-                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="<%=%>" alt="Imagen de dia consulta">
+                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="<%= src%>" alt="Imagen de dia consulta">
                     </div>
                     <div class="col-9 ps-3">
-                        <h4 class="m-0 fw-bold"><%=dtdc.nomD()%>></h4>
+                        <h4 class="m-0 fw-bold"><%=dtdc.nomD()%></h4>
                         <p class="mb-0 text-muted mt-2"><%=dtdc.descD()%></p>
                     </div>
                 </div>
