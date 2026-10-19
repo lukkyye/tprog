@@ -50,7 +50,7 @@
 	} else {
 		card_explain = "esta especialidad";
 	}
-    if ("Medico".equals(tipoUsuario) || "Medico".equals(tipoUsuario)) {
+    if ("Medico".equals(tipoUsuario) || "Paciente".equals(tipoUsuario)) {
 %>
     <jsp:include page="/WEB-INF/templates/navbar.jsp" />
 <%

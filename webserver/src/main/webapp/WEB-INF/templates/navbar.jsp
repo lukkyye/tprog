@@ -17,7 +17,11 @@
    						class="btn btn-primary">
     					Mis Datos
 					</a>
-
+				
+				<%
+					ImageHandlerDelegator img = new ImageHandlerDelegator();
+					String src = img.get_img64(nickname);
+				%>
 				<div class="d-flex align-items-center gap-1">
     					<img style="height: 38px;"
          				class="rounded-circle border"
