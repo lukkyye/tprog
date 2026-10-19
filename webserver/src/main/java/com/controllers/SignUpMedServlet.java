@@ -54,7 +54,7 @@ public class SignUpMedServlet extends HttpServlet {
 		} catch (java.lang.NullPointerException e) {
 			state="Ingrese al menos una especialidad.";
 			request.setAttribute("success", state);
-			request.getRequestDispatcher("/WEB-INF/views/SignUpMed.jsp").forward(request, response);
+			doGet(request, response);
 			return;
 		}
 		float porcentajeAdicional=Float.parseFloat(request.getParameter("porcentajeAdicional"));

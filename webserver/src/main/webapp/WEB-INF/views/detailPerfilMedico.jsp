@@ -99,8 +99,16 @@
 
             <div class="row align-items-center g-4 mb-4">
                 <div class="col-md-3 text-center">
+                    <%
+	                    String fotoPerfil = (new com.gateway.delegators.ImageHandlerDelegator()).get_img64(usuario.nickname());
+	
+	                    if (fotoPerfil == null || fotoPerfil.isBlank()) {
+	                        fotoPerfil ="/webserver/img/PACIENTE.png";
+	                    }
+                    %>
+                    
                     <img class="avatar"
-                         src="${pageContext.request.contextPath}/img/MEDICO.png"
+                         src="<%=fotoPerfil%>"
                          alt="Perfil de médico">
                 </div>
 
@@ -111,9 +119,9 @@
 
                     <h1 class="titulo-seccion mb-3">
                         <% if (usuario != null) { %>
-                            <%= usuario.nombre() %> <%= usuario.apellido() %>
+                            <%= usuario.nombre() + usuario.apellido() %>
                         <% } else { %>
-                            Mis datos
+                            <%="Mis datos"%>
                         <% } %>
                     </h1>
 

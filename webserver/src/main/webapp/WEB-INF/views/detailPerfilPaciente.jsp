@@ -1,3 +1,4 @@
+<%@page import="com.gateway.delegators.ImageHandlerDelegator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="com.models.datatypes.DTUsuario" %>
@@ -11,8 +12,7 @@
     DTPaciente paciente =
             (DTPaciente) request.getAttribute("datosPaciente");
 
-    String fotoPerfil =
-            (String) request.getAttribute("fotoPerfil");
+    String fotoPerfil = (new com.gateway.delegators.ImageHandlerDelegator()).get_img64(usuario.nickname());
 
     if (fotoPerfil == null || fotoPerfil.isBlank()) {
         fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
@@ -111,7 +111,7 @@
 
     <div class="card perfil-card mx-auto">
         <div class="card-body p-4 p-md-5">
-
+			
             <div class="row align-items-center g-4 mb-4">
                 <div class="col-md-3 text-center">
                     <img class="avatar rounded-circle"
