@@ -14,6 +14,7 @@ import com.models.datatypes.DTDiaConsulta;
 import com.models.datatypes.DTDiaSemana;
 import com.models.datatypes.DTPaciente;
 import com.models.datatypes.DTResConsultaDetalle;
+import com.models.datatypes.EstadoConsulta;
 
 public interface IClinicController {
 	
@@ -30,6 +31,7 @@ public interface IClinicController {
 	public DTClinica seleccionarClinica(String nombre);
 	void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum);
 	Set<String> listarClinicas();
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta);
 	Set<String> listarEspecialidades();
 	ArrayList<DTDiaConsulta> listarDiaConsultas();
 	void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio, String nombreEspecialidad, String nombreClinica);

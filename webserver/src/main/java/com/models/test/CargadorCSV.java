@@ -22,6 +22,7 @@ import com.gateway.delegators.ImageHandlerDelegator;
 import com.models.controladores.ControladorClinica;
 import com.models.controladores.ControladorUsuario;
 import com.models.datatypes.DTDiaSemana;
+import com.models.datatypes.EstadoConsulta;
 import com.models.datatypes.TipoMes;
 import com.models.manejadores.ManejadorImagen;
 
@@ -183,8 +184,23 @@ public class CargadorCSV {
 			int cantNum = Integer.parseInt(fila[4].trim());
 			String nombreDia = diasConsultaPorRef.get(fila[5]);
 			String nicknameMedico = usuariosPorRef.get(fila[6]);
-
+			String state = fila[8];
+			String file_ref = RELATIVE_PATH+fila[9];
+			
 			controladorClinica.ingresarConsulta(nombreDia, nicknameMedico, nombre, fecha, sala, cantNum);
+			controladorClinica.setEstadoConsulta(EstadoConsulta.fromString(state), nombreDia);
+			if (fila[9]==null || fila[9].isEmpty()) {
+				
+			} else {
+				try {	
+					File archivo = new File(file_ref);
+					BufferedImage img = ImageIO.read(archivo);
+					(ManejadorImagen.get_instance()).add_img(img, nombre);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			consultasPorRef.put(ref, nombre);
 		}
 	}

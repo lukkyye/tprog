@@ -15,6 +15,7 @@ import com.models.datatypes.DTDiaConsulta;
 import com.models.datatypes.DTDiaSemana;
 import com.models.datatypes.DTPaciente;
 import com.models.datatypes.DTResConsultaDetalle;
+import com.models.datatypes.EstadoConsulta;
 import com.models.datatypes.DTResConsulta;
 
 public class ClinicControllerConnector implements IClinicController {
@@ -37,7 +38,10 @@ public class ClinicControllerConnector implements IClinicController {
 	public DTClinica seleccionarClinica(String nombre) {
 		return cc.seleccionarClinica(nombre);
 	}
-	
+	@Override
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
+		cc.setEstadoConsulta(state, nombreConsulta);
+	}
 	@Override
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
 		return cc.listarDatosConsulta(nomC);

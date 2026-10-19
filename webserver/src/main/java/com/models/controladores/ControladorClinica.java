@@ -186,6 +186,11 @@ public class ControladorClinica {
 		mco.agregarConsulta(c);
 	}
 	
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
+		ManejadorConsulta mco = ManejadorConsulta.get_instance();
+		mco.get_consulta(nombreConsulta).setEstado(state);
+	}
+	
 	public Set<String> listarClinicas() {
 
 	    ManejadorClinica mc = ManejadorClinica.get_instance();
@@ -204,7 +209,7 @@ public class ControladorClinica {
 	            me.get_especialidades()
 	    );
 	}
-
+	
 
 	public void ingresarDiaConsulta(
 	        String nombre,
