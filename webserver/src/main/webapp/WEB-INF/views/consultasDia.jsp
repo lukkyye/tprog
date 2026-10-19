@@ -78,57 +78,57 @@
 
 
         <section class="col-md-9 pe-5 d-flex flex-column gap-4">
-            <h1 class="mb-4">Consultas del Dia</h1>
 
-            <form action="${pageContext.request.contextPath}/altaReserva" 
-                  method="get"> 
+    <h1 class="mb-2">Consultas del día</h1>
 
-                <div class="mb-4">
-                    <label for="consulta" class="form-label">
-                        Seleccione una consulta:
-                    </label>
+    <%
+        Set<DTConsulta> consultas =
+            (Set<DTConsulta>) request.getAttribute("consultas");
 
-                    <select id="consulta" name="consulta"
-                            class="form-select" required>
+        if (consultas != null && !consultas.isEmpty()) {
+            for (DTConsulta consulta : consultas) {
+    %>
 
-                        <option value="" selected disabled>
-                            Seleccione una consulta
-                        </option>
+    <div class="card shadow-sm rounded-4 border-0 p-4">
+        <h4 class="fw-bold"><%= consulta.nomC() %></h4>
 
-                        <%
-                            HashSet<DTConsulta> consultas =
-                                (HashSet<DTConsulta>) request.getAttribute("consultas");
+        <p>Fecha: <%= consulta.fechaC() %></p>
+        <p>Sala: <%= consulta.sala() %></p>
+        <p>Cantidad de números: <%= consulta.cantNum() %></p>
+        <p>Costo: $<%= consulta.costoC() %></p>
 
-                            if (consultas != null && !consultas.isEmpty()) {
-                                for (DTConsulta consulta : consultas) {
-                        %>
-                                    <option value="<%= consulta.nomC() %>">
-                                        <%= consulta.nomC() %>  -  <%= consulta.fechaC() %>
-                                    </option>
-                        <%
-                                }
-                            } else {
-                        %>
-                                <option value="" disabled>
-                                    No hay consultas asociadas al dia
-                                </option>
-                        <%
-                            }
-                        %>
+        <div class="d-flex gap-2">
+			<a href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+    			Ver detalle
+			</a>
+			<% if ("PACIENTE".equals(tipoUsuario)) { %>
+    		<a href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+        		Reservar
+    		</a>
+			<% } %>
+        </div>
+    </div>
 
-                    </select>
-                </div>
+<% } %>
 
-                <button type="submit" class="btn btn-primary">
-                    Reservar
-                </button>
+    <%
+        } else {
+    %>
 
-                <a href="/webserver/home"
-                   class="btn btn-secondary">
-                    Volver
-                </a>
-            </form>
-        </section>
+        <div class="alert alert-info">
+            No hay consultas aceptadas asociadas a este día.
+        </div>
+
+    <%
+        }
+    %>
+
+    <a href="${pageContext.request.contextPath}/home"
+       class="btn btn-secondary align-self-start">
+        Volver
+    </a>
+
+</section>
 
     </main>
 </body>
