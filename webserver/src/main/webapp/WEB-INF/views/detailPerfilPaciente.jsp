@@ -1,33 +1,39 @@
-<%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+
 <%@ page import="com.models.datatypes.DTUsuario" %>
 <%@ page import="com.models.datatypes.DTPaciente" %>
+<%@ page import="com.models.datatypes.DTResConsulta" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Set" %>
 
 <%
-    DTUsuario usuario =
-            (DTUsuario) request.getAttribute("usuario");
-
-    DTPaciente paciente =
-            (DTPaciente) request.getAttribute("datosPaciente");
-
-    String fotoPerfil = null;
-    if (usuario != null) {
-        fotoPerfil = new ImageHandlerDelegator().get_img64(usuario.nickname());
-    }
-
-    if (fotoPerfil == null || fotoPerfil.isBlank()) {
-        fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
-    }
+    DTUsuario usuario = (DTUsuario) request.getAttribute("usuario");
+    DTPaciente paciente = (DTPaciente) request.getAttribute("datosPaciente");
 
     List<String> antecedentes = null;
     if (paciente != null) {
         antecedentes = paciente.antSalud();
     }
-    
+
+    Set<DTResConsulta> reservas =
+            (Set<DTResConsulta>) request.getAttribute("reservas");
+
+    boolean esMiPerfil =
+            Boolean.TRUE.equals(request.getAttribute("esMiPerfil"));
+
     String tipoUsuarioSesion =
             (String) session.getAttribute("tipoUsuario");
+
+    String fotoPerfil = null;
+    if (usuario != null) {
+        fotoPerfil = new com.gateway.delegators.ImageHandlerDelegator()
+                .get_img64(usuario.nickname());
+    }
+
+    if (fotoPerfil == null || fotoPerfil.isBlank()) {
+        fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
+    }
 %>
 
 <!DOCTYPE html>
@@ -36,7 +42,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Salud.uy - Mi perfil</title>
+    <title>Salud.uy - Perfil de paciente</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">
@@ -52,9 +58,7 @@
         }
 
         .layout-perfil {
-            display: flex;
             align-items: flex-start;
-            gap: 1.5rem;
         }
 
         .contenido-perfil {
@@ -88,11 +92,11 @@
 
         .antecedente {
             display: inline-block;
-            margin: 4px;
-            padding: 8px 14px;
-            border-radius: 20px;
             background-color: #e4f3fc;
             color: #164a7b;
+            border-radius: 20px;
+            padding: 8px 14px;
+            margin: 4px;
         }
 
         @media (max-width: 767px) {
@@ -104,7 +108,7 @@
                 flex-basis: auto !important;
                 width: 100%;
                 max-width: 100% !important;
-                margin-left: 0 !important;
+                max-height: 45vh !important;
             }
         }
     </style>
@@ -134,14 +138,13 @@
 </header>
 
 <main class="container-fluid py-5">
-    <div class="layout-perfil">
+    <div class="layout-perfil d-flex gap-4">
 
         <% if ("Medico".equals(tipoUsuarioSesion)) { %>
-    		<jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-				<% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
-    			<jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-				<% } 
-		%>
+            <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+        <% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+        <% } %>
 
         <div class="contenido-perfil">
             <div class="card perfil-card">
@@ -228,11 +231,49 @@
                                 No tiene antecedentes registrados.
                             </p>
                         <% } %>
-
                     <% } else { %>
                         <p class="text-secondary">
                             No se encontraron los datos del paciente.
                         </p>
+                    <% } %>
+
+                    <% if (esMiPerfil) { %>
+                        <h2 class="titulo-seccion h4 mt-4 mb-3">
+                            Mis reservas de consultas
+                        </h2>
+
+                        <% if (reservas != null && !reservas.isEmpty()) { %>
+                            <div class="list-group">
+                                <% for (DTResConsulta reserva : reservas) { %>
+                                    <a class="list-group-item list-group-item-action mb-2 rounded"
+                                       href="${pageContext.request.contextPath}/DetalleReserva?reserva=<%= reserva.numReserva() %>">
+
+                                        <h5 class="mb-2">
+                                            Reserva número <%= reserva.numReserva() %>
+                                        </h5>
+
+                                        <p class="mb-1">
+                                            <strong>Fecha de reserva:</strong>
+                                            <%= reserva.fechaRes() %>
+                                        </p>
+
+                                        <p class="mb-1">
+                                            <strong>Aplica beneficio:</strong>
+                                            <%= reserva.aplicaBenef() ? "Sí" : "No" %>
+                                        </p>
+
+                                        <p class="mb-0">
+                                            <strong>Costo:</strong>
+                                            <%= reserva.costoR() %>
+                                        </p>
+                                    </a>
+                                <% } %>
+                            </div>
+                        <% } else { %>
+                            <p class="text-secondary">
+                                No tenés reservas de consultas.
+                            </p>
+                        <% } %>
                     <% } %>
 
                     <div class="text-center mt-5">

@@ -1,14 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+
 <%@ page import="com.models.datatypes.DTUsuario" %>
 <%@ page import="com.models.datatypes.DTMedico" %>
+<%@ page import="com.models.datatypes.DTConsulta" %>
+<%@ page import="com.models.datatypes.EstadoConsulta" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Set" %>
 
 <%
     DTUsuario usuario = (DTUsuario) request.getAttribute("usuario");
     DTMedico medico = (DTMedico) request.getAttribute("datosMedico");
+
     List<String> especialidades =
             (List<String>) request.getAttribute("especialidades");
+
+    Set<DTConsulta> consultas =
+            (Set<DTConsulta>) request.getAttribute("consultas");
+
+    boolean esMiPerfil =
+            Boolean.TRUE.equals(request.getAttribute("esMiPerfil"));
 
     String fotoPerfil = null;
     if (usuario != null) {
@@ -17,9 +28,9 @@
     }
 
     if (fotoPerfil == null || fotoPerfil.isBlank()) {
-        fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
+        fotoPerfil = request.getContextPath() + "/img/MEDICO.png";
     }
-    
+
     String tipoUsuarioSesion =
             (String) session.getAttribute("tipoUsuario");
 %>
@@ -45,6 +56,9 @@
             background-color: white;
         }
 
+        .layout-perfil {
+            align-items: flex-start;
+        }
 
         .contenido-perfil {
             flex: 1;
@@ -121,14 +135,13 @@
 </header>
 
 <main class="container-fluid py-5">
-    <div class="layout-perfil d-flex align-items-start gap-4">
+    <div class="layout-perfil d-flex gap-4">
 
         <% if ("Medico".equals(tipoUsuarioSesion)) { %>
-    		<jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-				<% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
-    			<jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-				<% } 
-		%>
+            <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+        <% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+        <% } %>
 
         <div class="contenido-perfil">
             <div class="card perfil-card">
@@ -219,6 +232,65 @@
                             No tiene especialidades registradas.
                         </p>
                     <% } %>
+
+                    <h2 class="titulo-seccion h4 mt-4 mb-3">
+                        Consultas asociadas
+                    </h2>
+
+                    <div class="list-group">
+                        <%
+                            boolean hayConsultasVisibles = false;
+
+                            if (consultas != null) {
+                                for (DTConsulta consulta : consultas) {
+                                    if (esMiPerfil
+                                            || consulta.estado() == EstadoConsulta.Aceptada) {
+                                        hayConsultasVisibles = true;
+                        %>
+                                            <div class="list-group-item mb-2 rounded">
+                                                <h5 class="mb-2">
+                                                    <%= consulta.nomC() %>
+                                                </h5>
+
+                                                <p class="mb-1">
+                                                    <strong>Fecha:</strong>
+                                                    <%= consulta.fechaC() %>
+                                                </p>
+
+                                                <p class="mb-1">
+                                                    <strong>Estado:</strong>
+                                                    <%= consulta.estado() %>
+                                                </p>
+
+                                                <p class="mb-1">
+                                                    <strong>Sala:</strong>
+                                                    <%= consulta.sala() %>
+                                                </p>
+
+                                                <p class="mb-1">
+                                                    <strong>Cantidad de números:</strong>
+                                                    <%= consulta.cantNum() %>
+                                                </p>
+
+                                                <p class="mb-0">
+                                                    <strong>Costo:</strong>
+                                                    <%= consulta.costoC() %>
+                                                </p>
+                                            </div>
+                        <%
+                                    }
+                                }
+                            }
+
+                            if (!hayConsultasVisibles) {
+                        %>
+                                <p class="text-secondary">
+                                    No hay consultas para mostrar.
+                                </p>
+                        <%
+                            }
+                        %>
+                    </div>
 
                     <div class="text-center mt-5">
                         <a href="${pageContext.request.contextPath}/home"

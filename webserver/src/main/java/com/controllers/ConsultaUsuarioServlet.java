@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/consultaUsuario")
 public class ConsultaUsuarioServlet extends HttpServlet {
@@ -27,21 +28,36 @@ public class ConsultaUsuarioServlet extends HttpServlet {
 
         if (nickname == null || nickname.isBlank()) {
             request.setAttribute("usuarios", controlador.listarUsuarios());
+
             request.getRequestDispatcher(
-                    "/WEB-INF/views/ConsultaUsuarios.jsp")
-                    .forward(request, response);
+                    "/WEB-INF/views/ConsultaUsuarios.jsp"
+            ).forward(request, response);
+            return;
+        }
+
+        HttpSession sesion = request.getSession(false);
+        String nicknameSesion = null;
+
+        if (sesion != null) {
+            nicknameSesion = (String) sesion.getAttribute("nickname");
+        }
+
+        if (nicknameSesion != null && nicknameSesion.equals(nickname)) {
+            response.sendRedirect(request.getContextPath() + "/misdatos");
             return;
         }
 
         DTUsuario usuario;
+
         try {
             usuario = controlador.listarDatosUsuario(nickname);
         } catch (UserNotFoundException e) {
             request.setAttribute("error", "No se encontró ese usuario.");
             request.setAttribute("usuarios", controlador.listarUsuarios());
+
             request.getRequestDispatcher(
-                    "/WEB-INF/views/ConsultaUsuarios.jsp")
-                    .forward(request, response);
+                    "/WEB-INF/views/ConsultaUsuarios.jsp"
+            ).forward(request, response);
             return;
         }
 
@@ -50,21 +66,29 @@ public class ConsultaUsuarioServlet extends HttpServlet {
         try {
             DTPaciente paciente = controlador.listarDatosPaciente(nickname);
             request.setAttribute("datosPaciente", paciente);
+            request.setAttribute("esMiPerfil", false);
+
             request.getRequestDispatcher(
-                    "/WEB-INF/views/detailPerfilPaciente.jsp")
-                    .forward(request, response);
+                    "/WEB-INF/views/detailPerfilPaciente.jsp"
+            ).forward(request, response);
             return;
 
         } catch (UserNotFoundException e) {
-
             DTMedico medico = controlador.listarDatosMedico(nickname);
             request.setAttribute("datosMedico", medico);
             request.setAttribute(
                     "especialidades",
-                    controlador.listarEspecialidadesMedico(nickname));
+                    controlador.listarEspecialidadesMedico(nickname)
+            );
+            request.setAttribute(
+                    "consultas",
+                    controlador.listarConsultasAsociadas(nickname)
+            );
+            request.setAttribute("esMiPerfil", false);
+
             request.getRequestDispatcher(
-                    "/WEB-INF/views/detailPerfilMedico.jsp")
-                    .forward(request, response);
+                    "/WEB-INF/views/detailPerfilMedico.jsp"
+            ).forward(request, response);
         }
     }
 }

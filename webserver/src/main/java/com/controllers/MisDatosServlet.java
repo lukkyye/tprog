@@ -30,17 +30,12 @@ public class MisDatosServlet extends HttpServlet {
         String nickname = (String) session.getAttribute("nickname");
         String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 
-        String fotoPerfil =
-                new ImageHandlerDelegator().get_img64(nickname);
+        String fotoPerfil = new ImageHandlerDelegator().get_img64(nickname);
         request.setAttribute("fotoPerfil", fotoPerfil);
 
-        UserControllerDelegator controlador =
-                new UserControllerDelegator();
+        UserControllerDelegator controlador = new UserControllerDelegator();
 
-        request.setAttribute(
-                "usuario",
-                controlador.listarDatosUsuario(nickname)
-        );
+        request.setAttribute("usuario", controlador.listarDatosUsuario(nickname));
 
         if ("Paciente".equals(tipoUsuario)) {
             request.setAttribute(
@@ -51,6 +46,8 @@ public class MisDatosServlet extends HttpServlet {
                     "reservas",
                     controlador.listarResConsultas(nickname)
             );
+            
+            request.setAttribute("esMiPerfil", true);
 
             request.getRequestDispatcher(
                     "/WEB-INF/views/detailPerfilPaciente.jsp"
@@ -71,6 +68,7 @@ public class MisDatosServlet extends HttpServlet {
                     "consultas",
                     controlador.listarConsultasAsociadas(nickname)
             );
+            request.setAttribute("esMiPerfil", true);
 
             request.getRequestDispatcher(
                     "/WEB-INF/views/detailPerfilMedico.jsp"
