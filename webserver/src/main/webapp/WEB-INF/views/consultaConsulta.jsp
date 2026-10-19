@@ -153,7 +153,7 @@
                 <div class="mb-2"><strong>Fecha de reserva:</strong> <%= miReserva.fechaRes() %></div>
                 <div class="mb-2"><strong>Costo:</strong> $<%= String.format("%.2f", miReserva.costoR()) %></div>
                 <div class="mb-3"><strong>Beneficio anual:</strong> <%= miReserva.aplicaBenef() ? "Sí" : "No" %></div>
-                <a class="btn btn-primary" href="<%= ctx %>/DetalleReservaServlet?consulta=<%= nomCodificado %>&num=<%= miReserva.numReserva() %>">
+                <a class="btn btn-primary" href="<%= ctx %>/DetalleReserva?consulta=<%= nomCodificado %>&num=<%= miReserva.numReserva() %>">
                     Ver detalle de mi reserva
                 </a>
             </section>

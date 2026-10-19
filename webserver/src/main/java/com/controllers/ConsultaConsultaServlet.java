@@ -31,7 +31,7 @@ public class ConsultaConsultaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombreConsulta = request.getParameter("nombre");
+        String nombreConsulta = request.getParameter("nombreConsulta");
         if (nombreConsulta == null || nombreConsulta.isBlank()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Falta el nombre de la consulta.");
             return;
