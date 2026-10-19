@@ -167,9 +167,10 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <a href="signUp.html" class="btn btn-secondary">
-                    Volver
-                </a>
+			<a href="${pageContext.request.contextPath}/home"
+   				class="btn btn-secondary">
+    			Volver
+			</a>
 
                 <button type="submit" id="ok" class="btn btn-primary">
                     Registrarse

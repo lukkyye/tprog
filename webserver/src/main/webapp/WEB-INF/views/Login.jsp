@@ -116,12 +116,11 @@
                     </h1>
 
 					<% if (request.getAttribute("error") != null) { %>
-            			<div class="alert alert-info" role="alert">
+						<div class="alert alert-danger fw-bold" role="alert">
                 	<%= request.getAttribute("error") %>
             			</div>
         			<% } %>
-                    <form
-                          method="POST">
+                    <form method="POST" action="${pageContext.request.contextPath}/login">
 
                         <div class="mb-3">
                             <label for="nickname" class="form-label">
