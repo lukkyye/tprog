@@ -86,7 +86,7 @@
 
                 <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/ClinicasVisitante"
+                       href="${pageContext.request.contextPath}/ListarClinicasServlet"
                        style="font-size: 11pt;">
                         Clinicas
                     </a>
