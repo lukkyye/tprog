@@ -78,7 +78,7 @@ public class SignupPacServlet extends HttpServlet {
 					state = e3.getMessage();
 				}
 				if (state == null) {
-				    request.setAttribute("success", "Se registró correctamente. Ahora podés iniciar sesión.");
+				    request.setAttribute("success", "Se registró correctamente el nuevo usuario. Por favor inicie sesión.");
 				} else {
 				    request.setAttribute("error", state);
 				}

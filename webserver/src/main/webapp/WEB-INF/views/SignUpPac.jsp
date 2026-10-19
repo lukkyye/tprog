@@ -108,7 +108,7 @@
                 <textarea id="antecedentes" name="antecedentes" class="form-control" rows="3" aria-describedby="ayudaAntecedentes"></textarea>
 
                 <div id="ayudaAntecedentes" class="form-text">
-                    Un antecedente por linea, si no tenes, no escribas.
+                    Un antecedente medico por linea. En caso de no tener antecedentes medicos no completar.
                 </div>
             </div>
 
@@ -120,9 +120,10 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <a href="signUp.html" class="btn btn-secondary">
-                    Volver
-                </a>
+			<a href="${pageContext.request.contextPath}/home"
+   				class="btn btn-secondary">
+    			Volver
+			</a>
 
                 <button type="submit" id="ok" class="btn btn-primary">
                     Registrarse

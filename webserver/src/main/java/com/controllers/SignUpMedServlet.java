@@ -71,7 +71,7 @@ public class SignUpMedServlet extends HttpServlet {
 				} catch (IdAlreadyExistsException e3) {
 					state = e3.getMessage();
 				}
-				request.setAttribute("success", state==null ? "Se registró correctamente el nuevo usuario Por favor inicie sesión." : state);
+				request.setAttribute("success", state==null ? "Se registró correctamente el nuevo usuario. Por favor inicie sesión." : state);
 				request.getRequestDispatcher("/WEB-INF/views/SignUpPac.jsp").forward(request, response);
 			} else {
 				request.setAttribute("success", "Por favor, intentelo de nuevo.");
