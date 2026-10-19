@@ -44,7 +44,7 @@
                     for (String especialidad : especialidades) { %>
                     <li class="nav-item hoverable w-100">
                         <a class="text-muted text-decoration-none"
-                           href="${pageContext.request.contextPath}/ListarConsultasServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>"
+                           href="${pageContext.request.contextPath}/ConsultasDiaServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>"
                            style="font-size: 11pt;">
                             <%= especialidad %>
                         </a>
