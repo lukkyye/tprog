@@ -26,7 +26,6 @@ import com.models.datatypes.EstadoConsulta;
 import com.models.datatypes.TipoMes;
 import com.models.manejadores.ManejadorImagen;
 
-
 public class CargadorCSV {
 	public static final String RELATIVE_PATH = "Desktop/tprog/webserver/src/main/java/com/models/test/";
 
@@ -48,6 +47,8 @@ public class CargadorCSV {
 		cargarDiasConsulta();
 		cargarConsultas();
 		cargarReservas();
+        String proyectoRaiz = System.getProperty("user.dir");
+        System.out.println("Ruta del Runtime de java: " + proyectoRaiz);
 	}
 
 	private void cargarEspecialidades() {

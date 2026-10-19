@@ -43,7 +43,14 @@
 <body class="min-vh-100 container-fluid bg-body">
     
 <%
-    if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
+	String h1 = (String)request.getAttribute("from");
+	String card_explain;
+	if (h1.equals("del Dia")){
+		card_explain = "este día";
+	} else {
+		card_explain = "esta especialidad";
+	}
+    if ("Medico".equals(tipoUsuario) || "Medico".equals(tipoUsuario)) {
 %>
     <jsp:include page="/WEB-INF/templates/navbar.jsp" />
 <%
@@ -59,12 +66,12 @@
 
 
 <%
-    if ("MEDICO".equals(tipoUsuario)) {
+    if ("Medico".equals(tipoUsuario)) {
 %>
     <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
 
 <%
-    } else if ("PACIENTE".equals(tipoUsuario)) {
+    } else if ("Paciente".equals(tipoUsuario)) {
 %>
     <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
 
@@ -79,7 +86,7 @@
 
         <section class="col-md-9 pe-5 d-flex flex-column gap-4">
 
-    <h1 class="mb-2">Consultas del día</h1>
+    <h1 class="mb-2">Consultas <%=h1%></h1>
 
     <%
         Set<DTConsulta> consultas =
@@ -116,7 +123,7 @@
     %>
 
         <div class="alert alert-info">
-            No hay consultas aceptadas asociadas a este día.
+            No hay consultas aceptadas asociadas a <%=card_explain %>.
         </div>
 
     <%

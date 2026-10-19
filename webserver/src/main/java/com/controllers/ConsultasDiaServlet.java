@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 
@@ -29,24 +30,29 @@ public class ConsultasDiaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String nombreDia = request.getParameter("nombreDia");
-
-        Set<DTConsulta> consultas;
-
-        if (nombreDia == null || nombreDia.isBlank()) {
-            consultas = new HashSet<>();
-        } else {
-            consultas = clinicController.selecListaConsultaDelDia(nombreDia);
+        String especialidad = request.getParameter("especialidad");
+        
+        HashSet<DTConsulta> consultas = new HashSet<DTConsulta>();
+        HashSet<DTConsulta> aceptadas = new HashSet<DTConsulta>();
+        
+       if (nombreDia!=null && especialidad==null) {
+        	request.setAttribute("from", "del Dia");
+            clinicController.selecListaConsultaDelDia(nombreDia).forEach(x->consultas.add(x));
+        } else  if (nombreDia==null && especialidad!=null){
+        	request.setAttribute("from", "por Especialidad");
+        	clinicController.getConsultasPorEspecialidad(especialidad).forEach(
+        				c->{
+        					consultas.add(clinicController.seleccionarConsulta(c));
+        				}
+        			);
         }
-
-        Set<DTConsulta> consultasAceptadas = new HashSet<>();
-
-        for (DTConsulta consulta : consultas) {
-        	if (consulta.estado() == EstadoConsulta.Aceptada) {
-                consultasAceptadas.add(consulta);
-            }
-        }
-
-        request.setAttribute("consultas", consultasAceptadas);
+        consultas.forEach(x->{
+        	if (x.estado()==EstadoConsulta.Aceptada) {
+        		aceptadas.add(x);
+        	}
+        });
+        
+        request.setAttribute("consultas", aceptadas);
         request.setAttribute("nombreDia", nombreDia);
 
         request.getRequestDispatcher("/WEB-INF/views/consultasDia.jsp").forward(request, response);

@@ -3,6 +3,7 @@ import com.models.clases.BeneficioAnual;
 import com.models.clases.Clinica;
 import com.models.datatypes.DTDiaConsulta;
 import com.models.datatypes.DTDiaSemana;
+import com.models.datatypes.DTMedico;
 import com.models.manejadores.ManejadorClinica;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.manejadores.ManejadorConsulta;
@@ -92,6 +93,20 @@ public class ControladorClinica {
 		ManejadorConsulta mc = ManejadorConsulta.get_instance();
 		Consulta c = mc.get_consulta(nomC);
 		return c.getResConsultas();
+	}
+	
+	//nombre de consultas que satisfacen que son de especialidad dada
+	public ArrayList<String> getConsultasPorEspecialidad(String especialidad){
+		if (!ManejadorEspecialidad.get_instance().existeEsp(especialidad)) {
+			return null;
+		}
+		ArrayList<String> toreturn = new ArrayList<String>();
+		for (DiaConsulta dc : ManejadorClinica.get_instance().getDiaConsulta().values()) {
+			if (dc.get_especialidad().getNombre().equals(especialidad)) {
+				dc.get_dtconsultas().stream().forEach(dtc->{toreturn.add(dtc.nomC());});
+			}
+		}
+		return toreturn;
 	}
 	
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 

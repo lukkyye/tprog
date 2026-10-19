@@ -111,4 +111,9 @@ public class ClinicControllerDelegator implements IClinicController {
 	public ArrayList<DTDiaConsulta> listarDiaConsultas() {
 		return cc.listarDiaConsultas();
 	}
+
+	@Override
+	public ArrayList<String> getConsultasPorEspecialidad(String especialidad) {
+		return cc.getConsultasPorEspecialidad(especialidad);
+	}
 }

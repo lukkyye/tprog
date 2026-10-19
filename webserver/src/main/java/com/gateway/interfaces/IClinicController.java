@@ -33,6 +33,7 @@ public interface IClinicController {
 	Set<String> listarClinicas();
 	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta);
 	Set<String> listarEspecialidades();
+	public ArrayList<String> getConsultasPorEspecialidad(String especialidad);
 	ArrayList<DTDiaConsulta> listarDiaConsultas();
 	void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio, String nombreEspecialidad, String nombreClinica);
 	boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
