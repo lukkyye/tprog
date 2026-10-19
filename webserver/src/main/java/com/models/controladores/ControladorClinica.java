@@ -13,6 +13,7 @@ import com.models.clases.DiaConsulta;
 import com.models.clases.Medico;
 
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashSet;
 import com.models.datatypes.DTPaciente;
 import com.models.datatypes.DTResConsulta;
@@ -266,6 +267,15 @@ public class ControladorClinica {
 
 	    // Asociarlo a la clínica
 	    clinica.agregarDiaConsulta(nuevoDia);
+	}
+
+	public ArrayList<DTDiaConsulta> listarDiaConsultas() {
+		ArrayList<DTDiaConsulta> asd = new ArrayList<DTDiaConsulta>();
+		ManejadorClinica mu = ManejadorClinica.get_instance();
+		for (DiaConsulta dc : mu.getDiaConsulta().values()) {
+			asd.add(dc.getDTDiaConsulta());
+		}
+		return asd;
 	}
 }
 

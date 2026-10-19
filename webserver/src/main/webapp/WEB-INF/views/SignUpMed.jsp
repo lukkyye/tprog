@@ -30,7 +30,11 @@
             <span class="text-danger">*</span>
             son obligatorios.
         </p>
-
+		<% if (request.getAttribute("success")!=null) { %>
+            <div class="alert alert-info" role="alert">
+                <%= request.getAttribute("success") %>
+            </div>
+        <% } %>
         <form method="POST" enctype="multipart/form-data">
 
             <h2 class="h5 mt-4 mb-3">Crear nueva cuenta</h2>

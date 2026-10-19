@@ -1,3 +1,6 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.models.datatypes.DTDiaConsulta" %>
+<%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,53 +51,32 @@
 		<% } %>
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
             
-            <div class="card shadow rounded-4 border-0 bg-light p-4">
-                <div class="d-flex align-items-center mb-3">
-                    <div class="col-3 text-center">
-                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="./img/CARDIOLOGIA.png" alt="Cardiología">
-                    </div>
-                    <div class="col-9 ps-3">
-                        <h4 class="m-0 fw-bold">Cardiología - Lunes</h4>
-                        <p class="mb-0 text-muted mt-2">Atención cardiológica semanal para los días lunes.</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center gap-2 pt-2 border-top">
-                    <a href="./consultas/consultaDiaConsultaVisitante.html" class="btn btn-outline-primary">Ver Detalle</a>
-                    <a href="./consultas/listaConsultasDiaAprobadaVisitante.html" class="btn btn-primary">Ver Consultas Asociadas</a>
-                </div>
-            </div>
+            <%
+            	ImageHandlerDelegator img = new ImageHandlerDelegator();
+            	ArrayList<DTDiaConsulta> array = (ArrayList<DTDiaConsulta>)request.getAttribute("dtDiasConsulta");
+            	if (array!=null) {
+            		for (DTDiaConsulta dtdc: array) {
+            %>
             
             <div class="card shadow rounded-4 border-0 bg-light p-4">
                 <div class="d-flex align-items-center mb-3">
                     <div class="col-3 text-center">
-                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="./img/PEDIATRIA.png" alt="Pediatría">
+                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="<%=img.get_img64(dtdc.nomD())%>" alt="Cardiología">
                     </div>
                     <div class="col-9 ps-3">
-                        <h4 class="m-0 fw-bold">Pediatría - Martes</h4>
-                        <p class="mb-0 text-muted mt-2">Atención pediátrica semanal para los días martes.</p>
+                        <h4 class="m-0 fw-bold"><%=dtdc.nomD()%>></h4>
+                        <p class="mb-0 text-muted mt-2"><%=dtdc.descD()%></p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center gap-2 pt-2 border-top">
-                    <a href="./consultas/consultaDiaConsultaVisitante.html" class="btn btn-outline-primary">Ver Detalle</a>
-                    <a href="./consultas/listaConsultasDiaAprobadaVisitante.html" class="btn btn-primary">Ver Consultas Asociadas</a>
+                    <a href="TODO" class="btn btn-outline-primary">Ver Detalle</a>
+                    <a href="TODO" class="btn btn-primary">Ver Consultas Asociadas</a>
                 </div>
             </div>
-            
-            <div class="card shadow rounded-4 border-0 bg-light p-4 mb-4">
-                <div class="d-flex align-items-center mb-3">
-                    <div class="col-3 text-center">
-                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="./img/MEDICINAGENERAL.png" alt="Medicina General">
-                    </div>
-                    <div class="col-9 ps-3">
-                        <h4 class="m-0 fw-bold">Medicina General Central - Miércoles</h4>
-                        <p class="mb-0 text-muted mt-2">Consulta general semanal para los días miércoles.</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center gap-2 pt-2 border-top">
-                    <a href="./consultas/consultaDiaConsultaVisitante.html" class="btn btn-outline-primary">Ver Detalle</a>
-                    <a href="./consultas/listaConsultasDiaAprobadaVisitante.html" class="btn btn-primary">Ver Consultas Asociadas</a>
-                </div>
-            </div>
+            <%
+            		}
+            	};
+            %>
         </div>
     </main>
 </body>

@@ -9,6 +9,7 @@ import com.gateway.delegators.ClinicControllerDelegator;
 import com.models.datatypes.DTDiaSemana;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.Part;
 import com.gateway.delegators.ImageHandlerDelegator;
 
 @WebServlet("/AltaDiaConsultaServlet")
+@MultipartConfig
 public class AltaDiaConsultaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -44,7 +46,7 @@ public class AltaDiaConsultaServlet extends HttpServlet {
 
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        String diaTexto = request.getParameter("dia");
+        DTDiaSemana diaSemana = DTDiaSemana.valueOf(request.getParameter("dia"));
         String horaTexto = request.getParameter("horaInicio");
         String nombreEspecialidad =
                 request.getParameter("nombreEspecialidad");
@@ -53,7 +55,7 @@ public class AltaDiaConsultaServlet extends HttpServlet {
         try {
             if (nombre == null || nombre.isBlank()
                     || descripcion == null || descripcion.isBlank()
-                    || diaTexto == null || diaTexto.isBlank()
+                    || diaSemana == null
                     || horaTexto == null || horaTexto.isBlank()
                     || nombreEspecialidad == null
                     || nombreEspecialidad.isBlank()
@@ -67,24 +69,22 @@ public class AltaDiaConsultaServlet extends HttpServlet {
                        .forward(request, response);
                 return;
             }
-
-            DTDiaSemana dia = DTDiaSemana.valueOf(diaTexto);
             LocalTime horaInicio = LocalTime.parse(horaTexto);
 
             clinicController.ingresarDiaConsulta(
                     nombre.trim(),
                     descripcion.trim(),
-                    dia,
+                    diaSemana,
                     horaInicio,
                     nombreEspecialidad,
                     nombreClinica    
             );
             
            
-        		ImageHandlerDelegator IMG = new ImageHandlerDelegator();
-                Part archivoImagen = request.getPart("imagen");
+    		ImageHandlerDelegator IMG = new ImageHandlerDelegator();
+            Part archivoImagen = request.getPart("imagen");
 
-        		IMG.add_img(archivoImagen, nombre+dia);
+    		IMG.add_img(archivoImagen, nombre);
 
             request.setAttribute("mensaje",
                     "El dia de consulta se registro correctamente.");
