@@ -66,7 +66,6 @@
                                     <th>Año</th>
                                     <th>Órdenes (usadas / total)</th>
                                     <th>Tickets de medicamento</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,12 +74,6 @@
                                     <td class="fw-bold"><%= b.anio() %></td>
                                     <td><%= b.ordenesUsadas() %> / <%= b.cantOrdenes() %></td>
                                     <td><%= b.cantTicket() %></td>
-                                    <td class="text-end">
-                                        <a class="btn btn-sm btn-primary"
-                                           href="<%= ctx %>/ConsultaBeneficioServlet?anio=<%= b.anio() %>">
-                                            Ver detalle
-                                        </a>
-                                    </td>
                                 </tr>
                             <% } %>
                             </tbody>
@@ -92,6 +85,9 @@
                     </div>
                 <% } %>
 
+				<div class="d-flex justify-content-center mt-4">
+                    <a href="<%= ctx %>" class="btn btn-secondary">Volver</a>
+                </div>
             </section>
         </div>
     </main>
