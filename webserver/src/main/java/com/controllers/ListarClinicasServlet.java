@@ -1,4 +1,3 @@
-
 package com.controllers;
 
 import java.io.IOException;
@@ -11,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/ListarClinicasServlet")
 public class ListarClinicasServlet extends HttpServlet {
@@ -25,13 +25,24 @@ public class ListarClinicasServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Set<String> clinicas = clinicController.listarClinicas();
-        
+
         request.setAttribute("clinicas", clinicas);
 
-        // Por ahora mostramos la lista como visitante.
-        request.setAttribute("tipoUsuario", "visitante");
+        HttpSession session = request.getSession(false);
+        String tipoUsuario = null;
 
-        request.getRequestDispatcher("/WEB-INF/views/listaClinicas.jsp")
-               .forward(request, response);
+        if (session != null) {
+            tipoUsuario = (String) session.getAttribute("tipoUsuario");
+        }
+
+        if (tipoUsuario == null || tipoUsuario.isBlank()) {
+            tipoUsuario = "VISITANTE";
+        }
+
+        request.setAttribute("tipoUsuario", tipoUsuario);
+
+        request.getRequestDispatcher(
+                "/WEB-INF/views/listaClinicas.jsp"
+        ).forward(request, response);
     }
 }
