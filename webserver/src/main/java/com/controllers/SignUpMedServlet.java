@@ -47,17 +47,24 @@ public class SignUpMedServlet extends HttpServlet {
 		String password = request.getParameter("contrasena");
 		String confirm = request.getParameter("confirmacion");
 		String nroReg=request.getParameter("numeroRegistro");
-		ArrayList<String> specs = new ArrayList<String>(Arrays.asList(request.getParameterValues("specs")));
+		String state = null;
+		ArrayList<String> specs = new ArrayList<String>();
+		try {
+			Arrays.asList(request.getParameterValues("specs")).forEach(s->specs.add(s));		
+		} catch (java.lang.NullPointerException e) {
+			state="Ingrese al menos una especialidad.";
+			request.setAttribute("success", state);
+			request.getRequestDispatcher("/WEB-INF/views/SignUpMed.jsp").forward(request, response);
+			return;
+		}
 		float porcentajeAdicional=Float.parseFloat(request.getParameter("porcentajeAdicional"));
 		String link=request.getParameter("sitioWeb");
 		Part img = request.getPart("imagen");
 		TipoMes mesLic=TipoMes.fromString(request.getParameter("mesLicencia"));
-		
 		UserControllerDelegator cu = new UserControllerDelegator();
 		if (nickname!=null && name!=null && lastname!=null && mail!=null && password!=null && 
-				nroReg!=null && specs!=null && mesLic!=null) {
+				nroReg!=null && mesLic!=null) {
 			if (confirm.equals(password)) {
-				String state = null;
 				try {
 					cu.ingresarMedico(nickname, password, name, lastname, mail, nroReg, mesLic, (int) porcentajeAdicional, link, specs);		
 					if (img!=null) {

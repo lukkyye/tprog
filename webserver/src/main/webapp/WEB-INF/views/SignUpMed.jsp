@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Salud.uy - Nuevo Médico</title>
     <link rel="icon" type="image/png" href="/webserver/img/FAVICON.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +34,7 @@
                 <%= request.getAttribute("success") %>
             </div>
         <% } %>
-        <form method="POST" enctype="multipart/form-data">
+        <form id="form" method="POST" enctype="multipart/form-data">
 
             <h2 class="h5 mt-4 mb-3">Crear nueva cuenta</h2>
 
