@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import com.gateway.delegators.ClinicControllerDelegator;
+
 /**
  * Servlet implementation class HomeServlet
  */
@@ -29,11 +31,13 @@ public class HomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nickname = (String) request.getSession().getAttribute("nickname");
+		
 		if (nickname != null) {
 		    String img = new com.gateway.delegators.ImageHandlerDelegator()
 		            .get_img64(nickname);
 		    request.setAttribute("profilePicture", img);
 		}
+		request.setAttribute("dtDiasConsulta", (new ClinicControllerDelegator()).listarDiaConsultas());
 		request.getRequestDispatcher("/WEB-INF/views/Home.jsp")
 		       .forward(request, response);
 	}

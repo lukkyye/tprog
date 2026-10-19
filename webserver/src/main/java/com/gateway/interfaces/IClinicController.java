@@ -2,6 +2,7 @@ package com.gateway.interfaces;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public interface IClinicController {
 	void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum);
 	Set<String> listarClinicas();
 	Set<String> listarEspecialidades();
-	
+	ArrayList<DTDiaConsulta> listarDiaConsultas();
 	void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio, String nombreEspecialidad, String nombreClinica);
 	boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
 			String img);

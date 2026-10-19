@@ -4,7 +4,7 @@
 <header class="mb-2">
         <nav class="navbar navbar-expand-lg" style="width: 100%; height: 5%;">
             <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand" href="/home"><img src="/webserver/img/LOGOGENERAL.png" width="120px"></a>
+                <a class="navbar-brand" href="/webserver/home"><img src="/webserver/img/LOGOGENERAL.png" width="120px"></a>
                 
                 <form class="d-flex mx-auto" style="max-width: 500px; width: 100%;">
                     <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">

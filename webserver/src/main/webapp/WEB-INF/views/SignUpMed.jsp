@@ -30,7 +30,11 @@
             <span class="text-danger">*</span>
             son obligatorios.
         </p>
-
+		<% if (request.getAttribute("success")!=null) { %>
+            <div class="alert alert-info" role="alert">
+                <%= request.getAttribute("success") %>
+            </div>
+        <% } %>
         <form method="POST" enctype="multipart/form-data">
 
             <h2 class="h5 mt-4 mb-3">Crear nueva cuenta</h2>
@@ -167,9 +171,10 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <a href="signUp.html" class="btn btn-secondary">
-                    Volver
-                </a>
+			<a href="${pageContext.request.contextPath}/home"
+   				class="btn btn-secondary">
+    			Volver
+			</a>
 
                 <button type="submit" id="ok" class="btn btn-primary">
                     Registrarse

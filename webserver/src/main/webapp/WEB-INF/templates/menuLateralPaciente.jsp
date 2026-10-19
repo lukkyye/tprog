@@ -42,7 +42,6 @@
 
                 <% if (especialidades != null && !especialidades.isEmpty()) {
                     for (String especialidad : especialidades) { %>
-
                     <li class="nav-item hoverable w-100">
                         <a class="text-muted text-decoration-none"
                            href="${pageContext.request.contextPath}/ListarConsultasServlet?especialidad=<%= java.net.URLEncoder.encode(especialidad, "UTF-8") %>"
@@ -79,7 +78,7 @@
 
                 <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/UsuariosPaciente"
+                       href="/webserver/UsuariosPaciente"
                        style="font-size: 11pt;">
                         Usuarios
                     </a>
@@ -89,7 +88,7 @@
 
                 <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/ClinicasPaciente"
+                       href="/webserver/ClinicasPaciente"
                        style="font-size: 11pt;">
                         Clinicas
                     </a>
@@ -99,12 +98,19 @@
 
                 <li class="nav-item hoverable w-100">
                     <a class="text-muted text-decoration-none"
-                       href="${pageContext.request.contextPath}/MisReservasServlet"
+                       href="/webserver/MisReservasServlet"
                        style="font-size: 11pt;">
                         Mis Reservas
                     </a>
                 </li>
-
+                <hr class="w-75" style="margin: auto;">
+				<li class="nav-item hoverable w-100">
+                    <a class="text-muted text-decoration-none"
+                       href="/webserver/ListaBeneficiosServlet"
+                       style="font-size: 11pt;">
+                        Mis beneficios
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

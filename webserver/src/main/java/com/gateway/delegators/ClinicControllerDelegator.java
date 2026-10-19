@@ -2,6 +2,7 @@ package com.gateway.delegators;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import com.gateway.connectors.ClinicControllerConnector;
@@ -100,5 +101,10 @@ public class ClinicControllerDelegator implements IClinicController {
 	public void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) {
 		cc.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
+	}
+
+	@Override
+	public ArrayList<DTDiaConsulta> listarDiaConsultas() {
+		return cc.listarDiaConsultas();
 	}
 }

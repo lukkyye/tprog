@@ -2,6 +2,7 @@ package com.gateway.connectors;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -102,5 +103,10 @@ public class ClinicControllerConnector implements IClinicController {
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
 			String img) {
 		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
+	}
+
+	@Override
+	public ArrayList<DTDiaConsulta> listarDiaConsultas() {
+		return cc.listarDiaConsultas();
 	}
 }
