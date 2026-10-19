@@ -43,7 +43,7 @@
 <body class="min-vh-100 container-fluid bg-body">
   
 <%
-    if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
+    if ("Medico".equals(tipoUsuario) || "Paciente".equals(tipoUsuario)) {
 %>
     <jsp:include page="/WEB-INF/templates/navbar.jsp" />
 <%
@@ -58,11 +58,11 @@
 <main class="container-fluid d-flex mt-5 gap-4">
 
     <%
-        if ("MEDICO".equals(tipoUsuario)) {
+        if ("Medico".equals(tipoUsuario)) {
     %>
         <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
     <%
-        } else if ("PACIENTE".equals(tipoUsuario)) {
+        } else if ("Paciente".equals(tipoUsuario)) {
     %>
         <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
     <%

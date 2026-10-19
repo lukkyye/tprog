@@ -131,7 +131,7 @@
                                     <td><%= r.aplicaBenef() ? "Sí" : "No" %></td>
                                     <td class="text-end">
                                         <a class="btn btn-sm btn-primary"
-                                           href="<%= ctx %>/DetalleReservaServlet?consulta=<%= nomCodificado %>&num=<%= r.numReserva() %>">
+                                           href="<%= ctx %>/DetalleReserva?consulta=<%= nomCodificado %>&num=<%= r.numReserva() %>">
                                             Ver reserva
                                         </a>
                                     </td>
