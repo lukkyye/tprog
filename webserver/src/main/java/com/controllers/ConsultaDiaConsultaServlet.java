@@ -27,7 +27,7 @@ public class ConsultaDiaConsultaServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombreDia = request.getParameter("nombre");
+        String nombreDia = request.getParameter("nombreDia");
 
         if (nombreDia == null || nombreDia.isBlank()) {
             response.sendError(

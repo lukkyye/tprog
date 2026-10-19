@@ -73,8 +73,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center gap-2 pt-2 border-top">
-                    <a href="TODO" class="btn btn-outline-primary">Ver Detalle</a>
-                    <a href="TODO" class="btn btn-primary">Ver Consultas Asociadas</a>
+                    <a href="${pageContext.request.contextPath}/ConsultaDiaConsultaServlet?nombreDia=<%= java.net.URLEncoder.encode(dtdc.nomD(), "UTF-8") %>" class="btn btn-outline-primary">Ver Detalle</a>
+                    <a href="${pageContext.request.contextPath}/ConsultasDiaServlet?nombreDia=<%= java.net.URLEncoder.encode(dtdc.nomD(), "UTF-8") %>" class="btn btn-primary">Ver Consultas Asociadas</a>
                 </div>
             </div>
             <%
