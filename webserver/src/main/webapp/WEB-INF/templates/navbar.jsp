@@ -13,10 +13,22 @@
                 
                 <div class="d-flex flex-row user-section gap-2 align-items-center">
                     <a href="/webserver/logout" class="btn btn-secondary">Cerrar Sesión</a>
-                    <a href="/home/my_profile" class="btn btn-primary">Mis Datos</a>
-                    <div class="d-flex align-items-center gap-1">
-    					<img style="height: 38px;" class="rounded-circle border" src="${profilePicture}">
-                        <a href="../users/HAYQHACERLO.html" class="text-decoration-none fw-bold text-dark" style="font-size: 10pt;">${nickname}</a>
+					<a href="${pageContext.request.contextPath}/misdatos"
+   						class="btn btn-primary">
+    					Mis Datos
+					</a>
+
+				<div class="d-flex align-items-center gap-1">
+    					<img style="height: 38px;"
+         				class="rounded-circle border"
+         				src="${profilePicture}">
+
+    				<a href="${pageContext.request.contextPath}/misdatos"
+       					class="text-decoration-none fw-bold text-dark"
+       					style="font-size: 10pt;">
+        				${sessionScope.nickname}
+    				</a>
+				</div>
                     </div>
                 </div>
             </div>
