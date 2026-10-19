@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
+<%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
+<%
+    String ctx = request.getContextPath();
     String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+    boolean esMedico = "Medico".equalsIgnoreCase(tipoUsuario);
+    boolean esPaciente = "Paciente".equalsIgnoreCase(tipoUsuario);
+    if (esMedico || esPaciente) {
+        request.setAttribute("profilePicture", new ImageHandlerDelegator().get_img64((String) session.getAttribute("nickname")));
+    }
 %>
 
 <!DOCTYPE html>
@@ -10,46 +17,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Salud.uy - Alta de Dia de Consulta</title>
-	<link rel="icon" type="image/png"
-          href="/webserver/img/FAVICON.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	<link rel="icon" type="image/png" href="<%= ctx %>/img/FAVICON.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
 </head>
 
-
 <body class="min-vh-100 container-fluid bg-body">
 
-    <%
-        if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) {
-    %>
+    <% if (esMedico || esPaciente) { %>
         <jsp:include page="/WEB-INF/templates/navbar.jsp" />
-    <%
-        } else {
-    %>
+    <% } else { %>
         <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
-    <%
-        }
-    %>
+    <% } %>
 
+    <main class="container-fluid d-flex mt-5 gap-4">
 
-   
-<main class="container-fluid d-flex mt-5 gap-4">
-
-    <%
-        if ("MEDICO".equals(tipoUsuario)) {
-    %>
-        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-    <%
-        } else if ("PACIENTE".equals(tipoUsuario)) {
-    %>
-        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-    <%
-        } else {
-    %>
-        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-    <%
-        }
-    %>
+        <% if (esMedico) { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+        <% } else if (esPaciente) { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+        <% } else { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+        <% } %>
 
     
 <div class="col-md-9 pe-5 d-flex flex-column gap-4">
@@ -186,7 +175,7 @@
                     </p>
 
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <a href="${pageContext.request.contextPath}/ListarClinicasServlet"
+                        <a href="${pageContext.request.contextPath}/home"
                            class="btn btn-secondary">
                             Cancelar
                         </a>
