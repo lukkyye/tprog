@@ -84,7 +84,7 @@
 
                         <div class="col-3 text-center">
                             <img
-                                style="max-height: 100px; width: auto; object-fit: contain;"
+                                style="max-height: auto; width: 128px; object-fit: contain;"
                                 src="<%= src %>"
                                 alt="Imagen de dia consulta">
                         </div>

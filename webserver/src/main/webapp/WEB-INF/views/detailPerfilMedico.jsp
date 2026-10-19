@@ -119,7 +119,7 @@
 
                     <h1 class="titulo-seccion mb-3">
                         <% if (usuario != null) { %>
-                            <%= usuario.nombre() + usuario.apellido() %>
+                            <%= usuario.nombre()+ " " + usuario.apellido()%>
                         <% } else { %>
                             <%="Mis datos"%>
                         <% } %>

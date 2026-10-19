@@ -16,7 +16,7 @@ public class ManejadorEspecialidad {
 	public static ManejadorEspecialidad get_instance() {
 		if (instance==null) {
 			instance= new ManejadorEspecialidad();
-			instance.altaEspecialidad("Medicina General", 0);
+			instance.altaEspecialidad("Medicina General 1", 0);
 		}
 		return instance;
 	}

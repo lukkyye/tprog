@@ -108,7 +108,8 @@ public class AltaConsultaServlet extends HttpServlet {
     private void guardarImagen(HttpServletRequest request, String nombreConsulta)
             throws IOException, ServletException {
         Part archivo = request.getPart("imagen");
-        if (archivo != null && archivo.getSize() > 0) new ImageHandlerDelegator().add_img(archivo, "consulta:" + nombreConsulta);
+        if (archivo != null && archivo.getSize() > 0) {
+        	new ImageHandlerDelegator().add_img(archivo, "consulta:" + nombreConsulta);
         }
     }
 

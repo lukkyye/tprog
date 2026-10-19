@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/DetalleClinicaVisitante")
+@WebServlet("/DetalleClinicaServlet")
 public class DetalleClinicaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class DetalleClinicaServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombre = request.getParameter("clinica");
+        String nombre = request.getParameter("nombre");
 
         if (nombre == null || nombre.isBlank()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST,

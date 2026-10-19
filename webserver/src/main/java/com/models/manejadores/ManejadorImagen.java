@@ -35,6 +35,18 @@ public class ManejadorImagen {
             return false;
         }
     }
+    public boolean add_img(BufferedImage prt, String key) {
+        try {
+            if (prt==null) {
+            	return false;
+            }
+            imgs.put(key, prt);
+            return true;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 	
 	public BufferedImage get_img(String key) {
 		if (imgs.containsKey(key)) {
