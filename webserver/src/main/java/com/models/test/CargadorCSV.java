@@ -180,15 +180,17 @@ public class CargadorCSV {
 			String ref = fila[0];
 			String nombre = fila[1];
 			LocalDate fecha = LocalDate.parse(fila[2], FECHA_FMT);
+			
 			int sala = Integer.parseInt(fila[3].trim());
 			int cantNum = Integer.parseInt(fila[4].trim());
 			String nombreDia = diasConsultaPorRef.get(fila[5]);
 			String nicknameMedico = usuariosPorRef.get(fila[6]);
+			//String costo = fila[7];
 			String state = fila[8];
 			String file_ref = RELATIVE_PATH+fila[9];
 			
 			controladorClinica.ingresarConsulta(nombreDia, nicknameMedico, nombre, fecha, sala, cantNum);
-			controladorClinica.setEstadoConsulta(EstadoConsulta.fromString(state), nombreDia);
+			controladorClinica.setEstadoConsulta(EstadoConsulta.fromString(state), nombre);
 			if (fila[9]==null || fila[9].isEmpty()) {
 				
 			} else {
