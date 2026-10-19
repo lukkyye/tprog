@@ -34,6 +34,6 @@ public class MisConsultasServlet extends HttpServlet {
         //Guardamos lista de consultas
         request.setAttribute("consultas", consultas);
 
-        request.getRequestDispatcher("/WEB-INF/views/misReservas.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/misConsultas.jsp").forward(request, response);
     }
 }

@@ -122,7 +122,7 @@
 			</div>
 
             <div class="d-flex justify-content-end gap-3 mt-4">
-                <a href="${pageContext.request.contextPath}/home/indexMedico.html"
+                <a href="${pageContext.request.contextPath}/home"
                    class="btn btn-secondary">
                     Cancelar
                 </a>
