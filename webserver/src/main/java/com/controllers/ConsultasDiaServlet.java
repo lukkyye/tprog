@@ -31,11 +31,9 @@ public class ConsultasDiaServlet extends HttpServlet {
         
         //Obtenemos nombre del dia
         String nombreD = request.getParameter("diaConsulta");
-        
-        Set<DTConsulta> consultas = clinicController.selecListaConsultaDelDia(nombreD);
 
-        //Guardamos lista de consultas
-        request.setAttribute("consultas", consultas);
+        //Guardamos lista de consultas depende de si le pasamos ?diaConsulta=<nombreDiaconsulta> o no le pasamos nada.
+        request.setAttribute("consultas", nombreD==null ? clinicController.listarConsultas() : clinicController.selecListaConsultaDelDia(nombreD));
 
         request.getRequestDispatcher("/WEB-INF/views/altaReserva.jsp").forward(request, response);
     }

@@ -56,12 +56,16 @@
             	ArrayList<DTDiaConsulta> array = (ArrayList<DTDiaConsulta>)request.getAttribute("dtDiasConsulta");
             	if (array!=null) {
             		for (DTDiaConsulta dtdc: array) {
+            			String src = img.get_img64(dtdc.nomD());
+            			if (src==null){
+            				src="/webserver/img/LOGOGENERAL.png";
+            			}
             %>
             
             <div class="card shadow rounded-4 border-0 bg-light p-4">
                 <div class="d-flex align-items-center mb-3">
                     <div class="col-3 text-center">
-                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="<%=img.get_img64(dtdc.nomD())%>" alt="Cardiología">
+                        <img style="max-height: 100px; width: auto; object-fit: contain;" src="<%=%>" alt="Imagen de dia consulta">
                     </div>
                     <div class="col-9 ps-3">
                         <h4 class="m-0 fw-bold"><%=dtdc.nomD()%>></h4>

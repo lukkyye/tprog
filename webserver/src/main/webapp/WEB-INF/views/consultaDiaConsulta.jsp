@@ -26,7 +26,7 @@
 
 <body class="min-vh-100 container-fluid bg-body">
 
-    <% if ("MEDICO".equals(tipoUsuario) || "PACIENTE".equals(tipoUsuario)) { %>
+    <% if ("Medico".equals(tipoUsuario) || "Paciente".equals(tipoUsuario)) { %>
         <jsp:include page="/WEB-INF/templates/navbar.jsp" />
     <% } else { %>
         <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
@@ -34,9 +34,9 @@
 
     <main class="container-fluid d-flex mt-5 gap-4">
 
-        <% if ("MEDICO".equals(tipoUsuario)) { %>
+        <% if ("Medico".equals(tipoUsuario)) { %>
             <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-        <% } else if ("PACIENTE".equals(tipoUsuario)) { %>
+        <% } else if ("Paciente".equals(tipoUsuario)) { %>
             <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
         <% } else { %>
             <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
@@ -60,10 +60,10 @@
     <div class="border rounded-4 bg-white p-3 h-100
                 d-flex align-items-center justify-content-center">
 
-        <% if (imagen != null && !imagen.isEmpty()) { %>
+        <% if (imagen != null) { %>
 
             <img
-                src="data:image/jpeg;base64,<%= imagen %>"
+                src="<%= imagen %>"
                 alt="Imagen del dia de consulta"
                 class="img-fluid rounded-3"
                 style="max-height: 280px; object-fit: contain;">
