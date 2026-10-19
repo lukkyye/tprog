@@ -9,6 +9,16 @@
     DTMedico medico = (DTMedico) request.getAttribute("datosMedico");
     List<String> especialidades =
             (List<String>) request.getAttribute("especialidades");
+
+    String fotoPerfil = null;
+    if (usuario != null) {
+        fotoPerfil = new com.gateway.delegators.ImageHandlerDelegator()
+                .get_img64(usuario.nickname());
+    }
+
+    if (fotoPerfil == null || fotoPerfil.isBlank()) {
+        fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
+    }
 %>
 
 <!DOCTYPE html>
@@ -32,8 +42,14 @@
             background-color: white;
         }
 
+
+        .contenido-perfil {
+            flex: 1;
+            min-width: 0;
+        }
+
         .perfil-card {
-            max-width: 950px;
+            width: 100%;
             border: 0;
             border-radius: 20px;
             box-shadow: 0 8px 26px rgba(22, 74, 123, 0.12);
@@ -48,10 +64,6 @@
             border-bottom: 1px solid #dee5eb;
         }
 
-        .dato:last-child {
-            border-bottom: 0;
-        }
-
         .avatar {
             width: 150px;
             height: 150px;
@@ -59,12 +71,25 @@
         }
 
         .etiqueta-especialidad {
-            background-color: #e4f3fc;
-            color: #164a7b;
-            border-radius: 20px;
-            padding: 8px 14px;
             display: inline-block;
             margin: 4px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background-color: #e4f3fc;
+            color: #164a7b;
+        }
+
+        @media (max-width: 767px) {
+            .layout-perfil {
+                flex-direction: column;
+            }
+
+            .layout-perfil > aside {
+                flex-basis: auto !important;
+                width: 100%;
+                max-width: 100% !important;
+                max-height: 45vh !important;
+            }
         }
     </style>
 </head>
@@ -92,108 +117,113 @@
     </nav>
 </header>
 
-<main class="container py-5">
+<main class="container-fluid py-5">
+    <div class="layout-perfil d-flex align-items-start gap-4">
 
-    <div class="card perfil-card mx-auto">
-        <div class="card-body p-4 p-md-5">
+        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
 
-            <div class="row align-items-center g-4 mb-4">
-                <div class="col-md-3 text-center">
-                    <%
-	                    String fotoPerfil = (new com.gateway.delegators.ImageHandlerDelegator()).get_img64(usuario.nickname());
-	
-	                    if (fotoPerfil == null || fotoPerfil.isBlank()) {
-	                        fotoPerfil ="/webserver/img/PACIENTE.png";
-	                    }
-                    %>
-                    
-                    <img class="avatar"
-                         src="<%=fotoPerfil%>"
-                         alt="Perfil de médico">
-                </div>
+        <div class="contenido-perfil">
+            <div class="card perfil-card">
+                <div class="card-body p-4 p-md-5">
 
-                <div class="col-md-9">
-                    <p class="text-uppercase text-secondary fw-semibold mb-1">
-                        Perfil de médico
-                    </p>
+                    <div class="row align-items-center g-4 mb-4">
+                        <div class="col-md-3 text-center">
+                            <img class="avatar"
+                                 src="<%= fotoPerfil %>"
+                                 alt="Perfil de médico">
+                        </div>
 
-                    <h1 class="titulo-seccion mb-3">
-                        <% if (usuario != null) { %>
-                            <%= usuario.nombre()+ " " + usuario.apellido()%>
-                        <% } else { %>
-                            <%="Mis datos"%>
-                        <% } %>
-                    </h1>
+                        <div class="col-md-9">
+                            <p class="text-uppercase text-secondary fw-semibold mb-1">
+                                Perfil de médico
+                            </p>
 
-                    <% if (usuario != null) { %>
-                        <p class="mb-1">
-                            <strong>Nickname:</strong>
-                            <%= usuario.nickname() %>
-                        </p>
-                        <p class="mb-0">
-                            <strong>Correo electrónico:</strong>
-                            <%= usuario.correo() %>
-                        </p>
-                    <% } %>
-                </div>
-            </div>
+                            <h1 class="titulo-seccion mb-3">
+                                <% if (usuario != null) { %>
+                                    <%= usuario.nombre() %> <%= usuario.apellido() %>
+                                <% } else { %>
+                                    Mis datos
+                                <% } %>
+                            </h1>
 
-            <hr>
+                            <% if (usuario != null) { %>
+                                <p class="mb-1">
+                                    <strong>Nickname:</strong>
+                                    <%= usuario.nickname() %>
+                                </p>
 
-            <h2 class="titulo-seccion h4 mt-4 mb-3">Datos del médico</h2>
+                                <p class="mb-0">
+                                    <strong>Correo electrónico:</strong>
+                                    <%= usuario.correo() %>
+                                </p>
+                            <% } %>
+                        </div>
+                    </div>
 
-            <% if (medico != null) { %>
-                <div class="dato">
-                    <strong>Número de registro:</strong>
-                    <%= medico.nroReg() %>
-                </div>
+                    <hr>
 
-                <div class="dato">
-                    <strong>Mes de licencia:</strong>
-                    <%= medico.mesLic() %>
-                </div>
+                    <h2 class="titulo-seccion h4 mt-4 mb-3">
+                        Datos del médico
+                    </h2>
 
-                <div class="dato">
-                    <strong>Porcentaje adicional:</strong>
-                    <%= medico.porcentajeCost() %>%
-                </div>
+                    <% if (medico != null) { %>
+                        <div class="dato">
+                            <strong>Número de registro:</strong>
+                            <%= medico.nroReg() %>
+                        </div>
 
-                <div class="dato">
-                    <strong>Sitio web:</strong>
-                    <% if (medico.link() != null && !medico.link().isBlank()) { %>
-                        <%= medico.link() %>
+                        <div class="dato">
+                            <strong>Mes de licencia:</strong>
+                            <%= medico.mesLic() %>
+                        </div>
+
+                        <div class="dato">
+                            <strong>Porcentaje adicional:</strong>
+                            <%= medico.porcentajeCost() %>%
+                        </div>
+
+                        <div class="dato">
+                            <strong>Sitio web:</strong>
+                            <% if (medico.link() != null && !medico.link().isBlank()) { %>
+                                <%= medico.link() %>
+                            <% } else { %>
+                                No cuenta con un sitio web.
+                            <% } %>
+                        </div>
                     <% } else { %>
-                        No cuenta con un sitio web
+                        <p class="text-secondary">
+                            No se encontraron los datos del médico.
+                        </p>
                     <% } %>
+
+                    <h2 class="titulo-seccion h4 mt-4 mb-3">
+                        Especialidades
+                    </h2>
+
+                    <% if (especialidades != null && !especialidades.isEmpty()) { %>
+                        <% for (String especialidad : especialidades) { %>
+                            <span class="etiqueta-especialidad">
+                                <%= especialidad %>
+                            </span>
+                        <% } %>
+                    <% } else { %>
+                        <p class="text-secondary">
+                            No tiene especialidades registradas.
+                        </p>
+                    <% } %>
+
+                    <div class="text-center mt-5">
+                        <a href="${pageContext.request.contextPath}/home"
+                           class="btn btn-primary px-4">
+                            Volver al inicio
+                        </a>
+                    </div>
+
                 </div>
-                
-                
-            <% } else { %>
-                <p class="text-secondary">No se encontraron los datos del médico.</p>
-            <% } %>
-
-            <h2 class="titulo-seccion h4 mt-4 mb-3">Especialidades</h2>
-
-            <% if (especialidades != null && !especialidades.isEmpty()) { %>
-                <% for (String especialidad : especialidades) { %>
-                    <span class="etiqueta-especialidad">
-                        <%= especialidad %>
-                    </span>
-                <% } %>
-            <% } else { %>
-                <p class="text-secondary">No tiene especialidades registradas.</p>
-            <% } %>
-
-            <div class="text-center mt-5">
-                <a href="${pageContext.request.contextPath}/home"
-                   class="btn btn-primary px-4">
-                    Volver al inicio
-                </a>
             </div>
-
         </div>
-    </div>
 
+    </div>
 </main>
 
 </body>

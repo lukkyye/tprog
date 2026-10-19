@@ -1,4 +1,4 @@
-<%@page import="com.gateway.delegators.ImageHandlerDelegator"%>
+<%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="com.models.datatypes.DTUsuario" %>
@@ -12,7 +12,10 @@
     DTPaciente paciente =
             (DTPaciente) request.getAttribute("datosPaciente");
 
-    String fotoPerfil = (new com.gateway.delegators.ImageHandlerDelegator()).get_img64(usuario.nickname());
+    String fotoPerfil = null;
+    if (usuario != null) {
+        fotoPerfil = new ImageHandlerDelegator().get_img64(usuario.nickname());
+    }
 
     if (fotoPerfil == null || fotoPerfil.isBlank()) {
         fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
@@ -45,8 +48,19 @@
             background-color: white;
         }
 
+        .layout-perfil {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .contenido-perfil {
+            flex: 1;
+            min-width: 0;
+        }
+
         .perfil-card {
-            max-width: 950px;
+            width: 100%;
             border: 0;
             border-radius: 20px;
             box-shadow: 0 8px 26px rgba(22, 74, 123, 0.12);
@@ -69,17 +83,26 @@
             border-bottom: 1px solid #dee5eb;
         }
 
-        .dato:last-child {
-            border-bottom: 0;
-        }
-
         .antecedente {
             display: inline-block;
+            margin: 4px;
+            padding: 8px 14px;
+            border-radius: 20px;
             background-color: #e4f3fc;
             color: #164a7b;
-            border-radius: 20px;
-            padding: 8px 14px;
-            margin: 4px;
+        }
+
+        @media (max-width: 767px) {
+            .layout-perfil {
+                flex-direction: column;
+            }
+
+            .layout-perfil > aside {
+                flex-basis: auto !important;
+                width: 100%;
+                max-width: 100% !important;
+                margin-left: 0 !important;
+            }
         }
     </style>
 </head>
@@ -107,109 +130,115 @@
     </nav>
 </header>
 
-<main class="container py-5">
+<main class="container-fluid py-5">
+    <div class="layout-perfil">
 
-    <div class="card perfil-card mx-auto">
-        <div class="card-body p-4 p-md-5">
-			
-            <div class="row align-items-center g-4 mb-4">
-                <div class="col-md-3 text-center">
-                    <img class="avatar rounded-circle"
-                         src="<%= fotoPerfil %>"
-                         alt="Foto de perfil">
-                </div>
+        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
 
-                <div class="col-md-9">
-                    <p class="text-uppercase text-secondary fw-semibold mb-1">
-                        Perfil de paciente
-                    </p>
+        <div class="contenido-perfil">
+            <div class="card perfil-card">
+                <div class="card-body p-4 p-md-5">
 
-                    <h1 class="titulo-seccion mb-3">
-                        <% if (usuario != null) { %>
-                            <%= usuario.nombre()+ " " + usuario.apellido()%>
+                    <div class="row align-items-center g-4 mb-4">
+                        <div class="col-md-3 text-center">
+                            <img class="avatar rounded-circle"
+                                 src="<%= fotoPerfil %>"
+                                 alt="Foto de perfil">
+                        </div>
+
+                        <div class="col-md-9">
+                            <p class="text-uppercase text-secondary fw-semibold mb-1">
+                                Perfil de paciente
+                            </p>
+
+                            <h1 class="titulo-seccion mb-3">
+                                <% if (usuario != null) { %>
+                                    <%= usuario.nombre() %> <%= usuario.apellido() %>
+                                <% } else { %>
+                                    Mis datos
+                                <% } %>
+                            </h1>
+
+                            <% if (usuario != null) { %>
+                                <p class="mb-1">
+                                    <strong>Nickname:</strong>
+                                    <%= usuario.nickname() %>
+                                </p>
+
+                                <p class="mb-0">
+                                    <strong>Correo electrónico:</strong>
+                                    <%= usuario.correo() %>
+                                </p>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h2 class="titulo-seccion h4 mt-4 mb-3">
+                        Datos del paciente
+                    </h2>
+
+                    <% if (paciente != null) { %>
+                        <div class="dato">
+                            <strong>Documento:</strong>
+                            <%= paciente.doc() %>
+                        </div>
+
+                        <div class="dato">
+                            <strong>Fecha de nacimiento:</strong>
+                            <%= paciente.fechaNac() %>
+                        </div>
+
+                        <div class="dato">
+                            <strong>Fecha de ingreso:</strong>
+                            <%= paciente.fechaIngreso() %>
+                        </div>
+
+                        <div class="dato">
+                            <strong>Órdenes acumuladas:</strong>
+                            <%= paciente.cantOrdenesAcum() %>
+                        </div>
+
+                        <div class="dato">
+                            <strong>Tickets acumulados:</strong>
+                            <%= paciente.cantTicketAcum() %>
+                        </div>
+
+                        <h2 class="titulo-seccion h4 mt-4 mb-3">
+                            Antecedentes de salud
+                        </h2>
+
+                        <% if (antecedentes != null && !antecedentes.isEmpty()) { %>
+                            <% for (String antecedente : antecedentes) { %>
+                                <span class="antecedente">
+                                    <%= antecedente %>
+                                </span>
+                            <% } %>
                         <% } else { %>
-                            Mis datos
+                            <p class="text-secondary">
+                                No tiene antecedentes registrados.
+                            </p>
                         <% } %>
-                    </h1>
 
-                    <% if (usuario != null) { %>
-                        <p class="mb-1">
-                            <strong>Nickname:</strong>
-                            <%= usuario.nickname() %>
-                        </p>
-
-                        <p class="mb-0">
-                            <strong>Correo electrónico:</strong>
-                            <%= usuario.correo() %>
+                    <% } else { %>
+                        <p class="text-secondary">
+                            No se encontraron los datos del paciente.
                         </p>
                     <% } %>
+
+                    <div class="text-center mt-5">
+                        <a href="${pageContext.request.contextPath}/home"
+                           class="btn btn-primary px-4">
+                            Volver al inicio
+                        </a>
+                    </div>
+
                 </div>
             </div>
-
-            <hr>
-
-            <h2 class="titulo-seccion h4 mt-4 mb-3">
-                Datos del paciente
-            </h2>
-
-            <% if (paciente != null) { %>
-                <div class="dato">
-                    <strong>Documento:</strong>
-                    <%= paciente.doc() %>
-                </div>
-
-                <div class="dato">
-                    <strong>Fecha de nacimiento:</strong>
-                    <%= paciente.fechaNac() %>
-                </div>
-
-                <div class="dato">
-                    <strong>Fecha de ingreso:</strong>
-                    <%= paciente.fechaIngreso() %>
-                </div>
-
-                <div class="dato">
-                    <strong>Órdenes acumuladas:</strong>
-                    <%= paciente.cantOrdenesAcum() %>
-                </div>
-
-                <div class="dato">
-                    <strong>Tickets acumulados:</strong>
-                    <%= paciente.cantTicketAcum() %>
-                </div>
-
-                <h2 class="titulo-seccion h4 mt-4 mb-3">
-                    Antecedentes de salud
-                </h2>
-
-                <% if (antecedentes != null && !antecedentes.isEmpty()) { %>
-                    <% for (String antecedente : antecedentes) { %>
-                        <span class="antecedente">
-                            <%= antecedente %>
-                        </span>
-                    <% } %>
-                <% } else { %>
-                    <p class="text-secondary">
-                        No tiene antecedentes registrados.
-                    </p>
-                <% } %>
-
-            <% } else { %>
-                <p class="text-secondary">
-                    No se encontraron los datos del paciente.
-                </p>
-            <% } %>
-
-            <div class="text-center mt-5">
-                <a href="${pageContext.request.contextPath}/home"
-                   class="btn btn-primary px-4">
-                    Volver al inicio
-                </a>
-            </div>
-
         </div>
-    </div>
 
+    </div>
 </main>
 
 </body>
