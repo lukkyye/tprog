@@ -19,6 +19,9 @@
     if (fotoPerfil == null || fotoPerfil.isBlank()) {
         fotoPerfil = request.getContextPath() + "/img/PACIENTE.png";
     }
+    
+    String tipoUsuarioSesion =
+            (String) session.getAttribute("tipoUsuario");
 %>
 
 <!DOCTYPE html>
@@ -120,7 +123,12 @@
 <main class="container-fluid py-5">
     <div class="layout-perfil d-flex align-items-start gap-4">
 
-        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+        <% if ("Medico".equals(tipoUsuarioSesion)) { %>
+    		<jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+				<% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
+    			<jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+				<% } 
+		%>
 
         <div class="contenido-perfil">
             <div class="card perfil-card">

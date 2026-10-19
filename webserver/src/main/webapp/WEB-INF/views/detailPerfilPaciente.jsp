@@ -25,6 +25,9 @@
     if (paciente != null) {
         antecedentes = paciente.antSalud();
     }
+    
+    String tipoUsuarioSesion =
+            (String) session.getAttribute("tipoUsuario");
 %>
 
 <!DOCTYPE html>
@@ -133,7 +136,12 @@
 <main class="container-fluid py-5">
     <div class="layout-perfil">
 
-        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+        <% if ("Medico".equals(tipoUsuarioSesion)) { %>
+    		<jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+				<% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
+    			<jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+				<% } 
+		%>
 
         <div class="contenido-perfil">
             <div class="card perfil-card">
