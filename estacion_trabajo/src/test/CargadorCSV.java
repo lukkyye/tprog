@@ -126,10 +126,10 @@ public class CargadorCSV {
 	private void cargarBeneficios() {
 		for (String[] fila : leerCsv("2026BeneficiosAnuales.csv")) {
 			String nicknamePaciente = usuariosPorRef.get(fila[1]);
-			int anio = Integer.parseInt(fila[2].trim());
-			int cantOrdenes = Integer.parseInt(fila[3].trim());
-			int cantTicket = Integer.parseInt(fila[4].trim());
-			
+			int anio = Integer.parseInt(fila[2]);
+			int cantOrdenes = Integer.parseInt(fila[3]);
+			int cantTicket = Integer.parseInt(fila[4]);
+			System.out.printf("%s,%s,%s,%s,%s\n",fila);
 			controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
 		}
 	}
@@ -169,6 +169,7 @@ public class CargadorCSV {
 			consultasPorRef.put(ref, nombre);
 		}
 	}
+	
 
 	private void cargarReservas() {
 		for (String[] fila : leerCsv("2026Reservas.csv")) {
@@ -176,7 +177,7 @@ public class CargadorCSV {
 			String nicknamePaciente = usuariosPorRef.get(fila[3]);
 			String nombreConsulta = consultasPorRef.get(fila[4]);
 			boolean aplicaBenef = false;
-			if (fila[6] != null) {
+			if (nicknamePaciente == "lgomez" && nombreConsulta == "Cardiología 121026 6") {
 				aplicaBenef = true;
 			}
 

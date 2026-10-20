@@ -119,14 +119,12 @@ public class ControladorClinica {
 			 if (beneficio == null) {
 				 throw new BeneficioSinOrdenesException("El paciente no tiene ordenes gratuitas disponibles");
 			 }
+			 beneficio.usarOrden();
 			 costo = 0.0f;
 		 }
 		 Reserva r = new Reserva(nicknamePaciente, nomC, fechaReserva, numero, aplicaBenef, costo);
 		 p.agregarReserva(r);
 		 c.agregarReserva(r);
-		 if (beneficio != null) {
-			 beneficio.usarOrden();
-		 }
 	}
 	public Set<DTConsulta> listarConsultas() {
 	    ManejadorConsulta mc = ManejadorConsulta.get_instance();
