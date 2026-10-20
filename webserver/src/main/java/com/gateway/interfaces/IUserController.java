@@ -40,8 +40,6 @@ public interface IUserController {
 
 	DTPaciente seleccionarPaciente(String nickname);
 
-	DTResConsultaDetalle listarDatosResConsulta(String nickname, int numReserva);
-
 	DTConsultaDetalle listarDatosConsulta(String nomC);
 
 	void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket);
@@ -57,5 +55,7 @@ public interface IUserController {
 	void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, ArrayList<String> especialidades);
 
 	void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud);
+
+	DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname);
 	
 }

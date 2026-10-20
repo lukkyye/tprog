@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/DetalleReserva")
+@WebServlet("/DetalleReservaServlet")
 public class DetalleReservaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -28,19 +28,17 @@ public class DetalleReservaServlet extends HttpServlet {
             throws ServletException, IOException {
 
     	String nickname = (String) request.getSession().getAttribute("nickname");
-    	String paramReserva = request.getParameter("reserva");
     	String consulta = request.getParameter("consulta");
     	int numRes = 0;
 
-    	if (paramReserva != null && !paramReserva.isEmpty()) {
-    	    try {
-    	        numRes = Integer.parseInt(paramReserva);
-    	    } catch (NumberFormatException e) {
-    	        numRes = 0; 
-    	    }
+    	int paramReserva = 0;
+    	try {    		
+    		paramReserva = Integer.valueOf(request.getParameter("num"));
+    	} catch (NumberFormatException e) {
+    		e.printStackTrace();
     	}
-
-        DTResConsultaDetalle reserva = clinicController.listarDatosResConsultaCC(consulta, numRes);
+    	
+        DTResConsultaDetalle reserva = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
 
         if (reserva == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,

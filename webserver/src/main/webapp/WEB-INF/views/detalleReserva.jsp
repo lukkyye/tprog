@@ -85,13 +85,11 @@
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-body p-4 p-md-5">
 
-                    <div class="row g-4">
+                    <div class="d-flex justify-content-start row g-4">
 
-                        <div class="col-md-5">
-                           
-                        </div>
+                
 
-                        <div class="col-md-7">
+                        <div class="container-fluid">
                             <h2 class="mb-4">
                             	Reserva</h2>
 
@@ -170,7 +168,7 @@
                     </div>
                 </div>
             </div>
-            <a href="${pageContext.request.contextPath}/misReservas"
+            <a href="${pageContext.request.contextPath}/MisReservasServlet?consulta=<%=reserva.nomC() %>"
                    class="btn btn-outline-secondary">
                     Volver a reservas
              </a>
@@ -181,7 +179,7 @@
                 No se encontraron los datos de la reserva.
             </div>
 
-            <a href="${pageContext.request.contextPath}/misReservas"
+            <a href="${pageContext.request.contextPath}/MisReservasServlet?consulta=<%=reserva.nomC() %>"
                class="btn btn-secondary">
                 Volver a reservas.
             </a>

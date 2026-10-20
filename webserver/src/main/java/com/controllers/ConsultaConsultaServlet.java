@@ -67,7 +67,7 @@ public class ConsultaConsultaServlet extends HttpServlet {
         	HashSet<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
             if (reservasUsuario != null) {
                 for (DTResConsulta r : reservasUsuario) {
-                	if (nombreConsulta != null && nombreConsulta.equals(userController.listarDatosResConsulta(nickname, r.numReserva()).nomC())) {
+                	if (r.nomC().equals(nombreConsulta)) {
                 		miReserva = r;
                 	}
                 }

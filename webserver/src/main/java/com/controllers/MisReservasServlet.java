@@ -1,9 +1,9 @@
 package com.controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
+
 import java.util.HashSet;
-import java.util.Set;
+
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTResConsulta;
 
 @WebServlet("/MisReservasServlet")

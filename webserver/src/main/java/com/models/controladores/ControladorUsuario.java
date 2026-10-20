@@ -68,9 +68,9 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(String nickname, int numReserva) { // Seguir aca
+	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) { // Seguir aca
 		ManejadorUsuario musu = ManejadorUsuario.get_instance();
-		return musu.datosResConsulta(nickname, numReserva);
+		return musu.datosResConsulta(nomC, nickname);
 	}
 	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {

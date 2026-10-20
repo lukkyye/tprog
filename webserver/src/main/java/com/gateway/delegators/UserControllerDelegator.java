@@ -86,11 +86,6 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public DTResConsultaDetalle listarDatosResConsulta(String nickname, int numReserva) {
-		return ucc.listarDatosResConsulta(nickname, numReserva);
-	}
-
-	@Override
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
 		return ucc.listarDatosConsulta(nomC);
 	}
@@ -130,6 +125,11 @@ public class UserControllerDelegator implements IUserController {
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
 			LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
 		ucc.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
+	}
+
+	@Override
+	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
+		return ucc.listarDatosResConsulta(nomC, nickname);
 	}
 	
 }

@@ -1,10 +1,11 @@
 package com.models.clases;
 import java.time.LocalDate;
 import com.models.datatypes.*;
-import com.models.manejadores.ManejadorConsulta;
-import com.models.manejadores.ManejadorUsuario;
+
 
 import java.util.HashSet;
+
+import com.models.datatypes.EstadoConsulta;
 
 public class Consulta {
 	private String diaConsulta;
@@ -55,6 +56,14 @@ public class Consulta {
 	    return reservas;
 	}
 	
+	public float getCostoC() {
+	    return costoC;
+	}
+	
+	public EstadoConsulta getEstado() {
+		return estado;
+	}
+	
 	public HashSet<DTResConsulta> getResConsultas(){
 		HashSet<DTResConsulta> dtReservas = new HashSet<DTResConsulta>();
 		for (Reserva r : reservas) {
@@ -64,18 +73,10 @@ public class Consulta {
 		return dtReservas;
 	}
 	
-	public float getCostoC() {
-	    return costoC;
-	}
-	
-	public EstadoConsulta getEstado() {
-		return estado;
-	}
-	
 	public DTConsultaDetalle getDataConsultaDetalle() { 
 		HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
 		for(Reserva r : reservas) {
-			DTResConsulta dt = new DTResConsulta(r.getFechaRS(),r.getNumReserva(),r.getAplicaBenef(),r.getCostoR());
+			DTResConsulta dt = new DTResConsulta(nomC, r.getFechaRS(),r.getNumReserva(),r.getAplicaBenef(),r.getCostoR());
 			arg.add(dt);
 		}
 		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC, estado);

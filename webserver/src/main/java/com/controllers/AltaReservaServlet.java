@@ -25,14 +25,14 @@ public class AltaReservaServlet extends HttpServlet {
         ClinicControllerDelegator clinicController = new ClinicControllerDelegator();
         UserControllerDelegator userController = new UserControllerDelegator();
         
-        String nomConsulta = request.getParameter("consulta");
+        String nomConsulta = request.getParameter("nombreConsulta");
         String nickname = (String) request.getSession().getAttribute("nickname");
         DTConsulta consulta = clinicController.seleccionarConsulta(nomConsulta);
         float costoReserva;
         
         if((2026 - userController.listarDatosPaciente(nickname).fechaNac().getYear()) >= 60 ) {
         	costoReserva = (float) (consulta.costoC() * 0.8);
-        }else {
+        } else {
         	costoReserva = consulta.costoC();
         }
         request.setAttribute("consulta", consulta);
@@ -56,7 +56,8 @@ public class AltaReservaServlet extends HttpServlet {
         boolean yaTieneReserva = false;
         if (reservasUsuario != null) {
             for (DTResConsulta r : reservasUsuario) {
-            	if (nomConsulta != null && nomConsulta.equals(userController.listarDatosResConsulta(nickname, r.numReserva()).nomC())) {
+            	//ACA
+            	if (nomConsulta != null && userController.listarDatosResConsulta(nomConsulta, nickname)!=null) {
             		yaTieneReserva = true;
                     break;
             	}
@@ -65,10 +66,11 @@ public class AltaReservaServlet extends HttpServlet {
         
         float costoReserva;
         if((2026 - userController.listarDatosPaciente(nickname).fechaNac().getYear()) >= 60 ) {
-        	costoReserva = (float) (consulta.costoC() * 0.8);
+        	costoReserva = (float) (consulta.costoC() * 0.8f);
         }else {
         	costoReserva = consulta.costoC();
         }
+        System.out.println("Costo linea 70: " + String.valueOf(costoReserva));
 
         if (yaTieneReserva) {
             request.setAttribute("errorReserva", "ALREADY_EXISTS");

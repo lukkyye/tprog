@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import com.models.datatypes.*;
 import com.models.excepciones.*;
+import com.models.excepciones.IdAlreadyExistsException;
+import com.models.datatypes.DTResConsulta;
+
 
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
@@ -34,6 +37,13 @@ public class ManejadorUsuario {
 		}
 		return instance;
 	}
+	
+	public boolean existe_ci(int _doc) {
+ 		return usuarios.values()
+ 				.stream()
+ 				.anyMatch(u -> u instanceof Paciente p && p.getDoc()==_doc);
+ 	}
+ 	
 	
 	public boolean existe_correo(String correo) {
 		for (Usuario u: usuarios.values()) {
@@ -158,12 +168,6 @@ public class ManejadorUsuario {
 		usuarios.put(nickname, p1);
 	}
 	
-	public boolean existe_ci(int _doc) {
-		return usuarios.values()
-				.stream()
-				.anyMatch(u -> u instanceof Paciente p && p.getDoc()==_doc);
-	}
-	
 	public HashSet<DTPaciente> get_dtpacientes(){
 		HashSet<DTPaciente> result = new HashSet<DTPaciente>();
 		usuarios.forEach(
@@ -188,18 +192,15 @@ public class ManejadorUsuario {
 		return result;
 	}
 	
-	public DTResConsultaDetalle datosResConsulta(String nicknameUsu, int numReserva) {
+	public DTResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) {
 	
 		Usuario u = get_usuario(nicknameUsu);
 	    if (u instanceof Paciente p) {
 	        for (com.models.clases.Reserva r : p.get_reservas()) {
-	            if (r.getNumReserva() == numReserva) {
+	            if (r.get_consultaAsociada().equals(nomC)) {
 	                return r.getDataResConsultaDetalle();
 	            }
 	        }
-	        throw new UserNotFoundException(
-	            "No se encontró la reserva seleccionada."
-	        );
 	    }
 	    return null;
 	}

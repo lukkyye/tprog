@@ -60,7 +60,7 @@
                     </div>
                 <% } %>
 
-                <form action="${pageContext.request.contextPath}/altaEspecialidad" method="post">
+                <form action="${pageContext.request.contextPath}/AltaEspecialidadServlet" method="post">
 
                     <div class="mb-3">
                         <label for="nombre" class="form-label fw-bold">Nombre de la Especialidad <span class="text-danger">*</span></label>

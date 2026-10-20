@@ -108,7 +108,7 @@
 			<a href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
     			Ver detalle
 			</a>
-			<% if ("PACIENTE".equals(tipoUsuario)) { %>
+			<% if ("Paciente".equals(tipoUsuario)) { %>
     		<a href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
         		Reservar
     		</a>

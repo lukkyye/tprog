@@ -87,8 +87,8 @@ public class UserControllerConnector implements IUserController {
 	}
 
 	@Override
-	public DTResConsultaDetalle listarDatosResConsulta(String nickname, int numReserva) {
-		return cu.listarDatosResConsulta(nickname, numReserva);
+	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
+		return cu.listarDatosResConsulta(nomC, nickname);
 	}
 
 	@Override

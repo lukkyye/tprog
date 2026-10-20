@@ -1,7 +1,12 @@
 package com.models.manejadores;
 import com.models.clases.Consulta;
+import com.models.clases.Paciente;
+import com.models.clases.Usuario;
+import com.models.datatypes.DTResConsultaDetalle;
+
 import java.util.HashMap;
 import com.models.excepciones.ConsultaNotFoundException;
+import com.models.excepciones.UserNotFoundException;
 
 public class ManejadorConsulta {
 	private static ManejadorConsulta instance;
@@ -32,4 +37,5 @@ public class ManejadorConsulta {
 	public void agregarConsulta(Consulta c) {
 	    consultas.put(c.getNomC(), c);
 	}
+	
 }

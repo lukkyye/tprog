@@ -53,7 +53,7 @@
         <section class="col-md-9 pe-5 d-flex flex-column gap-4">
             <h1 class="mb-4">Mis Consultas</h1>
 
-            <form action="${pageContext.request.contextPath}/misReservas" 
+            <form action="${pageContext.request.contextPath}/MisReservasServlet" 
                   method="get"> 
 
                 <div class="mb-4">

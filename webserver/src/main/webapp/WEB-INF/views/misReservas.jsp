@@ -67,8 +67,7 @@
             <h1 class="mb-4">Mis Reservas</h1>
 
 <%
-		HashSet<DTResConsulta> reservas =
-		(HashSet<DTResConsulta>) request.getAttribute("reservas");
+		HashSet<DTResConsulta> reservas = (HashSet<DTResConsulta>) request.getAttribute("reservas");
     if (reservas != null && !reservas.isEmpty()) {
         for (DTResConsulta reserva : reservas) {
 %>
@@ -79,8 +78,11 @@
                              src="${pageContext.request.contextPath}/img/logo_medicina_general_simbolo.png" 
                              alt="Reserva">
                     </div>
+                    <%
+                    	String coso = String.valueOf(reserva.numReserva()) + " " + reserva.nomC();
+                    %>
                     <div class="col-9 ps-3">
-                        <h4 class="m-0 fw-bold">Reserva #<%= reserva.numReserva() %></h4>
+                        <h4 class="m-0 fw-bold">Reserva #<%=coso %></h4>
                         <p class="mb-0 text-muted mt-2"><strong>Fecha:</strong> <%= reserva.fechaRes() %></p>
                         <p class="mb-0 text-muted"><strong>Costo Total:</strong> $<%= reserva.costoR() %></p>
                         <p class="mb-0 text-muted"><strong>Aplica Beneficio Anual:</strong> 
@@ -92,7 +94,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-2 border-top">
-                    <a href="${pageContext.request.contextPath}/DetalleReserva?numReserva=<%= reserva.numReserva() %>" 
+                    <a href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= reserva.nomC() %>&num=<%=reserva.numReserva()%>" 
                        class="btn btn-outline-primary btn-sm">
                         Ver Detalle
                     </a>
@@ -113,7 +115,7 @@
 <%
     if ("Medico".equals(tipoUsuario)) {
 %>
-    <a href="${pageContext.request.contextPath}/MisConsultas" class="btn btn-secondary">
+    <a href="${pageContext.request.contextPath}/MisConsultasServlet" class="btn btn-secondary">
                     Volver
                 </a>
 <%

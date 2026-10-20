@@ -1,5 +1,7 @@
 package com.models.clases;
 import java.time.LocalDate;
+
+import com.models.clases.Consulta;
 import com.models.datatypes.DTResConsultaDetalle;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.manejadores.ManejadorConsulta;
@@ -49,7 +51,7 @@ public class Reserva {
     }
     
     public DTResConsulta getDataResConsulta() {
-    	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
+    	return new DTResConsulta(nom_consulta_asoc, fechaRS, numReserva, aplicaBenef, costoR);
     }
     
     public DTResConsultaDetalle getDataResConsultaDetalle() {

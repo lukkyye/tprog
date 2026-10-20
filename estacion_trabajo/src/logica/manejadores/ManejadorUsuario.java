@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import logica.datatypes.*;
 import logica.excepciones.*;
+import logica.excepciones.IdAlreadyExistsException;
 
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
@@ -34,6 +35,13 @@ public class ManejadorUsuario {
 		}
 		return instance;
 	}
+	
+	public boolean existe_ci(int _doc) {
+ 		return usuarios.values()
+ 				.stream()
+ 				.anyMatch(u -> u instanceof Paciente p && p.getDoc()==_doc);
+ 	}
+ 	
 	
 	public boolean existe_correo(String correo) {
 		for (Usuario u: usuarios.values()) {
@@ -150,6 +158,9 @@ public class ManejadorUsuario {
 		}
 		if (existe_correo(correo)) {
 			throw new EmailAlreadyExistsException("Ya existe usuario con el correo ingresado");
+		}
+		if (existe_ci(_doc)) {
+			throw new IdAlreadyExistsException("Ya existe un usuario con la cedula ingresada");
 		}
 		Paciente p1 = new Paciente(nickname, password, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
 		usuarios.put(nickname, p1);
