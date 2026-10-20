@@ -73,13 +73,9 @@
 %>
             <div class="card shadow rounded-4 border-0 bg-light p-4 mb-3">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="col-3 text-center">
-                        <img style="max-height: 100px; width: auto; object-fit: contain;" 
-                             src="${pageContext.request.contextPath}/img/logo_medicina_general_simbolo.png" 
-                             alt="Reserva">
-                    </div>
+                    
                     <%
-                    	String coso = String.valueOf(reserva.numReserva()) + " " + reserva.nomC();
+                    	String coso = String.valueOf(reserva.numReserva()) + "  -  " + reserva.nomC();
                     %>
                     <div class="col-9 ps-3">
                         <h4 class="m-0 fw-bold">Reserva #<%=coso %></h4>
