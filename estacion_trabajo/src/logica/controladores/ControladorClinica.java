@@ -137,6 +137,11 @@ public class ControladorClinica {
 	    return result;
 	}
 	
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
+		ManejadorConsulta mco = ManejadorConsulta.get_instance();
+		mco.get_consulta(nombreConsulta).setEstado(state);
+	}
+	
 	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
 		ManejadorConsulta mco = ManejadorConsulta.get_instance();
 		ManejadorClinica mcl = ManejadorClinica.get_instance();

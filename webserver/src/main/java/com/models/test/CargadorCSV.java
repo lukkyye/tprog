@@ -27,7 +27,10 @@ import com.models.datatypes.TipoMes;
 import com.models.manejadores.ManejadorImagen;
 
 public class CargadorCSV {
-	public static final String RELATIVE_PATH = "Desktop/tprog/webserver/src/main/java/com/models/test/";
+	public static final String lUCAS = "Desktop/tprog/webserver/src/main/java/com/models/test/";
+	public static final String FACU = "C:\\Users\\julia\\git\\tpgr33\\webserver\\src\\main\\java\\com\\models\\test\\";
+	public static final String NICO = "C:\\Users\\nicon\\Desktop\\tproggit\\tpgr33\\webserver\\src\\main\\java\\com\\models\\test\\";
+	public static final String RELATIVE_PATH = NICO;
 
 	private static final DateTimeFormatter FECHA_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -44,11 +47,10 @@ public class CargadorCSV {
 		cargarEspecialidades();
 		cargarClinicas();
 		cargarUsuarios();
+		cargarBeneficios();
 		cargarDiasConsulta();
 		cargarConsultas();
 		cargarReservas();
-        String proyectoRaiz = System.getProperty("user.dir");
-        System.out.println("Ruta del Runtime de java: " + proyectoRaiz);
 	}
 
 	private void cargarEspecialidades() {
@@ -148,6 +150,17 @@ public class CargadorCSV {
 		}
 	}
 
+	private void cargarBeneficios() {
+		for (String[] fila : leerCsv("2026BeneficiosAnuales.csv")) {
+			String nicknamePaciente = usuariosPorRef.get(fila[1]);
+			int anio = Integer.parseInt(fila[2].trim());
+			int cantOrdenes = Integer.parseInt(fila[3].trim());
+			int cantTicket = Integer.parseInt(fila[4].trim());
+			
+			controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
+		}
+	}
+	
 	private void cargarDiasConsulta() {
 		for (String[] fila : leerCsv("2026DiaConsulta.csv")) {
 			String ref = fila[0];

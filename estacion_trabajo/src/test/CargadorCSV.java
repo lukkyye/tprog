@@ -1,6 +1,8 @@
 package test;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
+
+import logica.datatypes.EstadoConsulta;
 
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
@@ -37,6 +43,7 @@ public class CargadorCSV {
 		cargarEspecialidades();
 		cargarClinicas();
 		cargarUsuarios();
+		cargarBeneficios();
 		cargarDiasConsulta();
 		cargarConsultas();
 		cargarReservas();
@@ -79,7 +86,8 @@ public class CargadorCSV {
 			String nombre = fila[3];
 			String apellido = fila[4];
 			String correo = fila[5];
-
+			String password = fila[6];
+			
 			if (tipo.equals("M")) {
 				String[] datosMedico = medicosPorRef.get(ref);
 				String nroReg = datosMedico[1]; //replace later;
@@ -92,8 +100,7 @@ public class CargadorCSV {
 				for (String refEsp : refsEspecialidades) {
 					nombresEspecialidades.add(especialidadesPorRef.get(refEsp.trim()));
 				}
-
-				controladorUsuario.ingresarMedico(nickname,"", nombre, apellido, correo,
+				controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo,
 						nroReg, mesLic, porcAdicional, sitioWeb, nombresEspecialidades);
 
 			} else if (tipo.equals("P")) {
@@ -108,11 +115,22 @@ public class CargadorCSV {
 					antSalud.add(antecedentes);
 				}
 
-				controladorUsuario.ingresarPaciente(nickname, "", nombre, apellido, correo,
+				controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo,
 						fechaNac, fechaIngreso, doc, antSalud);
 			}
 
 			usuariosPorRef.put(ref, nickname);
+		}
+	}
+	
+	private void cargarBeneficios() {
+		for (String[] fila : leerCsv("2026BeneficiosAnuales.csv")) {
+			String nicknamePaciente = usuariosPorRef.get(fila[1]);
+			int anio = Integer.parseInt(fila[2].trim());
+			int cantOrdenes = Integer.parseInt(fila[3].trim());
+			int cantTicket = Integer.parseInt(fila[4].trim());
+			
+			controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
 		}
 	}
 
@@ -137,12 +155,17 @@ public class CargadorCSV {
 			String ref = fila[0];
 			String nombre = fila[1];
 			LocalDate fecha = LocalDate.parse(fila[2], FECHA_FMT);
+			
 			int sala = Integer.parseInt(fila[3].trim());
 			int cantNum = Integer.parseInt(fila[4].trim());
 			String nombreDia = diasConsultaPorRef.get(fila[5]);
 			String nicknameMedico = usuariosPorRef.get(fila[6]);
-
+			//String costo = fila[7];
+			String state = fila[8];
+			
 			controladorClinica.ingresarConsulta(nombreDia, nicknameMedico, nombre, fecha, sala, cantNum);
+			controladorClinica.setEstadoConsulta(EstadoConsulta.fromString(state), nombre);
+			
 			consultasPorRef.put(ref, nombre);
 		}
 	}
