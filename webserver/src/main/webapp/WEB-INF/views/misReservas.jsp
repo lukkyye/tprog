@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-2 border-top">
-                    <a href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= reserva.nomC() %>&num=<%=reserva.numReserva()%>" 
+                    <a href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.nomC(), "UTF-8") %>&num=<%=reserva.numReserva()%>" 
                        class="btn btn-outline-primary btn-sm">
                         Ver Detalle
                     </a>
