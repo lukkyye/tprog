@@ -27,7 +27,7 @@
 %>
 <%
     DTConsultaDetalle consulta = (DTConsultaDetalle) request.getAttribute("consulta");
-    String imagen = (String) request.getAttribute("imagen");
+    String imagen = (new ImageHandlerDelegator()).get_img64(consulta.nomC());
     boolean esMedicoDeLaConsulta =
         Boolean.TRUE.equals(request.getAttribute("esMedicoDeLaConsulta"));
     @SuppressWarnings("unchecked")
