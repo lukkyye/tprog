@@ -5,7 +5,7 @@ public enum EstadoConsulta {
 	Aceptada,
 	Rechazada;
 	
-	public EstadoConsulta toString(String str) {
+	public static EstadoConsulta fromString(String str) {
 		return switch (str.toLowerCase()) {
 		case "ingresada" -> EstadoConsulta.Ingresada;
 		case "aceptada" -> EstadoConsulta.Aceptada;
