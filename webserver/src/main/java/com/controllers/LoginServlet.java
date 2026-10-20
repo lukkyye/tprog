@@ -21,12 +21,6 @@ public class LoginServlet extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		//UserControllerDelegator cu = new UserControllerDelegator();
-		//cu.altaEspecialidad("Cardiología", 2);
-		//ArrayList<String> a = new ArrayList<String>();
-		//a.add("Cardiología");
-		//cu.ingresarPaciente("mateo", "1234", "mateo", "perez", "asd@gmail.com", LocalDate.of(2003, 04, 1), LocalDate.of(2004, 04, 1), 54849456, new ArrayList<String>());
-		//cu.ingresarMedico("lukkyye", "123456#","Lucas", "Icasetti", "lucas.icasetti@fing.edu.uy", "REG1001", TipoMes.Enero, 1, "", a);
 		request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {

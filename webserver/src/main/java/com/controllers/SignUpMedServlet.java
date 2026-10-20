@@ -32,8 +32,6 @@ public class SignUpMedServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//(new UserControllerDelegator()).altaEspecialidad("Cardiología", 2);
-		//(new UserControllerDelegator()).altaEspecialidad("Pediatría", 2);
 		ArrayList<String> specs = new ClinicControllerDelegator().listarEspecialidades().stream().collect(Collectors.toCollection(ArrayList::new));
 		request.setAttribute("specs", specs);
 		request.getRequestDispatcher("/WEB-INF/views/SignUpMed.jsp").forward(request, response);
