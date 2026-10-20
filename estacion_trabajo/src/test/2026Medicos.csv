@@ -2,3 +2,8 @@ Ref;NroRegistro;MesLicencia;SitioWeb;PorcentajeAdicional;Especialidad
 US01;REG1001;Enero;https://www.hospitalbritanico.org.uy/;15;ES01,ES03
 US02;REG1002;Julio;;5;ES02
 US03;REG1003;Febrero;https://www.hospitalbritanico.org.uy/;10;ES01,ES03
+US07;REG1007;Enero;;5;ES01,ES04
+US08;REG1008;Marzo;;10;ES02,ES05
+US09;REG1009;Junio;;12;ES03,ES06
+US10;REG1010;Agosto;;15;ES04,ES07
+US11;REG1011;Noviembre;;20;ES05,ES08

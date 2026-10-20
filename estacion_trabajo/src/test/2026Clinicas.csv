@@ -1,3 +1,7 @@
-Ref;Nombre;Descripcion;Direccion;SitioWeb;CostoTicketMedicamento;CostoOrdenConsulta
-CL01;Hospital Británico;Hospital general privado;Av. Italia 2420;https://www.hospitalbritanico.org.uy/;350;1200
-CL02;CASMU;Institución de asistencia médica;Av. 8 de Octubre 3310;https://www.casmu.com.uy/;200;950
+Ref;Nombre;Descripcion;Direccion;SitioWeb;CostoTicketMedicamento;CostoOrdenConsulta;Imagen
+CL01;Hospital Británico;Hospital general privado;Av. Italia 2420;https://www.hospitalbritanico.org.uy/;350;1200;CL01.jpg
+CL02;CASMU;Institución de asistencia médica;Av. 8 de Octubre 3310;https://www.casmu.com.uy/;200;950;CL02.jpeg
+CL03;Médica Uruguaya;Institución de asistencia médica;Av. 8 de Octubre 2492;https://www.medicauruguaya.com.uy/;280;1050;CL03.jpeg
+CL04;Asociación Española;Institución de salud privada;Bulevar Artigas 1525;https://www.asesp.com.uy/;310;1100;
+CL05;Hospital Evangélico;Centro de salud;Bv. Artigas 1985;https://www.hospitalevangelico.com/;250;980;CL05.png
+CL06;Hospital de Clínicas;Hospital universitario;Av. Italia s/n;https://www.hc.edu.uy/;180;800;CL06.jpg
