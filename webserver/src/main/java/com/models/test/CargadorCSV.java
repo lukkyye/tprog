@@ -30,7 +30,7 @@ public class CargadorCSV {
 	public static final String lUCAS = "Desktop/tprog/webserver/src/main/java/com/models/test/";
 	public static final String FACU = "C:\\Users\\julia\\git\\tpgr33\\webserver\\src\\main\\java\\com\\models\\test\\";
 	public static final String NICO = "C:\\Users\\nicon\\Desktop\\tproggit\\tpgr33\\webserver\\src\\main\\java\\com\\models\\test\\";
-	public static final String RELATIVE_PATH = lUCAS;
+	public static final String RELATIVE_PATH = FACU;
 
 	private static final DateTimeFormatter FECHA_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

@@ -25,8 +25,8 @@
     }
 </style>
 
-<aside class="d-flex flex-column gap-4 ms-5 p-0 pe-2 sidebar-scroll"
-       style="flex: 1 1 0%; max-width: 25%; max-height: 75vh; overflow-y: auto;">
+<aside class="d-flex flex-column gap-4 ps-3 p-0 pe-2 pb-5 sidebar-scroll position-sticky"
+       style="top: 80px; flex: 0 0 23%; max-width: 23%; height: calc(100vh - 90px); overflow-y: auto; overflow-x: hidden; box-sizing: border-box;">
 
     <!-- Especialidades -->
     <div class="container d-flex p-0 flex-column rounded-4 bg-light shadow
