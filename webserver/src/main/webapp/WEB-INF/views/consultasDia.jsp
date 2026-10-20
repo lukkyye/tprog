@@ -105,11 +105,11 @@
         <p>Costo: $<%= consulta.costoC() %></p>
 
         <div class="d-flex gap-2">
-			<a href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
     			Ver detalle
 			</a>
 			<% if ("Paciente".equals(tipoUsuario)) { %>
-    		<a href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+    		<a class="btn btn-primary"  href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
         		Reservar
     		</a>
 			<% } %>

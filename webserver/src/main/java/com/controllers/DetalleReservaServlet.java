@@ -38,13 +38,7 @@ public class DetalleReservaServlet extends HttpServlet {
     		e.printStackTrace();
     	}
     	
-        DTResConsultaDetalle reserva = userController.listarDatosResConsulta(consulta, nickname);
-        DTResConsultaDetalle reserva2 = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
-
-        System.out.println("Reserva by USERCONTROLLER: " +  reserva.toString());
-        System.out.println("Reserva by CLINICCONTROLLER: " +  reserva2.toString());
-
-        
+        DTResConsultaDetalle reserva = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
         if (reserva == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,
                     "No se encontro la reserva.");
