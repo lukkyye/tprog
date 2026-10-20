@@ -217,6 +217,11 @@ class CargadorCSVTest {
 		});
 	}
 	
+	@Test
+	void altaBeneficio_registraElBeneficio() {
+		controladorUsuario.altaBeneficioAnual(null, 0, 0, 0);
+	}
+	
 	
 
 } 
