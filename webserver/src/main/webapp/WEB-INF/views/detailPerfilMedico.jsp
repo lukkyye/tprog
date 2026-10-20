@@ -22,6 +22,7 @@
             Boolean.TRUE.equals(request.getAttribute("esMiPerfil"));
 
     String fotoPerfil = null;
+
     if (usuario != null) {
         fotoPerfil = new com.gateway.delegators.ImageHandlerDelegator()
                 .get_img64(usuario.nickname());
@@ -94,6 +95,16 @@
             border-radius: 20px;
             background-color: #e4f3fc;
             color: #164a7b;
+        }
+
+        .consulta-enlace {
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .consulta-enlace:hover {
+            color: #164a7b;
+            background-color: #f8fbfd;
         }
 
         @media (max-width: 767px) {
@@ -247,7 +258,9 @@
                                             || consulta.estado() == EstadoConsulta.Aceptada) {
                                         hayConsultasVisibles = true;
                         %>
-                                            <div class="list-group-item mb-2 rounded">
+                                            <a class="list-group-item list-group-item-action consulta-enlace mb-2 rounded"
+                                               href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+
                                                 <h5 class="mb-2">
                                                     <%= consulta.nomC() %>
                                                 </h5>
@@ -276,7 +289,7 @@
                                                     <strong>Costo:</strong>
                                                     <%= consulta.costoC() %>
                                                 </p>
-                                            </div>
+                                            </a>
                         <%
                                     }
                                 }
