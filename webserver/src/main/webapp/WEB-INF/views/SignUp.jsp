@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Salud.uy - Registrarse</title>
+    <link rel="icon" type="image/png" href="/webserver/img/FAVICON.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/singup_styles.css">
+</head>
+
+<body class="min-vh-100 d-flex flex-column">
+
+	<header class="border-bottom bg-white px-4 py-3">
+    	<a href="/webserver/home">
+        	<img src="/webserver/img/LOGOGENERAL.png" alt="salud.uy" width="150">
+    	</a>
+	</header>
+
+    <main class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+
+        <section class="bg-light rounded-4 shadow p-4 p-sm-5 text-center w-100" style="max-width: 600px;">
+
+            <h1 class="h2 fw-bold mb-3">Nueva cuenta de usuario:</h1>
+
+            <p class="text-secondary mb-4">
+                Seleccione un perfil para registrarse.
+            </p>
+
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+
+                <a href="/webserver/signup/m" class="btn btn-primary btn-lg px-5 py-3">
+                    Médico
+                </a>
+
+                <a href="/webserver/signup/p" class="btn btn-primary btn-lg px-5 py-3">
+                    Paciente
+                </a>
+
+            </div>
+
+            <a href="/webserver/home" class="btn btn-outline-secondary mt-4">
+                Cancelar
+            </a>
+
+        </section>
+    </main>
+
+</body>
+</html>
