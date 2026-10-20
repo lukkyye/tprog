@@ -3,6 +3,7 @@ package com.controllers;
 
 import java.io.IOException;
 
+import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
 import com.models.datatypes.DTResConsultaDetalle;
 
@@ -18,6 +19,8 @@ public class DetalleReservaServlet extends HttpServlet {
 
     private UserControllerDelegator userController =
             new UserControllerDelegator();
+    private ClinicControllerDelegator clinicController =
+            new ClinicControllerDelegator();
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -26,6 +29,7 @@ public class DetalleReservaServlet extends HttpServlet {
 
     	String nickname = (String) request.getSession().getAttribute("nickname");
     	String paramReserva = request.getParameter("reserva");
+    	String consulta = request.getParameter("consulta");
     	int numRes = 0;
 
     	if (paramReserva != null && !paramReserva.isEmpty()) {
@@ -36,7 +40,7 @@ public class DetalleReservaServlet extends HttpServlet {
     	    }
     	}
 
-        DTResConsultaDetalle reserva = userController.listarDatosResConsulta(nickname, numRes);
+        DTResConsultaDetalle reserva = clinicController.listarDatosResConsultaCC(consulta, numRes);
 
         if (reserva == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,
