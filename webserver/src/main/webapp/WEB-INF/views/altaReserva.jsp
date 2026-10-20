@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <a href="${pageContext.request.contextPath}/consultasDia" class="btn btn-secondary">
+                        <a href="${pageContext.request.contextPath}/ConsultaDiasServlet" class="btn btn-secondary">
                             Cancelar
                         </a>
 
