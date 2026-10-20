@@ -116,26 +116,11 @@
 
 <body>
 
-<header class="barra-superior border-bottom px-4 py-3">
-    <nav class="d-flex justify-content-between align-items-center">
-        <a href="${pageContext.request.contextPath}/home">
-            <img src="${pageContext.request.contextPath}/img/LOGOGENERAL.png"
-                 alt="Salud.uy"
-                 width="120">
-        </a>
-
-        <div class="d-flex align-items-center gap-3">
-            <span class="fw-bold text-dark">
-                ${sessionScope.nickname}
-            </span>
-
-            <a href="${pageContext.request.contextPath}/logout"
-               class="btn btn-secondary">
-                Cerrar sesión
-            </a>
-        </div>
-    </nav>
-</header>
+<% if (session.getAttribute("nickname") == null) { %>
+    <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+<% } else { %>
+    <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+<% } %>
 
 <main class="container-fluid py-5">
     <div class="layout-perfil d-flex gap-4">
