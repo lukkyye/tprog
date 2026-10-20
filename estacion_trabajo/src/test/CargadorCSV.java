@@ -176,6 +176,9 @@ public class CargadorCSV {
 			String nicknamePaciente = usuariosPorRef.get(fila[3]);
 			String nombreConsulta = consultasPorRef.get(fila[4]);
 			boolean aplicaBenef = false;
+			if (fila[6] != null) {
+				aplicaBenef = true;
+			}
 
 			controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
 		}

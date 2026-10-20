@@ -86,7 +86,7 @@
                 <% } %>
 
 				<div class="d-flex justify-content-center mt-4">
-                    <a href="<%= ctx %>" class="btn btn-secondary">Volver</a>
+                    <a href="/webserver/home" class="btn btn-secondary">Volver</a>
                 </div>
             </section>
         </div>
