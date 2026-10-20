@@ -80,11 +80,6 @@
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1>Detalle de clinica</h1>
-
-                <a href="${pageContext.request.contextPath}/ClinicasVisitante"
-                   class="btn btn-outline-secondary">
-                    Volver a clinicas
-                </a>
             </div>
 
             <div class="card shadow-sm border-0 rounded-4">
@@ -174,7 +169,14 @@
                         </div>
 
                     </div>
+                <div class="d-flex justify-content-center mt-5" >
+                <a href="${pageContext.request.contextPath}/ListarClinicasServlet"
+                   class="btn btn-secondary">
+                    Volver a clinicas
+        		</a>
+        		</div>
                 </div>
+
             </div>
 
         <% } else { %>
@@ -183,12 +185,13 @@
                 No se encontraron los datos de la clinica.
             </div>
 
-            <a href="${pageContext.request.contextPath}/ClinicasVisitante"
+            <a href="${pageContext.request.contextPath}/ListarClinicasServlet"
                class="btn btn-secondary">
                 Volver a clinicas
             </a>
 
         <% } %>
+        
  		</section>
     </main>
 </body>
