@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import com.gateway.delegators.ClinicControllerDelegator;
 
@@ -13,7 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import com.models.datatypes.EstadoConsulta;
 
 import com.models.datatypes.DTConsulta;
@@ -32,8 +31,8 @@ public class ConsultasDiaServlet extends HttpServlet {
         String nombreDia = request.getParameter("nombreDia");
         String especialidad = request.getParameter("especialidad");
         
-        HashSet<DTConsulta> consultas = new HashSet<DTConsulta>();
-        HashSet<DTConsulta> aceptadas = new HashSet<DTConsulta>();
+        Set<DTConsulta> consultas = new HashSet<DTConsulta>();
+        Set<DTConsulta> aceptadas = new HashSet<DTConsulta>();
         
        if (nombreDia!=null && especialidad==null) {
         	request.setAttribute("from", "del Dia");

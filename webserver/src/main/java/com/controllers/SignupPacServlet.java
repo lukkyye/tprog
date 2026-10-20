@@ -54,18 +54,18 @@ public class SignupPacServlet extends HttpServlet {
 		String confirm = request.getParameter("confirmacion");
 		String lastname=request.getParameter("apellido");
 		LocalDate born=LocalDate.parse(request.getParameter("fechaNacimiento"));
-		int id=Integer.parseInt(request.getParameter("documento"));
-		ArrayList<String> ant = new ArrayList<String>(List.of(
+		int idDocum=Integer.parseInt(request.getParameter("documento"));
+		List<String> ant = List.of(
 					request.getParameter("antecedentes").split("\n")
-				));
+				);
 		Part img= request.getPart("imagen");
 		
-		UserControllerDelegator cu = new UserControllerDelegator();
+		UserControllerDelegator controladorUsuario = new UserControllerDelegator();
 		if (nickname!=null && lastname!=null && confirm != null && password != null && born!=null) {
 			if (confirm.equals(password)) {
 				String state = null;
 				try {
-					cu.ingresarPaciente(nickname, password, name, lastname, mail, born, LocalDate.now(), id, ant);		
+					controladorUsuario.ingresarPaciente(nickname, password, name, lastname, mail, born, LocalDate.now(), idDocum, ant);		
 					if (img!=null) {
 						com.gateway.delegators.ImageHandlerDelegator ihd = new com.gateway.delegators.ImageHandlerDelegator();
 						ihd.add_img(img, nickname);

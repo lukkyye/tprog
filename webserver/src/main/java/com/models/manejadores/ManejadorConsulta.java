@@ -1,16 +1,14 @@
 package com.models.manejadores;
 import com.models.clases.Consulta;
-import com.models.clases.Paciente;
-import com.models.clases.Usuario;
-import com.models.datatypes.DTResConsultaDetalle;
-
 import java.util.HashMap;
+import java.util.Map;
+
 import com.models.excepciones.ConsultaNotFoundException;
-import com.models.excepciones.UserNotFoundException;
+
 
 public class ManejadorConsulta {
 	private static ManejadorConsulta instance;
-	private HashMap<String, Consulta> consultas;
+	private Map<String, Consulta> consultas;
 	
 	private ManejadorConsulta() {
 		consultas = new HashMap<String, Consulta>();
@@ -31,11 +29,11 @@ public class ManejadorConsulta {
 		throw new ConsultaNotFoundException();
 	}
 	
-	public HashMap<String, Consulta> get_consultas() {
+	public Map<String, Consulta> get_consultas() {
 	    return consultas;
 	}
-	public void agregarConsulta(Consulta c) {
-	    consultas.put(c.getNomC(), c);
+	public void agregarConsulta(Consulta consulta) {
+	    consultas.put(consulta.getNomC(), consulta);
 	}
 	
 }

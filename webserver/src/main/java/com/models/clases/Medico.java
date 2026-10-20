@@ -2,14 +2,17 @@ package com.models.clases;
 import com.models.datatypes.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Medico extends Usuario{
 	private String nroReg;
 	private TipoMes mesLic;
 	private int porcentajeCosto;
 	private String link;
-	private HashSet<String> consultasAsociadas;
-	private HashSet<Especialidad> especialidades;
+	private Set<String> consultasAsociadas;
+	private Set<Especialidad> especialidades;
 	
 	public Medico(String _nickname, String _password, String _nombre, String _apellido, String _correo, String _nroReg, TipoMes _mesLic, int _porcentajeCosto, String _link) {
 		super(_nickname, _password,  _nombre, _apellido, _correo);
@@ -34,11 +37,11 @@ public class Medico extends Usuario{
 		return false;
 	}
 	
-	public void agregarEspecialidad(Especialidad e) {
-		especialidades.add(e);
+	public void agregarEspecialidad(Especialidad especialidad) {
+		especialidades.add(especialidad);
 	}
 	
-	public HashSet<Especialidad> get_especialidades() {
+	public Set<Especialidad> get_especialidades() {
 		return especialidades;
 	}
 	
@@ -46,7 +49,7 @@ public class Medico extends Usuario{
 		return new DTMedico(nickname, nroReg, mesLic, porcentajeCosto, link);
 	}
 	
-	public HashSet<String> get_consultassoc(){
+	public Set<String> get_consultassoc(){
 		return consultasAsociadas;
 	}
 	
@@ -81,14 +84,12 @@ public class Medico extends Usuario{
 		this.mesLic=_mesLic;
 	}
 	
-	public void set_especialidades(HashSet<Especialidad> _especialidades) {
-		this.especialidades = _especialidades;
+	public void set_especialidades(Set<Especialidad> nuevas) {
+		this.especialidades = nuevas;
 	}
 	
-	public ArrayList<String> get_nombresEspecialidades() {
-		ArrayList<String> result = new ArrayList<String>();
-		especialidades.forEach(e -> result.add(e.getNombre()));
-		return result;
+	public List<String> get_nombresEspecialidades() {
+		return especialidades.stream().map(x->x.getNombre()).toList();
 	}
 	
 }

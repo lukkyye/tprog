@@ -27,11 +27,12 @@ import com.models.datatypes.TipoMes;
 import com.models.excepciones.*;
 import com.models.manejadores.ManejadorClinica;
 import com.models.manejadores.ManejadorEspecialidad;
+import com.gateway.delegators.*;
 
 class CargadorCSVTest {
 
-	private static final ControladorUsuario controladorUsuario = new ControladorUsuario();
-	private static final ControladorClinica controladorClinica = new ControladorClinica();
+	private static final UserControllerDelegator controladorUsuario = new UserControllerDelegator();
+	private static final ClinicControllerDelegator controladorClinica = new ClinicControllerDelegator();
 	private static final ManejadorEspecialidad manejadorEspecialidad = ManejadorEspecialidad.get_instance();
 	
 	@BeforeAll
@@ -133,7 +134,7 @@ class CargadorCSVTest {
 		DTPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
 		
 		String nomP = dtpaciente.nickname();
-		DTResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomP, 1);
+		DTResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomC, 1);
 		assertAll(
 				()->assertEquals(reserva_expected,res)
 			);

@@ -2,19 +2,20 @@ package com.models.clases;
 import java.time.LocalDate;
 import com.models.datatypes.*;
 import java.util.HashSet;
-
+import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 public class Paciente extends Usuario{
 	private LocalDate fechaNac;
 	//private int cantOrdenesAcum;
 	//private int cantTicketAcum;
-	private ArrayList<String> antSalud;
+	private List<String> antSalud;
 	private int doc;
 	private LocalDate fechaIn;
-	private HashSet<BeneficioAnual> benef;
-	private HashSet<Reserva> reservas;
+	private Set<BeneficioAnual> benef;
+	private Set<Reserva> reservas;
 	
-	public Paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+	public Paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud){
 			super(nickname, password,nombre, apellido, correo);
 			this.fechaNac = _fechaNac;
 			//this.cantOrdenesAcum = 0;
@@ -26,7 +27,7 @@ public class Paciente extends Usuario{
 			this.reservas = new HashSet<Reserva>();
 	}
 	
-	public HashSet<Reserva> get_reservas() {
+	public Set<Reserva> get_reservas() {
 		return reservas;
 	}
 	
@@ -34,8 +35,8 @@ public class Paciente extends Usuario{
 	    return fechaNac.plusYears(60).isBefore(LocalDate.now());
 	}
 	
-	public void agregarReserva(Reserva r) {
-	    reservas.add(r);
+	public void agregarReserva(Reserva reserva) {
+	    reservas.add(reserva);
 	}
 	
 	public int cantOrdenesAcum() {
@@ -71,12 +72,12 @@ public class Paciente extends Usuario{
 		return getBeneficio(anio) != null;
 	}
 	
-	public void agregarBeneficio(BeneficioAnual b) {
-		benef.add(b);
+	public void agregarBeneficio(BeneficioAnual beneficio) {
+		benef.add(beneficio);
 	}
 	
-	public HashSet<DTBeneficioAnual> get_dtbeneficios() {
-		HashSet<DTBeneficioAnual> result = new HashSet<DTBeneficioAnual>();
+	public Set<DTBeneficioAnual> get_dtbeneficios() {
+		Set<DTBeneficioAnual> result = new HashSet<DTBeneficioAnual>();
 		for (BeneficioAnual b : benef) {
 			result.add(b.getDataBeneficioAnual());
 		}
@@ -95,7 +96,7 @@ public class Paciente extends Usuario{
 		this.doc = doc;
 	}
 	
-	public void setAntSalud(ArrayList<String> antSalud) {
+	public void setAntSalud(List<String> antSalud) {
 		this.antSalud = (antSalud != null) ? new ArrayList<String>(antSalud) : new ArrayList<String>();
 	}
 	

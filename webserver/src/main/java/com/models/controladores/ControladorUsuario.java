@@ -3,6 +3,9 @@ package com.models.controladores;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.models.datatypes.*;
 import com.models.manejadores.ManejadorConsulta;
 import com.models.manejadores.ManejadorEspecialidad;
@@ -13,15 +16,15 @@ import com.models.clases.Consulta;
 public class ControladorUsuario {
 	
 	
-	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
-		ManejadorUsuario mu = ManejadorUsuario.get_instance();
-		mu.agregar_medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
+	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
+		ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
+		manejadorUsuario.agregar_medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 		return true;
 	}
 	
-	public boolean ingresarPaciente(String nickname, String password,String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
-		ManejadorUsuario mu = ManejadorUsuario.get_instance();
-		mu.agregar_paciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
+	public boolean ingresarPaciente(String nickname, String password,String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
+		ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
+		manejadorUsuario.agregar_paciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 		return true;
 	}//Falta
 	
@@ -36,7 +39,7 @@ public class ControladorUsuario {
 		return true;
 	}
 	
-	public HashSet<DTUsuario> listarUsuarios() {
+	public Set<DTUsuario> listarUsuarios() {
 		return ManejadorUsuario.get_instance().get_usuarios();
 	}
 	
@@ -48,19 +51,19 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosPaciente(nicknameUsu);
 	}
 	
-	public HashSet<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
+	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
 		return ManejadorUsuario.get_instance().consultasAsociadas(nicknameUsu);
 	}
 	
-	public HashSet<DTResConsulta> listarResConsultas(String nicknameUsu) {
+	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
 		return ManejadorUsuario.get_instance().reservasConsultasAsociadas(nicknameUsu);
 	}
 	
-	public HashSet<DTPaciente> listarPacientes() {
+	public Set<DTPaciente> listarPacientes() {
 		return ManejadorUsuario.get_instance().get_dtpacientes();
 	}
 	
-	public HashSet<DTMedico> listarMedicos() {
+	public Set<DTMedico> listarMedicos() {
 		return ManejadorUsuario.get_instance().get_dtmedicos();
 	}
 	
@@ -85,7 +88,7 @@ public class ControladorUsuario {
 		ManejadorUsuario.get_instance().agregar_beneficio(nickname, anio, cantOrdenes, cantTicket);
 	}
 	
-	public HashSet<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
 		return ManejadorUsuario.get_instance().beneficiosAnuales(nickname);
 	}
 	
@@ -97,15 +100,15 @@ public class ControladorUsuario {
 		return ManejadorUsuario.get_instance().datosUsuario(nickname);
 	}
 	
-	public ArrayList<String> listarEspecialidadesMedico(String nickname) {
+	public List<String> listarEspecialidadesMedico(String nickname) {
 		return ManejadorUsuario.get_instance().especialidadesMedico(nickname);
 	}
 	
-	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, ArrayList<String> especialidades) {
+	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, List<String> especialidades) {
 		ManejadorUsuario.get_instance().modificar_medico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
 	}
 	
-	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
+	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
 		ManejadorUsuario.get_instance().modificar_paciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 	

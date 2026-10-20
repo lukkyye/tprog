@@ -1,18 +1,10 @@
 package com.models.manejadores;
 import com.models.clases.Clinica;
 import com.models.clases.DiaConsulta;
-import com.models.clases.Especialidad;
-import com.models.clases.Medico;
-import com.models.datatypes.DTConsulta;
 import com.models.excepciones.NombreClinicaAlreadyExistsException;
-import com.models.datatypes.TipoMes;
-import com.models.excepciones.NicknameAlreadyExistsException;
-import com.models.excepciones.*;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
+
 
 import com.models.excepciones.DiaConsultaAlreadyExistsException;
 
@@ -76,8 +68,8 @@ public class ManejadorClinica {
 		if (memberClinica(nombre)) {
 			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
 		}
-		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
-		clinicas.put(nombre, cl);
+		Clinica clinica = new Clinica(nombre, desc, dir, costoT, costoC, link);
+		clinicas.put(nombre, clinica);
 	}
       
     public void agregarDiaConsulta(DiaConsulta diaConsulta) {

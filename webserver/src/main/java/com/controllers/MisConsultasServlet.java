@@ -29,7 +29,7 @@ public class MisConsultasServlet extends HttpServlet {
     	//Obtenemos nickname de medico
         String nickname = (String) request.getSession().getAttribute("nickname");
         
-        HashSet<DTConsulta> consultas = userController.listarConsultasAsociadas(nickname);
+        Set<DTConsulta> consultas = userController.listarConsultasAsociadas(nickname);
 
         //Guardamos lista de consultas
         request.setAttribute("consultas", consultas);

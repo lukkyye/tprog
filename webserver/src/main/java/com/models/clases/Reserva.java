@@ -56,10 +56,10 @@ public class Reserva {
     
     public DTResConsultaDetalle getDataResConsultaDetalle() {
 
-        ManejadorConsulta mc = ManejadorConsulta.get_instance();
-        Consulta c = mc.get_consulta(nom_consulta_asoc);
+        ManejadorConsulta manejadorConsulta = ManejadorConsulta.get_instance();
+        Consulta consulta = manejadorConsulta.get_consulta(nom_consulta_asoc);
 
-        DTConsultaDetalle dtConsulta = c.getDataConsultaDetalle();
+        DTConsultaDetalle dtConsulta = consulta.getDataConsultaDetalle();
 
         return new DTResConsultaDetalle(
             fechaRS,

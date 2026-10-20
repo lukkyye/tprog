@@ -11,6 +11,7 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
@@ -32,7 +33,7 @@ public class SignUpMedServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<String> specs = new ClinicControllerDelegator().listarEspecialidades().stream().collect(Collectors.toCollection(ArrayList::new));
+		List<String> specs = new ClinicControllerDelegator().listarEspecialidades().stream().collect(Collectors.toCollection(ArrayList::new));
 		request.setAttribute("specs", specs);
 		request.getRequestDispatcher("/WEB-INF/views/SignUpMed.jsp").forward(request, response);
 	}
@@ -46,7 +47,7 @@ public class SignUpMedServlet extends HttpServlet {
 		String confirm = request.getParameter("confirmacion");
 		String nroReg=request.getParameter("numeroRegistro");
 		String state = null;
-		ArrayList<String> specs = new ArrayList<String>();
+		List<String> specs = new ArrayList<String>();
 		try {
 			Arrays.asList(request.getParameterValues("specs")).forEach(s->specs.add(s));		
 		} catch (java.lang.NullPointerException e) {
@@ -59,12 +60,12 @@ public class SignUpMedServlet extends HttpServlet {
 		String link=request.getParameter("sitioWeb");
 		Part img = request.getPart("imagen");
 		TipoMes mesLic=TipoMes.fromString(request.getParameter("mesLicencia"));
-		UserControllerDelegator cu = new UserControllerDelegator();
+		UserControllerDelegator controladorUsuario = new UserControllerDelegator();
 		if (nickname!=null && name!=null && lastname!=null && mail!=null && password!=null && 
 				nroReg!=null && mesLic!=null) {
 			if (confirm.equals(password)) {
 				try {
-					cu.ingresarMedico(nickname, password, name, lastname, mail, nroReg, mesLic, (int) porcentajeAdicional, link, specs);		
+					controladorUsuario.ingresarMedico(nickname, password, name, lastname, mail, nroReg, mesLic, (int) porcentajeAdicional, link, specs);		
 					if (img!=null) {
 						com.gateway.delegators.ImageHandlerDelegator ihd = new com.gateway.delegators.ImageHandlerDelegator();
 						ihd.add_img(img, nickname);

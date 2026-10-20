@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.gateway.interfaces.IClinicController;
@@ -19,103 +20,103 @@ import com.models.datatypes.EstadoConsulta;
 import com.models.datatypes.DTResConsulta;
 
 public class ClinicControllerConnector implements IClinicController {
-	private ControladorClinica cc;
+	private ControladorClinica controladorClinica;
 	
 	public ClinicControllerConnector() {
-		cc=new ControladorClinica();
+		controladorClinica=new ControladorClinica();
 	}
 
 	@Override
 	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
-		return cc.listarDatosDiaConsulta();
+		return controladorClinica.listarDatosDiaConsulta();
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
-		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
+		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 	@Override
 	public DTClinica seleccionarClinica(String nombre) {
-		return cc.seleccionarClinica(nombre);
+		return controladorClinica.seleccionarClinica(nombre);
 	}
 	@Override
 	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
-		cc.setEstadoConsulta(state, nombreConsulta);
+		controladorClinica.setEstadoConsulta(state, nombreConsulta);
 	}
 	@Override
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
-		return cc.listarDatosConsulta(nomC);
+		return controladorClinica.listarDatosConsulta(nomC);
 	}
 
 	@Override
 	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
-		return cc.listarDatosResConsultaCC(nomC, numReserva);
+		return controladorClinica.listarDatosResConsultaCC(nomC, numReserva);
 	}
 
 	@Override
-	public HashSet<DTResConsulta> listarReservasConsulta(String nomC) {
-		return cc.getReservasConsulta(nomC);
+	public Set<DTResConsulta> listarReservasConsulta(String nomC) {
+		return controladorClinica.getReservasConsulta(nomC);
 	}
 	
 	@Override
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {
-		return cc.selecListaConsultaDelDia(nomD);
+		return controladorClinica.selecListaConsultaDelDia(nomD);
 	}
 
 	@Override
 	public DTConsulta seleccionarConsulta(String nomC) {
-		return cc.seleccionarConsulta(nomC);
+		return controladorClinica.seleccionarConsulta(nomC);
 	}
 
 	@Override
-	public HashSet<DTPaciente> listarPacientes() {
-		return cc.listarPacientes();
+	public Set<DTPaciente> listarPacientes() {
+		return controladorClinica.listarPacientes();
 	}
 
 	@Override
 	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
-		cc.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
+		controladorClinica.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
 	}
 
 	@Override
 	public Set<DTConsulta> listarConsultas() {
-		return cc.listarConsultas();
+		return controladorClinica.listarConsultas();
 	}
 
 	@Override
 	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
-		cc.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
+		controladorClinica.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
 	}
 
 	@Override
 	public Set<String> listarClinicas() {
-		return cc.listarClinicas();
+		return controladorClinica.listarClinicas();
 	}
 
 	@Override
 	public Set<String> listarEspecialidades() {
-		return cc.listarEspecialidades();
+		return controladorClinica.listarEspecialidades();
 	}
 
 	@Override
 	public void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) {
-		cc.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
+		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
 			String img) {
-		return cc.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
+		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
 	}
 
 	@Override
-	public ArrayList<DTDiaConsulta> listarDiaConsultas() {
-		return cc.listarDiaConsultas();
+	public List<DTDiaConsulta> listarDiaConsultas() {
+		return controladorClinica.listarDiaConsultas();
 	}
 
 	@Override
-	public ArrayList<String> getConsultasPorEspecialidad(String especialidad) {
-		return cc.getConsultasPorEspecialidad(especialidad);
+	public List<String> getConsultasPorEspecialidad(String especialidad) {
+		return controladorClinica.getConsultasPorEspecialidad(especialidad);
 	}
 }

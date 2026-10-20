@@ -3,6 +3,7 @@ package com.controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Set;
 
 import com.gateway.delegators.UserControllerDelegator;
 import com.gateway.delegators.ClinicControllerDelegator;
@@ -52,7 +53,7 @@ public class AltaReservaServlet extends HttpServlet {
         
         DTConsulta consulta = clinicController.seleccionarConsulta(nomConsulta);
         
-        HashSet<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
+        Set<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
         boolean yaTieneReserva = false;
         if (reservasUsuario != null) {
             for (DTResConsulta r : reservasUsuario) {
@@ -84,7 +85,7 @@ public class AltaReservaServlet extends HttpServlet {
             return;
         }
         
-        HashSet<DTResConsulta> reservasConsulta = clinicController.listarReservasConsulta(nomConsulta);
+        Set<DTResConsulta> reservasConsulta = clinicController.listarReservasConsulta(nomConsulta);
         int cantReservas = (reservasConsulta != null) ? reservasConsulta.size() : 0;
 
         if (consulta != null && cantReservas >= consulta.cantNum()) {

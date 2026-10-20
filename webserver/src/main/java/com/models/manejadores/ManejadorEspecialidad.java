@@ -1,6 +1,9 @@
 package com.models.manejadores;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.models.clases.Especialidad;
 import com.models.excepciones.SpecialityNotFoundException;
 import com.models.excepciones.EspecialidadAlreadyExistsException;
@@ -11,7 +14,7 @@ public class ManejadorEspecialidad {
 		especialidades=new HashSet<Especialidad>();
 	}
 	
-	private HashSet<Especialidad> especialidades;
+	private Set<Especialidad> especialidades;
 	
 	public static ManejadorEspecialidad get_instance() {
 		if (instance==null) {
@@ -38,8 +41,8 @@ public class ManejadorEspecialidad {
 		}
 		throw new SpecialityNotFoundException("No se encontro especialidad con el nombre ingresado");
 	}
-	public ArrayList<String> get_especialidades(){
-		ArrayList<String> result = new ArrayList<String>();
+	public List<String> get_especialidades(){
+		List<String> result = new ArrayList<String>();
 		especialidades.forEach(e -> {result.add(e.getNombre());});
 		return result;
 	}
@@ -50,8 +53,8 @@ public class ManejadorEspecialidad {
 		if (existeEsp(espNom)) {
 			throw new EspecialidadAlreadyExistsException("Ya existe una especialidad con el nombre ingresado");
 		}
-		Especialidad e = new Especialidad(espNom, espPorc);
-		especialidades.add(e);
-		return e;
+		Especialidad especialidad = new Especialidad(espNom, espPorc);
+		especialidades.add(especialidad);
+		return especialidad;
 	}
 }

@@ -2,7 +2,8 @@ package com.gateway.interfaces;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.models.datatypes.DTBeneficioAnual;
 import com.models.datatypes.DTConsulta;
@@ -16,27 +17,27 @@ import com.models.datatypes.TipoMes;
 
 public interface IUserController {
 	
-	boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs);
+	boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs);
 
-	boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud);
+	boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud);
 
 	boolean login(String nickname, String password);
 
 	boolean altaEspecialidad(String espNom, int espPorc);
 
-	HashSet<DTUsuario> listarUsuarios();
+	Set<DTUsuario> listarUsuarios();
 
 	DTMedico listarDatosMedico(String nicknameUsu);
 
 	DTPaciente listarDatosPaciente(String nicknameUsu);
 
-	HashSet<DTConsulta> listarConsultasAsociadas(String nicknameUsu);
+	Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu);
 
-	HashSet<DTResConsulta> listarResConsultas(String nicknameUsu);
+	Set<DTResConsulta> listarResConsultas(String nicknameUsu);
 
-	HashSet<DTPaciente> listarPacientes();
+	Set<DTPaciente> listarPacientes();
 
-	HashSet<DTMedico> listarMedicos();
+	Set<DTMedico> listarMedicos();
 
 	DTPaciente seleccionarPaciente(String nickname);
 
@@ -44,17 +45,17 @@ public interface IUserController {
 
 	void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket);
 
-	HashSet<DTBeneficioAnual> listarBeneficiosAnuales(String nickname);
+	Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname);
 
 	DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio);
 
 	DTUsuario listarDatosUsuario(String nickname);
 
-	ArrayList<String> listarEspecialidadesMedico(String nickname);
+	List<String> listarEspecialidadesMedico(String nickname);
 
-	void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, ArrayList<String> especialidades);
+	void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, List<String> especialidades);
 
-	void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud);
+	void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud);
 
 	DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname);
 	

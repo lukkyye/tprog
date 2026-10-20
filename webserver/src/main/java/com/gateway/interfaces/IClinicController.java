@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.models.datatypes.DTResConsulta;
@@ -22,10 +23,10 @@ public interface IClinicController {
 	boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link);
 	DTConsultaDetalle listarDatosConsulta(String nomC);
 	DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva);
-	HashSet<DTResConsulta> listarReservasConsulta(String nomC);
+	Set<DTResConsulta> listarReservasConsulta(String nomC);
 	Set<DTConsulta> selecListaConsultaDelDia(String nomD);
 	DTConsulta seleccionarConsulta(String nomC);
-	HashSet<DTPaciente> listarPacientes();
+	Set<DTPaciente> listarPacientes();
 	void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef);
 	Set<DTConsulta> listarConsultas();
 	public DTClinica seleccionarClinica(String nombre);
@@ -33,8 +34,8 @@ public interface IClinicController {
 	Set<String> listarClinicas();
 	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta);
 	Set<String> listarEspecialidades();
-	public ArrayList<String> getConsultasPorEspecialidad(String especialidad);
-	ArrayList<DTDiaConsulta> listarDiaConsultas();
+	public List<String> getConsultasPorEspecialidad(String especialidad);
+	List<DTDiaConsulta> listarDiaConsultas();
 	void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio, String nombreEspecialidad, String nombreClinica);
 	boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
 			String img);

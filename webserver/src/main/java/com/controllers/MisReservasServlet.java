@@ -3,7 +3,7 @@ package com.controllers;
 import java.io.IOException;
 
 import java.util.HashSet;
-
+import java.util.Set;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
@@ -35,7 +35,7 @@ public class MisReservasServlet extends HttpServlet {
         
         //Obtenemos nombre de consulta
         String nombreC = request.getParameter("consulta");
-        HashSet<DTResConsulta> reservas = new HashSet<>();;
+        Set<DTResConsulta> reservas = new HashSet<>();;
         
         if (nombreC == null || nombreC.isBlank()) {
         	reservas = userController.listarResConsultas(nickname);

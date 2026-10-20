@@ -4,6 +4,7 @@ import com.models.datatypes.*;
 
 
 import java.util.HashSet;
+import java.util.Set;
 
 import com.models.datatypes.EstadoConsulta;
 
@@ -16,7 +17,7 @@ public class Consulta {
 	private LocalDate fecha;
 	private String nomC;
 	private EstadoConsulta estado;
-	private HashSet<Reserva> reservas;
+	private Set<Reserva> reservas;
 	
 	public Consulta(String diaConsulta, String medico, String nomC, LocalDate fecha, int sala, int cantNum, float costoC, EstadoConsulta estado) { //Ver costoC
 		this.nomC = nomC;
@@ -48,11 +49,11 @@ public class Consulta {
         return cantNum;
     }
 	
-	public void agregarReserva(Reserva r) {
-	    reservas.add(r);
+	public void agregarReserva(Reserva reserva) {
+	    reservas.add(reserva);
 	}
 	
-	public HashSet<Reserva> getReservas() {
+	public Set<Reserva> getReservas() {
 	    return reservas;
 	}
 	
@@ -64,8 +65,8 @@ public class Consulta {
 		return estado;
 	}
 	
-	public HashSet<DTResConsulta> getResConsultas(){
-		HashSet<DTResConsulta> dtReservas = new HashSet<DTResConsulta>();
+	public Set<DTResConsulta> getResConsultas(){
+		Set<DTResConsulta> dtReservas = new HashSet<DTResConsulta>();
 		for (Reserva r : reservas) {
 			
 			dtReservas.add(r.getDataResConsulta()); 
@@ -74,10 +75,10 @@ public class Consulta {
 	}
 	
 	public DTConsultaDetalle getDataConsultaDetalle() { 
-		HashSet<DTResConsulta> arg = new HashSet<DTResConsulta>();
-		for(Reserva r : reservas) {
-			DTResConsulta dt = new DTResConsulta(nomC, r.getFechaRS(),r.getNumReserva(),r.getAplicaBenef(),r.getCostoR());
-			arg.add(dt);
+		Set<DTResConsulta> arg = new HashSet<DTResConsulta>();
+		for(Reserva reserva : reservas) {
+			DTResConsulta dtconsulta = new DTResConsulta(nomC, reserva.getFechaRS(),reserva.getNumReserva(),reserva.getAplicaBenef(),reserva.getCostoR());
+			arg.add(dtconsulta);
 		}
 		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC, estado);
 		return consultaDetalle;

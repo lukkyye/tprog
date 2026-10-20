@@ -3,8 +3,9 @@ package com.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
+
 import java.util.List;
+import java.util.Set;
 
 import com.gateway.delegators.*;
 import com.gateway.delegators.ImageHandlerDelegator;
@@ -64,7 +65,7 @@ public class ConsultaConsultaServlet extends HttpServlet {
             reservas.addAll(consulta.reservas());
             reservas.sort(Comparator.comparingInt(DTResConsulta::numReserva));
         } else if (esPaciente) {
-        	HashSet<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
+        	Set<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
             if (reservasUsuario != null) {
                 for (DTResConsulta r : reservasUsuario) {
                 	if (r.nomC().equals(nombreConsulta)) {

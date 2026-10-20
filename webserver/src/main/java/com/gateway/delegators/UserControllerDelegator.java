@@ -3,6 +3,8 @@ package com.gateway.delegators;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.gateway.connectors.UserControllerConnector;
 import com.gateway.interfaces.IUserController;
@@ -25,13 +27,13 @@ public class UserControllerDelegator implements IUserController {
 	
 	@Override
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo,
-			String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+			String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
 		return ucc.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 	}
 
 	@Override
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
-			LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
+			LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
 		return ucc.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 	}
 
@@ -46,7 +48,7 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public HashSet<DTUsuario> listarUsuarios() {
+	public Set<DTUsuario> listarUsuarios() {
 		return ucc.listarUsuarios();
 	}
 
@@ -61,22 +63,22 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public HashSet<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
+	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
 		return ucc.listarConsultasAsociadas(nicknameUsu);
 	}
 
 	@Override
-	public HashSet<DTResConsulta> listarResConsultas(String nicknameUsu) {
+	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
 		return ucc.listarResConsultas(nicknameUsu);
 	}
 
 	@Override
-	public HashSet<DTPaciente> listarPacientes() {
+	public Set<DTPaciente> listarPacientes() {
 		return ucc.listarPacientes();
 	}
 
 	@Override
-	public HashSet<DTMedico> listarMedicos() {
+	public Set<DTMedico> listarMedicos() {
 		return ucc.listarMedicos();
 	}
 
@@ -96,7 +98,7 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public HashSet<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
 		return ucc.listarBeneficiosAnuales(nickname);
 	}
 
@@ -111,19 +113,19 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public ArrayList<String> listarEspecialidadesMedico(String nickname) {
+	public List<String> listarEspecialidadesMedico(String nickname) {
 		return ucc.listarEspecialidadesMedico(nickname);
 	}
 
 	@Override
 	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic,
-			int porcCost, String link, ArrayList<String> especialidades) {
+			int porcCost, String link, List<String> especialidades) {
 		ucc.modificarMedico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
 	}
 
 	@Override
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
-			LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
+			LocalDate fechaIn, int doc, List<String> antSalud) {
 		ucc.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 

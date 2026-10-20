@@ -4,11 +4,12 @@ import com.models.clases.BeneficioAnual;
 import com.models.clases.Medico;
 import com.models.clases.Paciente;
 import com.models.clases.Especialidad;
-import com.models.clases.Reserva;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import com.models.datatypes.*;
 import com.models.excepciones.*;
 import com.models.excepciones.IdAlreadyExistsException;
@@ -17,8 +18,8 @@ import com.models.datatypes.DTResConsulta;
 
 public class ManejadorUsuario {
 	private static ManejadorUsuario instance;
-	private HashMap<String, Usuario> usuarios;
-	private HashMap<String, Reserva> reservas;
+	private Map<String, Usuario> usuarios;
+	//private Map<String, Reserva> reservas;
 	
 	private ManejadorUsuario() {
 		usuarios = new HashMap<String,Usuario>();
@@ -41,7 +42,7 @@ public class ManejadorUsuario {
 	public boolean existe_ci(int _doc) {
  		return usuarios.values()
  				.stream()
- 				.anyMatch(u -> u instanceof Paciente p && p.getDoc()==_doc);
+ 				.anyMatch(u -> u instanceof Paciente paciente && paciente.getDoc()==_doc);
  	}
  	
 	
@@ -55,8 +56,8 @@ public class ManejadorUsuario {
 	}
 	
 	// SET_USUARIOS() BAUTIZADA:
-	public HashSet<DTUsuario> get_usuarios() {
-		HashSet<DTUsuario> result = new HashSet<DTUsuario>();
+	public Set<DTUsuario> get_usuarios() {
+		Set<DTUsuario> result = new HashSet<DTUsuario>();
 		usuarios.forEach( (k,v) -> result.add(v.get_dt()));
 		return result;
 	}
@@ -70,28 +71,28 @@ public class ManejadorUsuario {
 	}
 	
 	public DTMedico datosMedico(String nickname) {
-		Usuario u = get_usuario(nickname);
-		if (u instanceof Medico m) {
-			return m.get_dtmedico();
+		Usuario usuario = get_usuario(nickname);
+		if (usuario instanceof Medico medico) {
+			return medico.get_dtmedico();
 		}
 		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
 	
 	public DTPaciente datosPaciente(String nickname) {
-		Usuario u = get_usuario(nickname);
-		if (u instanceof Paciente p) {
-			return p.get_dtpaciente();
+		Usuario usuario = get_usuario(nickname);
+		if (usuario instanceof Paciente paciente) {
+			return paciente.get_dtpaciente();
 		}
 		throw new UserNotFoundException("El usuario no es de tipo Paciente");
 	}
 	
 	//Medicos
-	public HashSet<DTConsulta> consultasAsociadas(String nicknameUsu){
-		Usuario u = get_usuario(nicknameUsu);
-		if (u instanceof Medico m) {
+	public Set<DTConsulta> consultasAsociadas(String nicknameUsu){
+		Usuario usuario = get_usuario(nicknameUsu);
+		if (usuario instanceof Medico medico) {
 			ManejadorConsulta mconsultas = ManejadorConsulta.get_instance();
-			HashSet<DTConsulta> result = new HashSet<DTConsulta>();
-			m.get_consultassoc().forEach(
+			Set<DTConsulta> result = new HashSet<DTConsulta>();
+			medico.get_consultassoc().forEach(
 						s -> result.add(mconsultas.get_consulta(s).getDataConsulta())
 					);
 			return result;
@@ -101,11 +102,11 @@ public class ManejadorUsuario {
 	
 	
 	//Pacientes
-	public HashSet<DTResConsulta> reservasConsultasAsociadas(String nicknameUsu){
-		Usuario u = get_usuario(nicknameUsu);
-		if (u instanceof Paciente p) {
-			HashSet<DTResConsulta> result = new HashSet<DTResConsulta>();
-			p.get_reservas().forEach(
+	public Set<DTResConsulta> reservasConsultasAsociadas(String nicknameUsu){
+		Usuario usuario = get_usuario(nicknameUsu);
+		if (usuario instanceof Paciente paciente) {
+			Set<DTResConsulta> result = new HashSet<DTResConsulta>();
+			paciente.get_reservas().forEach(
 						r-> result.add(r.getDataResConsulta())
 					);
 			return result;
@@ -114,16 +115,16 @@ public class ManejadorUsuario {
 	}
 	
 	public boolean existe_nroReg(String nroReg) {
-		for (Usuario u: usuarios.values()) {
-			if (u instanceof Medico m) {
-				if (m.get_nroReg().equals(nroReg)) {
+		for (Usuario usuario: usuarios.values()) {
+			if (usuario instanceof Medico medico) {
+				if (medico.get_nroReg().equals(nroReg)) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	public void agregar_medico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+	public void agregar_medico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
 		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -136,9 +137,9 @@ public class ManejadorUsuario {
 		if (specs.isEmpty()) {
 			throw new MedicoSinEspecialidadException();
 		}
-		Medico m1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
-		specs.forEach( e -> m1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
-		usuarios.put(nickname, m1);
+		Medico medico1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
+		specs.forEach( e -> medico1.agregarEspecialidad(ManejadorEspecialidad.get_instance().getEspecialidad(e)));
+		usuarios.put(nickname, medico1);
 	}
 	
 	
@@ -154,7 +155,7 @@ public class ManejadorUsuario {
 		return false;
 	}
 	
-	public void agregar_paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, ArrayList<String> _antSalud){
+	public void agregar_paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud){
 		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -164,28 +165,28 @@ public class ManejadorUsuario {
 		if (existe_ci(_doc)) {
 			throw new IdAlreadyExistsException("Ya existe un usuario con la cedula ingresada");
 		}
-		Paciente p1 = new Paciente(nickname, password, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
-		usuarios.put(nickname, p1);
+		Paciente paciente1 = new Paciente(nickname, password, nombre, apellido, correo, _fechaNac, _fechaIn, _doc, _antSalud);
+		usuarios.put(nickname, paciente1);
 	}
 	
-	public HashSet<DTPaciente> get_dtpacientes(){
-		HashSet<DTPaciente> result = new HashSet<DTPaciente>();
+	public Set<DTPaciente> get_dtpacientes(){
+		Set<DTPaciente> result = new HashSet<DTPaciente>();
 		usuarios.forEach(
 					(name, user) -> {
-						if (user instanceof Paciente p) {
-							result.add(p.get_dtpaciente());
+						if (user instanceof Paciente paciente) {
+							result.add(paciente.get_dtpaciente());
 						}
 					}
 				);
 		return result;
 	}
 	
-	public HashSet<DTMedico> get_dtmedicos(){
-		HashSet<DTMedico> result = new HashSet<DTMedico>();
+	public Set<DTMedico> get_dtmedicos(){
+		Set<DTMedico> result = new HashSet<DTMedico>();
 		usuarios.forEach(
 					(name, user) -> {
-						if (user instanceof Medico m) {
-							result.add(m.get_dtmedico());
+						if (user instanceof Medico medico) {
+							result.add(medico.get_dtmedico());
 						}
 					}
 				);
@@ -194,11 +195,11 @@ public class ManejadorUsuario {
 	
 	public DTResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) {
 	
-		Usuario u = get_usuario(nicknameUsu);
-	    if (u instanceof Paciente p) {
-	        for (com.models.clases.Reserva r : p.get_reservas()) {
-	            if (r.get_consultaAsociada().equals(nomC)) {
-	                return r.getDataResConsultaDetalle();
+		Usuario usuario = get_usuario(nicknameUsu);
+	    if (usuario instanceof Paciente paciente) {
+	        for (com.models.clases.Reserva reserva : paciente.get_reservas()) {
+	            if (reserva.get_consultaAsociada().equals(nomC)) {
+	                return reserva.getDataResConsultaDetalle();
 	            }
 	        }
 	    }
@@ -206,17 +207,17 @@ public class ManejadorUsuario {
 	}
 	
 	private Paciente get_paciente(String nickname) {
-		Usuario u = get_usuario(nickname);
-		if (u instanceof Paciente p) {
-			return p;
+		Usuario usuario = get_usuario(nickname);
+		if (usuario instanceof Paciente paciente) {
+			return paciente;
 		}
 		throw new UserNotFoundException("El usuario no es de tipo Paciente");
 	}
 	
 	private Medico get_medico(String nickname) {
-		Usuario u = get_usuario(nickname);
-		if (u instanceof Medico m) {
-			return m;
+		Usuario usuario = get_usuario(nickname);
+		if (usuario instanceof Medico medico) {
+			return medico;
 		}
 		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
@@ -229,62 +230,62 @@ public class ManejadorUsuario {
 	
 	public void agregar_beneficio(String nickname, int anio, int cantOrdenes, int cantTicket) {
 		validar_beneficio(anio, cantOrdenes, cantTicket);
-		Paciente p = get_paciente(nickname);
-		if (p.tieneBeneficio(anio)) {
+		Paciente paciente = get_paciente(nickname);
+		if (paciente.tieneBeneficio(anio)) {
 			throw new BeneficioAlreadyExistsException("El paciente ya tiene un beneficio anual para el año " + anio);
 		}
-		p.agregarBeneficio(new BeneficioAnual(anio, cantOrdenes, cantTicket));
+		paciente.agregarBeneficio(new BeneficioAnual(anio, cantOrdenes, cantTicket));
 	}
 	
-	public HashSet<DTBeneficioAnual> beneficiosAnuales(String nickname) {
+	public Set<DTBeneficioAnual> beneficiosAnuales(String nickname) {
 		return get_paciente(nickname).get_dtbeneficios();
 	}
 	
 	public DTBeneficioAnual datosBeneficio(String nickname, int anio) {
-		BeneficioAnual b = get_paciente(nickname).getBeneficio(anio);
-		if (b == null) {
+		BeneficioAnual benefAnual = get_paciente(nickname).getBeneficio(anio);
+		if (benefAnual == null) {
 			throw new BeneficioNotFoundException("El paciente no tiene un beneficio anual para el año " + anio);
 		}
-		return b.getDataBeneficioAnual();
+		return benefAnual.getDataBeneficioAnual();
 	}
 	
 	public DTUsuario datosUsuario(String nickname) {
 		return get_usuario(nickname).get_dt();
 	}
 	
-	public ArrayList<String> especialidadesMedico(String nickname) {
+	public List<String> especialidadesMedico(String nickname) {
 		return get_medico(nickname).get_nombresEspecialidades();
 	}
 	
-	public void modificar_medico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, ArrayList<String> especialidades) {
-		Medico m = get_medico(nickname);
+	public void modificar_medico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, List<String> especialidades) {
+		Medico medico = get_medico(nickname);
 		if (especialidades == null || especialidades.isEmpty()) {
 			throw new MedicoSinEspecialidadException("El médico debe tener al menos una especialidad");
 		}
-		if (!nroReg.equals(m.get_nroReg()) && existe_nroReg(nroReg)) {
+		if (!nroReg.equals(medico.get_nroReg()) && existe_nroReg(nroReg)) {
 			throw new NumeroDeRegistroAlreadyExistsException("Ya existe este número de registro en el sistema");
 		}
-		HashSet<Especialidad> nuevas = new HashSet<Especialidad>();
+		Set<Especialidad> nuevas = new HashSet<Especialidad>();
 		for (String esp : especialidades) {
 			nuevas.add(ManejadorEspecialidad.get_instance().getEspecialidad(esp));
 		}
-		m.setNombre(nombre);
-		m.setApellido(apellido);
-		m.set_nroReg(nroReg);
-		m.set_mesLic(mesLic);
-		m.set_porcentajeCosto(porcCost);
-		m.set_link(link);
-		m.set_especialidades(nuevas);
+		medico.setNombre(nombre);
+		medico.setApellido(apellido);
+		medico.set_nroReg(nroReg);
+		medico.set_mesLic(mesLic);
+		medico.set_porcentajeCosto(porcCost);
+		medico.set_link(link);
+		medico.set_especialidades(nuevas);
 	}
 	
-	public void modificar_paciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
-		Paciente p = get_paciente(nickname);
-		p.setNombre(nombre);
-		p.setApellido(apellido);
-		p.setFechaNac(fechaNac);
-		p.setFechaIn(fechaIn);
-		p.setDoc(doc);
-		p.setAntSalud(antSalud);
+	public void modificar_paciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
+		Paciente paciente = get_paciente(nickname);
+		paciente.setNombre(nombre);
+		paciente.setApellido(apellido);
+		paciente.setFechaNac(fechaNac);
+		paciente.setFechaIn(fechaIn);
+		paciente.setDoc(doc);
+		paciente.setAntSalud(antSalud);
 	}
 
 }

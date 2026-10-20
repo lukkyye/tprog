@@ -1,5 +1,7 @@
 package com.models.clases;
 import java.util.HashSet;
+import java.util.Set;
+
 import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTDiaConsulta;
 
@@ -11,7 +13,7 @@ public class Clinica {
 	private String web;
 	private String dir;
 	private String desc;
-	private HashSet<DiaConsulta> diasconsulta;
+	private Set<DiaConsulta> diasconsulta;
 	
 	public String getNombre() {
 		return this.nombre;
@@ -27,8 +29,8 @@ public class Clinica {
 		this.diasconsulta=new HashSet<DiaConsulta>();
 	}
 	
-	public HashSet<DTDiaConsulta> mostrarDiasConsulta(){
-		HashSet<DTDiaConsulta> result = new HashSet<DTDiaConsulta>();
+	public Set<DTDiaConsulta> mostrarDiasConsulta(){
+		Set<DTDiaConsulta> result = new HashSet<DTDiaConsulta>();
 		diasconsulta.forEach(
 					dc -> result.add(dc.getDTDiaConsulta())
 				);
