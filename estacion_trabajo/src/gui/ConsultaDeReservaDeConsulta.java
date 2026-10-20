@@ -21,7 +21,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
 
     private DefaultListModel<DTResConsulta> modelListaReservas;
     private JList<DTResConsulta> listaReservas;
-    private JComboBox<Integer> comboNumReservas;
+    private JComboBox<String> comboNumReservas;
     private JButton btnSeleccionarReserva;
     private JScrollPane scrollReservas;
 
@@ -84,6 +84,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             JPanel panel = new JPanel(new GridLayout(3, 1, 2, 2));
             panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.numReserva()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
+            panel.add(new JLabel(" Consulta: " + value.nomC()));
             panel.add(new JLabel(" N° Reserva: " + value.numReserva()));
             panel.add(new JLabel(" Fecha Reserva: " + value.fechaRes()));
             panel.add(new JLabel(" Aplica Beneficio: " + (value.aplicaBenef() ? "Sí" : "No")));
@@ -118,7 +119,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTResConsulta seleccionada = listaReservas.getSelectedValue();
                 if (seleccionada != null) {
-                    comboNumReservas.setSelectedItem(seleccionada.numReserva());
+                    comboNumReservas.setSelectedItem(seleccionada.nomC());
                 }
             }
         });
@@ -141,13 +142,13 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
 
         btnSeleccionarReserva.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	String nomC = (String) comboNumReservas.getSelectedItem();
                 String nickname = (String) comboNicknames.getSelectedItem();
-                Integer numReserva = (Integer) comboNumReservas.getSelectedItem();
 
-                if (nickname != null && numReserva != null) {
-                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nickname, numReserva); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
+                if (nomC != null && nickname != null) {
+                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nomC, nickname); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
                     if (detalle != null) {
-                        mostrarPopUpDetalle(numReserva, detalle);
+                        mostrarPopUpDetalle(nomC, detalle);
                     } else {
                         JOptionPane.showMessageDialog(ConsultaDeReservaDeConsulta.this, "No se encontraron detalles para la reserva indicada.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -180,7 +181,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         comboNumReservas.removeAllItems();
         for (DTResConsulta r : reservas) {
             modelListaReservas.addElement(r);
-            comboNumReservas.addItem(r.numReserva());
+            comboNumReservas.addItem(r.nomC());
         }
 
         lblTituloPaso.setText("Seleccione una Reserva del paciente '" + nickname + "'");
@@ -190,7 +191,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
     }
 
   
-    private void mostrarPopUpDetalle(Integer numReserva, DTResConsultaDetalle detalle) {
+    private void mostrarPopUpDetalle(String nomC, DTResConsultaDetalle detalle) {
         StringBuilder sb = new StringBuilder();
         sb.append("=========================================\n");
         sb.append("          DETALLE DE LA RESERVA          \n");
@@ -216,6 +217,6 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         JScrollPane scrollPopUp = new JScrollPane(areaDetalle);
         scrollPopUp.setPreferredSize(new Dimension(420, 280));
 
-        JOptionPane.showMessageDialog(this, scrollPopUp, "Detalle de Reserva #" + numReserva, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, scrollPopUp, "Detalle de Reserva #" + detalle.numReserva(), JOptionPane.INFORMATION_MESSAGE);
     }
 }

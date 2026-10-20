@@ -179,12 +179,12 @@ public class ManejadorUsuario {
 		return result;
 	}
 	
-	public DTResConsultaDetalle datosResConsulta(String nicknameUsu, int numReserva) {
+	public DTResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) {
 	
 		Usuario u = get_usuario(nicknameUsu);
 	    if (u instanceof Paciente p) {
 	        for (logica.clases.Reserva r : p.get_reservas()) {
-	            if (r.getNumReserva() == numReserva) {
+	            if (r.get_consultaAsociada().equals(nomC)) {
 	                return r.getDataResConsultaDetalle();
 	            }
 	        }

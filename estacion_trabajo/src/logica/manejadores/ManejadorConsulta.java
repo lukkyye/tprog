@@ -1,7 +1,12 @@
 package logica.manejadores;
 import logica.clases.Consulta;
+import logica.clases.Paciente;
+import logica.clases.Usuario;
+import logica.datatypes.DTResConsultaDetalle;
+
 import java.util.HashMap;
 import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.UserNotFoundException;
 
 public class ManejadorConsulta {
 	private static ManejadorConsulta instance;
@@ -32,4 +37,5 @@ public class ManejadorConsulta {
 	public void agregarConsulta(Consulta c) {
 	    consultas.put(c.getNomC(), c);
 	}
+	
 }

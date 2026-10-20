@@ -49,7 +49,7 @@ public class Reserva {
     }
     
     public DTResConsulta getDataResConsulta() {
-    	return new DTResConsulta(fechaRS, numReserva, aplicaBenef, costoR);
+    	return new DTResConsulta(nom_consulta_asoc, fechaRS, numReserva, aplicaBenef, costoR);
     }
     
     public DTResConsultaDetalle getDataResConsultaDetalle() {
