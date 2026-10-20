@@ -168,7 +168,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" onclick="history.back()"
+            <a href="#" onclick="history.back()"
                    class="btn btn-outline-secondary">
                     Volver a reservas
              </a>
@@ -179,7 +179,7 @@
                 No se encontraron los datos de la reserva.
             </div>
 
-            <a href="" onclick="history.back()"
+            <a href="#" onclick="history.back()"
                class="btn btn-secondary">
                 Volver a reservas.
             </a>

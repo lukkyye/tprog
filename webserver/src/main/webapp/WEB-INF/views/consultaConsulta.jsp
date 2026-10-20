@@ -116,6 +116,7 @@
                             <thead>
                                 <tr>
         							<th>Nº</th>
+        							<th>Consulta</th>
         							<th>Fecha de reserva</th>
         							<th>Costo</th>
         							<th>Beneficio</th>
@@ -126,12 +127,13 @@
                             <% for (DTResConsulta r : reservas) { %>
                                 <tr>
                                     <td class="fw-bold"><%= r.numReserva() %></td>
+                                    <td><%= r.nomC() %></td>
                                     <td><%= r.fechaRes() %></td>
                                     <td>$<%= String.format("%.2f", r.costoR()) %></td>
                                     <td><%= r.aplicaBenef() ? "Sí" : "No" %></td>
                                     <td class="text-end">
                                         <a class="btn btn-sm btn-primary"
-                                           href="<%= ctx %>/DetalleReserva?consulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>&num=<%= r.numReserva() %>">
+                                           href="<%= ctx %>/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>&num=<%= r.numReserva() %>">
                                             Ver reserva
                                         </a>
                                     </td>
@@ -150,6 +152,7 @@
             <section class="bg-light rounded-4 shadow p-4 p-sm-5 w-100">
                 <h3 class="mb-3">Mi reserva</h3>
                 <div class="mb-2"><strong>Número:</strong> <%= miReserva.numReserva() %></div>
+                <div class="mb-2"><strong>Consulta:</strong> <%= miReserva.nomC() %></div>
                 <div class="mb-2"><strong>Fecha de reserva:</strong> <%= miReserva.fechaRes() %></div>
                 <div class="mb-2"><strong>Costo:</strong> $<%=miReserva.costoR()%></div>
                 <div class="mb-3"><strong>Beneficio anual:</strong> <%= miReserva.aplicaBenef() ? "Sí" : "No" %></div>
