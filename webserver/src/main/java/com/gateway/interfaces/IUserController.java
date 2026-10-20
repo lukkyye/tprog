@@ -15,9 +15,6 @@ import com.models.datatypes.DTUsuario;
 import com.models.datatypes.TipoMes;
 
 public interface IUserController {
-	// Aca van las funciones del controlador.
-	// el trabajo de esta interface es controlar que tanto el Delegador y el Conector tengan
-	// las mismas funciones
 	
 	boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs);
 
