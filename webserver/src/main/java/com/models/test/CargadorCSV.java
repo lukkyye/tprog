@@ -30,7 +30,7 @@ public class CargadorCSV {
 	public static final String lUCAS = "Desktop/tprog/webserver/src/main/java/com/models/test/";
 	public static final String FACU = "C:\\Users\\julia\\git\\tpgr33\\webserver\\src\\main\\java\\com\\models\\test\\";
 	public static final String NICO = "C:\\Users\\nicon\\Desktop\\tproggit\\tpgr33\\webserver\\src\\main\\java\\com\\models\\test\\";
-	public static final String RELATIVE_PATH = FACU;
+	public static final String RELATIVE_PATH = lUCAS;
 
 	private static final DateTimeFormatter FECHA_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -153,10 +153,9 @@ public class CargadorCSV {
 	private void cargarBeneficios() {
 		for (String[] fila : leerCsv("2026BeneficiosAnuales.csv")) {
 			String nicknamePaciente = usuariosPorRef.get(fila[1]);
-			int anio = Integer.parseInt(fila[2].trim());
-			int cantOrdenes = Integer.parseInt(fila[3].trim());
-			int cantTicket = Integer.parseInt(fila[4].trim());
-			
+			int anio = Integer.parseInt(fila[2]);
+			int cantOrdenes = Integer.parseInt(fila[3]);
+			int cantTicket = Integer.parseInt(fila[4]);
 			controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
 		}
 	}
@@ -226,8 +225,10 @@ public class CargadorCSV {
 			LocalDate fechaReserva = LocalDate.parse(fila[1], FECHA_FMT);
 			String nicknamePaciente = usuariosPorRef.get(fila[3]);
 			String nombreConsulta = consultasPorRef.get(fila[4]);
-			boolean aplicaBenef = false;
-
+			boolean aplicaBenef=false;
+			if (fila[5]!=null && !fila[6].isEmpty()) {
+				aplicaBenef=true;
+			}
 			controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
 		}
 	}

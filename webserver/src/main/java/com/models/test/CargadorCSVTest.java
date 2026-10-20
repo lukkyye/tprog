@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class CargadorCSVTest {
 	void consultarUsuario_Medico(){
 		DTMedico dtmedico_expected = new DTMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
 		DTUsuario dtusuario_expected = new DTUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
-		HashSet<DTConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
+		Set<DTConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
 		DTMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
@@ -64,7 +65,7 @@ class CargadorCSVTest {
 		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
 		DTUsuario dtusuario_expected = new DTUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
 		DTPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
-		HashSet<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
+		Set<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.nickname().equals("lgomez"))
@@ -127,21 +128,7 @@ class CargadorCSVTest {
 			);
 	}
 	
-	@Test
-	void consultarDeReservaDeConsulta() {
-		DTResConsultaDetalle reserva_expected = new DTResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656);
-		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
-		DTPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
-		
-		String nomP = dtpaciente.nickname();
-		DTResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomC, 1);
-		assertAll(
-				()->assertEquals(reserva_expected,res)
-			);
-		
-		
-		//hacer
-	}
+
 	@Test
 	void unicidadNicknamePaciente_AltaDeUsuario() {
 		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});

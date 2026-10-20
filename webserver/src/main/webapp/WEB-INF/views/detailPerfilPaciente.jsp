@@ -233,7 +233,7 @@
                             <div class="list-group">
                                 <% for (DTResConsulta reserva : reservas) { %>
                                     <a class="list-group-item list-group-item-action mb-2 rounded"
-                                       href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.nomC(), "UTF-8") %>num=<%= reserva.numReserva() %>">
+                                       href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.nomC(), "UTF-8") %>&num=<%= reserva.numReserva() %>">
 
                                         <h5 class="mb-2">
                                             Reserva número <%= reserva.numReserva() %>

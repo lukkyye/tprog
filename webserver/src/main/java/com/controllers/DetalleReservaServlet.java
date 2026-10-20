@@ -1,4 +1,4 @@
-
+	
 package com.controllers;
 
 import java.io.IOException;
@@ -38,8 +38,13 @@ public class DetalleReservaServlet extends HttpServlet {
     		e.printStackTrace();
     	}
     	
-        DTResConsultaDetalle reserva = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
+        DTResConsultaDetalle reserva = userController.listarDatosResConsulta(consulta, nickname);
+        DTResConsultaDetalle reserva2 = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
 
+        System.out.println("Reserva by USERCONTROLLER: " +  reserva.toString());
+        System.out.println("Reserva by CLINICCONTROLLER: " +  reserva2.toString());
+
+        
         if (reserva == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,
                     "No se encontro la reserva.");
