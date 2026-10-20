@@ -51,7 +51,7 @@
                 <% if (diaConsulta != null) { %>
                 <%
     ImageHandlerDelegator IMG = new ImageHandlerDelegator();
-    String imagen = IMG.get_img64(diaConsulta.nomD());
+    String imagen = IMG.getImg64(diaConsulta.nomD());
 %>
 
                     <div class="row g-4">

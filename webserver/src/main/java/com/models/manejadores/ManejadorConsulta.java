@@ -14,7 +14,7 @@ public class ManejadorConsulta {
 		consultas = new HashMap<String, Consulta>();
 	}
 	
-	public static ManejadorConsulta get_instance() {
+	public static ManejadorConsulta getInstance() {
 		if (instance==null) {
 			instance=new ManejadorConsulta();
 		}
@@ -22,14 +22,14 @@ public class ManejadorConsulta {
 		
 	}
 	
-	public Consulta get_consulta(String nombre) {
+	public Consulta getConsulta(String nombre) {
 		if (consultas.containsKey(nombre)) {
 			return consultas.get(nombre);
 		}
 		throw new ConsultaNotFoundException();
 	}
 	
-	public Map<String, Consulta> get_consultas() {
+	public Map<String, Consulta> getConsulta() {
 	    return consultas;
 	}
 	public void agregarConsulta(Consulta consulta) {

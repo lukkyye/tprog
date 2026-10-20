@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
 
@@ -75,7 +76,7 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNickname.gridy = 1;
         getContentPane().add(lblNickname, gbc_lblNickname);
         
-        DTUsuario usuario = ManejadorUsuario.get_instance().get_usuario(paciente.nickname()).get_dt();
+        DTUsuario usuario = ManejadorUsuario.getInstance().getUsuario(paciente.nickname()).getDt();
         
         lblNickname.setText(usuario.nickname());
         
@@ -297,7 +298,7 @@ public class ConsultaPaciente extends JInternalFrame {
             );
         }
         
-        HashSet<DTResConsulta> reservas =
+        Set<DTResConsulta> reservas =
                 controlador.listarResConsultas(nickname);
 
         // Guardamos las reservas para poder saber después

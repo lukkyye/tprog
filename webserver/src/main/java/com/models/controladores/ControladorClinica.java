@@ -3,7 +3,6 @@ import com.models.clases.BeneficioAnual;
 import com.models.clases.Clinica;
 import com.models.datatypes.DTDiaConsulta;
 import com.models.datatypes.DTDiaSemana;
-import com.models.datatypes.DTMedico;
 import com.models.manejadores.ManejadorClinica;
 import com.models.datatypes.DTConsultaDetalle;
 import com.models.manejadores.ManejadorConsulta;
@@ -12,12 +11,10 @@ import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTConsulta;
 import com.models.clases.DiaConsulta;
 import com.models.clases.Medico;
-
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
 import com.models.datatypes.DTPaciente;
 import com.models.datatypes.DTResConsulta;
 import com.models.datatypes.DTResConsultaDetalle;
@@ -46,7 +43,7 @@ public class ControladorClinica {
 
 	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
 	    Set<DTDiaConsulta> res = new HashSet<>();
-	    ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
+	    ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 	    for (Clinica c : manejadorClinica.getClinicas().values()) { // esto es un for each
 	        res.addAll(c.mostrarDiasConsulta());
 	    }
@@ -54,37 +51,37 @@ public class ControladorClinica {
 	}
 	
 	public DTClinica seleccionarClinica(String nombre) {
-		ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
+		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		Clinica clinica = manejadorClinica.findClinica(nombre);
 		if (clinica == null) {
 			return null;
 		}
-		return clinica.get_dt();
+		return clinica.getDt();
 	}
 	
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
-		ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
-		manejadorClinica.agregar_clinica(nombre, desc, dir, costoT, costoC, link);
+		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
+		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
 		return true;
 	}
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
-		ManejadorClinica manejadorClinica= ManejadorClinica.get_instance();
-		manejadorClinica.agregar_clinica(nombre, desc, dir, costoT, costoC, link);
+		ManejadorClinica manejadorClinica= ManejadorClinica.getInstance();
+		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
 		return true;
 	}
 	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
 		DTConsultaDetalle res;
-		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
-		Consulta cons = mcon.get_consulta(nomC);
+		ManejadorConsulta mcon = ManejadorConsulta.getInstance();
+		Consulta cons = mcon.getConsulta(nomC);
 		res = cons.getDataConsultaDetalle();
 		return res;
 		
 	}
 	
 	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
-	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.get_instance();
-	    Consulta consulta = manejadorConsulta.get_consulta(nomC);
+	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
+	    Consulta consulta = manejadorConsulta.getConsulta(nomC);
 	    if (consulta != null) {
 	        return consulta.listarDatosResConsultaC(numReserva);
 	    }
@@ -92,20 +89,20 @@ public class ControladorClinica {
 	}
 	
 	public Set<DTResConsulta> getReservasConsulta(String nomC){
-		ManejadorConsulta manejadorConsulta = ManejadorConsulta.get_instance();
-		Consulta consulta = manejadorConsulta.get_consulta(nomC);
+		ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
+		Consulta consulta = manejadorConsulta.getConsulta(nomC);
 		return consulta.getResConsultas();
 	}
 	
 	//nombre de consultas que satisfacen que son de especialidad dada
 	public List<String> getConsultasPorEspecialidad(String especialidad){
-		if (!ManejadorEspecialidad.get_instance().existeEsp(especialidad)) {
+		if (!ManejadorEspecialidad.getInstance().existeEsp(especialidad)) {
 			return null;
 		}
 		List<String> toreturn = new ArrayList<String>();
-		for (DiaConsulta dc : ManejadorClinica.get_instance().getDiaConsulta().values()) {
-			if (dc.get_especialidad().getNombre().equals(especialidad)) {
-				dc.get_dtconsultas().stream().forEach(dtc->{toreturn.add(dtc.nomC());});
+		for (DiaConsulta dc : ManejadorClinica.getInstance().getDiaConsulta().values()) {
+			if (dc.getEspecialidad().getNombre().equals(especialidad)) {
+				dc.getDtconsultas().stream().forEach(dtc-> {toreturn.add(dtc.nomC()); });
 			}
 		}
 		return toreturn;
@@ -113,17 +110,17 @@ public class ControladorClinica {
 	
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 
 		Set<DTConsulta> res;
-		ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
+		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		DiaConsulta day = manejadorClinica.findDiasConsultas(nomD);
-		res = day.get_dtconsultas();
+		res = day.getDtconsultas();
 		return res;
 		
 	}
 	
 	public DTConsulta seleccionarConsulta(String nomC) {
 		DTConsulta res;
-		ManejadorConsulta mcon = ManejadorConsulta.get_instance();
-		Consulta consulta = mcon.get_consulta(nomC);
+		ManejadorConsulta mcon = ManejadorConsulta.getInstance();
+		Consulta consulta = mcon.getConsulta(nomC);
 		res = consulta.getDataConsulta();
 		return res;
 		
@@ -131,16 +128,16 @@ public class ControladorClinica {
 	
 	
 	public Set<DTPaciente> listarPacientes() {
-	    ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
-	    return manejadorUsuario.get_dtpacientes();
+	    ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
+	    return manejadorUsuario.getDtpacientes();
 	}
 	
 	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
-		 ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
-		 ManejadorConsulta manejadorConsulta = ManejadorConsulta.get_instance();
-		 Usuario usuario = manejadorUsuario.get_usuario(nicknamePaciente);
+		 ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
+		 ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
+		 Usuario usuario = manejadorUsuario.getUsuario(nicknamePaciente);
 		 Paciente paciente = (Paciente) usuario;
-		 Consulta consulta = manejadorConsulta.get_consulta(nomC);
+		 Consulta consulta = manejadorConsulta.getConsulta(nomC);
 		 if (consulta.tieneReserva(nicknamePaciente)) {// ya tiene una reserva
 			 throw new ReservaAlreadyExistsException("El paciente ya tiene una reserva para esta consulta");
 		    }
@@ -170,32 +167,32 @@ public class ControladorClinica {
 		 }
 	}
 	public Set<DTConsulta> listarConsultas() {
-	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.get_instance();
+	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 	    Set<DTConsulta> result = new HashSet<>();
-	    for (Consulta c : manejadorConsulta.get_consultas().values()) {
+	    for (Consulta c : manejadorConsulta.getConsulta().values()) {
 	        result.add(c.getDataConsulta());
 	    }
 	    return result;
 	}
 	
 	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
-		ManejadorConsulta manejadorConsulta = ManejadorConsulta.get_instance();
-		ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
-		ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
+		ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
+		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
+		ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
 		
-		if (manejadorConsulta.get_consultas().containsKey(nomC)) {
+		if (manejadorConsulta.getConsulta().containsKey(nomC)) {
 			throw new ConsultaNombreAlreadyExistsException("Ya existe una consulta con el nombre ingresado");
 		}
 		DiaConsulta diaConsulta = manejadorClinica.findDiasConsultas(nomD);
-		Usuario usuario = manejadorUsuario.get_usuario(med);
+		Usuario usuario = manejadorUsuario.getUsuario(med);
 		Medico medico = (Medico) usuario;
-		if (!medico.tieneEspecialidad(diaConsulta.get_especialidad().getNombre())) {
+		if (!medico.tieneEspecialidad(diaConsulta.getEspecialidad().getNombre())) {
 			throw new MedicoSinEspecialidadException("El medico no tiene la espcialidad requerida para este dia de consulta");
 		}
-		if (diaConsulta.get_dia() != DTDiaSemana.values()[fecha.getDayOfWeek().getValue() - 1]) {
+		if (diaConsulta.getDia() != DTDiaSemana.values()[fecha.getDayOfWeek().getValue() - 1]) {
 			throw new FechaDiaSemanaInvalidaException("La fecha ingresada no corresponde al dia de la semana del dia de consulta");
 		}
-		float costoC = diaConsulta.get_costoD()* (1 + medico.get_porcentajeCosto()/100f);
+		float costoC = diaConsulta.getCostoD()* (1 + medico.getPorcentajeCosto()/100f);
 		EstadoConsulta estado = EstadoConsulta.Ingresada;
 		Consulta consulta = new Consulta(nomD, med, nomC, fecha, sala, cantNum, costoC, estado);
 		diaConsulta.agregarConsulta(consulta);
@@ -204,13 +201,13 @@ public class ControladorClinica {
 	}
 	
 	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
-		ManejadorConsulta mco = ManejadorConsulta.get_instance();
-		mco.get_consulta(nombreConsulta).setEstado(state);
+		ManejadorConsulta mco = ManejadorConsulta.getInstance();
+		mco.getConsulta(nombreConsulta).setEstado(state);
 	}
 	
 	public Set<String> listarClinicas() {
 
-	    ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
+	    ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 
 	    return new HashSet<String>(
 	        manejadorClinica.getClinicas().keySet()
@@ -220,10 +217,10 @@ public class ControladorClinica {
 	public Set<String> listarEspecialidades() {
 
 	    ManejadorEspecialidad manejadorEspecialidad =
-	            ManejadorEspecialidad.get_instance();
+	            ManejadorEspecialidad.getInstance();
 
 	    return new HashSet<String>(
-	            manejadorEspecialidad.get_especialidades()
+	            manejadorEspecialidad.getEspecialidades()
 	    );
 	}
 	
@@ -237,10 +234,10 @@ public class ControladorClinica {
 	        String nombreClinica) {
 
 	    ManejadorClinica manejadorClinica =
-	            ManejadorClinica.get_instance();
+	            ManejadorClinica.getInstance();
 
 	    ManejadorEspecialidad manejadorEspecialidad =
-	            ManejadorEspecialidad.get_instance();
+	            ManejadorEspecialidad.getInstance();
 
 
 	    // Verificar que el nombre sea único
@@ -293,7 +290,7 @@ public class ControladorClinica {
 
 	public List<DTDiaConsulta> listarDiaConsultas() {
 		List<DTDiaConsulta> prelist = new ArrayList<DTDiaConsulta>();
-		ManejadorClinica manejadorClinica = ManejadorClinica.get_instance();
+		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		for (DiaConsulta dc : manejadorClinica.getDiaConsulta().values()) {
 			prelist.add(dc.getDTDiaConsulta());
 		}

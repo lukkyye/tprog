@@ -6,7 +6,7 @@ import jakarta.servlet.http.Part;
 
 public interface IImageHandler {
 	
-	public boolean add_img(Part prt, String key);
-	public BufferedImage get_img(String key);
-	public String get_img64(String key);
+	public boolean addImg(Part prt, String key);
+	public BufferedImage getImg(String key);
+	public String getImg64(String key);
 }

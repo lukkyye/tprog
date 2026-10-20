@@ -71,7 +71,7 @@
 
                     for (DTDiaConsulta dtdc : array) {
 
-                        String src = img.get_img64(dtdc.nomD());
+                        String src = img.getImg64(dtdc.nomD());
 
                         if (src == null) {
                             src = request.getContextPath() + "/img/LOGOGENERAL.png";

@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import java.util.HashSet;
+import java.util.Set;
+
 import logica.datatypes.DTResConsulta;
 import logica.datatypes.DTResConsultaDetalle;
 
@@ -167,7 +169,7 @@ public class ConsultaDetalle extends JInternalFrame {
         lblCosto.setText("$" + detalle.costoC());
         lblEstado.setText(String.valueOf(detalle.estado()));
         
-        HashSet<DTResConsulta> reservas = detalle.reservas();
+        Set<DTResConsulta> reservas = detalle.reservas();
 
         if (reservas == null || reservas.isEmpty()) {
 

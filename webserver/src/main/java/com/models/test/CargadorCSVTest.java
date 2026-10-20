@@ -34,7 +34,7 @@ class CargadorCSVTest {
 
 	private static final UserControllerDelegator controladorUsuario = new UserControllerDelegator();
 	private static final ClinicControllerDelegator controladorClinica = new ClinicControllerDelegator();
-	private static final ManejadorEspecialidad manejadorEspecialidad = ManejadorEspecialidad.get_instance();
+	private static final ManejadorEspecialidad manejadorEspecialidad = ManejadorEspecialidad.getInstance();
 	
 	@BeforeAll
 	static void cargarDatos() {
@@ -95,7 +95,7 @@ class CargadorCSVTest {
                 .filter(b -> b.equals("Hospital Británico"))
                 .findFirst()
                 .orElse(null);
-		DTClinica nclinica = ManejadorClinica.get_instance().findClinica(c).get_dt();
+		DTClinica nclinica = ManejadorClinica.getInstance().findClinica(c).getDt();
 		
 		assertAll(
 				()->assertEquals(clinica_expected,nclinica)

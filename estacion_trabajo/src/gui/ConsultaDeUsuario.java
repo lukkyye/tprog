@@ -15,6 +15,7 @@ import javax.swing.ListSelectionModel;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import logica.datatypes.*;
@@ -94,7 +95,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 
         ControladorUsuario controlador = new ControladorUsuario();
 
-        HashSet<DTUsuario> usuarios = controlador.listarUsuarios();
+        Set<DTUsuario> usuarios = controlador.listarUsuarios();
 
         String[] nicknames = usuarios.stream()
                 .map(DTUsuario::nickname)

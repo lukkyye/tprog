@@ -21,7 +21,7 @@ public class ManejadorClinica {
         diasConsultas = new HashMap<>();
     }
 
-    public static ManejadorClinica get_instance() {
+    public static ManejadorClinica getInstance() {
 
         if (instancia == null) {
             instancia = new ManejadorClinica();
@@ -64,7 +64,7 @@ public class ManejadorClinica {
         return null;
     }
 
-    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+    public void agregarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
 		if (memberClinica(nombre)) {
 			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
 		}
@@ -74,14 +74,14 @@ public class ManejadorClinica {
       
     public void agregarDiaConsulta(DiaConsulta diaConsulta) {
 
-        if (memberDiaConsulta(diaConsulta.get_nom())) {
+        if (memberDiaConsulta(diaConsulta.getNom())) {
             throw new DiaConsultaAlreadyExistsException(
                 "Ya existe un día de consulta con el nombre ingresado"
             );
         }
 
         diasConsultas.put(
-            diaConsulta.get_nom(),
+            diaConsulta.getNom(),
             diaConsulta
         );
     }

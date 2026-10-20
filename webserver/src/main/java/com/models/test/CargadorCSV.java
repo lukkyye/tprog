@@ -78,7 +78,7 @@ public class CargadorCSV {
 				try {	
 					File archivo = new File(file_ref);
 					BufferedImage img = ImageIO.read(archivo);
-					(ManejadorImagen.get_instance()).add_img(img, nombre);
+					(ManejadorImagen.getInstance()).addImg(img, nombre);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -110,7 +110,7 @@ public class CargadorCSV {
 				try {	
 					File archivo = new File(file_ref);
 					BufferedImage img = ImageIO.read(archivo);
-					(ManejadorImagen.get_instance()).add_img(img, nickname);
+					(ManejadorImagen.getInstance()).addImg(img, nickname);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -172,7 +172,7 @@ public class CargadorCSV {
 				try {	
 					File archivo = new File(file_ref);
 					BufferedImage img = ImageIO.read(archivo);
-					(ManejadorImagen.get_instance()).add_img(img, nombre);
+					(ManejadorImagen.getInstance()).addImg(img, nombre);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -210,7 +210,7 @@ public class CargadorCSV {
 				try {	
 					File archivo = new File(file_ref);
 					BufferedImage img = ImageIO.read(archivo);
-					(ManejadorImagen.get_instance()).add_img(img, nombre);
+					(ManejadorImagen.getInstance()).addImg(img, nombre);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

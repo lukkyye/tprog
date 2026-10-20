@@ -11,6 +11,7 @@ import javax.swing.JList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import logica.datatypes.DTConsulta;
 import logica.datatypes.DTConsultaDetalle;
@@ -212,7 +213,7 @@ public class ConsultaMedico extends JInternalFrame {
                 medico.link()
         );
         
-        HashSet<DTConsulta> consultas =
+        Set<DTConsulta> consultas =
                 controlador.listarConsultasAsociadas(nickname);
 
         consultasMedico = new ArrayList<>(consultas);

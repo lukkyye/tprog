@@ -37,7 +37,7 @@ public class Clinica {
 		return result;
 	}
 
-	public DTClinica get_dt() {
+	public DTClinica getDt() {
 		return new DTClinica(nombre, desc, dir, web, cTicket, cConsulta);
 	}
 	

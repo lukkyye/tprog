@@ -158,7 +158,7 @@ public class ReservaDeConsulta extends JInternalFrame {
             		String consulta = comboBox_Consulta.getSelectedItem().toString();
             		String paciente = comboBox_Paciente.getSelectedItem().toString();
             		
-            		Consulta a = ManejadorConsulta.get_instance().get_consulta(comboBox_Consulta.getSelectedItem().toString());
+            		Consulta a = ManejadorConsulta.getInstance().getConsulta(comboBox_Consulta.getSelectedItem().toString());
             		if (a.getFechaC().isBefore(LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault()))) {
             			JOptionPane.showMessageDialog(
                 		        null,

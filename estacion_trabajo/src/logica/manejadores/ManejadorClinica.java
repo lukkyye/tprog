@@ -1,18 +1,10 @@
 package logica.manejadores;
 import logica.clases.Clinica;
 import logica.clases.DiaConsulta;
-import logica.clases.Especialidad;
-import logica.clases.Medico;
-import logica.datatypes.DTConsulta;
 import logica.excepciones.NombreClinicaAlreadyExistsException;
-import logica.datatypes.TipoMes;
-import logica.excepciones.NicknameAlreadyExistsException;
-import logica.excepciones.*;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
+
 
 import logica.excepciones.DiaConsultaAlreadyExistsException;
 
@@ -29,7 +21,7 @@ public class ManejadorClinica {
         diasConsultas = new HashMap<>();
     }
 
-    public static ManejadorClinica get_instance() {
+    public static ManejadorClinica getInstance() {
 
         if (instancia == null) {
             instancia = new ManejadorClinica();
@@ -72,24 +64,24 @@ public class ManejadorClinica {
         return null;
     }
 
-    public void agregar_clinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+    public void agregarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
 		if (memberClinica(nombre)) {
 			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
 		}
-		Clinica cl = new Clinica(nombre, desc, dir, costoT, costoC, link);
-		clinicas.put(nombre, cl);
+		Clinica clinica = new Clinica(nombre, desc, dir, costoT, costoC, link);
+		clinicas.put(nombre, clinica);
 	}
       
     public void agregarDiaConsulta(DiaConsulta diaConsulta) {
 
-        if (memberDiaConsulta(diaConsulta.get_nom())) {
+        if (memberDiaConsulta(diaConsulta.getNom())) {
             throw new DiaConsultaAlreadyExistsException(
                 "Ya existe un día de consulta con el nombre ingresado"
             );
         }
 
         diasConsultas.put(
-            diaConsulta.get_nom(),
+            diaConsulta.getNom(),
             diaConsulta
         );
     }

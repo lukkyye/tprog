@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.Set;
 
 import logica.datatypes.DTPaciente;
 import logica.datatypes.DTResConsulta;
@@ -128,7 +129,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 String nickname = (String) comboNicknames.getSelectedItem();
                 if (nickname != null) {
-                    HashSet<DTResConsulta> reservas = controladorUsuario.listarResConsultas(nickname);
+                    Set<DTResConsulta> reservas = controladorUsuario.listarResConsultas(nickname);
                     if (reservas != null && !reservas.isEmpty()) {
                         mostrarPaso2(nickname, reservas);
                     } else {
@@ -161,7 +162,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         cargarPacientes(controladorUsuario.listarPacientes());
     }
 
-    public void cargarPacientes(HashSet<DTPaciente> lista) {
+    public void cargarPacientes(Set<DTPaciente> lista) {
         modelListaPacientes.clear();
         comboNicknames.removeAllItems();
         if (lista != null) {
@@ -172,7 +173,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         }
     }
 
-    private void mostrarPaso2(String nickname, HashSet<DTResConsulta> reservas) {
+    private void mostrarPaso2(String nickname, Set<DTResConsulta> reservas) {
         scrollPacientes.setVisible(false);
         comboNicknames.setVisible(false);
         btnSeleccionarPaciente.setVisible(false);

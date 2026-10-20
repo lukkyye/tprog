@@ -1,11 +1,9 @@
 package logica.clases;
-import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import logica.datatypes.DTClinica;
 import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTDiaSemana;
 
 public class Clinica {
 	
@@ -15,7 +13,7 @@ public class Clinica {
 	private String web;
 	private String dir;
 	private String desc;
-	private HashSet<DiaConsulta> diasconsulta;
+	private Set<DiaConsulta> diasconsulta;
 	
 	public String getNombre() {
 		return this.nombre;
@@ -31,17 +29,18 @@ public class Clinica {
 		this.diasconsulta=new HashSet<DiaConsulta>();
 	}
 	
-	public HashSet<DTDiaConsulta> mostrarDiasConsulta(){
-		HashSet<DTDiaConsulta> result = new HashSet<DTDiaConsulta>();
+	public Set<DTDiaConsulta> mostrarDiasConsulta(){
+		Set<DTDiaConsulta> result = new HashSet<DTDiaConsulta>();
 		diasconsulta.forEach(
 					dc -> result.add(dc.getDTDiaConsulta())
 				);
 		return result;
 	}
 
-	public DTClinica get_dt() {
+	public DTClinica getDt() {
 		return new DTClinica(nombre, desc, dir, web, cTicket, cConsulta);
 	}
+	
 	
 	public float getCostoConsulta() {
 	    return cConsulta;

@@ -1,6 +1,9 @@
 package logica.manejadores;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import logica.clases.Especialidad;
 import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.EspecialidadAlreadyExistsException;
@@ -11,11 +14,12 @@ public class ManejadorEspecialidad {
 		especialidades=new HashSet<Especialidad>();
 	}
 	
-	private HashSet<Especialidad> especialidades;
+	private Set<Especialidad> especialidades;
 	
-	public static ManejadorEspecialidad get_instance() {
+	public static ManejadorEspecialidad getInstance() {
 		if (instance==null) {
 			instance= new ManejadorEspecialidad();
+			instance.altaEspecialidad("Medicina General 1", 0);
 		}
 		return instance;
 	}
@@ -37,9 +41,9 @@ public class ManejadorEspecialidad {
 		}
 		throw new SpecialityNotFoundException("No se encontro especialidad con el nombre ingresado");
 	}
-	public ArrayList<String> get_especialidades(){
-		ArrayList<String> result = new ArrayList<String>();
-		especialidades.forEach(e -> {result.add(e.getNombre());});
+	public List<String> getEspecialidades(){
+		List<String> result = new ArrayList<String>();
+		especialidades.forEach(e -> {result.add(e.getNombre()); });
 		return result;
 	}
 	//creoEsp me parece que devolvia Especialidad si encontraba alguna y si no, la creaba. cualquier cosa es corregible.
@@ -49,8 +53,8 @@ public class ManejadorEspecialidad {
 		if (existeEsp(espNom)) {
 			throw new EspecialidadAlreadyExistsException("Ya existe una especialidad con el nombre ingresado");
 		}
-		Especialidad e = new Especialidad(espNom, espPorc);
-		especialidades.add(e);
-		return e;
+		Especialidad especialidad = new Especialidad(espNom, espPorc);
+		especialidades.add(especialidad);
+		return especialidad;
 	}
 }

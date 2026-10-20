@@ -89,7 +89,7 @@
 
                         <div class="col-md-5">
                             <%
-                                String imagen = (new com.gateway.delegators.ImageHandlerDelegator()).get_img64(clinica.nombre());
+                                String imagen = (new com.gateway.delegators.ImageHandlerDelegator()).getImg64(clinica.nombre());
                                 if (imagen != null && !imagen.isBlank()) {
                                     String src = imagen;
                             %>

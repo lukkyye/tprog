@@ -22,12 +22,12 @@
     boolean esPaciente = "Paciente".equalsIgnoreCase(tipoUsuario);
     if (esMedico || esPaciente) {
         request.setAttribute("profilePicture",
-            new ImageHandlerDelegator().get_img64((String) session.getAttribute("nickname")));
+            new ImageHandlerDelegator().getImg64((String) session.getAttribute("nickname")));
     }
 %>
 <%
     DTConsultaDetalle consulta = (DTConsultaDetalle) request.getAttribute("consulta");
-    String imagen = (new ImageHandlerDelegator()).get_img64(consulta.nomC());
+    String imagen = (new ImageHandlerDelegator()).getImg64(consulta.nomC());
     boolean esMedicoDeLaConsulta =
         Boolean.TRUE.equals(request.getAttribute("esMedicoDeLaConsulta"));
     @SuppressWarnings("unchecked")

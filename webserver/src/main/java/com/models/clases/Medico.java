@@ -1,10 +1,10 @@
 package com.models.clases;
-import com.models.datatypes.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import com.models.datatypes.DTMedico;
+import com.models.datatypes.TipoMes;
 
 public class Medico extends Usuario{
 	private String nroReg;
@@ -41,55 +41,55 @@ public class Medico extends Usuario{
 		especialidades.add(especialidad);
 	}
 	
-	public Set<Especialidad> get_especialidades() {
+	public Set<Especialidad> getEspecialidades() {
 		return especialidades;
 	}
 	
-	public DTMedico get_dtmedico() {
+	public DTMedico getDtmedico() {
 		return new DTMedico(nickname, nroReg, mesLic, porcentajeCosto, link);
 	}
 	
-	public Set<String> get_consultassoc(){
+	public Set<String> getConsultasAsoc(){
 		return consultasAsociadas;
 	}
 	
-	public String get_nicknameM() {
+	public String getNicknameM() {
 		return this.nickname;
 	}
-	public String get_nroReg(){ 
+	public String getNroReg(){ 
 		return this.nroReg; 
 	}
-	public TipoMes get_mesLic() {
+	public TipoMes getMesLic() {
 		return this.mesLic; 
 	}
-	public int get_porcentajeCosto() {
+	public int getPorcentajeCosto() {
 		return this.porcentajeCosto; 
 	}
-	public String get_link() {
+	public String getLink() {
 		return this.link;
 	}
 	
-	public void set_link(String _link) {
+	public void setLink(String _link) {
 		this.link=_link;
 	}
-	public void set_porcentajeCosto(int _porcentajeCosto) { 
+	public void setPorcentajeCosto(int _porcentajeCosto) { 
 		this.porcentajeCosto=_porcentajeCosto;
 	}
 	
-	public void set_nroReg(String _nroReg) {
+	public void setNroReg(String _nroReg) {
 		this.nroReg=_nroReg;
 	}
 	
-	public void set_mesLic(TipoMes _mesLic) {
+	public void setMesLic(TipoMes _mesLic) {
 		this.mesLic=_mesLic;
 	}
 	
-	public void set_especialidades(Set<Especialidad> nuevas) {
+	public void setEspecialidades(Set<Especialidad> nuevas) {
 		this.especialidades = nuevas;
 	}
 	
-	public List<String> get_nombresEspecialidades() {
-		return especialidades.stream().map(x->x.getNombre()).toList();
+	public List<String> getNombreEspecialidades() {
+		return especialidades.stream().map(x-> x.getNombre()).toList();
 	}
 	
 }

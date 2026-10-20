@@ -30,7 +30,7 @@ public class MisDatosServlet extends HttpServlet {
         String nickname = (String) session.getAttribute("nickname");
         String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 
-        String fotoPerfil = new ImageHandlerDelegator().get_img64(nickname);
+        String fotoPerfil = new ImageHandlerDelegator().getImg64(nickname);
         request.setAttribute("fotoPerfil", fotoPerfil);
 
         UserControllerDelegator controlador = new UserControllerDelegator();

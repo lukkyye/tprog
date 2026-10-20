@@ -21,7 +21,7 @@
 				
 				<%
 					ImageHandlerDelegator img = new ImageHandlerDelegator();
-					String profilePicture = (String) img.get_img64((String)session.getAttribute("nickname"));
+					String profilePicture = (String) img.getImg64((String)session.getAttribute("nickname"));
 					if (profilePicture==null){
 						profilePicture = "/webserver/img/VISITANTE.png";
 					}			

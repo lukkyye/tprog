@@ -4,7 +4,7 @@ public class NombreClinicaAlreadyExistsException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public NombreClinicaAlreadyExistsException (){
+	public NombreClinicaAlreadyExistsException(){
 		super();
 	}
 

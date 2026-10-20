@@ -68,7 +68,7 @@ public class SignUpMedServlet extends HttpServlet {
 					controladorUsuario.ingresarMedico(nickname, password, name, lastname, mail, nroReg, mesLic, (int) porcentajeAdicional, link, specs);		
 					if (img!=null) {
 						com.gateway.delegators.ImageHandlerDelegator ihd = new com.gateway.delegators.ImageHandlerDelegator();
-						ihd.add_img(img, nickname);
+						ihd.addImg(img, nickname);
 					}
 				} catch (NicknameAlreadyExistsException e){
 					state = e.getMessage();

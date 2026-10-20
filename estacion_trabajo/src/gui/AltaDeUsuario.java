@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
 import logica.excepciones.*;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -223,7 +225,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		list.setModel(new AbstractListModel<String>() {
 			
 			private static final long serialVersionUID = 7289709041320631359L;
-			ArrayList<String> values = ManejadorEspecialidad.get_instance().get_especialidades();
+			List<String> values = ManejadorEspecialidad.getInstance().getEspecialidades();
 			
 			@Override
 			public int getSize() {

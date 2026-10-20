@@ -25,7 +25,7 @@
 
     if (usuario != null) {
         fotoPerfil = new com.gateway.delegators.ImageHandlerDelegator()
-                .get_img64(usuario.nickname());
+                .getImg64(usuario.nickname());
     }
 
     if (fotoPerfil == null || fotoPerfil.isBlank()) {

@@ -82,7 +82,7 @@ public class AltaDeEspecialidad extends JInternalFrame {
 			return;
 		}
 		try {
-			ManejadorEspecialidad.get_instance().altaEspecialidad(nombre, porcentaje);
+			ManejadorEspecialidad.getInstance().altaEspecialidad(nombre, porcentaje);
 			JOptionPane.showMessageDialog(this, "Especialidad dada de alta correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 		} catch (EspecialidadAlreadyExistsException ex){

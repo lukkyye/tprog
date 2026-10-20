@@ -1,10 +1,13 @@
 package com.models.clases;
 import java.time.LocalDate;
-import com.models.datatypes.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import com.models.datatypes.DTBeneficioAnual;
+import com.models.datatypes.DTPaciente;
+
 import java.util.ArrayList;
+
 public class Paciente extends Usuario{
 	private LocalDate fechaNac;
 	//private int cantOrdenesAcum;
@@ -16,7 +19,7 @@ public class Paciente extends Usuario{
 	private Set<Reserva> reservas;
 	
 	public Paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud){
-			super(nickname, password,nombre, apellido, correo);
+			super(nickname, password, nombre, apellido, correo);
 			this.fechaNac = _fechaNac;
 			//this.cantOrdenesAcum = 0;
 			//this.cantTicketAcum = 0;
@@ -27,7 +30,7 @@ public class Paciente extends Usuario{
 			this.reservas = new HashSet<Reserva>();
 	}
 	
-	public Set<Reserva> get_reservas() {
+	public Set<Reserva> getReservas() {
 		return reservas;
 	}
 	
@@ -55,8 +58,8 @@ public class Paciente extends Usuario{
 		return total;
 	}
 	
-	public DTPaciente get_dtpaciente( ) {
-		return new DTPaciente(nickname,fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
+	public DTPaciente getDtpaciente( ) {
+		return new DTPaciente(nickname, fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
 	}
 	
 	public BeneficioAnual getBeneficio(int anio) {
@@ -76,7 +79,7 @@ public class Paciente extends Usuario{
 		benef.add(beneficio);
 	}
 	
-	public Set<DTBeneficioAnual> get_dtbeneficios() {
+	public Set<DTBeneficioAnual> getDtbeneficios() {
 		Set<DTBeneficioAnual> result = new HashSet<DTBeneficioAnual>();
 		for (BeneficioAnual b : benef) {
 			result.add(b.getDataBeneficioAnual());
@@ -103,7 +106,7 @@ public class Paciente extends Usuario{
 	public BeneficioAnual beneficioConOrdenesMasAntiguo() {
 		BeneficioAnual elegido = null;
 		for (BeneficioAnual b : benef) {
-			boolean esMasAntiguo = (elegido == null || b.getAnio() < elegido.getAnio());
+			boolean esMasAntiguo = elegido == null || b.getAnio() < elegido.getAnio();
 			if (b.tieneOrdenesDisponibles() && esMasAntiguo) {
 				elegido = b;
 			}

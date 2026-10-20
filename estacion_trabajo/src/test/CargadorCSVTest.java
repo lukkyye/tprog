@@ -34,7 +34,7 @@ class CargadorCSVTest {
 
 	private static final ControladorUsuario controladorUsuario = new ControladorUsuario();
 	private static final ControladorClinica controladorClinica = new ControladorClinica();
-	private static final ManejadorEspecialidad manejadorEspecialidad = ManejadorEspecialidad.get_instance();
+	private static final ManejadorEspecialidad manejadorEspecialidad = ManejadorEspecialidad.getInstance();
 	
 	@BeforeAll
 	static void cargarDatos() {
@@ -46,7 +46,7 @@ class CargadorCSVTest {
 	void consultarUsuario_Medico(){
 		DTMedico dtmedico_expected = new DTMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
 		DTUsuario dtusuario_expected = new DTUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
-		HashSet<DTConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
+		Set<DTConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
 		DTMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
@@ -65,7 +65,7 @@ class CargadorCSVTest {
 		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 5, 7, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
 		DTUsuario dtusuario_expected = new DTUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
 		DTPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
-		HashSet<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
+		Set<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.nickname().equals("lgomez"))
@@ -97,7 +97,7 @@ class CargadorCSVTest {
                 .filter(b -> b.equals("Hospital Británico"))
                 .findFirst()
                 .orElse(null);
-		DTClinica nclinica = ManejadorClinica.get_instance().findClinica(c).get_dt();
+		DTClinica nclinica = ManejadorClinica.getInstance().findClinica(c).getDt();
 		
 		assertAll(
 				()->assertEquals(clinica_expected,nclinica)
@@ -240,7 +240,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void listarPacientes() {
-	    HashSet<DTPaciente> pacientes = controladorUsuario.listarPacientes();
+	    Set<DTPaciente> pacientes = controladorUsuario.listarPacientes();
 
 	    assertNotNull(pacientes);
 	    assertFalse(pacientes.isEmpty());
@@ -253,7 +253,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void listarMedicos() {
-	    HashSet<DTMedico> medicos = controladorUsuario.listarMedicos();
+	    Set<DTMedico> medicos = controladorUsuario.listarMedicos();
 
 	    assertNotNull(medicos);
 	    assertFalse(medicos.isEmpty());
@@ -292,7 +292,7 @@ class CargadorCSVTest {
 	void consultarBeneficiosAnuales() {
 	    controladorUsuario.altaBeneficioAnual("lgomez", 2032, 3, 7);
 
-	    HashSet<DTBeneficioAnual> beneficios =
+	    Set<DTBeneficioAnual> beneficios =
 	            controladorUsuario.listarBeneficiosAnuales("lgomez");
 
 	    assertTrue(

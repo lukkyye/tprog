@@ -84,7 +84,7 @@ public class AltaDiaConsultaServlet extends HttpServlet {
     		ImageHandlerDelegator IMG = new ImageHandlerDelegator();
             Part archivoImagen = request.getPart("imagen");
 
-    		IMG.add_img(archivoImagen, nombre);
+    		IMG.addImg(archivoImagen, nombre);
 
             request.setAttribute("mensaje",
                     "El dia de consulta se registro correctamente.");

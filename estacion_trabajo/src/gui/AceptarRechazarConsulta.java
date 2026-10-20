@@ -136,7 +136,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
 	        			DTConsulta dtconsu = listaConsultas.getSelectedValue();	        		
-	        			ManejadorConsulta.get_instance().get_consulta(dtconsu.nomC()).setEstado(EstadoConsulta.Aceptada);
+	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.nomC()).setEstado(EstadoConsulta.Aceptada);
         				Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se aceptó la consulta.", "Aceptada correctamente", JOptionPane.INFORMATION_MESSAGE);
 	        			render_listaconsultas(consultas);
@@ -147,7 +147,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
 	        			DTConsulta dtconsu = listaConsultas.getSelectedValue();	        		
-	        			ManejadorConsulta.get_instance().get_consulta(dtconsu.nomC()).setEstado(EstadoConsulta.Rechazada);
+	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.nomC()).setEstado(EstadoConsulta.Rechazada);
         				Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se rechazó la consulta", "Rechazada correctamente", JOptionPane.ERROR_MESSAGE);
 	        			render_listaconsultas(consultas);

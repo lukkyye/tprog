@@ -76,7 +76,7 @@ public class ConsultaConsultaServlet extends HttpServlet {
         }
 
         request.setAttribute("consulta", consulta);
-        request.setAttribute("imagen", new ImageHandlerDelegator().get_img64("consulta:" + nombreConsulta));
+        request.setAttribute("imagen", new ImageHandlerDelegator().getImg64("consulta:" + nombreConsulta));
         request.setAttribute("esMedicoDeLaConsulta", esMedicoDeLaConsulta);
         request.setAttribute("reservas", reservas);
         request.setAttribute("miReserva", miReserva);

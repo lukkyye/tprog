@@ -68,7 +68,7 @@ public class SignupPacServlet extends HttpServlet {
 					controladorUsuario.ingresarPaciente(nickname, password, name, lastname, mail, born, LocalDate.now(), idDocum, ant);		
 					if (img!=null) {
 						com.gateway.delegators.ImageHandlerDelegator ihd = new com.gateway.delegators.ImageHandlerDelegator();
-						ihd.add_img(img, nickname);
+						ihd.addImg(img, nickname);
 					}
 				} catch (NicknameAlreadyExistsException e){
 					state = e.getMessage();

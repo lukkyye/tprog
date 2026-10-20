@@ -1,7 +1,10 @@
 package com.models.clases;
 import java.time.LocalDate;
-import com.models.datatypes.*;
 
+import com.models.datatypes.DTConsulta;
+import com.models.datatypes.DTConsultaDetalle;
+import com.models.datatypes.DTResConsulta;
+import com.models.datatypes.DTResConsultaDetalle;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,7 +60,7 @@ public class Consulta {
 	    return reservas;
 	}
 	
-	public float getCostoC() {
+	public float getCostoC() { 
 	    return costoC;
 	}
 	
@@ -76,11 +79,11 @@ public class Consulta {
 	
 	public DTConsultaDetalle getDataConsultaDetalle() { 
 		Set<DTResConsulta> arg = new HashSet<DTResConsulta>();
-		for(Reserva reserva : reservas) {
-			DTResConsulta dtconsulta = new DTResConsulta(nomC, reserva.getFechaRS(),reserva.getNumReserva(),reserva.getAplicaBenef(),reserva.getCostoR());
+		for (Reserva reserva : reservas) {
+			DTResConsulta dtconsulta = new DTResConsulta(nomC, reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), reserva.getCostoR());
 			arg.add(dtconsulta);
 		}
-		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC,medico,fecha,sala,cantNum,arg, costoC, estado);
+		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC, medico, fecha, sala, cantNum, arg, costoC, estado);
 		return consultaDetalle;
 	}
 	

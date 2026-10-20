@@ -16,7 +16,7 @@ public class ManejadorEspecialidad {
 	
 	private Set<Especialidad> especialidades;
 	
-	public static ManejadorEspecialidad get_instance() {
+	public static ManejadorEspecialidad getInstance() {
 		if (instance==null) {
 			instance= new ManejadorEspecialidad();
 			instance.altaEspecialidad("Medicina General 1", 0);
@@ -41,9 +41,9 @@ public class ManejadorEspecialidad {
 		}
 		throw new SpecialityNotFoundException("No se encontro especialidad con el nombre ingresado");
 	}
-	public List<String> get_especialidades(){
+	public List<String> getEspecialidades(){
 		List<String> result = new ArrayList<String>();
-		especialidades.forEach(e -> {result.add(e.getNombre());});
+		especialidades.forEach(e -> {result.add(e.getNombre()); });
 		return result;
 	}
 	//creoEsp me parece que devolvia Especialidad si encontraba alguna y si no, la creaba. cualquier cosa es corregible.

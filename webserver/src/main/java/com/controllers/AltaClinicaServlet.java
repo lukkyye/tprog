@@ -93,7 +93,7 @@ public class AltaClinicaServlet extends HttpServlet {
             );
             
             ImageHandlerDelegator ihd = new ImageHandlerDelegator();
-            ihd.add_img(archivoImagen, nombre);
+            ihd.addImg(archivoImagen, nombre);
 
             if (ingresada) {
                 request.setAttribute("mensaje",

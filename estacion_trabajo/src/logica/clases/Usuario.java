@@ -15,7 +15,7 @@ public abstract class Usuario { // abstract xq tiene hijos
         this.password = password;
     }
 
-    public DTUsuario get_dt() {
+    public DTUsuario getDt() {
     	return new DTUsuario(this.nickname, this.nombre, this.apellido, this.correo);
     }
      
@@ -23,7 +23,7 @@ public abstract class Usuario { // abstract xq tiene hijos
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
     public String getCorreo() { return correo; }
-    public String getPassword() {return this.password;}
+    public String getPassword() {return this.password; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setApellido(String apellido) { this.apellido = apellido; }
 }

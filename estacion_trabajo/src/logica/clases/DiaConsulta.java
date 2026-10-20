@@ -5,6 +5,8 @@ import logica.datatypes.DTConsulta;
 import logica.datatypes.DTDiaConsulta;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class DiaConsulta {
 	private String nomD;
@@ -13,7 +15,7 @@ public class DiaConsulta {
 	private DTDiaSemana dia;
 	private String descD;
 	private Especialidad especialidad;
-	private HashMap<String, Consulta> consultas;
+	private Map<String, Consulta> consultas;
 	//modelado con visibilidad directa sobre consultas idk revisar.
 	
 	
@@ -27,12 +29,12 @@ public class DiaConsulta {
 		this.consultas = new HashMap<String, Consulta>();
 	}
 	
-	public Especialidad get_especialidad() {
+	public Especialidad getEspecialidad() {
 		return especialidad;
 	}
 	
-	public HashSet<DTConsulta> get_dtconsultas(){
-		HashSet<DTConsulta> result = new HashSet<DTConsulta>();
+	public Set<DTConsulta> getDtconsultas(){
+		Set<DTConsulta> result = new HashSet<DTConsulta>();
 		consultas.values()
 			.forEach(
 					c -> result.add(c.getDataConsulta())
@@ -44,19 +46,19 @@ public class DiaConsulta {
 		return new DTDiaConsulta(nomD, descD, dia, horaIni, costoD);
 	}
 	
-	public void agregarConsulta(Consulta c) {
-		consultas.put(c.getNomC(),c);
+	public void agregarConsulta(Consulta consulta) {
+		consultas.put(consulta.getNomC(), consulta);
 	}
 	
-	public DTDiaSemana get_dia() {
+	public DTDiaSemana getDia() {
 		return dia;
 	}
 	
-	public String get_nom() {
+	public String getNom() {
 		return nomD;
 	}
 	
-	public float get_costoD() {
+	public float getCostoD() {
 		return costoD;
 	}
 }

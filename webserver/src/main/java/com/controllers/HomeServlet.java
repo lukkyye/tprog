@@ -34,7 +34,7 @@ public class HomeServlet extends HttpServlet {
 		
 		if (nickname != null) {
 		    String img = new com.gateway.delegators.ImageHandlerDelegator()
-		            .get_img64(nickname);
+		            .getImg64(nickname);
 		    request.setAttribute("profilePicture", img);
 		}
 		request.setAttribute("dtDiasConsulta", (new ClinicControllerDelegator()).listarDiaConsultas());

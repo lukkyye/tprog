@@ -1,115 +1,120 @@
 package com.models.controladores;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.models.datatypes.*;
 import com.models.manejadores.ManejadorConsulta;
 import com.models.manejadores.ManejadorEspecialidad;
 import com.models.manejadores.ManejadorUsuario;
 import com.models.clases.Consulta;
+import com.models.datatypes.DTBeneficioAnual;
+import com.models.datatypes.DTConsulta;
+import com.models.datatypes.DTConsultaDetalle;
+import com.models.datatypes.DTMedico;
+import com.models.datatypes.DTPaciente;
+import com.models.datatypes.DTResConsulta;
+import com.models.datatypes.DTResConsultaDetalle;
+import com.models.datatypes.DTUsuario;
+import com.models.datatypes.TipoMes;
 
 
 public class ControladorUsuario {
 	
 	
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
-		ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
-		manejadorUsuario.agregar_medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
+		ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
+		manejadorUsuario.agregarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 		return true;
 	}
 	
-	public boolean ingresarPaciente(String nickname, String password,String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
-		ManejadorUsuario manejadorUsuario = ManejadorUsuario.get_instance();
-		manejadorUsuario.agregar_paciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
+	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
+		ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
+		manejadorUsuario.agregarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 		return true;
 	}//Falta
 	
 	
 	
 	public boolean login(String nickname, String password) {
-		return ManejadorUsuario.get_instance().login(nickname, password);
+		return ManejadorUsuario.getInstance().login(nickname, password);
 	}
 	
 	public boolean altaEspecialidad(String espNom, int espPorc) {
-		ManejadorEspecialidad.get_instance().altaEspecialidad(espNom, espPorc);
+		ManejadorEspecialidad.getInstance().altaEspecialidad(espNom, espPorc);
 		return true;
 	}
 	
 	public Set<DTUsuario> listarUsuarios() {
-		return ManejadorUsuario.get_instance().get_usuarios();
+		return ManejadorUsuario.getInstance().getUsuarios();
 	}
 	
 	public DTMedico listarDatosMedico(String nicknameUsu) {
-		return ManejadorUsuario.get_instance().datosMedico(nicknameUsu);
+		return ManejadorUsuario.getInstance().datosMedico(nicknameUsu);
 	}
 	
 	public DTPaciente listarDatosPaciente(String nicknameUsu) {
-		return ManejadorUsuario.get_instance().datosPaciente(nicknameUsu);
+		return ManejadorUsuario.getInstance().datosPaciente(nicknameUsu);
 	}
 	
 	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
-		return ManejadorUsuario.get_instance().consultasAsociadas(nicknameUsu);
+		return ManejadorUsuario.getInstance().consultasAsociadas(nicknameUsu);
 	}
 	
 	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
-		return ManejadorUsuario.get_instance().reservasConsultasAsociadas(nicknameUsu);
+		return ManejadorUsuario.getInstance().reservasConsultasAsociadas(nicknameUsu);
 	}
 	
 	public Set<DTPaciente> listarPacientes() {
-		return ManejadorUsuario.get_instance().get_dtpacientes();
+		return ManejadorUsuario.getInstance().getDtpacientes();
 	}
 	
 	public Set<DTMedico> listarMedicos() {
-		return ManejadorUsuario.get_instance().get_dtmedicos();
+		return ManejadorUsuario.getInstance().getDtmedicos();
 	}
 	
 	public DTPaciente seleccionarPaciente(String nickname) {
-		return ManejadorUsuario.get_instance().datosPaciente(nickname);
+		return ManejadorUsuario.getInstance().datosPaciente(nickname);
 	}
 	
 	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) { // Seguir aca
-		ManejadorUsuario musu = ManejadorUsuario.get_instance();
+		ManejadorUsuario musu = ManejadorUsuario.getInstance();
 		return musu.datosResConsulta(nomC, nickname);
 	}
 	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
-	    ManejadorConsulta manejador = ManejadorConsulta.get_instance();
+	    ManejadorConsulta manejador = ManejadorConsulta.getInstance();
 
-	    Consulta consulta = manejador.get_consulta(nomC);
+	    Consulta consulta = manejador.getConsulta(nomC);
 
 	    return consulta.getDataConsultaDetalle();
 	}
 	
 	public void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) {
-		ManejadorUsuario.get_instance().agregar_beneficio(nickname, anio, cantOrdenes, cantTicket);
+		ManejadorUsuario.getInstance().agregarBeneficio(nickname, anio, cantOrdenes, cantTicket);
 	}
 	
 	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
-		return ManejadorUsuario.get_instance().beneficiosAnuales(nickname);
+		return ManejadorUsuario.getInstance().beneficiosAnuales(nickname);
 	}
 	
 	public DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
-		return ManejadorUsuario.get_instance().datosBeneficio(nickname, anio);
+		return ManejadorUsuario.getInstance().datosBeneficio(nickname, anio);
 	}
 	
 	public DTUsuario listarDatosUsuario(String nickname) {
-		return ManejadorUsuario.get_instance().datosUsuario(nickname);
+		return ManejadorUsuario.getInstance().datosUsuario(nickname);
 	}
 	
 	public List<String> listarEspecialidadesMedico(String nickname) {
-		return ManejadorUsuario.get_instance().especialidadesMedico(nickname);
+		return ManejadorUsuario.getInstance().especialidadesMedico(nickname);
 	}
 	
 	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, List<String> especialidades) {
-		ManejadorUsuario.get_instance().modificar_medico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
+		ManejadorUsuario.getInstance().modificarMedico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
 	}
 	
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
-		ManejadorUsuario.get_instance().modificar_paciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
+		ManejadorUsuario.getInstance().modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 	
 }

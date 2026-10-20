@@ -17,7 +17,7 @@
     boolean esMedico = "Medico".equalsIgnoreCase(tipoUsuario);
     boolean esPaciente = "Paciente".equalsIgnoreCase(tipoUsuario);
     if (esMedico || esPaciente) {
-        request.setAttribute("profilePicture", new ImageHandlerDelegator().get_img64((String) session.getAttribute("nickname")));
+        request.setAttribute("profilePicture", new ImageHandlerDelegator().getImg64((String) session.getAttribute("nickname")));
     }
 %>
 <%

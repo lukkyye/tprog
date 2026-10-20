@@ -17,14 +17,14 @@ public class ManejadorImagen {
         imgs = new HashMap<String, BufferedImage>();
     }
 
-    public static ManejadorImagen get_instance() {
+    public static ManejadorImagen getInstance() {
         if (instance == null) {
             instance = new ManejadorImagen();
         }
         return instance;
     }
 	
-    public boolean add_img(Part prt, String key) {
+    public boolean addImg(Part prt, String key) {
         try {
             BufferedImage imagen = ImageIO.read(prt.getInputStream());
             if (imagen == null) {
@@ -37,32 +37,32 @@ public class ManejadorImagen {
             return false;
         }
     }
-    public boolean add_img(BufferedImage prt, String key) {
+    public boolean addImg(BufferedImage prt, String key) {
         try {
             if (prt==null) {
             	return false;
             }
             imgs.put(key, prt);
             return true;
-        } catch (RuntimeException e) {
+        } catch (UnsupportedOperationException e) {
             e.printStackTrace();
             return false;
         }
     }
 	
-	public BufferedImage get_img(String key) {
+	public BufferedImage getImg(String key) {
 		if (imgs.containsKey(key)) {
 			return imgs.get(key);
 		}
 		return null;
 	}
-	public String get_img64(String key) {
+	public String getImg64(String key) {
 		if (imgs.containsKey(key)) {
 	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	        try {
 				ImageIO.write(imgs.get(key), "png", baos);
 			} catch (IOException e) {
-				
+				e.printStackTrace();
 			}
 			return "data:image/png;base64," + Base64.getEncoder().encodeToString(baos.toByteArray());
 		}

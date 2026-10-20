@@ -57,7 +57,7 @@ public class ConsultaDeClinica extends JInternalFrame {
         
         DefaultListModel<String> clinicasDisp = new DefaultListModel<String>();
         JList<String> list = new JList<String>(clinicasDisp);
-        ArrayList<String> listable = ManejadorClinica.get_instance().getClinicas().keySet().stream().collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> listable = ManejadorClinica.getInstance().getClinicas().keySet().stream().collect(Collectors.toCollection(ArrayList::new));
         clinicasDisp.addAll(listable);
         scrollPane.setViewportView(list);
         
@@ -165,7 +165,7 @@ public class ConsultaDeClinica extends JInternalFrame {
         
         list.addListSelectionListener(e -> {
         	if (!e.getValueIsAdjusting()) {
-        		DTClinica nclinica = ManejadorClinica.get_instance().findClinica(list.getSelectedValue()).get_dt();
+        		DTClinica nclinica = ManejadorClinica.getInstance().findClinica(list.getSelectedValue()).getDt();
         		
         		nameTextField.setText(nclinica.nombre());
         		dirTextField.setText(nclinica.dir());

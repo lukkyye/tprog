@@ -2,11 +2,8 @@ package com.gateway.interfaces;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import com.models.datatypes.DTResConsulta;
 import com.models.datatypes.DTClinica;
 import com.models.datatypes.DTConsulta;

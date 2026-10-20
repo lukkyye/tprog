@@ -7,29 +7,29 @@ import com.models.manejadores.ManejadorImagen;
 import jakarta.servlet.http.Part;
 
 public class ImageHandlerConnector implements IImageHandler {
-	public static ManejadorImagen manejadorImagen;
+	private static ManejadorImagen manejadorImagen;
 	
 	public ImageHandlerConnector() {
 		if (manejadorImagen==null) {
-			manejadorImagen = ManejadorImagen.get_instance();
+			manejadorImagen = ManejadorImagen.getInstance();
 		}
 	}
 
 	@Override
-	public boolean add_img(Part prt, String key) {
+	public boolean addImg(Part prt, String key) {
 		// TODO Auto-generated method stub
-		return manejadorImagen.add_img(prt, key);
+		return manejadorImagen.addImg(prt, key);
 	}
 
 	@Override
-	public BufferedImage get_img(String key) {
-		return manejadorImagen.get_img(key);
+	public BufferedImage getImg(String key) {
+		return manejadorImagen.getImg(key);
 	}
 
 	@Override
-	public String get_img64(String key) {
+	public String getImg64(String key) {
 		// TODO Auto-generated method stub
-		return manejadorImagen.get_img64(key);
+		return manejadorImagen.getImg64(key);
 	}
 
 }

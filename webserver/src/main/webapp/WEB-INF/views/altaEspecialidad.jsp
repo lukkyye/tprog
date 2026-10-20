@@ -6,7 +6,7 @@
     boolean esMedico = "MEDICO".equalsIgnoreCase(tipoUsuario);
     boolean esPaciente = "PACIENTE".equalsIgnoreCase(tipoUsuario);
     if (esMedico || esPaciente) {
-        request.setAttribute("profilePicture", new ImageHandlerDelegator().get_img64((String) session.getAttribute("nickname")));
+        request.setAttribute("profilePicture", new ImageHandlerDelegator().getImg64((String) session.getAttribute("nickname")));
     }
 
     String errorEspecialidad = (String) request.getAttribute("errorEspecialidad");

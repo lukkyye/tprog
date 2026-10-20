@@ -29,11 +29,11 @@ public class DiaConsulta {
 		this.consultas = new HashMap<String, Consulta>();
 	}
 	
-	public Especialidad get_especialidad() {
+	public Especialidad getEspecialidad() {
 		return especialidad;
 	}
 	
-	public Set<DTConsulta> get_dtconsultas(){
+	public Set<DTConsulta> getDtconsultas(){
 		Set<DTConsulta> result = new HashSet<DTConsulta>();
 		consultas.values()
 			.forEach(
@@ -47,18 +47,18 @@ public class DiaConsulta {
 	}
 	
 	public void agregarConsulta(Consulta consulta) {
-		consultas.put(consulta.getNomC(),consulta);
+		consultas.put(consulta.getNomC(), consulta);
 	}
 	
-	public DTDiaSemana get_dia() {
+	public DTDiaSemana getDia() {
 		return dia;
 	}
 	
-	public String get_nom() {
+	public String getNom() {
 		return nomD;
 	}
 	
-	public float get_costoD() {
+	public float getCostoD() {
 		return costoD;
 	}
 }
