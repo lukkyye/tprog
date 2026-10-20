@@ -80,7 +80,7 @@ public class SignupPacServlet extends HttpServlet {
 				if (state == null) {
 				    request.setAttribute("success", "Se registró correctamente el nuevo usuario. Por favor inicie sesión.");
 				} else {
-				    request.setAttribute("error", state);
+				    request.setAttribute("success", state);
 				}
 
 				request.getRequestDispatcher("/WEB-INF/views/SignUpPac.jsp").forward(request, response);
