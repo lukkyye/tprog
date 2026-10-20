@@ -96,24 +96,31 @@
             for (DTConsulta consulta : consultas) {
     %>
 
-    <div class="card shadow-sm rounded-4 border-0 p-4">
-        <h4 class="fw-bold"><%= consulta.nomC() %></h4>
+    <div class="card shadow-sm rounded-4 border-0 bg-light p-4">
+    	<div class="d-flex align-items-center mb-3">
+                        <div class="col-9 ps-3">
+                            <h4 class="m-0 fw-bold">
+                                <%= consulta.nomC() %>
+                            </h4>
 
-        <p>Fecha: <%= consulta.fechaC() %></p>
-        <p>Sala: <%= consulta.sala() %></p>
-        <p>Cantidad de números: <%= consulta.cantNum() %></p>
-        <p>Costo: $<%= consulta.costoC() %></p>
+                            <p class="mb-0 text-muted mt-2"><strong>Fecha: </strong>
+                                <%= consulta.fechaC() %>
+                            </p>
+                            
+                            <p class="mb-0 text-muted mt-2"> <strong>Costo: </strong>
+                                $<%= consulta.costoC() %>
+                            </p>
+                        </div>
 
-        <div class="d-flex gap-2">
-			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
-    			Ver detalle
-			</a>
-			<% if ("Paciente".equals(tipoUsuario)) { %>
-    		<a class="btn btn-primary"  href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
-        		Reservar
-    		</a>
-			<% } %>
-        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-2 pt-2 border-top">
+
+                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+    						Ver detalle
+						</a>
+
+                    </div>
     </div>
 
 <% } %>
