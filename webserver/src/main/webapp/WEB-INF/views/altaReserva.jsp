@@ -70,7 +70,7 @@
                     </div>
                 <% } %>
 
-                <form action="${pageContext.request.contextPath}/AltaReservaServlet" method="post">
+                <form action="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>"" method="post">
 
                     <input type="hidden" name="consulta" value="<%= (consulta != null) ? consulta.nomC() : "" %>">
 
@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <a href="" onclick="history.back()" class="btn btn-secondary">
+                        <a href="${pageContext.request.contextPath}/home" onclick="history.back()" class="btn btn-secondary">
                             Cancelar
                         </a>
 
