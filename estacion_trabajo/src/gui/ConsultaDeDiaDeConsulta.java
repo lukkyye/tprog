@@ -59,7 +59,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_comboBoxDiaConsulta.gridy = 0;
         getContentPane().add(comboBoxDiaConsulta, gbc_comboBoxDiaConsulta);
         for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
-            comboBoxDiaConsulta.addItem(d.nomD());
+            comboBoxDiaConsulta.addItem(d.getNomD());
         }
         
         JLabel lablenombredia = new JLabel("Nombre:");
@@ -388,13 +388,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
 
                 for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
 
-                    if (d.nomD().equals(nombreDia)) {
+                    if (d.getNomD().equals(nombreDia)) {
 
-                        camponombredia.setText(d.nomD());
-                        campodescripciondia.setText(d.descD());
-                        campodiadia.setText(d.dia().toString());
-                        campohorainidia.setText(d.horaIni().toString());
-                        campocostodia.setText(String.valueOf(d.costoD()));
+                        camponombredia.setText(d.getNomD());
+                        campodescripciondia.setText(d.getDescD());
+                        campodiadia.setText(d.getDia().toString());
+                        campohorainidia.setText(d.getHoraIni().toString());
+                        campocostodia.setText(String.valueOf(d.getCostoD()));
                         lablenombredia.setVisible(true);
                         descripciondia.setVisible(true);
                         Diadia.setVisible(true);
@@ -415,7 +415,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                         cargando = true;
 
                         for (DTConsulta c : controlador.selecListaConsultaDelDia(nombreDia)) {
-                            comboBoxConsultas.addItem(c.nomC());
+                            comboBoxConsultas.addItem(c.getNomC());
                         }
                         
                         comboBoxConsultas.setSelectedIndex(-1);
@@ -455,14 +455,14 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 costoreserva.setVisible(false);
                 campocostoreserva.setVisible(false);
 
-                camponombreconsulta.setText(consulta.nomC());
-                campomedicoconsulta.setText(consulta.medico());
+                camponombreconsulta.setText(consulta.getNomC());
+                campomedicoconsulta.setText(consulta.getMedico());
 
-                campofechaconsulta.setText(consulta.fechaC().toString());
-                camposalaconsulta.setText(String.valueOf(consulta.sala()));
-                campocantnumconsulta.setText(String.valueOf(consulta.cantNum()));
-                campocostoconsulta.setText(String.valueOf(consulta.costoC()));
-                campoestadoconsulta.setText(String.valueOf(consulta.estado()));
+                campofechaconsulta.setText(consulta.getFechaC().toString());
+                camposalaconsulta.setText(String.valueOf(consulta.getSala()));
+                campocantnumconsulta.setText(String.valueOf(consulta.getCantNum()));
+                campocostoconsulta.setText(String.valueOf(consulta.getCostoC()));
+                campoestadoconsulta.setText(String.valueOf(consulta.getEstado()));
 
                 nombreconsulta.setVisible(true);
                 medicoconsulta.setVisible(true);
@@ -488,8 +488,8 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 
        
 
-                for (DTResConsulta r : consulta.reservas()) {
-                    comboBoxreservas.addItem(r.numReserva());
+                for (DTResConsulta r : consulta.getReservas()) {
+                    comboBoxreservas.addItem(r.getNumReserva());
                 }
                 comboBoxreservas.setSelectedIndex(-1);
                 cargandoReservas = false;
@@ -518,16 +518,16 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 DTConsultaDetalle consulta =
                         controlador.listarDatosConsulta(nombreConsulta);
 
-                for (DTResConsulta r : consulta.reservas()) {
+                for (DTResConsulta r : consulta.getReservas()) {
 
-                    if (r.numReserva() == numero) {
+                    if (r.getNumReserva() == numero) {
 
-                        campofechareserva.setText(r.fechaRes().toString());
-                        camponumreserva.setText(String.valueOf(r.numReserva()));
+                        campofechareserva.setText(r.getFechaRes().toString());
+                        camponumreserva.setText(String.valueOf(r.getNumReserva()));
                         campobeneficioreserva.setText(
-                        	    r.aplicaBenef() ? "Aplica" : "No aplica"
+                        	    r.getAplicaBenef() ? "Aplica" : "No aplica"
                         	);
-                        campocostoreserva.setText(String.valueOf(r.costoR()));
+                        campocostoreserva.setText(String.valueOf(r.getCostoR()));
 
                         reservaconsulta.setVisible(true);
                         fechareserva.setVisible(true);

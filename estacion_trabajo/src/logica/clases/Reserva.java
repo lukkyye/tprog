@@ -64,12 +64,12 @@ public class Reserva {
             fechaRS,
             numReserva,
             aplicaBenef,
-            dtConsulta.medico(),
-            dtConsulta.nomC(),
-            dtConsulta.fechaC(),
-            dtConsulta.sala(),
-            dtConsulta.cantNum(),
-            dtConsulta.costoC(),
+            dtConsulta.getMedico(),
+            dtConsulta.getNomC(),
+            dtConsulta.getFechaC(),
+            dtConsulta.getSala(),
+            dtConsulta.getCantNum(),
+            dtConsulta.getCostoC(),
             costoR
         );
     }

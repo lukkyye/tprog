@@ -183,10 +183,10 @@ public class AltaDeConsulta extends JInternalFrame {
     
    private void cargarCombos() {
 	   for (DTDiaConsulta d : controladorClinica.listarDatosDiaConsulta()) {
-		   DiasConsultasBox.addItem(d.nomD());
+		   DiasConsultasBox.addItem(d.getNomD());
 	   }
 	   for (DTMedico m : controladorUsuario.listarMedicos()) {
-		   MedicosBox.addItem(m.nickname());
+		   MedicosBox.addItem(m.getNickname());
 	   }
    }
 }

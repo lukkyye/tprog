@@ -184,33 +184,33 @@ public class ConsultaMedico extends JInternalFrame {
 
         DTUsuario usuario = controlador.listarUsuarios()
                 .stream()
-                .filter(u -> u.nickname().equals(nickname))
+                .filter(u -> u.getNickname().equals(nickname))
                 .findFirst()
                 .orElse(null);
 
         // Datos comunes
         if (usuario != null) {
-            lblNickname.setText(usuario.nickname());
-            lblNombre.setText(usuario.nombre());
-            lblApellido.setText(usuario.apellido());
-            lblCorreo.setText(usuario.correo());
+            lblNickname.setText(usuario.getNickname());
+            lblNombre.setText(usuario.getNombre());
+            lblApellido.setText(usuario.getApellido());
+            lblCorreo.setText(usuario.getCorreo());
         }
 
         // Datos del médico
         lblNumeroDeRegistro.setText(
-                String.valueOf(medico.nroReg())
+                String.valueOf(medico.getNroReg())
         );
 
         lblMesDeLicencia.setText(
-                String.valueOf(medico.mesLic())
+                String.valueOf(medico.getMesLic())
         );
 
         lblPorcentajeDeCosto.setText(
-                String.valueOf(medico.porcentajeCost())
+                String.valueOf(medico.getPorcentajeCost())
         );
 
         lblLink.setText(
-                medico.link()
+                medico.getLink()
         );
         
         Set<DTConsulta> consultas =
@@ -230,9 +230,9 @@ public class ConsultaMedico extends JInternalFrame {
 
             String[] consultasParaMostrar = consultasMedico.stream()
                     .map(consulta ->
-                        consulta.nomC()
-                        + " - " + consulta.fechaC()
-                        + " - Sala " + consulta.sala()
+                        consulta.getNomC()
+                        + " - " + consulta.getFechaC()
+                        + " - Sala " + consulta.getSala()
                     )
                     .toArray(String[]::new);
 
@@ -252,11 +252,11 @@ public class ConsultaMedico extends JInternalFrame {
 
                         DTConsultaDetalle detalle =
                                 controlador.listarDatosConsulta(
-                                        consultaSeleccionada.nomC()
+                                        consultaSeleccionada.getNomC()
                                 );
 
                         ConsultaDetalle ventanaDetalle =
-                                new ConsultaDetalle(detalle, usuario.nickname());
+                                new ConsultaDetalle(detalle, usuario.getNickname());
 
                         getDesktopPane().add(ventanaDetalle);
                         ventanaDetalle.setVisible(true);

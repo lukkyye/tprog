@@ -52,7 +52,7 @@ public class DTResConsultaDetalle {
         this.numReserva = numReserva;
     }
 
-    public boolean isAplicaBenef() {
+    public boolean getAplicaBenef() {
         return aplicaBenef;
     }
 

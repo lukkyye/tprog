@@ -50,7 +50,7 @@ class CargadorCSVTest {
 		DTMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
-				.filter(u->u.nickname().equals("bsilva"))
+				.filter(u->u.getNickname().equals("bsilva"))
 				.findFirst()
 				.orElse(null);
 
@@ -68,7 +68,7 @@ class CargadorCSVTest {
 		Set<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
 		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
-				.filter(u->u.nickname().equals("lgomez"))
+				.filter(u->u.getNickname().equals("lgomez"))
 				.findFirst()
 				.orElse(null);
 		System.out.println("ESPERADO: " + dtpaciente_expected);
@@ -109,7 +109,7 @@ class CargadorCSVTest {
 		DTDiaConsulta diaconsulta_expected = new DTDiaConsulta("Cardiología - Lunes", "Atención cardiológica semanal", DTDiaSemana.Lunes, LocalTime.of(9, 00), 1440);
 		DTDiaConsulta d = controladorClinica.listarDatosDiaConsulta()
                 .stream()
-                .filter(b -> b.nomD().equals("Cardiología - Lunes"))
+                .filter(b -> b.getNomD().equals("Cardiología - Lunes"))
                 .findFirst()
                 .orElse(null);
 		assertAll(
@@ -122,7 +122,7 @@ class CargadorCSVTest {
 		DTConsulta consulta_expected = new DTConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656, EstadoConsulta.Aceptada );
 		DTConsulta co = controladorClinica.listarConsultas()
                 .stream()
-                .filter(b -> b.nomC().equals("Cardiología 240826"))
+                .filter(b -> b.getNomC().equals("Cardiología 240826"))
                 .findFirst()
                 .orElse(null);
 		assertAll(
@@ -136,7 +136,7 @@ class CargadorCSVTest {
 		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
 		DTPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
 		
-		String nomP = dtpaciente.nickname();
+		String nomP = dtpaciente.getNickname();
 		String nomC = "Cardiología 240826";
 		DTResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomC, nomP);
 		assertAll(
@@ -234,7 +234,7 @@ class CargadorCSVTest {
 
 	    assertTrue(
 	        consultas.stream()
-	            .anyMatch(c -> c.nomC().equals("Pediatría 080926"))
+	            .anyMatch(c -> c.getNomC().equals("Pediatría 080926"))
 	    );
 	}
 	
@@ -247,7 +247,7 @@ class CargadorCSVTest {
 
 	    assertTrue(
 	        pacientes.stream()
-	            .anyMatch(p -> p.nickname().equals("lgomez"))
+	            .anyMatch(p -> p.getNickname().equals("lgomez"))
 	    );
 	}
 	
@@ -260,7 +260,7 @@ class CargadorCSVTest {
 
 	    assertTrue(
 	        medicos.stream()
-	            .anyMatch(m -> m.nickname().equals("bsilva"))
+	            .anyMatch(m -> m.getNickname().equals("bsilva"))
 	    );
 	}
 	
@@ -273,9 +273,9 @@ class CargadorCSVTest {
 	            controladorUsuario.listarDatosBeneficioAnual("daniel.quintana22", 2030);
 
 	    assertAll(
-	        () -> assertEquals(2030, beneficio.anio()),
-	        () -> assertEquals(5, beneficio.cantOrdenes()),
-	        () -> assertEquals(10, beneficio.cantTicket())
+	        () -> assertEquals(2030, beneficio.getAnio()),
+	        () -> assertEquals(5, beneficio.getCantOrdenes()),
+	        () -> assertEquals(10, beneficio.getCantTicket())
 	    );
 	}
 
@@ -297,9 +297,9 @@ class CargadorCSVTest {
 
 	    assertTrue(
 	        beneficios.stream()
-	            .anyMatch(b -> b.anio() == 2032
-	                    && b.cantOrdenes() == 3
-	                    && b.cantTicket() == 7)
+	            .anyMatch(b -> b.getAnio() == 2032
+	                    && b.getCantOrdenes() == 3
+	                    && b.getCantTicket() == 7)
 	    );
 	}
 
@@ -310,9 +310,9 @@ class CargadorCSVTest {
 	    DTBeneficioAnual beneficio =
 	            controladorUsuario.listarDatosBeneficioAnual("emilia.ramos23", 2033);
 
-	    assertEquals(2033, beneficio.anio());
-	    assertEquals(4, beneficio.cantOrdenes());
-	    assertEquals(8, beneficio.cantTicket());
+	    assertEquals(2033, beneficio.getAnio());
+	    assertEquals(4, beneficio.getCantOrdenes());
+	    assertEquals(8, beneficio.getCantTicket());
 	}
 	
 	@Test
@@ -333,31 +333,31 @@ class CargadorCSVTest {
 	    assertAll(
 	        () -> assertEquals("LauraNueva",
 	                controladorUsuario.listarUsuarios().stream()
-	                    .filter(u -> u.nickname().equals("lgomez"))
+	                    .filter(u -> u.getNickname().equals("lgomez"))
 	                    .findFirst()
 	                    .get()
-	                    .nombre()),
+	                    .getNombre()),
 
 	        () -> assertEquals("GomezNueva",
 	                controladorUsuario.listarUsuarios().stream()
-	                    .filter(u -> u.nickname().equals("lgomez"))
+	                    .filter(u -> u.getNickname().equals("lgomez"))
 	                    .findFirst()
 	                    .get()
-	                    .apellido()),
+	                    .getApellido()),
 
 	        () -> assertEquals(
 	                LocalDate.of(1991, 5, 10),
-	                paciente.fechaNac()),
+	                paciente.getFechaNac()),
 
 	        () -> assertEquals(
 	                LocalDate.of(2024, 3, 1),
-	                paciente.fechaIngreso()),
+	                paciente.getFechaIngreso()),
 
-	        () -> assertEquals(45678901, paciente.doc()),
+	        () -> assertEquals(45678901, paciente.getDoc()),
 
 	        () -> assertEquals(
 	                List.of("Antecedente nuevo"),
-	                paciente.antSalud())
+	                paciente.getAntSalud())
 	    );
 	}
 	
@@ -380,22 +380,22 @@ class CargadorCSVTest {
 	    assertAll(
 	        () -> assertEquals("BrunoNuevo",
 	                controladorUsuario.listarUsuarios().stream()
-	                    .filter(u -> u.nickname().equals("bsilva"))
+	                    .filter(u -> u.getNickname().equals("bsilva"))
 	                    .findFirst()
 	                    .get()
-	                    .nombre()),
+	                    .getNombre()),
 
 	        () -> assertEquals("SilvaNuevo",
 	                controladorUsuario.listarUsuarios().stream()
-	                    .filter(u -> u.nickname().equals("bsilva"))
+	                    .filter(u -> u.getNickname().equals("bsilva"))
 	                    .findFirst()
 	                    .get()
-	                    .apellido()),
+	                    .getApellido()),
 
-	        () -> assertEquals("REG9998", medico.nroReg()),
-	        () -> assertEquals(TipoMes.Agosto, medico.mesLic()),
-	        () -> assertEquals(15, medico.porcentajeCost()),
-	        () -> assertEquals("https://nuevo-link.com", medico.link())
+	        () -> assertEquals("REG9998", medico.getNroReg()),
+	        () -> assertEquals(TipoMes.Agosto, medico.getMesLic()),
+	        () -> assertEquals(15, medico.getPorcentajeCost()),
+	        () -> assertEquals("https://nuevo-link.com", medico.getLink())
 	    );
 	}
 
@@ -411,7 +411,7 @@ class CargadorCSVTest {
 
 	    assertEquals(
 	        EstadoConsulta.Aceptada,
-	        consulta.estado()
+	        consulta.getEstado()
 	    );
 	}
 
@@ -427,7 +427,7 @@ class CargadorCSVTest {
 
 	    assertEquals(
 	        EstadoConsulta.Rechazada,
-	        consulta.estado()
+	        consulta.getEstado()
 	    );
 	}
 } 

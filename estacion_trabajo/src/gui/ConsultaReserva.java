@@ -79,16 +79,16 @@ public class ConsultaReserva extends JInternalFrame{
 	    getContentPane().add(lblMedico, gbc_lblMedico);
 	    
 
-	    lblNumeroReserva.setText(String.valueOf(detalle.numReserva()));	    
+	    lblNumeroReserva.setText(String.valueOf(detalle.getNumReserva()));	    
 	    
-	    lblFechaReserva.setText(detalle.fechaRes().toString());
+	    lblFechaReserva.setText(detalle.getFechaRes().toString());
 
 	    lblBeneficio.setText(
-	        detalle.aplicaBenef() ? "Sí" : "No"
+	        detalle.getAplicaBenef() ? "Sí" : "No"
 	    );
 
 	    
-	    lblMedico.setText(detalle.medicoC());
+	    lblMedico.setText(detalle.getMedicoC());
 	    
 	    JLabel lblNewLabel_1_1_1_1 = new JLabel("Consulta:");
 	    GridBagConstraints gbc_lblNewLabel_1_1_1_1 = new GridBagConstraints();
@@ -104,7 +104,7 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblConsulta.gridx = 7;
 	    gbc_lblConsulta.gridy = 7;
 	    getContentPane().add(lblConsulta, gbc_lblConsulta);
-	    lblConsulta.setText(detalle.nomC());
+	    lblConsulta.setText(detalle.getNomC());
 	    
 	    JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Fecha de Consulta:");
 	    GridBagConstraints gbc_lblNewLabel_1_1_1_1_1 = new GridBagConstraints();
@@ -120,7 +120,7 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblFechaConsulta.gridx = 7;
 	    gbc_lblFechaConsulta.gridy = 8;
 	    getContentPane().add(lblFechaConsulta, gbc_lblFechaConsulta);
-	    lblFechaConsulta.setText(detalle.fechaC().toString());
+	    lblFechaConsulta.setText(detalle.getFechaC().toString());
 	    
 	    JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Sala:");
 	    GridBagConstraints gbc_lblNewLabel_1_1_1_1_1_1 = new GridBagConstraints();
@@ -137,7 +137,7 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblSala.gridy = 9;
 	    getContentPane().add(lblSala, gbc_lblSala);
 	    
-	    lblSala.setText(String.valueOf(detalle.salaC()));
+	    lblSala.setText(String.valueOf(detalle.getSalaC()));
 	    
 	    JLabel lblNewLabel_1_1_1_1_1_1_1_1_1 = new JLabel("Cantidad de Números: ");
 	    GridBagConstraints gbc_lblNewLabel_1_1_1_1_1_1_1_1_1 = new GridBagConstraints();
@@ -153,7 +153,7 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblCantidadNumeros.gridx = 7;
 	    gbc_lblCantidadNumeros.gridy = 10;
 	    getContentPane().add(lblCantidadNumeros, gbc_lblCantidadNumeros);
-	    lblCantidadNumeros.setText(String.valueOf(detalle.cantNumC()));
+	    lblCantidadNumeros.setText(String.valueOf(detalle.getCantNumC()));
 	    
 	    JLabel lblNewLabel = new JLabel("Costo Consulta:");
 	    GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -169,7 +169,7 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblCostoConsulta.gridx = 7;
 	    gbc_lblCostoConsulta.gridy = 11;
 	    getContentPane().add(lblCostoConsulta, gbc_lblCostoConsulta);
-	    lblCostoConsulta.setText("$" + detalle.costoC());
+	    lblCostoConsulta.setText("$" + detalle.getCostoC());
 	    
 	    JLabel lblNewLabel_2_1 = new JLabel("Costo Reserva:");
 	    GridBagConstraints gbc_lblNewLabel_2_1 = new GridBagConstraints();
@@ -184,6 +184,6 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblCostoReserva.gridx = 7;
 	    gbc_lblCostoReserva.gridy = 12;
 	    getContentPane().add(lblCostoReserva, gbc_lblCostoReserva);
-	    lblCostoReserva.setText("$" + detalle.costoR());
+	    lblCostoReserva.setText("$" + detalle.getCostoR());
 	}
 }

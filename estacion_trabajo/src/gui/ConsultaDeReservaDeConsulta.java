@@ -56,12 +56,12 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         
         listaPacientes.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(4, 1, 2, 2));
-            panel.setBorder(BorderFactory.createTitledBorder("Paciente: " + value.nickname()));
+            panel.setBorder(BorderFactory.createTitledBorder("Paciente: " + value.getNickname()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" Nickname: " + value.nickname()));
-            panel.add(new JLabel(" Documento: " + value.doc()));
-            panel.add(new JLabel(" Fecha Nac.: " + value.fechaNac()));
-            panel.add(new JLabel(" Fecha Ingreso: " + value.fechaIngreso()));
+            panel.add(new JLabel(" Nickname: " + value.getNickname()));
+            panel.add(new JLabel(" Documento: " + value.getDoc()));
+            panel.add(new JLabel(" Fecha Nac.: " + value.getFechaNac()));
+            panel.add(new JLabel(" Fecha Ingreso: " + value.getFechaIngreso()));
             return panel;
         });
 
@@ -83,12 +83,12 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
 
         listaReservas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(3, 1, 2, 2));
-            panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.numReserva()));
+            panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.getNumReserva()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" Consulta: " + value.nomC()));
-            panel.add(new JLabel(" N° Reserva: " + value.numReserva()));
-            panel.add(new JLabel(" Fecha Reserva: " + value.fechaRes()));
-            panel.add(new JLabel(" Aplica Beneficio: " + (value.aplicaBenef() ? "Sí" : "No")));
+            panel.add(new JLabel(" Consulta: " + value.getNomC()));
+            panel.add(new JLabel(" N° Reserva: " + value.getNumReserva()));
+            panel.add(new JLabel(" Fecha Reserva: " + value.getFechaRes()));
+            panel.add(new JLabel(" Aplica Beneficio: " + (value.getAplicaBenef() ? "Sí" : "No")));
             return panel;
         });
 
@@ -111,7 +111,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTPaciente seleccionado = listaPacientes.getSelectedValue();
                 if (seleccionado != null) {
-                    comboNicknames.setSelectedItem(seleccionado.nickname());
+                    comboNicknames.setSelectedItem(seleccionado.getNickname());
                 }
             }
         });
@@ -120,7 +120,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTResConsulta seleccionada = listaReservas.getSelectedValue();
                 if (seleccionada != null) {
-                    comboNumReservas.setSelectedItem(seleccionada.nomC());
+                    comboNumReservas.setSelectedItem(seleccionada.getNomC());
                 }
             }
         });
@@ -168,7 +168,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         if (lista != null) {
             for (DTPaciente p : lista) {
                 modelListaPacientes.addElement(p);
-                comboNicknames.addItem(p.nickname()); 
+                comboNicknames.addItem(p.getNickname()); 
             }
         }
     }
@@ -182,7 +182,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         comboNumReservas.removeAllItems();
         for (DTResConsulta r : reservas) {
             modelListaReservas.addElement(r);
-            comboNumReservas.addItem(r.nomC());
+            comboNumReservas.addItem(r.getNomC());
         }
 
         lblTituloPaso.setText("Seleccione una Reserva del paciente '" + nickname + "'");
@@ -197,19 +197,19 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         sb.append("=========================================\n");
         sb.append("          DETALLE DE LA RESERVA          \n");
         sb.append("=========================================\n");
-        sb.append("Número de Reserva: ").append(detalle.numReserva()).append("\n");
-        sb.append("Fecha de Reserva:  ").append(detalle.fechaRes()).append("\n");
-        sb.append("Aplica Beneficio:  ").append(detalle.aplicaBenef() ? "Sí" : "No").append("\n");
-        sb.append("Costo Reserva:     $").append(detalle.costoR()).append("\n\n");
+        sb.append("Número de Reserva: ").append(detalle.getNumReserva()).append("\n");
+        sb.append("Fecha de Reserva:  ").append(detalle.getFechaRes()).append("\n");
+        sb.append("Aplica Beneficio:  ").append(detalle.getAplicaBenef() ? "Sí" : "No").append("\n");
+        sb.append("Costo Reserva:     $").append(detalle.getCostoR()).append("\n\n");
         sb.append("-----------------------------------------\n");
         sb.append("         INFORMACIÓN DE CONSULTA         \n");
         sb.append("-----------------------------------------\n");
-        sb.append("Nombre Consulta:   ").append(detalle.nomC()).append("\n");
-        sb.append("Médico a Cargo:    ").append(detalle.medicoC()).append("\n");
-        sb.append("Fecha Consulta:    ").append(detalle.fechaC()).append("\n");
-        sb.append("Número de Sala:    ").append(detalle.salaC()).append("\n");
-        sb.append("Cantidad Números:  ").append(detalle.cantNumC()).append("\n");
-        sb.append("Costo Consulta:    $").append(detalle.costoC()).append("\n");
+        sb.append("Nombre Consulta:   ").append(detalle.getNomC()).append("\n");
+        sb.append("Médico a Cargo:    ").append(detalle.getMedicoC()).append("\n");
+        sb.append("Fecha Consulta:    ").append(detalle.getFechaC()).append("\n");
+        sb.append("Número de Sala:    ").append(detalle.getSalaC()).append("\n");
+        sb.append("Cantidad Números:  ").append(detalle.getCantNumC()).append("\n");
+        sb.append("Costo Consulta:    $").append(detalle.getCostoC()).append("\n");
 
         JTextArea areaDetalle = new JTextArea(sb.toString());
         areaDetalle.setEditable(false);
@@ -218,6 +218,6 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         JScrollPane scrollPopUp = new JScrollPane(areaDetalle);
         scrollPopUp.setPreferredSize(new Dimension(420, 280));
 
-        JOptionPane.showMessageDialog(this, scrollPopUp, "Detalle de Reserva #" + detalle.numReserva(), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, scrollPopUp, "Detalle de Reserva #" + detalle.getNumReserva(), JOptionPane.INFORMATION_MESSAGE);
     }
 }

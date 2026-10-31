@@ -69,7 +69,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         gbc_comboBox_Dia_de_Consulta.gridy = 1;
         getContentPane().add(comboBox_Dia_de_Consulta, gbc_comboBox_Dia_de_Consulta);
         for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
-            comboBox_Dia_de_Consulta.addItem(d.nomD());
+            comboBox_Dia_de_Consulta.addItem(d.getNomD());
         }
         
         JLabel lblNewLabel_1 = new JLabel("Consulta:");
@@ -93,7 +93,7 @@ public class ReservaDeConsulta extends JInternalFrame {
                 comboBox_Consulta.removeAllItems();
                 String dia = comboBox_Dia_de_Consulta.getSelectedItem().toString();
                 for (DTConsulta c : controlador.selecListaConsultaDelDia(dia)) {
-                    comboBox_Consulta.addItem(c.nomC());
+                    comboBox_Consulta.addItem(c.getNomC());
                 }
             }
         });
@@ -108,7 +108,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         
         JComboBox comboBox_Paciente = new JComboBox();
         	for (DTPaciente p : controlador.listarPacientes()) {//datos
-        		comboBox_Paciente.addItem(p.nickname());
+        		comboBox_Paciente.addItem(p.getNickname());
         	}
         GridBagConstraints gbc_comboBox_Paciente = new GridBagConstraints();
         gbc_comboBox_Paciente.insets = new Insets(0, 0, 5, 5);

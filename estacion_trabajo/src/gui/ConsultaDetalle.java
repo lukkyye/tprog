@@ -161,15 +161,15 @@ public class ConsultaDetalle extends JInternalFrame {
         getContentPane().add(listaReservas, gbc_listaReservas);
         
         
-        lblNombre.setText(detalle.nomC());
-        lblMedico.setText(detalle.medico());
-        lblFecha.setText(String.valueOf(detalle.fechaC()));
-        lblSala.setText(String.valueOf(detalle.sala()));
-        lblCantidadNumeros.setText(String.valueOf(detalle.cantNum()));
-        lblCosto.setText("$" + detalle.costoC());
-        lblEstado.setText(String.valueOf(detalle.estado()));
+        lblNombre.setText(detalle.getNomC());
+        lblMedico.setText(detalle.getMedico());
+        lblFecha.setText(String.valueOf(detalle.getFechaC()));
+        lblSala.setText(String.valueOf(detalle.getSala()));
+        lblCantidadNumeros.setText(String.valueOf(detalle.getCantNum()));
+        lblCosto.setText("$" + detalle.getCostoC());
+        lblEstado.setText(String.valueOf(detalle.getEstado()));
         
-        Set<DTResConsulta> reservas = detalle.reservas();
+        Set<DTResConsulta> reservas = detalle.getReservas();
 
         if (reservas == null || reservas.isEmpty()) {
 
@@ -183,9 +183,9 @@ public class ConsultaDetalle extends JInternalFrame {
 
             String[] reservasParaMostrar = reservas.stream()
                     .map(reserva ->
-                        "Reserva " + reserva.numReserva()
-                        + " - " + reserva.fechaRes()
-                        + " - $" + reserva.costoR()
+                        "Reserva " + reserva.getNumReserva()
+                        + " - " + reserva.getFechaRes()
+                        + " - $" + reserva.getCostoR()
                     )
                     .toArray(String[]::new);
             

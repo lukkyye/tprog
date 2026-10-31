@@ -76,9 +76,9 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNickname.gridy = 1;
         getContentPane().add(lblNickname, gbc_lblNickname);
         
-        DTUsuario usuario = ManejadorUsuario.getInstance().getUsuario(paciente.nickname()).getDt();
+        DTUsuario usuario = ManejadorUsuario.getInstance().getUsuario(paciente.getNickname()).getDt();
         
-        lblNickname.setText(usuario.nickname());
+        lblNickname.setText(usuario.getNickname());
         
         JLabel lblNombre = new JLabel("Nombre:");
         lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
@@ -151,7 +151,7 @@ public class ConsultaPaciente extends JInternalFrame {
         // esto hay que poner lblCorreo.setText(usuario.correo());
 
         lblFechaNacimiento.setText(
-                paciente.fechaNac().toString()
+                paciente.getFechaNac().toString()
         );
         
         JLabel lblNewLabel_2 = new JLabel("Documento:");
@@ -170,7 +170,7 @@ public class ConsultaPaciente extends JInternalFrame {
         getContentPane().add(lblDocumento, gbc_lblDocumento);
         
                 lblDocumento.setText(
-                        String.valueOf(paciente.doc())
+                        String.valueOf(paciente.getDoc())
                 );
         
         JLabel lblNewLabel_3 = new JLabel("Fecha de Ingreso:");
@@ -189,7 +189,7 @@ public class ConsultaPaciente extends JInternalFrame {
         getContentPane().add(lblFechaIngreso, gbc_lblFechaIngreso);
         
                 lblFechaIngreso.setText(
-                        paciente.fechaIngreso().toString()
+                        paciente.getFechaIngreso().toString()
                 );
         
         JLabel lblNewLabel_4 = new JLabel("Ordenes Acumuladas:");
@@ -208,7 +208,7 @@ public class ConsultaPaciente extends JInternalFrame {
         getContentPane().add(lblOrdenes, gbc_lblOrdenes);
         
                 lblOrdenes.setText(
-                        String.valueOf(paciente.cantOrdenesAcum())
+                        String.valueOf(paciente.getCantOrdenesAcum())
                 );
         
         JLabel lblNewLabel_5 = new JLabel("Tickets Acumulados:");
@@ -227,7 +227,7 @@ public class ConsultaPaciente extends JInternalFrame {
         getContentPane().add(lblTickets, gbc_lblTickets);
         
                 lblTickets.setText(
-                        String.valueOf(paciente.cantTicketAcum())
+                        String.valueOf(paciente.getCantTicketAcum())
                 );
         
         JLabel lblNewLabel_6 = new JLabel("Antecedentes de Salud:");
@@ -274,10 +274,10 @@ public class ConsultaPaciente extends JInternalFrame {
                             reservasPaciente.get(indice);
 
                     int numeroReserva =
-                            reservaSeleccionada.numReserva();
+                            reservaSeleccionada.getNumReserva();
                     
                     DTResConsultaDetalle detalle =
-                            controlador.listarDatosResConsulta(reservaSeleccionada.nomC(), nickname);//cambiosd aca
+                            controlador.listarDatosResConsulta(reservaSeleccionada.getNomC(), nickname);//cambiosd aca
 
                     // acá abriremos la ventana con el detalle
                     mostrarPopUpDetalle(numeroReserva, detalle);
@@ -285,7 +285,7 @@ public class ConsultaPaciente extends JInternalFrame {
             }
         });
         
-        if (paciente.antSalud() == null || paciente.antSalud().isEmpty()) {
+        if (paciente.getAntSalud() == null || paciente.getAntSalud().isEmpty()) {
 
         	listaAntecedentes.setListData(
                 new String[] {"Sin antecedentes de salud"}
@@ -294,7 +294,7 @@ public class ConsultaPaciente extends JInternalFrame {
         } else {
 
         	listaAntecedentes.setListData(
-                paciente.antSalud().toArray(new String[0])
+                paciente.getAntSalud().toArray(new String[0])
             );
         }
         
@@ -317,9 +317,9 @@ public class ConsultaPaciente extends JInternalFrame {
 
             String[] reservasParaMostrar = reservasPaciente.stream()
                     .map(reserva ->
-                        "Reserva " + reserva.numReserva()
-                        + " - " + reserva.fechaRes()
-                        + " - $" + reserva.costoR()
+                        "Reserva " + reserva.getNumReserva()
+                        + " - " + reserva.getFechaRes()
+                        + " - $" + reserva.getCostoR()
                     )
                     .toArray(String[]::new);
 
@@ -332,19 +332,19 @@ public class ConsultaPaciente extends JInternalFrame {
         sb.append("=========================================\n");
         sb.append("          DETALLE DE LA RESERVA          \n");
         sb.append("=========================================\n");
-        sb.append("Número de Reserva: ").append(detalle.numReserva()).append("\n");
-        sb.append("Fecha de Reserva:  ").append(detalle.fechaRes()).append("\n");
-        sb.append("Aplica Beneficio:  ").append(detalle.aplicaBenef() ? "Sí" : "No").append("\n");
-        sb.append("Costo Reserva:     $").append(detalle.costoR()).append("\n\n");
+        sb.append("Número de Reserva: ").append(detalle.getNumReserva()).append("\n");
+        sb.append("Fecha de Reserva:  ").append(detalle.getFechaRes()).append("\n");
+        sb.append("Aplica Beneficio:  ").append(detalle.getAplicaBenef() ? "Sí" : "No").append("\n");
+        sb.append("Costo Reserva:     $").append(detalle.getCostoR()).append("\n\n");
         sb.append("-----------------------------------------\n");
         sb.append("         INFORMACIÓN DE CONSULTA         \n");
         sb.append("-----------------------------------------\n");
-        sb.append("Nombre Consulta:   ").append(detalle.nomC()).append("\n");
-        sb.append("Médico a Cargo:    ").append(detalle.medicoC()).append("\n");
-        sb.append("Fecha Consulta:    ").append(detalle.fechaC()).append("\n");
-        sb.append("Número de Sala:    ").append(detalle.salaC()).append("\n");
-        sb.append("Cantidad Números:  ").append(detalle.cantNumC()).append("\n");
-        sb.append("Costo Consulta:    $").append(detalle.costoC()).append("\n");
+        sb.append("Nombre Consulta:   ").append(detalle.getNomC()).append("\n");
+        sb.append("Médico a Cargo:    ").append(detalle.getMedicoC()).append("\n");
+        sb.append("Fecha Consulta:    ").append(detalle.getFechaC()).append("\n");
+        sb.append("Número de Sala:    ").append(detalle.getSalaC()).append("\n");
+        sb.append("Cantidad Números:  ").append(detalle.getCantNumC()).append("\n");
+        sb.append("Costo Consulta:    $").append(detalle.getCostoC()).append("\n");
 
         JTextArea areaDetalle = new JTextArea(sb.toString());
         areaDetalle.setEditable(false);

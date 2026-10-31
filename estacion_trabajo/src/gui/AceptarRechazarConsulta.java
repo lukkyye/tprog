@@ -59,13 +59,13 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         listaDias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaDias.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
-            panel.setBorder(BorderFactory.createTitledBorder("Día: " + value.nomD()));
+            panel.setBorder(BorderFactory.createTitledBorder("Día: " + value.getNomD()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" Nombre: " + value.nomD()));
-            panel.add(new JLabel(" Descripción: " + value.descD()));
-            panel.add(new JLabel(" Día: " + value.dia()));
-            panel.add(new JLabel(" Hora Inicio: " + value.horaIni()));
-            panel.add(new JLabel(" Costo: $" + value.costoD()));
+            panel.add(new JLabel(" Nombre: " + value.getNomD()));
+            panel.add(new JLabel(" Descripción: " + value.getDescD()));
+            panel.add(new JLabel(" Día: " + value.getDia()));
+            panel.add(new JLabel(" Hora Inicio: " + value.getHoraIni()));
+            panel.add(new JLabel(" Costo: $" + value.getCostoD()));
             return panel;
         });
 
@@ -87,14 +87,14 @@ public class AceptarRechazarConsulta extends JInternalFrame {
 
         listaConsultas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
-            panel.setBorder(BorderFactory.createTitledBorder("Consulta: " + value.nomC()));
+            panel.setBorder(BorderFactory.createTitledBorder("Consulta: " + value.getNomC()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" Nombre: " + value.nomC()));
-            panel.add(new JLabel(" Fecha: " + value.fechaC()));
-            panel.add(new JLabel(" Sala: " + value.sala()));
-            panel.add(new JLabel(" Cant. Números: " + value.cantNum()));
-            panel.add(new JLabel(" Costo: $" + value.costoC()));
-            panel.add(new JLabel(" Estado: " + value.estado()));
+            panel.add(new JLabel(" Nombre: " + value.getNomC()));
+            panel.add(new JLabel(" Fecha: " + value.getFechaC()));
+            panel.add(new JLabel(" Sala: " + value.getSala()));
+            panel.add(new JLabel(" Cant. Números: " + value.getCantNum()));
+            panel.add(new JLabel(" Costo: $" + value.getCostoC()));
+            panel.add(new JLabel(" Estado: " + value.getEstado()));
             return panel;
         });
 
@@ -136,7 +136,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
 	        			DTConsulta dtconsu = listaConsultas.getSelectedValue();	        		
-	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.nomC()).setEstado(EstadoConsulta.Aceptada);
+	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Aceptada);
         				Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se aceptó la consulta.", "Aceptada correctamente", JOptionPane.INFORMATION_MESSAGE);
 	        			render_listaconsultas(consultas);
@@ -147,7 +147,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
 	        			DTConsulta dtconsu = listaConsultas.getSelectedValue();	        		
-	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.nomC()).setEstado(EstadoConsulta.Rechazada);
+	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Rechazada);
         				Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se rechazó la consulta", "Rechazada correctamente", JOptionPane.ERROR_MESSAGE);
 	        			render_listaconsultas(consultas);
@@ -159,7 +159,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTConsulta seleccionada = listaConsultas.getSelectedValue();
                 if (seleccionada != null) {
-                    comboNomC.setSelectedItem(seleccionada.nomC());
+                    comboNomC.setSelectedItem(seleccionada.getNomC());
                 }
             }
         });
@@ -168,7 +168,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTDiaConsulta seleccionado = listaDias.getSelectedValue();
                 if (seleccionado != null) {
-                    comboNomD.setSelectedItem(seleccionado.nomD());
+                    comboNomD.setSelectedItem(seleccionado.getNomD());
                 }
             }
         });
@@ -196,14 +196,14 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         if (lista != null) {
             for (DTDiaConsulta dia : lista) {
                 modelListaDias.addElement(dia);
-                comboNomD.addItem(dia.nomD());
+                comboNomD.addItem(dia.getNomD());
             }
         }
     }
     private void render_listaconsultas(Set<DTConsulta> consultas) {
     	modelListaConsultas.clear();
     	for (DTConsulta c : consultas) {
-        	if (c.estado().equals(EstadoConsulta.Ingresada)) {
+        	if (c.getEstado().equals(EstadoConsulta.Ingresada)) {
         		modelListaConsultas.addElement(c);	
         	}
         }

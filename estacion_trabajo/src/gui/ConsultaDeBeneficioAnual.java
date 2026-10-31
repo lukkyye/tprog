@@ -48,7 +48,7 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 
 		pacientesBox = new JComboBox<String>();
 		controlador.listarPacientes().stream()
-				.map(DTPaciente::nickname)
+				.map(dtp->dtp.getNickname())
 				.sorted()
 				.forEach(pacientesBox::addItem);
 		pacientesBox.setSelectedIndex(-1);
@@ -115,7 +115,7 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 			return;
 		}
 
-		controlador.listarBeneficiosAnuales(nickname).stream().sorted(Comparator.comparingInt(DTBeneficioAnual::anio)).forEach(b -> aniosModel.addElement(b.anio()));
+		controlador.listarBeneficiosAnuales(nickname).stream().sorted(Comparator.comparingInt(dtb->dtb.getAnio())).forEach(b -> aniosModel.addElement(b.getAnio()));
 
 		if (aniosModel.isEmpty()) {
 			sinBeneficiosLabel.setText("El paciente no tiene beneficios anuales.");
@@ -131,9 +131,9 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 		}
 
 		DTBeneficioAnual beneficio = controlador.listarDatosBeneficioAnual(nickname, anio);
-		anioValor.setText(String.valueOf(beneficio.anio()));
-		ordenesValor.setText(String.valueOf(beneficio.cantOrdenes()));
-		ticketsValor.setText(String.valueOf(beneficio.cantTicket()));
+		anioValor.setText(String.valueOf(beneficio.getAnio()));
+		ordenesValor.setText(String.valueOf(beneficio.getCantOrdenes()));
+		ticketsValor.setText(String.valueOf(beneficio.getCantTicket()));
 	}
 
 	private void limpiarDetalle() {

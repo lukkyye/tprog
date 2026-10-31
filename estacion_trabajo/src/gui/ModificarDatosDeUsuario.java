@@ -92,7 +92,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		seleccionPanel.add(new JLabel("Usuario:"));
 		usuariosBox = new JComboBox<String>();
 		controlador.listarUsuarios().stream()
-				.map(DTUsuario::nickname)
+				.map(dtu->dtu.getNickname())
 				.sorted()
 				.forEach(usuariosBox::addItem);
 		usuariosBox.setSelectedIndex(-1);
@@ -260,12 +260,12 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		}
 
 		DTUsuario usuario = controlador.listarDatosUsuario(nickname);
-		nicknameField.setText(usuario.nickname());
-		correoField.setText(usuario.correo());
-		nombreField.setText(usuario.nombre());
-		apellidoField.setText(usuario.apellido());
+		nicknameField.setText(usuario.getNickname());
+		correoField.setText(usuario.getCorreo());
+		nombreField.setText(usuario.getNombre());
+		apellidoField.setText(usuario.getApellido());
 
-		esMedico = controlador.listarPacientes().stream().noneMatch(p -> p.nickname().equals(nickname));
+		esMedico = controlador.listarPacientes().stream().noneMatch(p -> p.getNickname().equals(nickname));
 		if (esMedico) {
 			cargarMedico(nickname);
 		} else {
@@ -282,21 +282,21 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 
 	private void cargarPaciente(String nickname) {
 		DTPaciente paciente = controlador.listarDatosPaciente(nickname);
-		fechaNacChooser.setDate(aDate(paciente.fechaNac()));
-		fechaIngresoChooser.setDate(aDate(paciente.fechaIngreso()));
-		documentoField.setText(String.valueOf(paciente.doc()));
+		fechaNacChooser.setDate(aDate(paciente.getFechaNac()));
+		fechaIngresoChooser.setDate(aDate(paciente.getFechaIngreso()));
+		documentoField.setText(String.valueOf(paciente.getDoc()));
 
 		antecedentesModel.clear();
-		paciente.antSalud().forEach(antecedentesModel::addElement);
+		paciente.getAntSalud().forEach(antecedentesModel::addElement);
 		antecedenteField.setText("");
 	}
 
 	private void cargarMedico(String nickname) {
 		DTMedico medico = controlador.listarDatosMedico(nickname);
-		nroRegField.setText(medico.nroReg());
-		mesLicBox.setSelectedItem(medico.mesLic());
-		porcentajeField.setText(String.valueOf(medico.porcentajeCost()));
-		linkField.setText(medico.link() == null ? "" : medico.link());
+		nroRegField.setText(medico.getNroReg());
+		mesLicBox.setSelectedItem(medico.getMesLic());
+		porcentajeField.setText(String.valueOf(medico.getPorcentajeCost()));
+		linkField.setText(medico.getLink() == null ? "" : medico.getLink());
 
 		especialidadesModel.clear();
 		List<String> todas = new ArrayList<String>(controladorClinica.listarEspecialidades());

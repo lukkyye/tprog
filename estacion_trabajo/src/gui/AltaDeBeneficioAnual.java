@@ -43,7 +43,7 @@ public class AltaDeBeneficioAnual extends JInternalFrame {
 		
 		pacientesBox = new JComboBox<String>();
 		controlador.listarPacientes().stream()
-				.map(DTPaciente::nickname)
+				.map(dtp->dtp.getNickname())
 				.sorted()
 				.forEach(pacientesBox::addItem);
 		

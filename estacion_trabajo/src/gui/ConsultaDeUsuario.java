@@ -98,7 +98,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         Set<DTUsuario> usuarios = controlador.listarUsuarios();
 
         String[] nicknames = usuarios.stream()
-                .map(DTUsuario::nickname)
+                .map(dtu->dtu.getNickname())
                 .toArray(String[]::new);
 
         listaUsuarios.setListData(nicknames);
@@ -163,7 +163,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
             boolean esPaciente = controlador.listarPacientes()
                     .stream()
                     .anyMatch(paciente ->
-                        paciente.nickname().equals(nickname)
+                        paciente.getNickname().equals(nickname)
                     );
 
             JDesktopPane desktopPane = getDesktopPane();
@@ -172,10 +172,10 @@ public class ConsultaDeUsuario extends JInternalFrame {
             	//solo tiene un elemento y es el DTUsuario que tiene unickname=nickname
             	DTUsuario pseudolista = usuarios
             			.stream()
-            			.filter(u->u.nickname().equals(nickname))
+            			.filter(u->u.getNickname().equals(nickname))
             			.collect(Collectors.toList()).getFirst();
                 ConsultaPaciente ventanaPaciente =
-                        new ConsultaPaciente(nickname, pseudolista.nombre(), pseudolista.apellido(),pseudolista.correo());
+                        new ConsultaPaciente(nickname, pseudolista.getNombre(), pseudolista.getApellido(),pseudolista.getCorreo());
 
                 desktopPane.add(ventanaPaciente);
                 ventanaPaciente.setVisible(true);

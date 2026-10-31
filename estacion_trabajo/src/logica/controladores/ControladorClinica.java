@@ -102,7 +102,7 @@ public class ControladorClinica {
 		List<String> toreturn = new ArrayList<String>();
 		for (DiaConsulta dc : ManejadorClinica.getInstance().getDiaConsulta().values()) {
 			if (dc.getEspecialidad().getNombre().equals(especialidad)) {
-				dc.getDtconsultas().stream().forEach(dtc-> {toreturn.add(dtc.nomC()); });
+				dc.getDtconsultas().stream().forEach(dtc-> {toreturn.add(dtc.getNomC()); });
 			}
 		}
 		return toreturn;

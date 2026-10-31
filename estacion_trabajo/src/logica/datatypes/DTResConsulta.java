@@ -49,7 +49,7 @@ public class DTResConsulta {
         this.numReserva = numReserva;
     }
 
-    public boolean isAplicaBenef() {
+    public boolean getAplicaBenef() {
         return aplicaBenef;
     }
 

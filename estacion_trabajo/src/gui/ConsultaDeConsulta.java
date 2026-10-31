@@ -59,13 +59,13 @@ public class ConsultaDeConsulta extends JInternalFrame {
         listaDias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaDias.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
-            panel.setBorder(BorderFactory.createTitledBorder("Día: " + value.nomD()));
+            panel.setBorder(BorderFactory.createTitledBorder("Día: " + value.getNomD()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" Nombre: " + value.nomD()));
-            panel.add(new JLabel(" Descripción: " + value.descD()));
-            panel.add(new JLabel(" Día: " + value.dia()));
-            panel.add(new JLabel(" Hora Inicio: " + value.horaIni()));
-            panel.add(new JLabel(" Costo: $" + value.costoD()));
+            panel.add(new JLabel(" Nombre: " + value.getNomD()));
+            panel.add(new JLabel(" Descripción: " + value.getDescD()));
+            panel.add(new JLabel(" Día: " + value.getDia()));
+            panel.add(new JLabel(" Hora Inicio: " + value.getHoraIni()));
+            panel.add(new JLabel(" Costo: $" + value.getCostoD()));
             return panel;
         });
 
@@ -87,14 +87,14 @@ public class ConsultaDeConsulta extends JInternalFrame {
 
         listaConsultas.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(5, 1, 2, 2));
-            panel.setBorder(BorderFactory.createTitledBorder("Consulta: " + value.nomC()));
+            panel.setBorder(BorderFactory.createTitledBorder("Consulta: " + value.getNomC()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" Nombre: " + value.nomC()));
-            panel.add(new JLabel(" Fecha: " + value.fechaC()));
-            panel.add(new JLabel(" Sala: " + value.sala()));
-            panel.add(new JLabel(" Cant. Números: " + value.cantNum()));
-            panel.add(new JLabel(" Costo: $" + value.costoC()));
-            panel.add(new JLabel(" Estado: " + value.estado()));
+            panel.add(new JLabel(" Nombre: " + value.getNomC()));
+            panel.add(new JLabel(" Fecha: " + value.getFechaC()));
+            panel.add(new JLabel(" Sala: " + value.getSala()));
+            panel.add(new JLabel(" Cant. Números: " + value.getCantNum()));
+            panel.add(new JLabel(" Costo: $" + value.getCostoC()));
+            panel.add(new JLabel(" Estado: " + value.getEstado()));
             return panel;
         });
 
@@ -117,7 +117,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTConsulta seleccionada = listaConsultas.getSelectedValue();
                 if (seleccionada != null) {
-                    comboNomC.setSelectedItem(seleccionada.nomC());
+                    comboNomC.setSelectedItem(seleccionada.getNomC());
                 }
             }
         });
@@ -126,7 +126,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
             if (!e.getValueIsAdjusting()) {
                 DTDiaConsulta seleccionado = listaDias.getSelectedValue();
                 if (seleccionado != null) {
-                    comboNomD.setSelectedItem(seleccionado.nomD());
+                    comboNomD.setSelectedItem(seleccionado.getNomD());
                 }
             }
         });
@@ -168,7 +168,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
         if (lista != null) {
             for (DTDiaConsulta dia : lista) {
                 modelListaDias.addElement(dia);
-                comboNomD.addItem(dia.nomD());
+                comboNomD.addItem(dia.getNomD());
             }
         }
     }
@@ -182,7 +182,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
         comboNomC.removeAllItems();
         for (DTConsulta c : consultas) {
             modelListaConsultas.addElement(c);
-            comboNomC.addItem(c.nomC());
+            comboNomC.addItem(c.getNomC());
         }
 
         lblTituloPaso.setText("Seleccione una Consulta asociada");
@@ -199,18 +199,18 @@ public class ConsultaDeConsulta extends JInternalFrame {
         areaDetalle.setEditable(false);
         areaDetalle.setFont(new Font("Monospaced", Font.PLAIN, 12));
         areaDetalle.setText(
-            "Consulta: " + detalle.nomC() + "\n" +
-            "Médico: " + detalle.medico() + "\n" +
-            "Fecha: " + detalle.fechaC() + "\n" +
-            "Sala: " + detalle.sala() + "\n" +
-            "Cantidad de números: " + detalle.cantNum() + "\n" +
-            "Costo: $" + detalle.costoC()
+            "Consulta: " + detalle.getNomC() + "\n" +
+            "Médico: " + detalle.getMedico() + "\n" +
+            "Fecha: " + detalle.getFechaC() + "\n" +
+            "Sala: " + detalle.getSala() + "\n" +
+            "Cantidad de números: " + detalle.getCantNum() + "\n" +
+            "Costo: $" + detalle.getCostoC()
         );
         panelPopUp.add(new JScrollPane(areaDetalle), BorderLayout.NORTH);
 
         DefaultListModel<DTResConsulta> modelReservasPopUp = new DefaultListModel<>();
-        if (detalle.reservas() != null) {
-            for (DTResConsulta r : detalle.reservas()) {
+        if (detalle.getReservas() != null) {
+            for (DTResConsulta r : detalle.getReservas()) {
                 modelReservasPopUp.addElement(r);
             }
         }
@@ -220,11 +220,11 @@ public class ConsultaDeConsulta extends JInternalFrame {
         
         listaReservasPopUp.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
             JPanel panel = new JPanel(new GridLayout(3, 1, 1, 1));
-            panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.numReserva()));
+            panel.setBorder(BorderFactory.createTitledBorder("Reserva #" + value.getNumReserva()));
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
-            panel.add(new JLabel(" N° Reserva: " + value.numReserva()));
-            panel.add(new JLabel(" Fecha: " + value.fechaRes()));
-            panel.add(new JLabel(" Beneficio: " + (value.aplicaBenef() ? "Sí" : "No")));
+            panel.add(new JLabel(" N° Reserva: " + value.getNumReserva()));
+            panel.add(new JLabel(" Fecha: " + value.getFechaRes()));
+            panel.add(new JLabel(" Beneficio: " + (value.getAplicaBenef() ? "Sí" : "No")));
             return panel;
         });
 
@@ -236,20 +236,20 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnVerReservaPopUp.addActionListener(e -> {
             DTResConsulta reservaSel = listaReservasPopUp.getSelectedValue();
             if (reservaSel != null) {
-                DTResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.numReserva());
+                DTResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.getNumReserva());
                 if (resDetalle != null) {
                     JOptionPane.showMessageDialog(this,
                         "=== DATOS DE LA RESERVA ===\n" +
-                        "Número de Reserva: " + resDetalle.numReserva() + "\n" +
-                        "Fecha Reserva: " + resDetalle.fechaRes() + "\n" +
-                        "Aplica Beneficio: " + (resDetalle.aplicaBenef() ? "Sí" : "No") + "\n" +
-                        "Costo Reserva: $" + resDetalle.costoR() + "\n\n" +
+                        "Número de Reserva: " + resDetalle.getNumReserva() + "\n" +
+                        "Fecha Reserva: " + resDetalle.getFechaRes() + "\n" +
+                        "Aplica Beneficio: " + (resDetalle.getAplicaBenef() ? "Sí" : "No") + "\n" +
+                        "Costo Reserva: $" + resDetalle.getCostoR() + "\n\n" +
                         "=== DATOS DE LA CONSULTA ===\n" +
                         "Consulta: " + nomC + "\n" +
-                        "Médico: " + resDetalle.medicoC() + "\n" +
-                        "Fecha Consulta: " + resDetalle.fechaC() + "\n" +
-                        "Sala: " + resDetalle.salaC(),
-                        "Detalle de Reserva #" + resDetalle.numReserva(),
+                        "Médico: " + resDetalle.getMedicoC() + "\n" +
+                        "Fecha Consulta: " + resDetalle.getFechaC() + "\n" +
+                        "Sala: " + resDetalle.getSalaC(),
+                        "Detalle de Reserva #" + resDetalle.getNumReserva(),
                         JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontraron detalles para la reserva indicada.", "Error", JOptionPane.ERROR_MESSAGE);
