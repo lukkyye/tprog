@@ -167,12 +167,12 @@ public class ConsultaDeClinica extends JInternalFrame {
         	if (!e.getValueIsAdjusting()) {
         		DTClinica nclinica = ManejadorClinica.getInstance().findClinica(list.getSelectedValue()).getDt();
         		
-        		nameTextField.setText(nclinica.nombre());
-        		dirTextField.setText(nclinica.dir());
-        		descTextField.setText(nclinica.desc());
-        		webTextField.setText(nclinica.web());
-        		cconsultaField.setText(String.valueOf(nclinica.cConsulta()));
-        		cticketField.setText(String.valueOf(nclinica.cTicket()));
+        		nameTextField.setText(nclinica.getNombre());
+        		dirTextField.setText(nclinica.getDir());
+        		descTextField.setText(nclinica.getDesc());
+        		webTextField.setText(nclinica.getWeb());
+        		cconsultaField.setText(String.valueOf(nclinica.getCConsulta()));
+        		cticketField.setText(String.valueOf(nclinica.getCTicket()));
         		
         		
         		panel_1.revalidate();

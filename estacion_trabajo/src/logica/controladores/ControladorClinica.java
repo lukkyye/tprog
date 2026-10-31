@@ -64,6 +64,11 @@ public class ControladorClinica {
 		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
 		return true;
 	}
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
+		ManejadorClinica manejadorClinica= ManejadorClinica.getInstance();
+		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
+		return true;
+	}
 	
 	public DTConsultaDetalle listarDatosConsulta(String nomC) {
 		DTConsultaDetalle res;
@@ -90,18 +95,18 @@ public class ControladorClinica {
 	}
 	
 	//nombre de consultas que satisfacen que son de especialidad dada
-	//public List<String> getConsultasPorEspecialidad(String especialidad){
-	//	if (!ManejadorEspecialidad.getInstance().existeEsp(especialidad)) {
-	//		return null;
-	//	}
-	//	List<String> toreturn = new ArrayList<String>();
-	//	for (DiaConsulta dc : ManejadorClinica.getInstance().getDiaConsulta().values()) {
-	//		if (dc.getEspecialidad().getNombre().equals(especialidad)) {
-	//			dc.getDtconsultas().stream().forEach(dtc-> {toreturn.add(dtc.nomC()); });
-	//		}
-	//	}
-	//	return toreturn;
-	//}
+	public List<String> getConsultasPorEspecialidad(String especialidad){
+		if (!ManejadorEspecialidad.getInstance().existeEsp(especialidad)) {
+			return null;
+		}
+		List<String> toreturn = new ArrayList<String>();
+		for (DiaConsulta dc : ManejadorClinica.getInstance().getDiaConsulta().values()) {
+			if (dc.getEspecialidad().getNombre().equals(especialidad)) {
+				dc.getDtconsultas().stream().forEach(dtc-> {toreturn.add(dtc.nomC()); });
+			}
+		}
+		return toreturn;
+	}
 	
 	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 
 		Set<DTConsulta> res;
@@ -283,13 +288,13 @@ public class ControladorClinica {
 	    clinica.agregarDiaConsulta(nuevoDia);
 	}
 
-	//public List<DTDiaConsulta> listarDiaConsultas() {
-	//	List<DTDiaConsulta> prelist = new ArrayList<DTDiaConsulta>();
-	//	ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
-	//	for (DiaConsulta dc : manejadorClinica.getDiaConsulta().values()) {
-	//		prelist.add(dc.getDTDiaConsulta());
-	//	}
-	//	return prelist;
-	//}
+	public List<DTDiaConsulta> listarDiaConsultas() {
+		List<DTDiaConsulta> prelist = new ArrayList<DTDiaConsulta>();
+		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
+		for (DiaConsulta dc : manejadorClinica.getDiaConsulta().values()) {
+			prelist.add(dc.getDTDiaConsulta());
+		}
+		return prelist;
+	}
 }
 
