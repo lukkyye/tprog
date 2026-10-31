@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class ReservaAlreadyExistsException extends RuntimeException {
+@WebFault
+public class ReservaAlreadyExistsException extends Exception {
 
 	public ReservaAlreadyExistsException() {
 		// TODO Auto-generated constructor stub

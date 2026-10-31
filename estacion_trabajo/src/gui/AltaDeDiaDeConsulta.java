@@ -19,6 +19,7 @@ import logica.datatypes.DtDiaSemana;
 
 import logica.controladores.ControladorClinica;
 import logica.excepciones.DiaConsultaAlreadyExistsException;
+import logica.excepciones.SpecialityNotFoundException;
 
 public class AltaDeDiaDeConsulta extends JInternalFrame {
 
@@ -298,7 +299,10 @@ public class AltaDeDiaDeConsulta extends JInternalFrame {
                         JOptionPane.ERROR_MESSAGE
                 );
 
-            }
+            } catch (SpecialityNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
             }); // cierra el listener del botón Aceptar
 

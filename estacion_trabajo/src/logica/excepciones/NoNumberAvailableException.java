@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class NoNumberAvailableException extends RuntimeException {
+@WebFault
+public class NoNumberAvailableException extends Exception {
 
 	public NoNumberAvailableException() {
 		// TODO Auto-generated constructor stub

@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class ReservaDoesntExistsException extends RuntimeException {
+@WebFault
+public class ReservaDoesntExistsException extends Exception {
 
 	public ReservaDoesntExistsException() {
 		// TODO Auto-generated constructor stub

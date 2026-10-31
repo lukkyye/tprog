@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class BeneficioSinOrdenesException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class BeneficioSinOrdenesException extends Exception {
 
 	public BeneficioSinOrdenesException() {
 		// TODO Auto-generated constructor stub

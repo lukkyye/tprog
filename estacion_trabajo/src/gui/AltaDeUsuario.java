@@ -449,7 +449,7 @@ public class AltaDeUsuario extends JInternalFrame {
 					cu.ingresarPaciente(nicknameField.getText(), passwordField.getText(), nameField.getText(),  surnameField.getText(), emailField.getText() , fechaNac, fechaIng,Integer.parseInt(documentoField.getText()),antssalud);
 					JOptionPane.showMessageDialog(this, "Operacion realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
-				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException e) {
+				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException | NumberFormatException | IdAlreadyExistsException e) {
 					JOptionPane.showMessageDialog(this, "No se pudo realizar la operacion:\n"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}  else {
@@ -478,6 +478,9 @@ public class AltaDeUsuario extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Ya existe un medico en el sistema con el numero de registro proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
 					} catch (MedicoSinEspecialidadException err) {
 						JOptionPane.showMessageDialog(null, "Ingrese al menos una especialidad.", "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (SpecialityNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				} else {
 					if (!nroRegField.getText().contains("REG")) {

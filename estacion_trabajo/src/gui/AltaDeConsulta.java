@@ -20,6 +20,7 @@ import logica.datatypes.DtDiaConsulta;
 import logica.datatypes.DtMedico;
 import logica.excepciones.ConsultaNombreAlreadyExistsException;
 import logica.excepciones.MedicoSinEspecialidadException;
+import logica.excepciones.UserNotFoundException;
 import logica.excepciones.FechaDiaSemanaInvalidaException;
 import com.toedter.calendar.JDateChooser;
 
@@ -168,7 +169,10 @@ public class AltaDeConsulta extends JInternalFrame {
 					   JOptionPane.showMessageDialog(this, ex.getMessage(), "Especialidad no coincide", JOptionPane.ERROR_MESSAGE);
 				   } catch (FechaDiaSemanaInvalidaException ex) {
 					   JOptionPane.showMessageDialog(this, ex.getMessage(), "Fecha inválida", JOptionPane.ERROR_MESSAGE);
-				   }
+				   } catch (UserNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				   
 			   
 		});

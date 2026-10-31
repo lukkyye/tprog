@@ -15,6 +15,7 @@ import logica.controladores.ControladorClinica;
 import logica.datatypes.DtDiaConsulta;
 import logica.datatypes.DtConsulta;
 import logica.datatypes.DtResConsulta;
+import logica.excepciones.ConsultaNotFoundException;
 import logica.datatypes.DtConsultaDetalle;
 
 
@@ -440,8 +441,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 String nombreConsulta =
                         comboBoxConsultas.getSelectedItem().toString();
 
-                DtConsultaDetalle consulta =
-                        controlador.listarDatosConsulta(nombreConsulta);
+                DtConsultaDetalle consulta=null;
+				try {
+					consulta = controlador.listarDatosConsulta(nombreConsulta);
+				} catch (ConsultaNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 
                 fechareserva.setVisible(false);
                 campofechareserva.setVisible(false);
@@ -515,8 +521,13 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 String nombreConsulta =
                         comboBoxConsultas.getSelectedItem().toString();
 
-                DtConsultaDetalle consulta =
-                        controlador.listarDatosConsulta(nombreConsulta);
+                DtConsultaDetalle consulta=null;
+				try {
+					consulta = controlador.listarDatosConsulta(nombreConsulta);
+				} catch (ConsultaNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
                 for (DtResConsulta r : consulta.getReservas()) {
 

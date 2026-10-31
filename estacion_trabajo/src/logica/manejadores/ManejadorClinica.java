@@ -64,7 +64,7 @@ public class ManejadorClinica {
         return null;
     }
 
-    public void agregarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+    public void agregarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) throws NombreClinicaAlreadyExistsException{
 		if (memberClinica(nombre)) {
 			throw new NombreClinicaAlreadyExistsException("Ya existe clinica con el nombre ingresado");
 		}
@@ -72,7 +72,7 @@ public class ManejadorClinica {
 		clinicas.put(nombre, clinica);
 	}
       
-    public void agregarDiaConsulta(DiaConsulta diaConsulta) {
+    public void agregarDiaConsulta(DiaConsulta diaConsulta) throws DiaConsultaAlreadyExistsException {
 
         if (memberDiaConsulta(diaConsulta.getNom())) {
             throw new DiaConsultaAlreadyExistsException(

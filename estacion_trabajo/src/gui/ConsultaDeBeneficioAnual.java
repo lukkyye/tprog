@@ -19,6 +19,8 @@ import javax.swing.ListSelectionModel;
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtPaciente;
+import logica.excepciones.BeneficioNotFoundException;
+import logica.excepciones.UserNotFoundException;
 
 public class ConsultaDeBeneficioAnual extends JInternalFrame {
 
@@ -79,10 +81,25 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 		botones.add(cerrarButton);
 		agregar(botones, 0, 7, 2, GridBagConstraints.SOUTHEAST, 0.0, 0.0, GridBagConstraints.NONE, 10, 10, 10, 10);
 
-		pacientesBox.addActionListener(e -> cargarAnios());
+		pacientesBox.addActionListener(e -> {
+			try {
+				cargarAnios();
+			} catch (UserNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		aniosList.addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
-				mostrarDetalle();
+				try {
+					mostrarDetalle();
+				} catch (BeneficioNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UserNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
@@ -105,7 +122,7 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 		agregar(valor, 1, fila, 1, GridBagConstraints.WEST, 1.0, 0.0, GridBagConstraints.HORIZONTAL, 4, 5, 4, 10);
 	}
 
-	private void cargarAnios() {
+	private void cargarAnios() throws UserNotFoundException {
 		aniosModel.clear();
 		limpiarDetalle();
 		sinBeneficiosLabel.setText(" ");
@@ -122,7 +139,7 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 		}
 	}
 
-	private void mostrarDetalle() {
+	private void mostrarDetalle() throws BeneficioNotFoundException, UserNotFoundException {
 		String nickname = (String) pacientesBox.getSelectedItem();
 		Integer anio = aniosList.getSelectedValue();
 		if (nickname == null || anio == null) {

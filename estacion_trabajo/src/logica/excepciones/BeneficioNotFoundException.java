@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class BeneficioNotFoundException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class BeneficioNotFoundException extends Exception {
 
 	public BeneficioNotFoundException() {
 		// TODO Auto-generated constructor stub

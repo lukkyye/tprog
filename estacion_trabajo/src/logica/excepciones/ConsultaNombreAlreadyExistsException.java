@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class ConsultaNombreAlreadyExistsException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class ConsultaNombreAlreadyExistsException extends Exception {
 
 	public ConsultaNombreAlreadyExistsException() {
 		// TODO Auto-generated constructor stub

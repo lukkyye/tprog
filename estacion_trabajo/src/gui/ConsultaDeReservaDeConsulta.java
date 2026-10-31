@@ -10,6 +10,8 @@ import java.util.Set;
 import logica.datatypes.DtPaciente;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
+import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.UserNotFoundException;
 import logica.controladores.ControladorUsuario;
 
 public class ConsultaDeReservaDeConsulta extends JInternalFrame {
@@ -129,7 +131,13 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 String nickname = (String) comboNicknames.getSelectedItem();
                 if (nickname != null) {
-                    Set<DtResConsulta> reservas = controladorUsuario.listarResConsultas(nickname);
+                    Set<DtResConsulta> reservas=null;
+					try {
+						reservas = controladorUsuario.listarResConsultas(nickname);
+					} catch (UserNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                     if (reservas != null && !reservas.isEmpty()) {
                         mostrarPaso2(nickname, reservas);
                     } else {
@@ -147,7 +155,13 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
                 String nickname = (String) comboNicknames.getSelectedItem();
 
                 if (nomC != null && nickname != null) {
-                    DtResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nomC, nickname); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
+                    DtResConsultaDetalle detalle=null;
+					try {
+						detalle = controladorUsuario.listarDatosResConsulta(nomC, nickname);
+					} catch (UserNotFoundException | ConsultaNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
                     if (detalle != null) {
                         mostrarPopUpDetalle(nomC, detalle);
                     } else {

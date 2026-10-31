@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.*;
+import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.UserNotFoundException;
 import logica.manejadores.ManejadorUsuario;
 
 import javax.swing.JList;
@@ -49,8 +51,13 @@ public class ConsultaPaciente extends JInternalFrame {
         
         ControladorUsuario controlador = new ControladorUsuario();
 
-        DtPaciente paciente =
-                controlador.listarDatosPaciente(nickname);
+        DtPaciente paciente=null;
+		try {
+			paciente = controlador.listarDatosPaciente(nickname);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
 
         setSize(600, 692);
@@ -76,7 +83,13 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNickname.gridy = 1;
         getContentPane().add(lblNickname, gbc_lblNickname);
         
-        DtUsuario usuario = ManejadorUsuario.getInstance().getUsuario(paciente.getNickname()).getDt();
+        DtUsuario usuario=null;
+		try {
+			usuario = ManejadorUsuario.getInstance().getUsuario(paciente.getNickname()).getDt();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         lblNickname.setText(usuario.getNickname());
         
@@ -276,8 +289,13 @@ public class ConsultaPaciente extends JInternalFrame {
                     int numeroReserva =
                             reservaSeleccionada.getNumReserva();
                     
-                    DtResConsultaDetalle detalle =
-                            controlador.listarDatosResConsulta(reservaSeleccionada.getNomC(), nickname);//cambiosd aca
+                    DtResConsultaDetalle detalle=null;
+					try {
+						detalle = controlador.listarDatosResConsulta(reservaSeleccionada.getNomC(), nickname);
+					} catch (UserNotFoundException | ConsultaNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}//cambiosd aca
 
                     // acá abriremos la ventana con el detalle
                     mostrarPopUpDetalle(numeroReserva, detalle);
@@ -298,8 +316,13 @@ public class ConsultaPaciente extends JInternalFrame {
             );
         }
         
-        Set<DtResConsulta> reservas =
-                controlador.listarResConsultas(nickname);
+        Set<DtResConsulta> reservas=null;
+		try {
+			reservas = controlador.listarResConsultas(nickname);
+		} catch (UserNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
         // Guardamos las reservas para poder saber después
         // cuál seleccionó el administrador

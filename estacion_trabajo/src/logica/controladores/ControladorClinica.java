@@ -26,8 +26,12 @@ import logica.clases.Reserva;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import logica.excepciones.NoNumberAvailableException;
+import logica.excepciones.NombreClinicaAlreadyExistsException;
 import logica.excepciones.ReservaAlreadyExistsException;
+import logica.excepciones.SpecialityNotFoundException;
+import logica.excepciones.UserNotFoundException;
 import logica.excepciones.ConsultaNombreAlreadyExistsException;
+import logica.excepciones.ConsultaNotFoundException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.FechaDiaSemanaInvalidaException;
 
@@ -59,14 +63,14 @@ public class ControladorClinica {
 		return clinica.getDt();
 	}
 	
-	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) throws NombreClinicaAlreadyExistsException {
 		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
 		return true;
 	}
 	
 	
-	public DtConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) throws ConsultaNotFoundException {
 		DtConsultaDetalle res;
 		ManejadorConsulta mcon = ManejadorConsulta.getInstance();
 		Consulta cons = mcon.getConsulta(nomC);
@@ -75,7 +79,7 @@ public class ControladorClinica {
 		
 	}
 	
-	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) throws ConsultaNotFoundException {
 	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 	    Consulta consulta = manejadorConsulta.getConsulta(nomC);
 	    if (consulta != null) {
@@ -84,7 +88,7 @@ public class ControladorClinica {
 	    return null;
 	}
 	
-	public Set<DtResConsulta> getReservasConsulta(String nomC){
+	public Set<DtResConsulta> getReservasConsulta(String nomC) throws ConsultaNotFoundException{
 		ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 		Consulta consulta = manejadorConsulta.getConsulta(nomC);
 		return consulta.getResConsultas();
@@ -113,7 +117,7 @@ public class ControladorClinica {
 		
 	}
 	
-	public DtConsulta seleccionarConsulta(String nomC) {
+	public DtConsulta seleccionarConsulta(String nomC) throws ConsultaNotFoundException {
 		DtConsulta res;
 		ManejadorConsulta mcon = ManejadorConsulta.getInstance();
 		Consulta consulta = mcon.getConsulta(nomC);
@@ -128,7 +132,7 @@ public class ControladorClinica {
 	    return manejadorUsuario.getDtpacientes();
 	}
 	
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) throws ReservaAlreadyExistsException, NoNumberAvailableException, UserNotFoundException, BeneficioSinOrdenesException, ConsultaNotFoundException {
 		 ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
 		 ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 		 Usuario usuario = manejadorUsuario.getUsuario(nicknamePaciente);
@@ -171,7 +175,9 @@ public class ControladorClinica {
 	    return result;
 	}
 	
-	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
+	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) throws  
+	MedicoSinEspecialidadException, ConsultaNombreAlreadyExistsException, FechaDiaSemanaInvalidaException, UserNotFoundException
+	{
 		ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
@@ -196,7 +202,7 @@ public class ControladorClinica {
 		manejadorConsulta.agregarConsulta(consulta);
 	}
 	
-	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) throws ConsultaNotFoundException {
 		ManejadorConsulta mco = ManejadorConsulta.getInstance();
 		mco.getConsulta(nombreConsulta).setEstado(state);
 	}
@@ -227,7 +233,7 @@ public class ControladorClinica {
 	        DtDiaSemana dia,
 	        LocalTime horaInicio,
 	        String nombreEspecialidad,
-	        String nombreClinica) {
+	        String nombreClinica) throws DiaConsultaAlreadyExistsException, SpecialityNotFoundException {
 
 	    ManejadorClinica manejadorClinica =
 	            ManejadorClinica.getInstance();

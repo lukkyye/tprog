@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class SpecialityNotFoundException extends RuntimeException {
+@WebFault
+public class SpecialityNotFoundException extends Exception {
 
 	public SpecialityNotFoundException() {
 		// TODO Auto-generated constructor stub

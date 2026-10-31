@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class FechaDiaSemanaInvalidaException extends RuntimeException {
+@WebFault
+public class FechaDiaSemanaInvalidaException extends Exception {
 
 	public FechaDiaSemanaInvalidaException() {
 		// TODO Auto-generated constructor stub

@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class ConsultaNotFoundException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class ConsultaNotFoundException extends Exception {
 
 	public ConsultaNotFoundException() {
 		// TODO Auto-generated constructor stub

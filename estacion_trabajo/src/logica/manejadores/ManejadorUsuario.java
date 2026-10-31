@@ -13,11 +13,13 @@ import java.util.Map;
 import java.util.Set;
 import logica.excepciones.BeneficioAlreadyExistsException;
 import logica.excepciones.BeneficioNotFoundException;
+import logica.excepciones.ConsultaNotFoundException;
 import logica.excepciones.EmailAlreadyExistsException;
 import logica.excepciones.IdAlreadyExistsException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
+import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.UserNotFoundException;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtConsulta;
@@ -76,14 +78,14 @@ public class ManejadorUsuario {
 	}
 	
 
-	public Usuario getUsuario(String nickname){
+	public Usuario getUsuario(String nickname) throws UserNotFoundException{
 		if (usuarios.containsKey(nickname)) {
 			return usuarios.get(nickname);
 		}
 		throw new UserNotFoundException("No se encontro usuario con el nickname: " + nickname);
 	}
 	
-	public DtMedico datosMedico(String nickname) {
+	public DtMedico datosMedico(String nickname) throws UserNotFoundException {
 		Usuario usuario = getUsuario(nickname);
 		if (usuario instanceof Medico medico) {
 			return medico.getDtmedico();
@@ -91,7 +93,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
 	
-	public DtPaciente datosPaciente(String nickname) {
+	public DtPaciente datosPaciente(String nickname) throws UserNotFoundException{
 		Usuario usuario = getUsuario(nickname);
 		if (usuario instanceof Paciente paciente) {
 			return paciente.getDtpaciente();
@@ -100,14 +102,15 @@ public class ManejadorUsuario {
 	}
 	
 	//Medicos
-	public Set<DtConsulta> consultasAsociadas(String nicknameUsu){
+	public Set<DtConsulta> consultasAsociadas(String nicknameUsu) throws UserNotFoundException, ConsultaNotFoundException{
 		Usuario usuario = getUsuario(nicknameUsu);
 		if (usuario instanceof Medico medico) {
 			ManejadorConsulta mconsultas = ManejadorConsulta.getInstance();
 			Set<DtConsulta> result = new HashSet<DtConsulta>();
-			medico.getConsultasAsoc().forEach(
-						s -> result.add(mconsultas.getConsulta(s).getDataConsulta())
-					);
+			for (String consultasAsoc : medico.getConsultasAsoc()) {
+				result.add(mconsultas.getConsulta(consultasAsoc).getDataConsulta());
+			}
+			
 			return result;
 		}
 		throw new UserNotFoundException("El usuario encontrado no es de tipo Medico");
@@ -115,7 +118,7 @@ public class ManejadorUsuario {
 	
 	
 	//Pacientes
-	public Set<DtResConsulta> reservasConsultasAsociadas(String nicknameUsu){
+	public Set<DtResConsulta> reservasConsultasAsociadas(String nicknameUsu) throws UserNotFoundException{
 		Usuario usuario = getUsuario(nicknameUsu);
 		if (usuario instanceof Paciente paciente) {
 			Set<DtResConsulta> result = new HashSet<DtResConsulta>();
@@ -137,7 +140,9 @@ public class ManejadorUsuario {
 		}
 		return false;
 	}
-	public void agregarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
+	public void agregarMedico(String nickname, String password, String nombre, String apellido, String correo, String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs)
+			throws NicknameAlreadyExistsException, EmailAlreadyExistsException, NumeroDeRegistroAlreadyExistsException, MedicoSinEspecialidadException, SpecialityNotFoundException
+	{
 		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -151,7 +156,10 @@ public class ManejadorUsuario {
 			throw new MedicoSinEspecialidadException();
 		}
 		Medico medico1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
-		specs.forEach( e -> medico1.agregarEspecialidad(ManejadorEspecialidad.getInstance().getEspecialidad(e)));
+		for (String esp_nom : specs) {
+			Especialidad e = ManejadorEspecialidad.getInstance().getEspecialidad(esp_nom);
+			medico1.agregarEspecialidad(e);
+		}
 		usuarios.put(nickname, medico1);
 	}
 	
@@ -168,7 +176,9 @@ public class ManejadorUsuario {
 		return false;
 	}
 	
-	public void agregarPaciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud){
+	public void agregarPaciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud)
+	throws NicknameAlreadyExistsException, EmailAlreadyExistsException, IdAlreadyExistsException
+	{
 		if (exists(nickname)) {
 			throw new NicknameAlreadyExistsException("Ya existe usuario con el nickname ingresado");
 		}
@@ -206,7 +216,7 @@ public class ManejadorUsuario {
 		return result;
 	}
 	
-	public DtResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) {
+	public DtResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) throws UserNotFoundException, ConsultaNotFoundException {
 	
 		Usuario usuario = getUsuario(nicknameUsu);
 	    if (usuario instanceof Paciente paciente) {
@@ -219,7 +229,7 @@ public class ManejadorUsuario {
 	    return null;
 	}
 	
-	private Paciente getPaciente(String nickname) {
+	private Paciente getPaciente(String nickname) throws UserNotFoundException{
 		Usuario usuario = getUsuario(nickname);
 		if (usuario instanceof Paciente paciente) {
 			return paciente;
@@ -227,7 +237,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("El usuario no es de tipo Paciente");
 	}
 	
-	private Medico getMedico(String nickname) {
+	private Medico getMedico(String nickname) throws UserNotFoundException{
 		Usuario usuario = getUsuario(nickname);
 		if (usuario instanceof Medico medico) {
 			return medico;
@@ -235,13 +245,13 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
 	
-	private void validarBeneficio(int anio, int cantOrdenes, int cantTicket) {
+	private void validarBeneficio(int anio, int cantOrdenes, int cantTicket) throws IllegalArgumentException {
 		if (anio < 1 || cantOrdenes < 0 || cantTicket < 0) {
 			throw new IllegalArgumentException("El año debe ser positivo y las cantidades no pueden ser negativas");
 		}
 	}
 	
-	public void agregarBeneficio(String nickname, int anio, int cantOrdenes, int cantTicket) {
+	public void agregarBeneficio(String nickname, int anio, int cantOrdenes, int cantTicket) throws UserNotFoundException, BeneficioAlreadyExistsException {
 		validarBeneficio(anio, cantOrdenes, cantTicket);
 		Paciente paciente = getPaciente(nickname);
 		if (paciente.tieneBeneficio(anio)) {
@@ -250,11 +260,11 @@ public class ManejadorUsuario {
 		paciente.agregarBeneficio(new BeneficioAnual(anio, cantOrdenes, cantTicket));
 	}
 	
-	public Set<DtBeneficioAnual> beneficiosAnuales(String nickname) {
+	public Set<DtBeneficioAnual> beneficiosAnuales(String nickname) throws UserNotFoundException {
 		return getPaciente(nickname).getDtbeneficios();
 	}
 	
-	public DtBeneficioAnual datosBeneficio(String nickname, int anio) {
+	public DtBeneficioAnual datosBeneficio(String nickname, int anio) throws BeneficioNotFoundException, UserNotFoundException{
 		BeneficioAnual benefAnual = getPaciente(nickname).getBeneficio(anio);
 		if (benefAnual == null) {
 			throw new BeneficioNotFoundException("El paciente no tiene un beneficio anual para el año " + anio);
@@ -262,15 +272,17 @@ public class ManejadorUsuario {
 		return benefAnual.getDataBeneficioAnual();
 	}
 	
-	public DtUsuario datosUsuario(String nickname) {
+	public DtUsuario datosUsuario(String nickname) throws UserNotFoundException {
 		return getUsuario(nickname).getDt();
 	}
 	
-	public List<String> especialidadesMedico(String nickname) {
+	public List<String> especialidadesMedico(String nickname) throws UserNotFoundException {
 		return getMedico(nickname).getNombreEspecialidades();
 	}
 	
-	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, List<String> especialidades) {
+	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic, int porcCost, String link, List<String> especialidades) throws
+	MedicoSinEspecialidadException, NumeroDeRegistroAlreadyExistsException, SpecialityNotFoundException, UserNotFoundException
+	{
 		Medico medico = getMedico(nickname);
 		if (especialidades == null || especialidades.isEmpty()) {
 			throw new MedicoSinEspecialidadException("El médico debe tener al menos una especialidad");
@@ -291,7 +303,7 @@ public class ManejadorUsuario {
 		medico.setEspecialidades(nuevas);
 	}
 	
-	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
+	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) throws UserNotFoundException {
 		Paciente paciente = getPaciente(nickname);
 		paciente.setNombre(nombre);
 		paciente.setApellido(apellido);

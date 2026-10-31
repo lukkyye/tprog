@@ -33,7 +33,7 @@ public class ManejadorEspecialidad {
 		return false;
 	}
 	
-	public Especialidad getEspecialidad(String espNom) {
+	public Especialidad getEspecialidad(String espNom) throws SpecialityNotFoundException{
 		for (Especialidad e: especialidades) {
 			if (e.getNombre().equals(espNom)) {
 				return e;
@@ -49,7 +49,7 @@ public class ManejadorEspecialidad {
 	//creoEsp me parece que devolvia Especialidad si encontraba alguna y si no, la creaba. cualquier cosa es corregible.
 	
 	
-	public Especialidad altaEspecialidad(String espNom, int espPorc) {
+	public Especialidad altaEspecialidad(String espNom, int espPorc) throws EspecialidadAlreadyExistsException {
 		if (existeEsp(espNom)) {
 			throw new EspecialidadAlreadyExistsException("Ya existe una especialidad con el nombre ingresado");
 		}

@@ -22,7 +22,7 @@ public class ManejadorConsulta {
 		
 	}
 	
-	public Consulta getConsulta(String nombre) {
+	public Consulta getConsulta(String nombre) throws ConsultaNotFoundException {
 		if (consultas.containsKey(nombre)) {
 			return consultas.get(nombre);
 		}

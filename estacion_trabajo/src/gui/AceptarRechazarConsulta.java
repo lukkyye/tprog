@@ -9,6 +9,7 @@ import java.util.Set;
 import logica.datatypes.DtDiaConsulta;
 import logica.datatypes.DtConsulta;
 import logica.datatypes.EstadoConsulta;
+import logica.excepciones.ConsultaNotFoundException;
 import logica.manejadores.ManejadorConsulta;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
@@ -136,7 +137,12 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
 	        			DtConsulta dtconsu = listaConsultas.getSelectedValue();	        		
-	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Aceptada);
+	        			try {
+							ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Aceptada);
+						} catch (ConsultaNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
         				Set<DtConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se aceptó la consulta.", "Aceptada correctamente", JOptionPane.INFORMATION_MESSAGE);
 	        			render_listaconsultas(consultas);
@@ -147,7 +153,12 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
 	        			DtConsulta dtconsu = listaConsultas.getSelectedValue();	        		
-	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Rechazada);
+	        			try {
+							ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Rechazada);
+						} catch (ConsultaNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
         				Set<DtConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se rechazó la consulta", "Rechazada correctamente", JOptionPane.ERROR_MESSAGE);
 	        			render_listaconsultas(consultas);

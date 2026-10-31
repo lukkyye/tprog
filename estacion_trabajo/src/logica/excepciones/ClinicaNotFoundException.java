@@ -1,6 +1,10 @@
 package logica.excepciones;
 
-public class ClinicaNotFoundException extends RuntimeException {
+
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class ClinicaNotFoundException extends Exception {
 
 	public ClinicaNotFoundException() {
 		// TODO Auto-generated constructor stub

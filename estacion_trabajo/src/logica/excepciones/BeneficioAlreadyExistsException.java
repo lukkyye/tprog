@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class BeneficioAlreadyExistsException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class BeneficioAlreadyExistsException extends Exception {
 
 	public BeneficioAlreadyExistsException() {
 		// TODO Auto-generated constructor stub

@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class EmailAlreadyExistsException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class EmailAlreadyExistsException extends Exception {
 
 	public EmailAlreadyExistsException() {
 		// TODO Auto-generated constructor stub

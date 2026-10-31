@@ -1,6 +1,9 @@
 package logica.excepciones;
 
-public class DiaConsultaAlreadyExistsException extends RuntimeException {
+import jakarta.xml.ws.WebFault;
+
+@WebFault
+public class DiaConsultaAlreadyExistsException extends Exception {
 
     public DiaConsultaAlreadyExistsException(String mensaje) {
         super(mensaje);

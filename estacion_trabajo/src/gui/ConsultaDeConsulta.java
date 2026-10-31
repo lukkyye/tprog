@@ -11,7 +11,7 @@ import logica.datatypes.DtConsulta;
 import logica.datatypes.DtConsultaDetalle;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
-
+import logica.excepciones.ConsultaNotFoundException;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
 
@@ -148,7 +148,13 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.addActionListener(e -> {
             String nomC = (String) comboNomC.getSelectedItem();
             if (nomC != null) {
-                DtConsultaDetalle detalle = controladorClinica.listarDatosConsulta(nomC);
+                DtConsultaDetalle detalle=null;
+				try {
+					detalle = controladorClinica.listarDatosConsulta(nomC);
+				} catch (ConsultaNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 if (detalle != null) {
                     mostrarPopUpDetalle(nomC, detalle);
                 } else {
@@ -236,7 +242,13 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnVerReservaPopUp.addActionListener(e -> {
             DtResConsulta reservaSel = listaReservasPopUp.getSelectedValue();
             if (reservaSel != null) {
-                DtResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.getNumReserva());
+                DtResConsultaDetalle resDetalle=null;
+				try {
+					resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.getNumReserva());
+				} catch (ConsultaNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 if (resDetalle != null) {
                     JOptionPane.showMessageDialog(this,
                         "=== DATOS DE LA RESERVA ===\n" +

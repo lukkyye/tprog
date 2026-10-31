@@ -7,6 +7,24 @@ import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtMedico;
 import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
+import logica.excepciones.BeneficioAlreadyExistsException;
+import logica.excepciones.BeneficioNotFoundException;
+import logica.excepciones.BeneficioSinOrdenesException;
+import logica.excepciones.ConsultaNombreAlreadyExistsException;
+import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.DiaConsultaAlreadyExistsException;
+import logica.excepciones.EmailAlreadyExistsException;
+import logica.excepciones.EspecialidadAlreadyExistsException;
+import logica.excepciones.FechaDiaSemanaInvalidaException;
+import logica.excepciones.IdAlreadyExistsException;
+import logica.excepciones.MedicoSinEspecialidadException;
+import logica.excepciones.NicknameAlreadyExistsException;
+import logica.excepciones.NoNumberAvailableException;
+import logica.excepciones.NombreClinicaAlreadyExistsException;
+import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
+import logica.excepciones.ReservaAlreadyExistsException;
+import logica.excepciones.SpecialityNotFoundException;
+import logica.excepciones.UserNotFoundException;
 import logica.manejadores.ManejadorImagen;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
@@ -61,29 +79,29 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) throws NombreClinicaAlreadyExistsException {
 		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 	@WebMethod
-	public DtClinica seleccionarClinica(String nombre) {
+	public DtClinica seleccionarClinica(String nombre)  {
 		return controladorClinica.seleccionarClinica(nombre);
 	}
 	@WebMethod
-	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) throws ConsultaNotFoundException{
 		controladorClinica.setEstadoConsulta(state, nombreConsulta);
 	}
 	@WebMethod
-	public DtConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) throws ConsultaNotFoundException  {
 		return controladorClinica.listarDatosConsulta(nomC);
 	}
 
 	@WebMethod
-	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) throws ConsultaNotFoundException{
 		return controladorClinica.listarDatosResConsultaCC(nomC, numReserva);
 	}
 
 	@WebMethod
-	public HashSet<DtResConsulta> listarReservasConsulta(String nomC) {
+	public HashSet<DtResConsulta> listarReservasConsulta(String nomC) throws ConsultaNotFoundException {
 		return (HashSet<DtResConsulta>) controladorClinica.getReservasConsulta(nomC);
 	}
 	
@@ -93,7 +111,7 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public DtConsulta seleccionarConsulta(String nomC) {
+	public DtConsulta seleccionarConsulta(String nomC) throws ConsultaNotFoundException {
 		return controladorClinica.seleccionarConsulta(nomC);
 	}
 
@@ -103,7 +121,9 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef)
+	throws ReservaAlreadyExistsException, NoNumberAvailableException, BeneficioSinOrdenesException, ConsultaNotFoundException, UserNotFoundException 
+	{
 		controladorClinica.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
 	}
 
@@ -113,7 +133,9 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
+	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum)
+	throws ConsultaNombreAlreadyExistsException, UserNotFoundException, MedicoSinEspecialidadException, FechaDiaSemanaInvalidaException
+	{
 		controladorClinica.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
 	}
 
@@ -129,7 +151,9 @@ public class Publisher {
 
 	@WebMethod
 	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, LocalTime horaInicio,
-			String nombreEspecialidad, String nombreClinica) {
+			String nombreEspecialidad, String nombreClinica) throws
+	DiaConsultaAlreadyExistsException, SpecialityNotFoundException, DiaConsultaAlreadyExistsException
+	{
 		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
 
@@ -157,13 +181,15 @@ public class Publisher {
 	//======================================================================
 	@WebMethod
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo,
-			String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
+			String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) throws NicknameAlreadyExistsException, EmailAlreadyExistsException, NumeroDeRegistroAlreadyExistsException, MedicoSinEspecialidadException, SpecialityNotFoundException{
 		return controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 	}
 
 	@WebMethod
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
-			LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
+			LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud)
+	throws NicknameAlreadyExistsException, EmailAlreadyExistsException, IdAlreadyExistsException
+	{
 		return controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 	}
 
@@ -173,7 +199,7 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public boolean altaEspecialidad(String espNom, int espPorc) {
+	public boolean altaEspecialidad(String espNom, int espPorc) throws EspecialidadAlreadyExistsException{
 		return controladorUsuario.altaEspecialidad(espNom, espPorc);
 	}
 
@@ -183,22 +209,22 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public DtMedico listarDatosMedico(String nicknameUsu) {
+	public DtMedico listarDatosMedico(String nicknameUsu) throws UserNotFoundException{
 		return controladorUsuario.listarDatosMedico(nicknameUsu);
 	}
 
 	@WebMethod
-	public DtPaciente listarDatosPaciente(String nicknameUsu) {
+	public DtPaciente listarDatosPaciente(String nicknameUsu) throws UserNotFoundException{
 		return controladorUsuario.listarDatosPaciente(nicknameUsu);
 	}
 
 	@WebMethod
-	public HashSet<DtConsulta> listarConsultasAsociadas(String nicknameUsu) {
+	public HashSet<DtConsulta> listarConsultasAsociadas(String nicknameUsu) throws UserNotFoundException, ConsultaNotFoundException {
 		return (HashSet<DtConsulta>) controladorUsuario.listarConsultasAsociadas(nicknameUsu);
 	}
 
 	@WebMethod
-	public HashSet<DtResConsulta> listarResConsultas(String nicknameUsu) {
+	public HashSet<DtResConsulta> listarResConsultas(String nicknameUsu) throws UserNotFoundException {
 		return (HashSet<DtResConsulta>) controladorUsuario.listarResConsultas(nicknameUsu);
 	}
 
@@ -208,49 +234,49 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public DtPaciente seleccionarPaciente(String nickname) {
+	public DtPaciente seleccionarPaciente(String nickname) throws UserNotFoundException {
 		return controladorUsuario.seleccionarPaciente(nickname);
 	}
 
 	@WebMethod
-	public void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) {
+	public void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) throws BeneficioAlreadyExistsException, UserNotFoundException{
 		controladorUsuario.altaBeneficioAnual(nickname, anio, cantOrdenes, cantTicket);
 	}
 
 	@WebMethod
-	public HashSet<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+	public HashSet<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) throws UserNotFoundException {
 		return (HashSet<DtBeneficioAnual>) controladorUsuario.listarBeneficiosAnuales(nickname);
 	}
 
 	@WebMethod
-	public DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
+	public DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) throws BeneficioNotFoundException, UserNotFoundException {
 		return controladorUsuario.listarDatosBeneficioAnual(nickname, anio);
 	}
 
 	@WebMethod
-	public DtUsuario listarDatosUsuario(String nickname) {
+	public DtUsuario listarDatosUsuario(String nickname) throws UserNotFoundException{
 		return controladorUsuario.listarDatosUsuario(nickname);
 	}
 
 	@WebMethod
-	public ArrayList<String> listarEspecialidadesMedico(String nickname) {
+	public ArrayList<String> listarEspecialidadesMedico(String nickname) throws UserNotFoundException {
 		return (ArrayList<String>) controladorUsuario.listarEspecialidadesMedico(nickname);
 	}
 
 	@WebMethod
 	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic,
-			int porcCost, String link, ArrayList<String> especialidades) {
+			int porcCost, String link, ArrayList<String> especialidades) throws MedicoSinEspecialidadException, NumeroDeRegistroAlreadyExistsException, SpecialityNotFoundException, UserNotFoundException {
 		controladorUsuario.modificarMedico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
 	}
 
 	@WebMethod
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
-			LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
+			LocalDate fechaIn, int doc, ArrayList<String> antSalud) throws UserNotFoundException{
 		controladorUsuario.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 
 	@WebMethod
-	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
+	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) throws ConsultaNotFoundException, UserNotFoundException {
 		return controladorUsuario.listarDatosResConsulta(nomC, nickname);
 	}
 	//======================================================================

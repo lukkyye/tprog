@@ -15,6 +15,8 @@ import java.util.Set;
 
 import logica.datatypes.DtConsulta;
 import logica.datatypes.DtConsultaDetalle;
+import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.UserNotFoundException;
 
 public class ConsultaMedico extends JInternalFrame {
 
@@ -179,8 +181,13 @@ public class ConsultaMedico extends JInternalFrame {
     
         ControladorUsuario controlador = new ControladorUsuario();
 
-        DtMedico medico =
-                controlador.listarDatosMedico(nickname);
+        DtMedico medico=null;
+		try {
+			medico = controlador.listarDatosMedico(nickname);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         DtUsuario usuario = controlador.listarUsuarios()
                 .stream()
@@ -213,8 +220,13 @@ public class ConsultaMedico extends JInternalFrame {
                 medico.getLink()
         );
         
-        Set<DtConsulta> consultas =
-                controlador.listarConsultasAsociadas(nickname);
+        Set<DtConsulta> consultas=null;
+		try {
+			consultas = controlador.listarConsultasAsociadas(nickname);
+		} catch (UserNotFoundException | ConsultaNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         consultasMedico = new ArrayList<>(consultas);
 
@@ -250,10 +262,15 @@ public class ConsultaMedico extends JInternalFrame {
                         DtConsulta consultaSeleccionada =
                                 consultasMedico.get(indice);
 
-                        DtConsultaDetalle detalle =
-                                controlador.listarDatosConsulta(
-                                        consultaSeleccionada.getNomC()
-                                );
+                        DtConsultaDetalle detalle=null;
+						try {
+							detalle = controlador.listarDatosConsulta(
+							        consultaSeleccionada.getNomC()
+							);
+						} catch (ConsultaNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 
                         ConsultaDetalle ventanaDetalle =
                                 new ConsultaDetalle(detalle, usuario.getNickname());

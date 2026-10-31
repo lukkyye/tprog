@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.DtPaciente;
 import logica.excepciones.BeneficioAlreadyExistsException;
+import logica.excepciones.UserNotFoundException;
 
 public class AltaDeBeneficioAnual extends JInternalFrame {
 	
@@ -57,7 +58,14 @@ public class AltaDeBeneficioAnual extends JInternalFrame {
 		agregarFila(3, "Tickets de medicamento gratuitos:", ticketField);
 		
 		JButton aceptarButton = new JButton("Aceptar");
-		aceptarButton.addActionListener(e -> onAceptar());
+		aceptarButton.addActionListener(e -> {
+			try {
+				onAceptar();
+			} catch (UserNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		JButton cancelarButton = new JButton("Cancelar");
 		cancelarButton.addActionListener(e -> dispose());
 		
@@ -92,7 +100,7 @@ public class AltaDeBeneficioAnual extends JInternalFrame {
 		getContentPane().add(campo, componente);
 	}
 	
-	private void onAceptar() {
+	private void onAceptar() throws UserNotFoundException {
 		String nickname = (String) pacientesBox.getSelectedItem();
 		if (nickname == null) {
 			JOptionPane.showMessageDialog(this, "Debe existir al menos un paciente dado de alta.", "Datos insuficientes", JOptionPane.WARNING_MESSAGE);

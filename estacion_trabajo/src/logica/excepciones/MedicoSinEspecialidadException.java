@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class MedicoSinEspecialidadException extends RuntimeException {
+@WebFault
+public class MedicoSinEspecialidadException extends Exception {
 
 	public MedicoSinEspecialidadException() {
 		// TODO Auto-generated constructor stub

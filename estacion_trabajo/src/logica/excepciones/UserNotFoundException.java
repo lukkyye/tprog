@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class UserNotFoundException extends RuntimeException {
+@WebFault
+public class UserNotFoundException extends Exception {
 
 	public UserNotFoundException() {
 		// TODO Auto-generated constructor stub

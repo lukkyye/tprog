@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class NombreClinicaAlreadyExistsException extends RuntimeException {
+@WebFault
+public class NombreClinicaAlreadyExistsException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 

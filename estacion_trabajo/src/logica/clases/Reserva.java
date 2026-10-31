@@ -2,6 +2,7 @@ package logica.clases;
 import java.time.LocalDate;
 
 import logica.datatypes.DtResConsultaDetalle;
+import logica.excepciones.ConsultaNotFoundException;
 import logica.datatypes.DtConsultaDetalle;
 import logica.manejadores.ManejadorConsulta;
 import logica.datatypes.DtResConsulta;
@@ -53,7 +54,7 @@ public class Reserva {
     	return new DtResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR);
     }
     
-    public DtResConsultaDetalle getDataResConsultaDetalle() {
+    public DtResConsultaDetalle getDataResConsultaDetalle() throws ConsultaNotFoundException {
 
         ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
         Consulta consulta = manejadorConsulta.getConsulta(nomConsultaAsoc);

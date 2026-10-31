@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class NicknameAlreadyExistsException extends RuntimeException {
+@WebFault
+public class NicknameAlreadyExistsException extends Exception {
 
 	private static final long serialVersionUID = -8639665549147272081L;
 

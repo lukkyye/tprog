@@ -39,6 +39,7 @@ import logica.datatypes.TipoMes;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
 import logica.excepciones.SpecialityNotFoundException;
+import logica.excepciones.UserNotFoundException;
 
 public class ModificarDatosDeUsuario extends JInternalFrame {
 
@@ -98,7 +99,14 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		usuariosBox.setSelectedIndex(-1);
 		seleccionPanel.add(usuariosBox);
 		JButton seleccionarButton = new JButton("Seleccionar");
-		seleccionarButton.addActionListener(e -> onSeleccionar());
+		seleccionarButton.addActionListener(e -> {
+			try {
+				onSeleccionar();
+			} catch (UserNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		seleccionPanel.add(seleccionarButton);
 		getContentPane().add(seleccionPanel, BorderLayout.NORTH);
 
@@ -109,7 +117,14 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 
 		aceptarButton = new JButton("Aceptar");
 		aceptarButton.setEnabled(false);
-		aceptarButton.addActionListener(e -> onAceptar());
+		aceptarButton.addActionListener(e -> {
+			try {
+				onAceptar();
+			} catch (NumeroDeRegistroAlreadyExistsException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		JButton cancelarButton = new JButton("Cancelar");
 		cancelarButton.addActionListener(e -> dispose());
 		JPanel botones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -252,7 +267,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		return LocalDate.ofInstant(fecha.toInstant(), ZoneId.systemDefault());
 	}
 
-	private void onSeleccionar() {
+	private void onSeleccionar() throws UserNotFoundException {
 		String nickname = (String) usuariosBox.getSelectedItem();
 		if (nickname == null) {
 			JOptionPane.showMessageDialog(this, "Seleccione un usuario de la lista.", "Usuario no seleccionado", JOptionPane.WARNING_MESSAGE);
@@ -280,7 +295,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		repaint();
 	}
 
-	private void cargarPaciente(String nickname) {
+	private void cargarPaciente(String nickname) throws UserNotFoundException {
 		DtPaciente paciente = controlador.listarDatosPaciente(nickname);
 		fechaNacChooser.setDate(aDate(paciente.getFechaNac()));
 		fechaIngresoChooser.setDate(aDate(paciente.getFechaIngreso()));
@@ -291,7 +306,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		antecedenteField.setText("");
 	}
 
-	private void cargarMedico(String nickname) {
+	private void cargarMedico(String nickname) throws UserNotFoundException {
 		DtMedico medico = controlador.listarDatosMedico(nickname);
 		nroRegField.setText(medico.getNroReg());
 		mesLicBox.setSelectedItem(medico.getMesLic());
@@ -308,7 +323,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		especialidadesList.setSelectedIndices(indices);
 	}
 
-	private void onAceptar() {
+	private void onAceptar() throws NumeroDeRegistroAlreadyExistsException {
 		String nombre = nombreField.getText().trim();
 		String apellido = apellidoField.getText().trim();
 		if (nombre.isEmpty() || apellido.isEmpty()) {
@@ -316,18 +331,21 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 			return;
 		}
 
-		try {
-			if (esMedico) {
-				modificarMedico(nombre, apellido);
-			} else {
+		
+		if (esMedico) {
+			modificarMedico(nombre, apellido);
+		} else {
+			try {
 				modificarPaciente(nombre, apellido);
+			} catch (UserNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (NumeroDeRegistroAlreadyExistsException | MedicoSinEspecialidadException | SpecialityNotFoundException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "No se pudo modificar el usuario", JOptionPane.ERROR_MESSAGE);
 		}
+
 	}
 
-	private void modificarPaciente(String nombre, String apellido) {
+	private void modificarPaciente(String nombre, String apellido) throws UserNotFoundException {
 		if (fechaNacChooser.getDate() == null || fechaIngresoChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(this, "Debe ingresar la fecha de nacimiento y la fecha de ingreso.", "Datos incompletos", JOptionPane.WARNING_MESSAGE);
 			return;
@@ -389,7 +407,13 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		}
 
 		ArrayList<String> especialidades = new ArrayList<String>(especialidadesList.getSelectedValuesList());
-		controlador.modificarMedico(nicknameSeleccionado, nombre, apellido, nroReg, (TipoMes) mesLicBox.getSelectedItem(), porcentaje, link, especialidades);
+		try {
+			controlador.modificarMedico(nicknameSeleccionado, nombre, apellido, nroReg, (TipoMes) mesLicBox.getSelectedItem(), porcentaje, link, especialidades);
+		} catch (MedicoSinEspecialidadException | NumeroDeRegistroAlreadyExistsException | SpecialityNotFoundException
+				| UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		exito();
 	}
 

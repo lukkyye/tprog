@@ -2,13 +2,10 @@ package gui;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,8 +17,10 @@ import logica.datatypes.DtConsulta;
 import logica.datatypes.DtDiaConsulta;
 
 import logica.excepciones.ReservaAlreadyExistsException;
+import logica.excepciones.UserNotFoundException;
 import logica.manejadores.ManejadorConsulta;
 import logica.excepciones.BeneficioSinOrdenesException;
+import logica.excepciones.ConsultaNotFoundException;
 import logica.excepciones.NoNumberAvailableException;
 import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
@@ -158,7 +157,13 @@ public class ReservaDeConsulta extends JInternalFrame {
             		String consulta = comboBox_Consulta.getSelectedItem().toString();
             		String paciente = comboBox_Paciente.getSelectedItem().toString();
             		
-            		Consulta a = ManejadorConsulta.getInstance().getConsulta(comboBox_Consulta.getSelectedItem().toString());
+            		Consulta a=null;
+					try {
+						a = ManejadorConsulta.getInstance().getConsulta(comboBox_Consulta.getSelectedItem().toString());
+					} catch (ConsultaNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             		if (a.getFechaC().isBefore(LocalDate.ofInstant(dateChooser.getDate().toInstant(), ZoneId.systemDefault()))) {
             			JOptionPane.showMessageDialog(
                 		        null,
@@ -209,7 +214,13 @@ public class ReservaDeConsulta extends JInternalFrame {
                     );
                 } catch (BeneficioSinOrdenesException ex) {
                 	JOptionPane.showMessageDialog(null, ex.getMessage(), "Sin beneficio disponible", JOptionPane.ERROR_MESSAGE);
-                }
+                } catch (UserNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ConsultaNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
         

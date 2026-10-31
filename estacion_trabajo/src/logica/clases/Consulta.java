@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import logica.datatypes.EstadoConsulta;
+import logica.excepciones.ConsultaNotFoundException;
 
 public class Consulta {
 	private String diaConsulta;
@@ -121,7 +122,7 @@ public class Consulta {
 	}	
 
 	
-	public DtResConsultaDetalle listarDatosResConsultaC(int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaC(int numReserva) throws ConsultaNotFoundException {
 	    for (Reserva r : reservas) {
 	        if (r.getNumReserva() == numReserva) {
 	            return r.getDataResConsultaDetalle();

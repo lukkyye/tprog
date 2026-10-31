@@ -1,6 +1,8 @@
 package logica.excepciones;
+import jakarta.xml.ws.WebFault;
 
-public class IdAlreadyExistsException extends RuntimeException {
+@WebFault
+public class IdAlreadyExistsException extends Exception {
 
 	public IdAlreadyExistsException() {
 		// TODO Auto-generated constructor stub
