@@ -7,21 +7,21 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
 import logica.controladores.ControladorUsuario;
 
 public class ConsultaDeReservaDeConsulta extends JInternalFrame {
 
-    private DefaultListModel<DTPaciente> modelListaPacientes;
-    private JList<DTPaciente> listaPacientes;
+    private DefaultListModel<DtPaciente> modelListaPacientes;
+    private JList<DtPaciente> listaPacientes;
     private JComboBox<String> comboNicknames;
     private JButton btnSeleccionarPaciente;
     private JScrollPane scrollPacientes;
 
-    private DefaultListModel<DTResConsulta> modelListaReservas;
-    private JList<DTResConsulta> listaReservas;
+    private DefaultListModel<DtResConsulta> modelListaReservas;
+    private JList<DtResConsulta> listaReservas;
     private JComboBox<String> comboNumReservas;
     private JButton btnSeleccionarReserva;
     private JScrollPane scrollReservas;
@@ -109,7 +109,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
 
         listaPacientes.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                DTPaciente seleccionado = listaPacientes.getSelectedValue();
+                DtPaciente seleccionado = listaPacientes.getSelectedValue();
                 if (seleccionado != null) {
                     comboNicknames.setSelectedItem(seleccionado.getNickname());
                 }
@@ -118,7 +118,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
 
         listaReservas.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                DTResConsulta seleccionada = listaReservas.getSelectedValue();
+                DtResConsulta seleccionada = listaReservas.getSelectedValue();
                 if (seleccionada != null) {
                     comboNumReservas.setSelectedItem(seleccionada.getNomC());
                 }
@@ -129,7 +129,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 String nickname = (String) comboNicknames.getSelectedItem();
                 if (nickname != null) {
-                    Set<DTResConsulta> reservas = controladorUsuario.listarResConsultas(nickname);
+                    Set<DtResConsulta> reservas = controladorUsuario.listarResConsultas(nickname);
                     if (reservas != null && !reservas.isEmpty()) {
                         mostrarPaso2(nickname, reservas);
                     } else {
@@ -147,7 +147,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
                 String nickname = (String) comboNicknames.getSelectedItem();
 
                 if (nomC != null && nickname != null) {
-                    DTResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nomC, nickname); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
+                    DtResConsultaDetalle detalle = controladorUsuario.listarDatosResConsulta(nomC, nickname); //REVISAR ESTO, FUNCIONA RARO ESTA FUNCION EN CONTROLADOR USUARIO. ALGO HAY QUE CAMBIAR.
                     if (detalle != null) {
                         mostrarPopUpDetalle(nomC, detalle);
                     } else {
@@ -162,25 +162,25 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         cargarPacientes(controladorUsuario.listarPacientes());
     }
 
-    public void cargarPacientes(Set<DTPaciente> lista) {
+    public void cargarPacientes(Set<DtPaciente> lista) {
         modelListaPacientes.clear();
         comboNicknames.removeAllItems();
         if (lista != null) {
-            for (DTPaciente p : lista) {
+            for (DtPaciente p : lista) {
                 modelListaPacientes.addElement(p);
                 comboNicknames.addItem(p.getNickname()); 
             }
         }
     }
 
-    private void mostrarPaso2(String nickname, Set<DTResConsulta> reservas) {
+    private void mostrarPaso2(String nickname, Set<DtResConsulta> reservas) {
         scrollPacientes.setVisible(false);
         comboNicknames.setVisible(false);
         btnSeleccionarPaciente.setVisible(false);
 
         modelListaReservas.clear();
         comboNumReservas.removeAllItems();
-        for (DTResConsulta r : reservas) {
+        for (DtResConsulta r : reservas) {
             modelListaReservas.addElement(r);
             comboNumReservas.addItem(r.getNomC());
         }
@@ -192,7 +192,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
     }
 
   
-    private void mostrarPopUpDetalle(String nomC, DTResConsultaDetalle detalle) {
+    private void mostrarPopUpDetalle(String nomC, DtResConsultaDetalle detalle) {
         StringBuilder sb = new StringBuilder();
         sb.append("=========================================\n");
         sb.append("          DETALLE DE LA RESERVA          \n");

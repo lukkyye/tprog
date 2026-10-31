@@ -3,7 +3,7 @@
 <%@ page import="com.models.datatypes.DTResConsultaDetalle" %>
 
 <%
-    DTResConsultaDetalle reserva = (DTResConsultaDetalle) request.getAttribute("reserva");
+DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("reserva");
 	String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 %>
 

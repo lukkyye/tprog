@@ -62,20 +62,20 @@
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
 
             <%
-                ImageHandlerDelegator img = new ImageHandlerDelegator();
+            ImageHandlerDelegator img = new ImageHandlerDelegator();
 
-                ArrayList<DTDiaConsulta> array =
-                    (ArrayList<DTDiaConsulta>) request.getAttribute("dtDiasConsulta");
+                            ArrayLiDtDiaConsultalta> array =
+                                (ArrayLiDtDiaConsultalta>) request.getAttribute("dtDiasConsulta");
 
-                if (array != null && !array.isEmpty()) {
+                            if (array != null && !array.isEmpty()) {
 
-                    for (DTDiaConsulta dtdc : array) {
+                                foDtDiaConsultalta dtdc : array) {
 
-                        String src = img.getImg64(dtdc.nomD());
+                                    String src = img.getImg64(dtdc.nomD());
 
-                        if (src == null) {
-                            src = request.getContextPath() + "/img/LOGOGENERAL.png";
-                        }
+                                    if (src == null) {
+                                        src = request.getContextPath() + "/img/LOGOGENERAL.png";
+                                    }
             %>
 
                 <div class="card shadow rounded-4 border-0 bg-light p-4">

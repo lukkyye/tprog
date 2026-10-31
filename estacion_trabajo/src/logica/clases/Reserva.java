@@ -1,10 +1,10 @@
 package logica.clases;
 import java.time.LocalDate;
 
-import logica.datatypes.DTResConsultaDetalle;
-import logica.datatypes.DTConsultaDetalle;
+import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtConsultaDetalle;
 import logica.manejadores.ManejadorConsulta;
-import logica.datatypes.DTResConsulta;
+import logica.datatypes.DtResConsulta;
 
 public class Reserva {
 	private String nicknamePaciente;
@@ -49,18 +49,18 @@ public class Reserva {
         return costoR;
     }
     
-    public DTResConsulta getDataResConsulta() {
-    	return new DTResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR);
+    public DtResConsulta getDataResConsulta() {
+    	return new DtResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR);
     }
     
-    public DTResConsultaDetalle getDataResConsultaDetalle() {
+    public DtResConsultaDetalle getDataResConsultaDetalle() {
 
         ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
         Consulta consulta = manejadorConsulta.getConsulta(nomConsultaAsoc);
 
-        DTConsultaDetalle dtConsulta = consulta.getDataConsultaDetalle();
+        DtConsultaDetalle dtConsulta = consulta.getDataConsultaDetalle();
 
-        return new DTResConsultaDetalle(
+        return new DtResConsultaDetalle(
             fechaRS,
             numReserva,
             aplicaBenef,

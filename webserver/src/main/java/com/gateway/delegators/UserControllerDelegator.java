@@ -1,18 +1,19 @@
 package com.gateway.delegators;
-import java.time.LocalDate;
+import com.soap.LocalDate;
 import java.util.List;
 import java.util.Set;
 import com.gateway.connectors.UserControllerConnector;
 import com.gateway.interfaces.IUserController;
-import com.models.datatypes.DTBeneficioAnual;
-import com.models.datatypes.DTConsulta;
-import com.models.datatypes.DTConsultaDetalle;
-import com.models.datatypes.DTMedico;
-import com.models.datatypes.DTPaciente;
-import com.models.datatypes.DTResConsulta;
-import com.models.datatypes.DTResConsultaDetalle;
-import com.models.datatypes.DTUsuario;
-import com.models.datatypes.TipoMes;
+import com.soap.DtBeneficioAnual;
+import com.soap.DtConsulta;
+import com.soap.DtConsultaDetalle;
+import com.soap.DtMedico;
+import com.soap.DtPaciente;
+import com.soap.DtResConsulta;
+import com.soap.DtResConsultaDetalle;
+import com.soap.DtUsuario;
+import com.soap.TipoMes;
+
 
 public class UserControllerDelegator implements IUserController {
 	private UserControllerConnector ucc;
@@ -44,47 +45,47 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public Set<DTUsuario> listarUsuarios() {
+	public Set<DtUsuario> listarUsuarios() {
 		return ucc.listarUsuarios();
 	}
 
 	@Override
-	public DTMedico listarDatosMedico(String nicknameUsu) {
+	public DtMedico listarDatosMedico(String nicknameUsu) {
 		return ucc.listarDatosMedico(nicknameUsu);
 	}
 
 	@Override
-	public DTPaciente listarDatosPaciente(String nicknameUsu) {
+	public DtPaciente listarDatosPaciente(String nicknameUsu) {
 		return ucc.listarDatosPaciente(nicknameUsu);
 	}
 
 	@Override
-	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
+	public Set<DtConsulta> listarConsultasAsociadas(String nicknameUsu) {
 		return ucc.listarConsultasAsociadas(nicknameUsu);
 	}
 
 	@Override
-	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
+	public Set<DtResConsulta> listarResConsultas(String nicknameUsu) {
 		return ucc.listarResConsultas(nicknameUsu);
 	}
 
 	@Override
-	public Set<DTPaciente> listarPacientes() {
+	public Set<DtPaciente> listarPacientes() {
 		return ucc.listarPacientes();
 	}
 
 	@Override
-	public Set<DTMedico> listarMedicos() {
+	public Set<DtMedico> listarMedicos() {
 		return ucc.listarMedicos();
 	}
 
 	@Override
-	public DTPaciente seleccionarPaciente(String nickname) {
+	public DtPaciente seleccionarPaciente(String nickname) {
 		return ucc.seleccionarPaciente(nickname);
 	}
 
 	@Override
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
 		return ucc.listarDatosConsulta(nomC);
 	}
 
@@ -94,17 +95,17 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+	public Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) {
 		return ucc.listarBeneficiosAnuales(nickname);
 	}
 
 	@Override
-	public DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
+	public DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
 		return ucc.listarDatosBeneficioAnual(nickname, anio);
 	}
 
 	@Override
-	public DTUsuario listarDatosUsuario(String nickname) {
+	public DtUsuario listarDatosUsuario(String nickname) {
 		return ucc.listarDatosUsuario(nickname);
 	}
 
@@ -126,7 +127,7 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
+	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
 		return ucc.listarDatosResConsulta(nomC, nickname);
 	}
 	

@@ -1,6 +1,6 @@
 package logica.clases;
 
-import logica.datatypes.DTBeneficioAnual;
+import logica.datatypes.DtBeneficioAnual;
 
 public class BeneficioAnual {
 	private int anio;
@@ -38,7 +38,7 @@ public class BeneficioAnual {
 	public void usarOrden() {
 		ordenesUsadas++;
 	}
-	public DTBeneficioAnual getDataBeneficioAnual() {
-		return new DTBeneficioAnual(anio, cantOrdenes, cantTicket, ordenesUsadas);
+	public DtBeneficioAnual getDataBeneficioAnual() {
+		return new DtBeneficioAnual(anio, cantOrdenes, cantTicket, ordenesUsadas);
 	}
 }

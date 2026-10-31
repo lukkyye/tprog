@@ -7,9 +7,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.DTPaciente;
-import com.models.excepciones.BeneficioAlreadyExistsException;
-import com.models.excepciones.UserNotFoundException;
+import com.soap.DtPaciente;
+import com.soap.BeneficioAlreadyExistsException;
+import com.soap.UserNotFoundException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -90,8 +90,8 @@ public class AltaBeneficioAnualServlet extends HttpServlet {
     }
 
     private void cargarPacientes(HttpServletRequest request) {
-        List<DTPaciente> pacientes = new ArrayList<>(userController.listarPacientes());
-        pacientes.sort(Comparator.comparing(DTPaciente::nickname));
+        List<DtPaciente> pacientes = new ArrayList<>(userController.listarPacientes());
+        pacientes.sort(Comparator.comparing(dtp->dtp.getNickname()));
         request.setAttribute("pacientes", pacientes);
     }
 

@@ -4,7 +4,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 import javax.swing.SpringLayout;
 
-import logica.datatypes.DTClinica;
+import logica.datatypes.DtClinica;
 import logica.manejadores.ManejadorClinica;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -165,7 +165,7 @@ public class ConsultaDeClinica extends JInternalFrame {
         
         list.addListSelectionListener(e -> {
         	if (!e.getValueIsAdjusting()) {
-        		DTClinica nclinica = ManejadorClinica.getInstance().findClinica(list.getSelectedValue()).getDt();
+        		DtClinica nclinica = ManejadorClinica.getInstance().findClinica(list.getSelectedValue()).getDt();
         		
         		nameTextField.setText(nclinica.getNombre());
         		dirTextField.setText(nclinica.getDir());

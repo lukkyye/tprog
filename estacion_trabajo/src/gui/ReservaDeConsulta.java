@@ -13,11 +13,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import logica.datatypes.DTPaciente;
+import logica.datatypes.DtPaciente;
 import logica.clases.Consulta;
 import logica.controladores.ControladorClinica;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTDiaConsulta;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtDiaConsulta;
 
 import logica.excepciones.ReservaAlreadyExistsException;
 import logica.manejadores.ManejadorConsulta;
@@ -68,7 +68,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         gbc_comboBox_Dia_de_Consulta.gridx = 2;
         gbc_comboBox_Dia_de_Consulta.gridy = 1;
         getContentPane().add(comboBox_Dia_de_Consulta, gbc_comboBox_Dia_de_Consulta);
-        for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
+        for (DtDiaConsulta d : controlador.listarDatosDiaConsulta()) {
             comboBox_Dia_de_Consulta.addItem(d.getNomD());
         }
         
@@ -92,7 +92,7 @@ public class ReservaDeConsulta extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 comboBox_Consulta.removeAllItems();
                 String dia = comboBox_Dia_de_Consulta.getSelectedItem().toString();
-                for (DTConsulta c : controlador.selecListaConsultaDelDia(dia)) {
+                for (DtConsulta c : controlador.selecListaConsultaDelDia(dia)) {
                     comboBox_Consulta.addItem(c.getNomC());
                 }
             }
@@ -107,7 +107,7 @@ public class ReservaDeConsulta extends JInternalFrame {
         getContentPane().add(lblNewLabel_2, gbc_lblNewLabel_2);
         
         JComboBox comboBox_Paciente = new JComboBox();
-        	for (DTPaciente p : controlador.listarPacientes()) {//datos
+        	for (DtPaciente p : controlador.listarPacientes()) {//datos
         		comboBox_Paciente.addItem(p.getNickname());
         	}
         GridBagConstraints gbc_comboBox_Paciente = new GridBagConstraints();

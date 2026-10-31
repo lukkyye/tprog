@@ -1,23 +1,23 @@
 package logica.controladores;
 import logica.clases.BeneficioAnual;
 import logica.clases.Clinica;
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTDiaSemana;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtDiaSemana;
 import logica.manejadores.ManejadorClinica;
-import logica.datatypes.DTConsultaDetalle;
+import logica.datatypes.DtConsultaDetalle;
 import logica.manejadores.ManejadorConsulta;
 import logica.clases.Consulta;
-import logica.datatypes.DTClinica;
-import logica.datatypes.DTConsulta;
+import logica.datatypes.DtClinica;
+import logica.datatypes.DtConsulta;
 import logica.clases.DiaConsulta;
 import logica.clases.Medico;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.EstadoConsulta;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Usuario;
@@ -41,8 +41,8 @@ import logica.excepciones.BeneficioSinOrdenesException;
 public class ControladorClinica {
 	
 
-	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
-	    Set<DTDiaConsulta> res = new HashSet<>();
+	public Set<DtDiaConsulta> listarDatosDiaConsulta() {
+	    Set<DtDiaConsulta> res = new HashSet<>();
 	    ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 	    for (Clinica c : manejadorClinica.getClinicas().values()) { // esto es un for each
 	        res.addAll(c.mostrarDiasConsulta());
@@ -50,7 +50,7 @@ public class ControladorClinica {
 	    return res;
 	}
 	
-	public DTClinica seleccionarClinica(String nombre) {
+	public DtClinica seleccionarClinica(String nombre) {
 		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		Clinica clinica = manejadorClinica.findClinica(nombre);
 		if (clinica == null) {
@@ -64,14 +64,10 @@ public class ControladorClinica {
 		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
 		return true;
 	}
-	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link, String img) {
-		ManejadorClinica manejadorClinica= ManejadorClinica.getInstance();
-		manejadorClinica.agregarClinica(nombre, desc, dir, costoT, costoC, link);
-		return true;
-	}
 	
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
-		DTConsultaDetalle res;
+	
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
+		DtConsultaDetalle res;
 		ManejadorConsulta mcon = ManejadorConsulta.getInstance();
 		Consulta cons = mcon.getConsulta(nomC);
 		res = cons.getDataConsultaDetalle();
@@ -79,7 +75,7 @@ public class ControladorClinica {
 		
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
 	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 	    Consulta consulta = manejadorConsulta.getConsulta(nomC);
 	    if (consulta != null) {
@@ -88,7 +84,7 @@ public class ControladorClinica {
 	    return null;
 	}
 	
-	public Set<DTResConsulta> getReservasConsulta(String nomC){
+	public Set<DtResConsulta> getReservasConsulta(String nomC){
 		ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 		Consulta consulta = manejadorConsulta.getConsulta(nomC);
 		return consulta.getResConsultas();
@@ -108,8 +104,8 @@ public class ControladorClinica {
 		return toreturn;
 	}
 	
-	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 
-		Set<DTConsulta> res;
+	public Set<DtConsulta> selecListaConsultaDelDia(String nomD) {// si nomD no existe puede dar problemas hay que ver 
+		Set<DtConsulta> res;
 		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		DiaConsulta day = manejadorClinica.findDiasConsultas(nomD);
 		res = day.getDtconsultas();
@@ -117,8 +113,8 @@ public class ControladorClinica {
 		
 	}
 	
-	public DTConsulta seleccionarConsulta(String nomC) {
-		DTConsulta res;
+	public DtConsulta seleccionarConsulta(String nomC) {
+		DtConsulta res;
 		ManejadorConsulta mcon = ManejadorConsulta.getInstance();
 		Consulta consulta = mcon.getConsulta(nomC);
 		res = consulta.getDataConsulta();
@@ -127,7 +123,7 @@ public class ControladorClinica {
 	}
 	
 	
-	public Set<DTPaciente> listarPacientes() {
+	public Set<DtPaciente> listarPacientes() {
 	    ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
 	    return manejadorUsuario.getDtpacientes();
 	}
@@ -166,9 +162,9 @@ public class ControladorClinica {
 			 beneficio.usarOrden();
 		 }
 	}
-	public Set<DTConsulta> listarConsultas() {
+	public Set<DtConsulta> listarConsultas() {
 	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
-	    Set<DTConsulta> result = new HashSet<>();
+	    Set<DtConsulta> result = new HashSet<>();
 	    for (Consulta c : manejadorConsulta.getConsulta().values()) {
 	        result.add(c.getDataConsulta());
 	    }
@@ -189,7 +185,7 @@ public class ControladorClinica {
 		if (!medico.tieneEspecialidad(diaConsulta.getEspecialidad().getNombre())) {
 			throw new MedicoSinEspecialidadException("El medico no tiene la espcialidad requerida para este dia de consulta");
 		}
-		if (diaConsulta.getDia() != DTDiaSemana.values()[fecha.getDayOfWeek().getValue() - 1]) {
+		if (diaConsulta.getDia() != DtDiaSemana.values()[fecha.getDayOfWeek().getValue() - 1]) {
 			throw new FechaDiaSemanaInvalidaException("La fecha ingresada no corresponde al dia de la semana del dia de consulta");
 		}
 		float costoC = diaConsulta.getCostoD()* (1 + medico.getPorcentajeCosto()/100f);
@@ -228,7 +224,7 @@ public class ControladorClinica {
 	public void ingresarDiaConsulta(
 	        String nombre,
 	        String descripcion,
-	        DTDiaSemana dia,
+	        DtDiaSemana dia,
 	        LocalTime horaInicio,
 	        String nombreEspecialidad,
 	        String nombreClinica) {
@@ -288,8 +284,8 @@ public class ControladorClinica {
 	    clinica.agregarDiaConsulta(nuevoDia);
 	}
 
-	public List<DTDiaConsulta> listarDiaConsultas() {
-		List<DTDiaConsulta> prelist = new ArrayList<DTDiaConsulta>();
+	public List<DtDiaConsulta> listarDiaConsultas() {
+		List<DtDiaConsulta> prelist = new ArrayList<DtDiaConsulta>();
 		ManejadorClinica manejadorClinica = ManejadorClinica.getInstance();
 		for (DiaConsulta dc : manejadorClinica.getDiaConsulta().values()) {
 			prelist.add(dc.getDTDiaConsulta());

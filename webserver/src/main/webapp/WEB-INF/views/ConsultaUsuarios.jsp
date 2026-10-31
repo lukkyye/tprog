@@ -4,8 +4,8 @@
 <%@ page import="com.models.datatypes.DTUsuario" %>
 
 <%
-    HashSet<DTUsuario> usuarios =
-            (HashSet<DTUsuario>) request.getAttribute("usuarios");
+HashSet<DtUsuario> usuarios =
+            (HashSet<DtUsuario>) request.getAttribute("usuarios");
 
     String error = (String) request.getAttribute("error");
     String tipoUsuario = (String) session.getAttribute("tipoUsuario");
@@ -66,22 +66,36 @@
 
 <body>
 
-<% if ("Medico".equals(tipoUsuario) || "Paciente".equals(tipoUsuario)) { %>
+<%
+if ("Medico".equals(tipoUsuario) || "Paciente".equals(tipoUsuario)) {
+%>
 	<jsp:include page="/WEB-INF/templates/navbar.jsp" />
-<% } else { %>
+<%
+} else {
+%>
     <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
-<% } %>
+<%
+}
+%>
 
 <main class="container-fluid py-4">
     <div class="layout-consulta d-flex align-items-start gap-4">
 
-        <% if ("Medico".equals(tipoUsuario)) { %>
+        <%
+        if ("Medico".equals(tipoUsuario)) {
+        %>
             <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-        <% } else if ("Paciente".equals(tipoUsuario)) { %>
+        <%
+        } else if ("Paciente".equals(tipoUsuario)) {
+        %>
             <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-        <% } else { %>
+        <%
+        } else {
+        %>
 			<jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-		<%} %>
+		<%
+		}
+		%>
 		
         <section class="contenido">
             <div class="card tarjeta-consulta mx-auto">
@@ -89,13 +103,19 @@
 
                     <h1 class="titulo mb-4">Consultar usuario</h1>
 
-                    <% if (error != null) { %>
+                    <%
+                    if (error != null) {
+                    %>
                         <div class="alert alert-danger">
-                            <%= error %>
+                            <%=error%>
                         </div>
-                    <% } %>
+                    <%
+                    }
+                    %>
 
-                    <% if (usuarios != null && !usuarios.isEmpty()) { %>
+                    <%
+                    if (usuarios != null && !usuarios.isEmpty()) {
+                    %>
                         <form action="${pageContext.request.contextPath}/consultaUsuario"
                               method="get">
 
@@ -109,7 +129,9 @@
                                     required>
                                 <option value="">Seleccionar...</option>
 
-                                <% for (DTUsuario u : usuarios) { %>
+                                <%
+                                for (DtUsuario u : usuarios) {
+                                %>
                                     <option value="<%= u.nickname() %>">
                                         <%= u.nombre() %> <%= u.apellido() %>
                                         — <%= u.nickname() %>

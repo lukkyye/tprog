@@ -32,9 +32,9 @@ import com.toedter.calendar.JDateChooser;
 
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTMedico;
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTUsuario;
+import logica.datatypes.DtMedico;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
@@ -259,7 +259,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 			return;
 		}
 
-		DTUsuario usuario = controlador.listarDatosUsuario(nickname);
+		DtUsuario usuario = controlador.listarDatosUsuario(nickname);
 		nicknameField.setText(usuario.getNickname());
 		correoField.setText(usuario.getCorreo());
 		nombreField.setText(usuario.getNombre());
@@ -281,7 +281,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 	}
 
 	private void cargarPaciente(String nickname) {
-		DTPaciente paciente = controlador.listarDatosPaciente(nickname);
+		DtPaciente paciente = controlador.listarDatosPaciente(nickname);
 		fechaNacChooser.setDate(aDate(paciente.getFechaNac()));
 		fechaIngresoChooser.setDate(aDate(paciente.getFechaIngreso()));
 		documentoField.setText(String.valueOf(paciente.getDoc()));
@@ -292,7 +292,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 	}
 
 	private void cargarMedico(String nickname) {
-		DTMedico medico = controlador.listarDatosMedico(nickname);
+		DtMedico medico = controlador.listarDatosMedico(nickname);
 		nroRegField.setText(medico.getNroReg());
 		mesLicBox.setSelectedItem(medico.getMesLic());
 		porcentajeField.setText(String.valueOf(medico.getPorcentajeCost()));

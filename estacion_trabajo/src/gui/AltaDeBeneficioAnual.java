@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTPaciente;
+import logica.datatypes.DtPaciente;
 import logica.excepciones.BeneficioAlreadyExistsException;
 
 public class AltaDeBeneficioAnual extends JInternalFrame {

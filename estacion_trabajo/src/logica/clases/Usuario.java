@@ -1,5 +1,5 @@
 package logica.clases;
-import logica.datatypes.DTUsuario;
+import logica.datatypes.DtUsuario;
 public abstract class Usuario { // abstract xq tiene hijos
     protected String nickname;
     protected String nombre;
@@ -15,8 +15,8 @@ public abstract class Usuario { // abstract xq tiene hijos
         this.password = password;
     }
 
-    public DTUsuario getDt() {
-    	return new DTUsuario(this.nickname, this.nombre, this.apellido, this.correo);
+    public DtUsuario getDt() {
+    	return new DtUsuario(this.nickname, this.nombre, this.apellido, this.correo);
     }
      
     public String getNickname() { return nickname; }

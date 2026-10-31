@@ -1,118 +1,128 @@
 package com.gateway.connectors;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Set;
-import com.gateway.interfaces.IClinicController;
-import com.models.controladores.ControladorClinica;
-import com.models.datatypes.DTClinica;
-import com.models.datatypes.DTConsulta;
-import com.models.datatypes.DTConsultaDetalle;
-import com.models.datatypes.DTDiaConsulta;
-import com.models.datatypes.DTDiaSemana;
-import com.models.datatypes.DTPaciente;
-import com.models.datatypes.DTResConsultaDetalle;
-import com.models.datatypes.EstadoConsulta;
-import com.models.datatypes.DTResConsulta;
 
-public class ClinicControllerConnector implements IClinicController {
-	private ControladorClinica controladorClinica;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gateway.interfaces.IClinicController;
+import com.soap.DtClinica;
+import com.soap.DtConsulta;
+import com.soap.DtConsultaDetalle;
+import com.soap.DtDiaConsulta;
+import com.soap.DtDiaSemana;
+import com.soap.DtPaciente;
+import com.soap.DtResConsultaDetalle;
+import com.soap.EstadoConsulta;
+import com.soap.HashSet;
+import com.soap.LocalDate;
+import com.soap.LocalTime;
+import com.soap.Publisher;
+import com.soap.PublisherService;
+import com.soap.DtResConsulta;
+
+public class ClinicControllerConnector implements IClinicController {	
+	private final PublisherService service;
+    private final Publisher port;
 	
 	public ClinicControllerConnector() {
-		controladorClinica=new ControladorClinica();
+		service = new PublisherService();
+        port = service.getPublisherPort();
 	}
 
 	@Override
-	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
-		return controladorClinica.listarDatosDiaConsulta();
+	public Set<DtDiaConsulta> listarDatosDiaConsulta() {
+		return (Set<DtDiaConsulta>) port.listarDatosDiaConsulta();
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
-		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
+		return port.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 	@Override
-	public DTClinica seleccionarClinica(String nombre) {
-		return controladorClinica.seleccionarClinica(nombre);
+	public DtClinica seleccionarClinica(String nombre) {
+		return (new PublisherService()).getPublisherPort().seleccionarClinica(nombre);
 	}
 	@Override
 	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
-		controladorClinica.setEstadoConsulta(state, nombreConsulta);
+		port.setEstadoConsulta(state, nombreConsulta);
 	}
 	@Override
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
-		return controladorClinica.listarDatosConsulta(nomC);
-	}
-
-	@Override
-	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
-		return controladorClinica.listarDatosResConsultaCC(nomC, numReserva);
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
+		return port.listarDatosConsulta(nomC);
 	}
 
 	@Override
-	public Set<DTResConsulta> listarReservasConsulta(String nomC) {
-		return controladorClinica.getReservasConsulta(nomC);
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+		return port.listarDatosResConsultaCC(nomC, numReserva);
+	}
+
+	@Override
+	public Set<DtResConsulta> listarReservasConsulta(String nomC) {
+		return (Set<DtResConsulta>) port.listarReservasConsulta(nomC);
 	}
 	
 	@Override
-	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {
-		return controladorClinica.selecListaConsultaDelDia(nomD);
+	public Set<DtConsulta> selecListaConsultaDelDia(String nomD) {
+		return (Set<DtConsulta>) port.selecListaConsultaDelDia(nomD);
 	}
 
 	@Override
-	public DTConsulta seleccionarConsulta(String nomC) {
-		return controladorClinica.seleccionarConsulta(nomC);
+	public DtConsulta seleccionarConsulta(String nomC) {
+		return port.seleccionarConsulta(nomC);
 	}
 
 	@Override
-	public Set<DTPaciente> listarPacientes() {
-		return controladorClinica.listarPacientes();
+	public Set<DtPaciente> listarPacientes() {
+		return (Set<DtPaciente>) port.listarPacientes();
 	}
 
 	@Override
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
-		controladorClinica.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, boolean aplicaBenef) {
+		port.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
 	}
 
 	@Override
-	public Set<DTConsulta> listarConsultas() {
-		return controladorClinica.listarConsultas();
+	public Set<DtConsulta> listarConsultas() {
+		return (Set<DtConsulta>) port.listarConsultas();
 	}
 
 	@Override
 	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
-		controladorClinica.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
+		port.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
 	}
 
 	@Override
 	public Set<String> listarClinicas() {
-		return controladorClinica.listarClinicas();
+		return (Set<String>) port.listarClinicas();
 	}
 
 	@Override
 	public Set<String> listarEspecialidades() {
-		return controladorClinica.listarEspecialidades();
+		return (Set<String>) port.listarEspecialidades();
 	}
 
 	@Override
-	public void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio,
+	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) {
-		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
+		port.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
 			String img) {
-		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
+		if (img!=null && !img.isEmpty()) {
+			//imagen
+		}
+		return port.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 
 	@Override
-	public List<DTDiaConsulta> listarDiaConsultas() {
-		return controladorClinica.listarDiaConsultas();
+	public List<DtDiaConsulta> listarDiaConsultas() {
+		return (List<DtDiaConsulta>) port.listarDiaConsultas();
 	}
 
 	@Override
 	public List<String> getConsultasPorEspecialidad(String especialidad) {
-		return controladorClinica.getConsultasPorEspecialidad(especialidad);
+		return (List<String>) port.getConsultasPorEspecialidad(especialidad);
 	}
 }

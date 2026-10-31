@@ -4,7 +4,7 @@ import javax.swing.JInternalFrame;
 import java.awt.GridBagLayout;
 
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTConsultaDetalle;
+import logica.datatypes.DtConsultaDetalle;
 import javax.swing.JLabel;
 
 import java.awt.Dimension;
@@ -19,14 +19,14 @@ import javax.swing.JTextArea;
 import java.util.HashSet;
 import java.util.Set;
 
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
 
 public class ConsultaDetalle extends JInternalFrame {
 	private String nickname;
-    private DTConsultaDetalle detalle;
+    private DtConsultaDetalle detalle;
 
-    public ConsultaDetalle(DTConsultaDetalle detalle, String nickname) {
+    public ConsultaDetalle(DtConsultaDetalle detalle, String nickname) {
     	
         super(
             "Detalle de Consulta Asociada",
@@ -169,7 +169,7 @@ public class ConsultaDetalle extends JInternalFrame {
         lblCosto.setText("$" + detalle.getCostoC());
         lblEstado.setText(String.valueOf(detalle.getEstado()));
         
-        Set<DTResConsulta> reservas = detalle.getReservas();
+        Set<DtResConsulta> reservas = detalle.getReservas();
 
         if (reservas == null || reservas.isEmpty()) {
 

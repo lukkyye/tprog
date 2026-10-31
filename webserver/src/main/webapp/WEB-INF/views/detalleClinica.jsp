@@ -4,7 +4,7 @@
 <%@ page import="com.models.datatypes.DTClinica" %>
 
 <%
-    DTClinica clinica = (DTClinica) request.getAttribute("clinica");
+DtClinica clinica = (DtClinica) request.getAttribute("clinica");
 	String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 %>
 

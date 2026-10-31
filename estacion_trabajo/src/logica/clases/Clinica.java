@@ -2,8 +2,8 @@ package logica.clases;
 import java.util.HashSet;
 import java.util.Set;
 
-import logica.datatypes.DTClinica;
-import logica.datatypes.DTDiaConsulta;
+import logica.datatypes.DtClinica;
+import logica.datatypes.DtDiaConsulta;
 
 public class Clinica {
 	
@@ -29,16 +29,16 @@ public class Clinica {
 		this.diasconsulta=new HashSet<DiaConsulta>();
 	}
 	
-	public Set<DTDiaConsulta> mostrarDiasConsulta(){
-		Set<DTDiaConsulta> result = new HashSet<DTDiaConsulta>();
+	public Set<DtDiaConsulta> mostrarDiasConsulta(){
+		Set<DtDiaConsulta> result = new HashSet<DtDiaConsulta>();
 		diasconsulta.forEach(
 					dc -> result.add(dc.getDTDiaConsulta())
 				);
 		return result;
 	}
 
-	public DTClinica getDt() {
-		return new DTClinica(nombre, desc, dir, web, cTicket, cConsulta);
+	public DtClinica getDt() {
+		return new DtClinica(nombre, desc, dir, web, cTicket, cConsulta);
 	}
 	
 	

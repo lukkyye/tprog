@@ -12,10 +12,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import logica.controladores.ControladorClinica;
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTConsultaDetalle;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtConsultaDetalle;
 
 
 public class ConsultaDeDiaDeConsulta extends JInternalFrame {
@@ -58,7 +58,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
         gbc_comboBoxDiaConsulta.gridx = 2;
         gbc_comboBoxDiaConsulta.gridy = 0;
         getContentPane().add(comboBoxDiaConsulta, gbc_comboBoxDiaConsulta);
-        for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
+        for (DtDiaConsulta d : controlador.listarDatosDiaConsulta()) {
             comboBoxDiaConsulta.addItem(d.getNomD());
         }
         
@@ -386,7 +386,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
 
                 String nombreDia = comboBoxDiaConsulta.getSelectedItem().toString();
 
-                for (DTDiaConsulta d : controlador.listarDatosDiaConsulta()) {
+                for (DtDiaConsulta d : controlador.listarDatosDiaConsulta()) {
 
                     if (d.getNomD().equals(nombreDia)) {
 
@@ -414,7 +414,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                         
                         cargando = true;
 
-                        for (DTConsulta c : controlador.selecListaConsultaDelDia(nombreDia)) {
+                        for (DtConsulta c : controlador.selecListaConsultaDelDia(nombreDia)) {
                             comboBoxConsultas.addItem(c.getNomC());
                         }
                         
@@ -440,7 +440,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 String nombreConsulta =
                         comboBoxConsultas.getSelectedItem().toString();
 
-                DTConsultaDetalle consulta =
+                DtConsultaDetalle consulta =
                         controlador.listarDatosConsulta(nombreConsulta);
                 
                 fechareserva.setVisible(false);
@@ -488,7 +488,7 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 
        
 
-                for (DTResConsulta r : consulta.getReservas()) {
+                for (DtResConsulta r : consulta.getReservas()) {
                     comboBoxreservas.addItem(r.getNumReserva());
                 }
                 comboBoxreservas.setSelectedIndex(-1);
@@ -515,10 +515,10 @@ public class ConsultaDeDiaDeConsulta extends JInternalFrame {
                 String nombreConsulta =
                         comboBoxConsultas.getSelectedItem().toString();
 
-                DTConsultaDetalle consulta =
+                DtConsultaDetalle consulta =
                         controlador.listarDatosConsulta(nombreConsulta);
 
-                for (DTResConsulta r : consulta.getReservas()) {
+                for (DtResConsulta r : consulta.getReservas()) {
 
                     if (r.getNumReserva() == numero) {
 

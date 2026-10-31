@@ -3,7 +3,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import logica.datatypes.DTMedico;
+import logica.datatypes.DtMedico;
 import logica.datatypes.TipoMes;
 
 public class Medico extends Usuario{
@@ -45,8 +45,8 @@ public class Medico extends Usuario{
 		return especialidades;
 	}
 	
-	public DTMedico getDtmedico() {
-		return new DTMedico(nickname, nroReg, mesLic, porcentajeCosto, link);
+	public DtMedico getDtmedico() {
+		return new DtMedico(nickname, nroReg, mesLic, porcentajeCosto, link);
 	}
 	
 	public Set<String> getConsultasAsoc(){

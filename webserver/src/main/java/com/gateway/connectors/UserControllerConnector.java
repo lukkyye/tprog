@@ -1,135 +1,138 @@
 package com.gateway.connectors;
-
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 import com.gateway.interfaces.IUserController;
-import com.models.controladores.ControladorUsuario;
-import com.models.datatypes.DTBeneficioAnual;
-import com.models.datatypes.DTConsulta;
-import com.models.datatypes.DTConsultaDetalle;
-import com.models.datatypes.DTMedico;
-import com.models.datatypes.DTPaciente;
-import com.models.datatypes.DTResConsulta;
-import com.models.datatypes.DTResConsultaDetalle;
-import com.models.datatypes.DTUsuario;
-import com.models.datatypes.TipoMes;
+import com.soap.ArrayList;
+import com.soap.DtBeneficioAnual;
+import com.soap.DtConsulta;
+import com.soap.DtConsultaDetalle;
+import com.soap.DtMedico;
+import com.soap.DtPaciente;
+import com.soap.DtResConsulta;
+import com.soap.DtResConsultaDetalle;
+import com.soap.DtUsuario;
+import com.soap.LocalDate;
+import com.soap.Publisher;
+import com.soap.PublisherService;
+import com.soap.TipoMes;
 
 
 public class UserControllerConnector implements IUserController {
-	private ControladorUsuario controladorUsuario;
+	private final PublisherService service;
+    private final Publisher port;
 	
 	public UserControllerConnector() {
-		this.controladorUsuario=new ControladorUsuario();
+		service = new PublisherService();
+        port = service.getPublisherPort();
 	}
 
 	@Override
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo,
 			String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
-		return controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
+		return port.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, (ArrayList) specs);
 	}
 
 	@Override
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
 			LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
-		return controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
+		return port.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, (ArrayList) antSalud);
 	}
 
 	@Override
 	public boolean login(String nickname, String password) {
-		return controladorUsuario.login(nickname, password);
+		return port.login(nickname, password);
 	}
 
 	@Override
 	public boolean altaEspecialidad(String espNom, int espPorc) {
-		return controladorUsuario.altaEspecialidad(espNom, espPorc);
+		return port.altaEspecialidad(espNom, espPorc);
 	}
 
 	@Override
-	public Set<DTUsuario> listarUsuarios() {
-		return controladorUsuario.listarUsuarios();
+	public Set<DtUsuario> listarUsuarios() {
+		return (Set<DtUsuario>) port.listarUsuarios();
 	}
 
 	@Override
-	public DTMedico listarDatosMedico(String nicknameUsu) {
-		return controladorUsuario.listarDatosMedico(nicknameUsu);
+	public DtMedico listarDatosMedico(String nicknameUsu) {
+		return port.listarDatosMedico(nicknameUsu);
 	}
 
 	@Override
-	public DTPaciente listarDatosPaciente(String nicknameUsu) {
-		return controladorUsuario.listarDatosPaciente(nicknameUsu);
+	public DtPaciente listarDatosPaciente(String nicknameUsu) {
+		return port.listarDatosPaciente(nicknameUsu);
 	}
 
 	@Override
-	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
-		return controladorUsuario.listarConsultasAsociadas(nicknameUsu);
+	public Set<DtConsulta> listarConsultasAsociadas(String nicknameUsu) {
+		return (Set<DtConsulta>) port.listarConsultasAsociadas(nicknameUsu);
 	}
 
 	@Override
-	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
-		return controladorUsuario.listarResConsultas(nicknameUsu);
+	public Set<DtResConsulta> listarResConsultas(String nicknameUsu) {
+		return (Set<DtResConsulta>) port.listarResConsultas(nicknameUsu);
 	}
 
 	@Override
-	public Set<DTPaciente> listarPacientes() {
-		return controladorUsuario.listarPacientes();
+	public Set<DtPaciente> listarPacientes() {
+		return (Set<DtPaciente>) port.listarPacientes();
 	}
 
 	@Override
-	public Set<DTMedico> listarMedicos() {
-		return controladorUsuario.listarMedicos();
+	public Set<DtMedico> listarMedicos() {
+		return (Set<DtMedico>) port.listarMedicos();
 	}
 
 	@Override
-	public DTPaciente seleccionarPaciente(String nickname) {
-		return controladorUsuario.seleccionarPaciente(nickname);
+	public DtPaciente seleccionarPaciente(String nickname) {
+		return port.seleccionarPaciente(nickname);
 	}
 
 	@Override
-	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
-		return controladorUsuario.listarDatosResConsulta(nomC, nickname);
+	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
+		return port.listarDatosResConsulta(nomC, nickname);
 	}
 
 	@Override
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
-		return controladorUsuario.listarDatosConsulta(nomC);
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
+		return port.listarDatosConsulta(nomC);
 	}
 
 	@Override
 	public void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) {
-		controladorUsuario.altaBeneficioAnual(nickname, anio, cantOrdenes, cantTicket);
+		port.altaBeneficioAnual(nickname, anio, cantOrdenes, cantTicket);
 	}
 
 	@Override
-	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
-		return controladorUsuario.listarBeneficiosAnuales(nickname);
+	public Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+		return (Set<DtBeneficioAnual>) port.listarBeneficiosAnuales(nickname);
 	}
 
 	@Override
-	public DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
-		return controladorUsuario.listarDatosBeneficioAnual(nickname, anio);
+	public DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
+		return port.listarDatosBeneficioAnual(nickname, anio);
 	}
 
 	@Override
-	public DTUsuario listarDatosUsuario(String nickname) {
-		return controladorUsuario.listarDatosUsuario(nickname);
+	public DtUsuario listarDatosUsuario(String nickname) {
+		return port.listarDatosUsuario(nickname);
 	}
 
 	@Override
 	public List<String> listarEspecialidadesMedico(String nickname) {
-		return controladorUsuario.listarEspecialidadesMedico(nickname);
+		return (List<String>) port.listarEspecialidadesMedico(nickname);
 	}
 
 	@Override
 	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic,
 			int porcCost, String link, List<String> especialidades) {
-		controladorUsuario.modificarMedico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
+		port.modificarMedico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, (ArrayList) especialidades);
 	}
 
 	@Override
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
 			LocalDate fechaIn, int doc, List<String> antSalud) {
-		controladorUsuario.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
+		port.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, (ArrayList) antSalud);
 	}
 }

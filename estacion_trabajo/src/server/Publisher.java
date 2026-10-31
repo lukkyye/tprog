@@ -1,26 +1,23 @@
 package server;
-	
-import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Set;
-
-import logica.datatypes.DTBeneficioAnual;
-import logica.datatypes.DTMedico;
-import logica.datatypes.DTUsuario;
+import java.util.ArrayList;
+import java.util.HashSet;
+import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtMedico;
+import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 import logica.manejadores.ManejadorImagen;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTClinica;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTConsultaDetalle;
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTDiaSemana;
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtClinica;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtConsultaDetalle;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtDiaSemana;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.EstadoConsulta;
 
 import jakarta.jws.WebMethod;
@@ -58,8 +55,9 @@ public class Publisher {
 	//======================================================================
 	//======================================================================
 	@WebMethod
-	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
-		return controladorClinica.listarDatosDiaConsulta();
+	public DtDiaConsulta[] listarDatosDiaConsulta() {
+	    return controladorClinica.listarDatosDiaConsulta()
+	            .toArray(new DtDiaConsulta[0]);
 	}
 
 	@WebMethod
@@ -67,7 +65,7 @@ public class Publisher {
 		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 	@WebMethod
-	public DTClinica seleccionarClinica(String nombre) {
+	public DtClinica seleccionarClinica(String nombre) {
 		return controladorClinica.seleccionarClinica(nombre);
 	}
 	@WebMethod
@@ -75,33 +73,33 @@ public class Publisher {
 		controladorClinica.setEstadoConsulta(state, nombreConsulta);
 	}
 	@WebMethod
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
 		return controladorClinica.listarDatosConsulta(nomC);
 	}
 
 	@WebMethod
-	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
 		return controladorClinica.listarDatosResConsultaCC(nomC, numReserva);
 	}
 
 	@WebMethod
-	public Set<DTResConsulta> listarReservasConsulta(String nomC) {
-		return controladorClinica.getReservasConsulta(nomC);
+	public HashSet<DtResConsulta> listarReservasConsulta(String nomC) {
+		return (HashSet<DtResConsulta>) controladorClinica.getReservasConsulta(nomC);
 	}
 	
 	@WebMethod
-	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {
-		return controladorClinica.selecListaConsultaDelDia(nomD);
+	public HashSet<DtConsulta> selecListaConsultaDelDia(String nomD) {
+		return (HashSet<DtConsulta>) controladorClinica.selecListaConsultaDelDia(nomD);
 	}
 
 	@WebMethod
-	public DTConsulta seleccionarConsulta(String nomC) {
+	public DtConsulta seleccionarConsulta(String nomC) {
 		return controladorClinica.seleccionarConsulta(nomC);
 	}
 
 	@WebMethod
-	public Set<DTPaciente> listarPacientes() {
-		return controladorClinica.listarPacientes();
+	public HashSet<DtPaciente> listarPacientes() {
+		return (HashSet<DtPaciente>) controladorClinica.listarPacientes();
 	}
 
 	@WebMethod
@@ -110,8 +108,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public Set<DTConsulta> listarConsultas() {
-		return controladorClinica.listarConsultas();
+	public HashSet<DtConsulta> listarConsultas() {
+		return (HashSet<DtConsulta>) controladorClinica.listarConsultas();
 	}
 
 	@WebMethod
@@ -120,35 +118,29 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public Set<String> listarClinicas() {
-		return controladorClinica.listarClinicas();
+	public HashSet<String> listarClinicas() {
+		return (HashSet<String>) controladorClinica.listarClinicas();
 	}
 
 	@WebMethod
-	public Set<String> listarEspecialidades() {
-		return controladorClinica.listarEspecialidades();
+	public HashSet<String> listarEspecialidades() {
+		return (HashSet<String>) controladorClinica.listarEspecialidades();
 	}
 
 	@WebMethod
-	public void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio,
+	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) {
 		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
 
 	@WebMethod
-	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
-			String img) {
-		return controladorClinica.ingresarClinica(nombre, desc, dir, costoT, costoC, link, img);
+	public ArrayList<DtDiaConsulta> listarDiaConsultas() {
+		return (ArrayList<DtDiaConsulta>) controladorClinica.listarDiaConsultas();
 	}
 
 	@WebMethod
-	public List<DTDiaConsulta> listarDiaConsultas() {
-		return controladorClinica.listarDiaConsultas();
-	}
-
-	@WebMethod
-	public List<String> getConsultasPorEspecialidad(String especialidad) {
-		return controladorClinica.getConsultasPorEspecialidad(especialidad);
+	public ArrayList<String> getConsultasPorEspecialidad(String especialidad) {
+		return (ArrayList<String>) controladorClinica.getConsultasPorEspecialidad(especialidad);
 	}
 	
 	//======================================================================
@@ -165,13 +157,13 @@ public class Publisher {
 	//======================================================================
 	@WebMethod
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo,
-			String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) {
+			String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) {
 		return controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
 	}
 
 	@WebMethod
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
-			LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) {
+			LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
 		return controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
 	}
 
@@ -186,37 +178,37 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public Set<DTUsuario> listarUsuarios() {
-		return controladorUsuario.listarUsuarios();
+	public HashSet<DtUsuario> listarUsuarios() {
+		return (HashSet<DtUsuario>) controladorUsuario.listarUsuarios();
 	}
 
 	@WebMethod
-	public DTMedico listarDatosMedico(String nicknameUsu) {
+	public DtMedico listarDatosMedico(String nicknameUsu) {
 		return controladorUsuario.listarDatosMedico(nicknameUsu);
 	}
 
 	@WebMethod
-	public DTPaciente listarDatosPaciente(String nicknameUsu) {
+	public DtPaciente listarDatosPaciente(String nicknameUsu) {
 		return controladorUsuario.listarDatosPaciente(nicknameUsu);
 	}
 
 	@WebMethod
-	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
-		return controladorUsuario.listarConsultasAsociadas(nicknameUsu);
+	public HashSet<DtConsulta> listarConsultasAsociadas(String nicknameUsu) {
+		return (HashSet<DtConsulta>) controladorUsuario.listarConsultasAsociadas(nicknameUsu);
 	}
 
 	@WebMethod
-	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
-		return controladorUsuario.listarResConsultas(nicknameUsu);
+	public HashSet<DtResConsulta> listarResConsultas(String nicknameUsu) {
+		return (HashSet<DtResConsulta>) controladorUsuario.listarResConsultas(nicknameUsu);
 	}
 
 	@WebMethod
-	public Set<DTMedico> listarMedicos() {
-		return controladorUsuario.listarMedicos();
+	public HashSet<DtMedico> listarMedicos() {
+		return (HashSet<DtMedico>) controladorUsuario.listarMedicos();
 	}
 
 	@WebMethod
-	public DTPaciente seleccionarPaciente(String nickname) {
+	public DtPaciente seleccionarPaciente(String nickname) {
 		return controladorUsuario.seleccionarPaciente(nickname);
 	}
 
@@ -226,39 +218,39 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
-		return controladorUsuario.listarBeneficiosAnuales(nickname);
+	public HashSet<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+		return (HashSet<DtBeneficioAnual>) controladorUsuario.listarBeneficiosAnuales(nickname);
 	}
 
 	@WebMethod
-	public DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
+	public DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
 		return controladorUsuario.listarDatosBeneficioAnual(nickname, anio);
 	}
 
 	@WebMethod
-	public DTUsuario listarDatosUsuario(String nickname) {
+	public DtUsuario listarDatosUsuario(String nickname) {
 		return controladorUsuario.listarDatosUsuario(nickname);
 	}
 
 	@WebMethod
-	public List<String> listarEspecialidadesMedico(String nickname) {
-		return controladorUsuario.listarEspecialidadesMedico(nickname);
+	public ArrayList<String> listarEspecialidadesMedico(String nickname) {
+		return (ArrayList<String>) controladorUsuario.listarEspecialidadesMedico(nickname);
 	}
 
 	@WebMethod
 	public void modificarMedico(String nickname, String nombre, String apellido, String nroReg, TipoMes mesLic,
-			int porcCost, String link, List<String> especialidades) {
+			int porcCost, String link, ArrayList<String> especialidades) {
 		controladorUsuario.modificarMedico(nickname, nombre, apellido, nroReg, mesLic, porcCost, link, especialidades);
 	}
 
 	@WebMethod
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
-			LocalDate fechaIn, int doc, List<String> antSalud) {
+			LocalDate fechaIn, int doc, ArrayList<String> antSalud) {
 		controladorUsuario.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 
 	@WebMethod
-	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
+	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) {
 		return controladorUsuario.listarDatosResConsulta(nomC, nickname);
 	}
 	//======================================================================
@@ -277,12 +269,6 @@ public class Publisher {
 	@WebMethod
 	public void addImg(String b64, String key) {
 		manejadorImagen.addImg(b64, key);
-	}
-	
-
-	@WebMethod
-	public BufferedImage getImg(String key) {
-		return manejadorImagen.getImg(key);
 	}
 
 	@WebMethod

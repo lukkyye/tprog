@@ -7,14 +7,14 @@ import logica.manejadores.ManejadorConsulta;
 import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Consulta;
-import logica.datatypes.DTBeneficioAnual;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTConsultaDetalle;
-import logica.datatypes.DTMedico;
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
-import logica.datatypes.DTUsuario;
+import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtConsultaDetalle;
+import logica.datatypes.DtMedico;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 
 
@@ -44,44 +44,44 @@ public class ControladorUsuario {
 		return true;
 	}
 	
-	public Set<DTUsuario> listarUsuarios() {
+	public Set<DtUsuario> listarUsuarios() {
 		return ManejadorUsuario.getInstance().getUsuarios();
 	}
 	
-	public DTMedico listarDatosMedico(String nicknameUsu) {
+	public DtMedico listarDatosMedico(String nicknameUsu) {
 		return ManejadorUsuario.getInstance().datosMedico(nicknameUsu);
 	}
 	
-	public DTPaciente listarDatosPaciente(String nicknameUsu) {
+	public DtPaciente listarDatosPaciente(String nicknameUsu) {
 		return ManejadorUsuario.getInstance().datosPaciente(nicknameUsu);
 	}
 	
-	public Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu) {
+	public Set<DtConsulta> listarConsultasAsociadas(String nicknameUsu) {
 		return ManejadorUsuario.getInstance().consultasAsociadas(nicknameUsu);
 	}
 	
-	public Set<DTResConsulta> listarResConsultas(String nicknameUsu) {
+	public Set<DtResConsulta> listarResConsultas(String nicknameUsu) {
 		return ManejadorUsuario.getInstance().reservasConsultasAsociadas(nicknameUsu);
 	}
 	
-	public Set<DTPaciente> listarPacientes() {
+	public Set<DtPaciente> listarPacientes() {
 		return ManejadorUsuario.getInstance().getDtpacientes();
 	}
 	
-	public Set<DTMedico> listarMedicos() {
+	public Set<DtMedico> listarMedicos() {
 		return ManejadorUsuario.getInstance().getDtmedicos();
 	}
 	
-	public DTPaciente seleccionarPaciente(String nickname) {
+	public DtPaciente seleccionarPaciente(String nickname) {
 		return ManejadorUsuario.getInstance().datosPaciente(nickname);
 	}
 	
-	public DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) { // Seguir aca
+	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) { // Seguir aca
 		ManejadorUsuario musu = ManejadorUsuario.getInstance();
 		return musu.datosResConsulta(nomC, nickname);
 	}
 	
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
 	    ManejadorConsulta manejador = ManejadorConsulta.getInstance();
 
 	    Consulta consulta = manejador.getConsulta(nomC);
@@ -93,15 +93,15 @@ public class ControladorUsuario {
 		ManejadorUsuario.getInstance().agregarBeneficio(nickname, anio, cantOrdenes, cantTicket);
 	}
 	
-	public Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname) {
+	public Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) {
 		return ManejadorUsuario.getInstance().beneficiosAnuales(nickname);
 	}
 	
-	public DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
+	public DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) {
 		return ManejadorUsuario.getInstance().datosBeneficio(nickname, anio);
 	}
 	
-	public DTUsuario listarDatosUsuario(String nickname) {
+	public DtUsuario listarDatosUsuario(String nickname) {
 		return ManejadorUsuario.getInstance().datosUsuario(nickname);
 	}
 	

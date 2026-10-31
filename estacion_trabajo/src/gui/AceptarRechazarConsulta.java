@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTConsulta;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtConsulta;
 import logica.datatypes.EstadoConsulta;
 import logica.manejadores.ManejadorConsulta;
 import logica.controladores.ControladorClinica;
@@ -15,14 +15,14 @@ import logica.controladores.ControladorUsuario;
 
 public class AceptarRechazarConsulta extends JInternalFrame {
 
-    private DefaultListModel<DTDiaConsulta> modelListaDias;
-    private JList<DTDiaConsulta> listaDias;
+    private DefaultListModel<DtDiaConsulta> modelListaDias;
+    private JList<DtDiaConsulta> listaDias;
     private JComboBox<String> comboNomD;
     private JButton btnSeleccionarDia;
     private JScrollPane scrollDias;
     private String global_nomD;
-    private DefaultListModel<DTConsulta> modelListaConsultas;
-    private JList<DTConsulta> listaConsultas;
+    private DefaultListModel<DtConsulta> modelListaConsultas;
+    private JList<DtConsulta> listaConsultas;
     private JComboBox<String> comboNomC;
     private JButton btnSeleccionarConsulta;
     private JScrollPane scrollConsultas;
@@ -135,9 +135,9 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         btnAceptar.addActionListener(
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
-	        			DTConsulta dtconsu = listaConsultas.getSelectedValue();	        		
+	        			DtConsulta dtconsu = listaConsultas.getSelectedValue();	        		
 	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Aceptada);
-        				Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
+        				Set<DtConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se aceptó la consulta.", "Aceptada correctamente", JOptionPane.INFORMATION_MESSAGE);
 	        			render_listaconsultas(consultas);
         			}
@@ -146,9 +146,9 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         btnRechazar.addActionListener(
         		e->{
         			if (listaConsultas.getSelectedValue()!=null) {
-	        			DTConsulta dtconsu = listaConsultas.getSelectedValue();	        		
+	        			DtConsulta dtconsu = listaConsultas.getSelectedValue();	        		
 	        			ManejadorConsulta.getInstance().getConsulta(dtconsu.getNomC()).setEstado(EstadoConsulta.Rechazada);
-        				Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
+        				Set<DtConsulta> consultas = controladorClinica.selecListaConsultaDelDia(global_nomD);
 	        			JOptionPane.showMessageDialog(this, "Se rechazó la consulta", "Rechazada correctamente", JOptionPane.ERROR_MESSAGE);
 	        			render_listaconsultas(consultas);
         			}
@@ -157,7 +157,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         
         listaConsultas.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                DTConsulta seleccionada = listaConsultas.getSelectedValue();
+                DtConsulta seleccionada = listaConsultas.getSelectedValue();
                 if (seleccionada != null) {
                     comboNomC.setSelectedItem(seleccionada.getNomC());
                 }
@@ -166,7 +166,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
 
         listaDias.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                DTDiaConsulta seleccionado = listaDias.getSelectedValue();
+                DtDiaConsulta seleccionado = listaDias.getSelectedValue();
                 if (seleccionado != null) {
                     comboNomD.setSelectedItem(seleccionado.getNomD());
                 }
@@ -176,7 +176,7 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         btnSeleccionarDia.addActionListener(e -> {
             String nomD = (String) comboNomD.getSelectedItem();
             if (nomD != null) {
-                Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(nomD);
+                Set<DtConsulta> consultas = controladorClinica.selecListaConsultaDelDia(nomD);
                 global_nomD=nomD;
                 if (consultas != null && !consultas.isEmpty()) {
                     mostrarPaso2(consultas);
@@ -190,25 +190,25 @@ public class AceptarRechazarConsulta extends JInternalFrame {
         cargarDias(controladorClinica.listarDatosDiaConsulta());
     }
 
-    public void cargarDias(Set<DTDiaConsulta> lista) {
+    public void cargarDias(Set<DtDiaConsulta> lista) {
         modelListaDias.clear();
         comboNomD.removeAllItems();
         if (lista != null) {
-            for (DTDiaConsulta dia : lista) {
+            for (DtDiaConsulta dia : lista) {
                 modelListaDias.addElement(dia);
                 comboNomD.addItem(dia.getNomD());
             }
         }
     }
-    private void render_listaconsultas(Set<DTConsulta> consultas) {
+    private void render_listaconsultas(Set<DtConsulta> consultas) {
     	modelListaConsultas.clear();
-    	for (DTConsulta c : consultas) {
+    	for (DtConsulta c : consultas) {
         	if (c.getEstado().equals(EstadoConsulta.Ingresada)) {
         		modelListaConsultas.addElement(c);	
         	}
         }
     }
-    private void mostrarPaso2(Set<DTConsulta> consultas) {
+    private void mostrarPaso2(Set<DtConsulta> consultas) {
         scrollDias.setVisible(false);
         comboNomD.setVisible(false);
         btnSeleccionarDia.setVisible(false);

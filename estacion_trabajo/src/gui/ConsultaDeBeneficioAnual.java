@@ -17,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTBeneficioAnual;
-import logica.datatypes.DTPaciente;
+import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtPaciente;
 
 public class ConsultaDeBeneficioAnual extends JInternalFrame {
 
@@ -130,7 +130,7 @@ public class ConsultaDeBeneficioAnual extends JInternalFrame {
 			return;
 		}
 
-		DTBeneficioAnual beneficio = controlador.listarDatosBeneficioAnual(nickname, anio);
+		DtBeneficioAnual beneficio = controlador.listarDatosBeneficioAnual(nickname, anio);
 		anioValor.setText(String.valueOf(beneficio.getAnio()));
 		ordenesValor.setText(String.valueOf(beneficio.getCantOrdenes()));
 		ticketsValor.setText(String.valueOf(beneficio.getCantTicket()));

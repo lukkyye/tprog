@@ -3,8 +3,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import logica.datatypes.DTBeneficioAnual;
-import logica.datatypes.DTPaciente;
+import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtPaciente;
 
 import java.util.ArrayList;
 
@@ -58,8 +58,8 @@ public class Paciente extends Usuario{
 		return total;
 	}
 	
-	public DTPaciente getDtpaciente( ) {
-		return new DTPaciente(nickname, fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
+	public DtPaciente getDtpaciente( ) {
+		return new DtPaciente(nickname, fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
 	}
 	
 	public BeneficioAnual getBeneficio(int anio) {
@@ -79,8 +79,8 @@ public class Paciente extends Usuario{
 		benef.add(beneficio);
 	}
 	
-	public Set<DTBeneficioAnual> getDtbeneficios() {
-		Set<DTBeneficioAnual> result = new HashSet<DTBeneficioAnual>();
+	public Set<DtBeneficioAnual> getDtbeneficios() {
+		Set<DtBeneficioAnual> result = new HashSet<DtBeneficioAnual>();
 		for (BeneficioAnual b : benef) {
 			result.add(b.getDataBeneficioAnual());
 		}

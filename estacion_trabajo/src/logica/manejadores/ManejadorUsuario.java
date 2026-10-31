@@ -19,13 +19,13 @@ import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
 import logica.excepciones.UserNotFoundException;
-import logica.datatypes.DTBeneficioAnual;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTMedico;
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
-import logica.datatypes.DTUsuario;
+import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtMedico;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 
 
@@ -69,8 +69,8 @@ public class ManejadorUsuario {
 	}
 	
 	// SET_USUARIOS() BAUTIZADA:
-	public Set<DTUsuario> getUsuarios() {
-		Set<DTUsuario> result = new HashSet<DTUsuario>();
+	public Set<DtUsuario> getUsuarios() {
+		Set<DtUsuario> result = new HashSet<DtUsuario>();
 		usuarios.forEach( (k, v)-> result.add(v.getDt()));
 		return result;
 	}
@@ -83,7 +83,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("No se encontro usuario con el nickname: " + nickname);
 	}
 	
-	public DTMedico datosMedico(String nickname) {
+	public DtMedico datosMedico(String nickname) {
 		Usuario usuario = getUsuario(nickname);
 		if (usuario instanceof Medico medico) {
 			return medico.getDtmedico();
@@ -91,7 +91,7 @@ public class ManejadorUsuario {
 		throw new UserNotFoundException("El usuario no es de tipo Medico");
 	}
 	
-	public DTPaciente datosPaciente(String nickname) {
+	public DtPaciente datosPaciente(String nickname) {
 		Usuario usuario = getUsuario(nickname);
 		if (usuario instanceof Paciente paciente) {
 			return paciente.getDtpaciente();
@@ -100,11 +100,11 @@ public class ManejadorUsuario {
 	}
 	
 	//Medicos
-	public Set<DTConsulta> consultasAsociadas(String nicknameUsu){
+	public Set<DtConsulta> consultasAsociadas(String nicknameUsu){
 		Usuario usuario = getUsuario(nicknameUsu);
 		if (usuario instanceof Medico medico) {
 			ManejadorConsulta mconsultas = ManejadorConsulta.getInstance();
-			Set<DTConsulta> result = new HashSet<DTConsulta>();
+			Set<DtConsulta> result = new HashSet<DtConsulta>();
 			medico.getConsultasAsoc().forEach(
 						s -> result.add(mconsultas.getConsulta(s).getDataConsulta())
 					);
@@ -115,10 +115,10 @@ public class ManejadorUsuario {
 	
 	
 	//Pacientes
-	public Set<DTResConsulta> reservasConsultasAsociadas(String nicknameUsu){
+	public Set<DtResConsulta> reservasConsultasAsociadas(String nicknameUsu){
 		Usuario usuario = getUsuario(nicknameUsu);
 		if (usuario instanceof Paciente paciente) {
-			Set<DTResConsulta> result = new HashSet<DTResConsulta>();
+			Set<DtResConsulta> result = new HashSet<DtResConsulta>();
 			paciente.getReservas().forEach(
 						r-> result.add(r.getDataResConsulta())
 					);
@@ -182,8 +182,8 @@ public class ManejadorUsuario {
 		usuarios.put(nickname, paciente1);
 	}
 	
-	public Set<DTPaciente> getDtpacientes(){
-		Set<DTPaciente> result = new HashSet<DTPaciente>();
+	public Set<DtPaciente> getDtpacientes(){
+		Set<DtPaciente> result = new HashSet<DtPaciente>();
 		usuarios.forEach(
 					(name, user) -> {
 						if (user instanceof Paciente paciente) {
@@ -194,8 +194,8 @@ public class ManejadorUsuario {
 		return result;
 	}
 	
-	public Set<DTMedico> getDtmedicos(){
-		Set<DTMedico> result = new HashSet<DTMedico>();
+	public Set<DtMedico> getDtmedicos(){
+		Set<DtMedico> result = new HashSet<DtMedico>();
 		usuarios.forEach(
 					(name, user) -> {
 						if (user instanceof Medico medico) {
@@ -206,7 +206,7 @@ public class ManejadorUsuario {
 		return result;
 	}
 	
-	public DTResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) {
+	public DtResConsultaDetalle datosResConsulta(String nomC, String nicknameUsu) {
 	
 		Usuario usuario = getUsuario(nicknameUsu);
 	    if (usuario instanceof Paciente paciente) {
@@ -250,11 +250,11 @@ public class ManejadorUsuario {
 		paciente.agregarBeneficio(new BeneficioAnual(anio, cantOrdenes, cantTicket));
 	}
 	
-	public Set<DTBeneficioAnual> beneficiosAnuales(String nickname) {
+	public Set<DtBeneficioAnual> beneficiosAnuales(String nickname) {
 		return getPaciente(nickname).getDtbeneficios();
 	}
 	
-	public DTBeneficioAnual datosBeneficio(String nickname, int anio) {
+	public DtBeneficioAnual datosBeneficio(String nickname, int anio) {
 		BeneficioAnual benefAnual = getPaciente(nickname).getBeneficio(anio);
 		if (benefAnual == null) {
 			throw new BeneficioNotFoundException("El paciente no tiene un beneficio anual para el año " + anio);
@@ -262,7 +262,7 @@ public class ManejadorUsuario {
 		return benefAnual.getDataBeneficioAnual();
 	}
 	
-	public DTUsuario datosUsuario(String nickname) {
+	public DtUsuario datosUsuario(String nickname) {
 		return getUsuario(nickname).getDt();
 	}
 	

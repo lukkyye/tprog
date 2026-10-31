@@ -6,25 +6,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTConsultaDetalle;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtConsultaDetalle;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
 
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
 
 public class ConsultaDeConsulta extends JInternalFrame {
 
-    private DefaultListModel<DTDiaConsulta> modelListaDias;
-    private JList<DTDiaConsulta> listaDias;
+    private DefaultListModel<DtDiaConsulta> modelListaDias;
+    private JList<DtDiaConsulta> listaDias;
     private JComboBox<String> comboNomD;
     private JButton btnSeleccionarDia;
     private JScrollPane scrollDias;
 
-    private DefaultListModel<DTConsulta> modelListaConsultas;
-    private JList<DTConsulta> listaConsultas;
+    private DefaultListModel<DtConsulta> modelListaConsultas;
+    private JList<DtConsulta> listaConsultas;
     private JComboBox<String> comboNomC;
     private JButton btnSeleccionarConsulta;
     private JScrollPane scrollConsultas;
@@ -115,7 +115,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
 
         listaConsultas.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                DTConsulta seleccionada = listaConsultas.getSelectedValue();
+                DtConsulta seleccionada = listaConsultas.getSelectedValue();
                 if (seleccionada != null) {
                     comboNomC.setSelectedItem(seleccionada.getNomC());
                 }
@@ -124,7 +124,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
 
         listaDias.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                DTDiaConsulta seleccionado = listaDias.getSelectedValue();
+                DtDiaConsulta seleccionado = listaDias.getSelectedValue();
                 if (seleccionado != null) {
                     comboNomD.setSelectedItem(seleccionado.getNomD());
                 }
@@ -134,7 +134,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarDia.addActionListener(e -> {
             String nomD = (String) comboNomD.getSelectedItem();
             if (nomD != null) {
-                Set<DTConsulta> consultas = controladorClinica.selecListaConsultaDelDia(nomD);
+                Set<DtConsulta> consultas = controladorClinica.selecListaConsultaDelDia(nomD);
                 if (consultas != null && !consultas.isEmpty()) {
                     mostrarPaso2(consultas);
                 } else {
@@ -148,7 +148,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.addActionListener(e -> {
             String nomC = (String) comboNomC.getSelectedItem();
             if (nomC != null) {
-                DTConsultaDetalle detalle = controladorClinica.listarDatosConsulta(nomC);
+                DtConsultaDetalle detalle = controladorClinica.listarDatosConsulta(nomC);
                 if (detalle != null) {
                     mostrarPopUpDetalle(nomC, detalle);
                 } else {
@@ -162,25 +162,25 @@ public class ConsultaDeConsulta extends JInternalFrame {
         cargarDias(controladorClinica.listarDatosDiaConsulta());
     }
 
-    public void cargarDias(Set<DTDiaConsulta> lista) {
+    public void cargarDias(Set<DtDiaConsulta> lista) {
         modelListaDias.clear();
         comboNomD.removeAllItems();
         if (lista != null) {
-            for (DTDiaConsulta dia : lista) {
+            for (DtDiaConsulta dia : lista) {
                 modelListaDias.addElement(dia);
                 comboNomD.addItem(dia.getNomD());
             }
         }
     }
 
-    private void mostrarPaso2(Set<DTConsulta> consultas) {
+    private void mostrarPaso2(Set<DtConsulta> consultas) {
         scrollDias.setVisible(false);
         comboNomD.setVisible(false);
         btnSeleccionarDia.setVisible(false);
 
         modelListaConsultas.clear();
         comboNomC.removeAllItems();
-        for (DTConsulta c : consultas) {
+        for (DtConsulta c : consultas) {
             modelListaConsultas.addElement(c);
             comboNomC.addItem(c.getNomC());
         }
@@ -191,7 +191,7 @@ public class ConsultaDeConsulta extends JInternalFrame {
         btnSeleccionarConsulta.setVisible(true);
     }
 
-    private void mostrarPopUpDetalle(String nomC, DTConsultaDetalle detalle) {
+    private void mostrarPopUpDetalle(String nomC, DtConsultaDetalle detalle) {
         JPanel panelPopUp = new JPanel(new BorderLayout(10, 10));
         panelPopUp.setPreferredSize(new Dimension(460, 340));
 
@@ -208,14 +208,14 @@ public class ConsultaDeConsulta extends JInternalFrame {
         );
         panelPopUp.add(new JScrollPane(areaDetalle), BorderLayout.NORTH);
 
-        DefaultListModel<DTResConsulta> modelReservasPopUp = new DefaultListModel<>();
+        DefaultListModel<DtResConsulta> modelReservasPopUp = new DefaultListModel<>();
         if (detalle.getReservas() != null) {
-            for (DTResConsulta r : detalle.getReservas()) {
+            for (DtResConsulta r : detalle.getReservas()) {
                 modelReservasPopUp.addElement(r);
             }
         }
         
-        JList<DTResConsulta> listaReservasPopUp = new JList<>(modelReservasPopUp);
+        JList<DtResConsulta> listaReservasPopUp = new JList<>(modelReservasPopUp);
         listaReservasPopUp.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         listaReservasPopUp.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> {
@@ -234,9 +234,9 @@ public class ConsultaDeConsulta extends JInternalFrame {
 
         JButton btnVerReservaPopUp = new JButton("Ver Detalle de Reserva");
         btnVerReservaPopUp.addActionListener(e -> {
-            DTResConsulta reservaSel = listaReservasPopUp.getSelectedValue();
+            DtResConsulta reservaSel = listaReservasPopUp.getSelectedValue();
             if (reservaSel != null) {
-                DTResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.getNumReserva());
+                DtResConsultaDetalle resDetalle = controladorClinica.listarDatosResConsultaCC(nomC, reservaSel.getNumReserva());
                 if (resDetalle != null) {
                     JOptionPane.showMessageDialog(this,
                         "=== DATOS DE LA RESERVA ===\n" +

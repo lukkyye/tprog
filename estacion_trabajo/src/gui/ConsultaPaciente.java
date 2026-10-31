@@ -32,7 +32,7 @@ public class ConsultaPaciente extends JInternalFrame {
     private String nombre;
     private String apellido;
     private String correo;
-    private ArrayList<DTResConsulta> reservasPaciente;
+    private ArrayList<DtResConsulta> reservasPaciente;
 
     public ConsultaPaciente(String nickname, String _nombre, String _apellido, String _correo) {
         super(
@@ -49,7 +49,7 @@ public class ConsultaPaciente extends JInternalFrame {
         
         ControladorUsuario controlador = new ControladorUsuario();
 
-        DTPaciente paciente =
+        DtPaciente paciente =
                 controlador.listarDatosPaciente(nickname);
         
 
@@ -76,7 +76,7 @@ public class ConsultaPaciente extends JInternalFrame {
         gbc_lblNickname.gridy = 1;
         getContentPane().add(lblNickname, gbc_lblNickname);
         
-        DTUsuario usuario = ManejadorUsuario.getInstance().getUsuario(paciente.getNickname()).getDt();
+        DtUsuario usuario = ManejadorUsuario.getInstance().getUsuario(paciente.getNickname()).getDt();
         
         lblNickname.setText(usuario.getNickname());
         
@@ -270,13 +270,13 @@ public class ConsultaPaciente extends JInternalFrame {
 
                 if (indice != -1 && !reservasPaciente.isEmpty()) {
 
-                    DTResConsulta reservaSeleccionada =
+                    DtResConsulta reservaSeleccionada =
                             reservasPaciente.get(indice);
 
                     int numeroReserva =
                             reservaSeleccionada.getNumReserva();
                     
-                    DTResConsultaDetalle detalle =
+                    DtResConsultaDetalle detalle =
                             controlador.listarDatosResConsulta(reservaSeleccionada.getNomC(), nickname);//cambiosd aca
 
                     // acá abriremos la ventana con el detalle
@@ -298,7 +298,7 @@ public class ConsultaPaciente extends JInternalFrame {
             );
         }
         
-        Set<DTResConsulta> reservas =
+        Set<DtResConsulta> reservas =
                 controlador.listarResConsultas(nickname);
 
         // Guardamos las reservas para poder saber después
@@ -327,7 +327,7 @@ public class ConsultaPaciente extends JInternalFrame {
             listaReservas.setEnabled(true);
         }
     }
-    private void mostrarPopUpDetalle(Integer numReserva, DTResConsultaDetalle detalle) {
+    private void mostrarPopUpDetalle(Integer numReserva, DtResConsultaDetalle detalle) {
         StringBuilder sb = new StringBuilder();
         sb.append("=========================================\n");
         sb.append("          DETALLE DE LA RESERVA          \n");

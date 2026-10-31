@@ -1,18 +1,18 @@
 package com.gateway.interfaces;
 
-import java.time.LocalDate;
+import com.soap.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import com.models.datatypes.DTBeneficioAnual;
-import com.models.datatypes.DTConsulta;
-import com.models.datatypes.DTConsultaDetalle;
-import com.models.datatypes.DTMedico;
-import com.models.datatypes.DTPaciente;
-import com.models.datatypes.DTResConsulta;
-import com.models.datatypes.DTResConsultaDetalle;
-import com.models.datatypes.DTUsuario;
-import com.models.datatypes.TipoMes;
+import com.soap.DtBeneficioAnual;
+import com.soap.DtConsulta;
+import com.soap.DtConsultaDetalle;
+import com.soap.DtMedico;
+import com.soap.DtPaciente;
+import com.soap.DtResConsulta;
+import com.soap.DtResConsultaDetalle;
+import com.soap.DtUsuario;
+import com.soap.TipoMes;
 
 public interface IUserController {
 	
@@ -24,31 +24,31 @@ public interface IUserController {
 
 	boolean altaEspecialidad(String espNom, int espPorc);
 
-	Set<DTUsuario> listarUsuarios();
+	Set<DtUsuario> listarUsuarios();
 
-	DTMedico listarDatosMedico(String nicknameUsu);
+	DtMedico listarDatosMedico(String nicknameUsu);
 
-	DTPaciente listarDatosPaciente(String nicknameUsu);
+	DtPaciente listarDatosPaciente(String nicknameUsu);
 
-	Set<DTConsulta> listarConsultasAsociadas(String nicknameUsu);
+	Set<DtConsulta> listarConsultasAsociadas(String nicknameUsu);
 
-	Set<DTResConsulta> listarResConsultas(String nicknameUsu);
+	Set<DtResConsulta> listarResConsultas(String nicknameUsu);
 
-	Set<DTPaciente> listarPacientes();
+	Set<DtPaciente> listarPacientes();
 
-	Set<DTMedico> listarMedicos();
+	Set<DtMedico> listarMedicos();
 
-	DTPaciente seleccionarPaciente(String nickname);
+	DtPaciente seleccionarPaciente(String nickname);
 
-	DTConsultaDetalle listarDatosConsulta(String nomC);
+	DtConsultaDetalle listarDatosConsulta(String nomC);
 
 	void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket);
 
-	Set<DTBeneficioAnual> listarBeneficiosAnuales(String nickname);
+	Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname);
 
-	DTBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio);
+	DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio);
 
-	DTUsuario listarDatosUsuario(String nickname);
+	DtUsuario listarDatosUsuario(String nickname);
 
 	List<String> listarEspecialidadesMedico(String nickname);
 
@@ -56,6 +56,6 @@ public interface IUserController {
 
 	void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud);
 
-	DTResConsultaDetalle listarDatosResConsulta(String nomC, String nickname);
+	DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname);
 	
 }

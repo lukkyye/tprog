@@ -14,16 +14,16 @@ import org.junit.jupiter.api.Test;
 import logica.clases.Especialidad;
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTBeneficioAnual;
-import logica.datatypes.DTClinica;
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTDiaSemana;
-import logica.datatypes.DTMedico;
-import logica.datatypes.DTPaciente;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
-import logica.datatypes.DTUsuario;
+import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtClinica;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtDiaSemana;
+import logica.datatypes.DtMedico;
+import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtUsuario;
 import logica.datatypes.EstadoConsulta;
 import logica.datatypes.TipoMes;
 import logica.excepciones.*;
@@ -44,11 +44,11 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarUsuario_Medico(){
-		DTMedico dtmedico_expected = new DTMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
-		DTUsuario dtusuario_expected = new DTUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
-		Set<DTConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
-		DTMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
-		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
+		DtMedico dtmedico_expected = new DtMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
+		DtUsuario dtusuario_expected = new DtUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
+		Set<DtConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
+		DtMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
+		DtUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.getNickname().equals("bsilva"))
 				.findFirst()
@@ -62,11 +62,11 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarUsuario_Paciente() {
-		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 5, 7, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
-		DTUsuario dtusuario_expected = new DTUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
-		DTPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
-		Set<DTResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
-		DTUsuario dtusuario = controladorUsuario.listarUsuarios()
+		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 5, 7, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
+		DtUsuario dtusuario_expected = new DtUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
+		DtPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
+		Set<DtResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
+		DtUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.getNickname().equals("lgomez"))
 				.findFirst()
@@ -91,13 +91,13 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarClinica() {
-		DTClinica clinica_expected = new DTClinica("Hospital Británico", "Hospital general privado", "Av. Italia 2420", "https://www.hospitalbritanico.org.uy/", 350, 1200);
+		DtClinica clinica_expected = new DtClinica("Hospital Británico", "Hospital general privado", "Av. Italia 2420", "https://www.hospitalbritanico.org.uy/", 350, 1200);
 		String c = controladorClinica.listarClinicas()
                 .stream()
                 .filter(b -> b.equals("Hospital Británico"))
                 .findFirst()
                 .orElse(null);
-		DTClinica nclinica = ManejadorClinica.getInstance().findClinica(c).getDt();
+		DtClinica nclinica = ManejadorClinica.getInstance().findClinica(c).getDt();
 		
 		assertAll(
 				()->assertEquals(clinica_expected,nclinica)
@@ -106,8 +106,8 @@ class CargadorCSVTest {
 	
 	@Test
 	void consultarDiaConsulta() {
-		DTDiaConsulta diaconsulta_expected = new DTDiaConsulta("Cardiología - Lunes", "Atención cardiológica semanal", DTDiaSemana.Lunes, LocalTime.of(9, 00), 1440);
-		DTDiaConsulta d = controladorClinica.listarDatosDiaConsulta()
+		DtDiaConsulta diaconsulta_expected = new DtDiaConsulta("Cardiología - Lunes", "Atención cardiológica semanal", DtDiaSemana.Lunes, LocalTime.of(9, 00), 1440);
+		DtDiaConsulta d = controladorClinica.listarDatosDiaConsulta()
                 .stream()
                 .filter(b -> b.getNomD().equals("Cardiología - Lunes"))
                 .findFirst()
@@ -119,8 +119,8 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarConsulta() {
-		DTConsulta consulta_expected = new DTConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656, EstadoConsulta.Aceptada );
-		DTConsulta co = controladorClinica.listarConsultas()
+		DtConsulta consulta_expected = new DtConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656, EstadoConsulta.Aceptada );
+		DtConsulta co = controladorClinica.listarConsultas()
                 .stream()
                 .filter(b -> b.getNomC().equals("Cardiología 240826"))
                 .findFirst()
@@ -132,13 +132,13 @@ class CargadorCSVTest {
 	
 	@Test
 	void consultarDeReservaDeConsulta() {
-		DTResConsultaDetalle reserva_expected = new DTResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656);
-		DTPaciente dtpaciente_expected = new DTPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
-		DTPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
+		DtResConsultaDetalle reserva_expected = new DtResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656);
+		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
+		DtPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
 		
 		String nomP = dtpaciente.getNickname();
 		String nomC = "Cardiología 240826";
-		DTResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomC, nomP);
+		DtResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomC, nomP);
 		assertAll(
 				()->assertEquals(reserva_expected,res)
 			);
@@ -189,7 +189,7 @@ class CargadorCSVTest {
 	@Test 
 	void unicidadDiaDeConsulta_AltaDiaDeConsulta(){
 		assertThrows(DiaConsultaAlreadyExistsException.class, ()->{
-			controladorClinica.ingresarDiaConsulta("Pediatría - Martes", " ", DTDiaSemana.Martes, LocalTime.now(), "Pediatría", "CASMU");
+			controladorClinica.ingresarDiaConsulta("Pediatría - Martes", " ", DtDiaSemana.Martes, LocalTime.now(), "Pediatría", "CASMU");
 		});
 	}
 	
@@ -224,7 +224,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void consultarConsultasDeUnDia() {
-	    Set<DTConsulta> consultas =
+	    Set<DtConsulta> consultas =
 	            controladorClinica.selecListaConsultaDelDia(
 	                "Pediatría - Martes"
 	            );
@@ -240,7 +240,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void listarPacientes() {
-	    Set<DTPaciente> pacientes = controladorUsuario.listarPacientes();
+	    Set<DtPaciente> pacientes = controladorUsuario.listarPacientes();
 
 	    assertNotNull(pacientes);
 	    assertFalse(pacientes.isEmpty());
@@ -253,7 +253,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void listarMedicos() {
-	    Set<DTMedico> medicos = controladorUsuario.listarMedicos();
+	    Set<DtMedico> medicos = controladorUsuario.listarMedicos();
 
 	    assertNotNull(medicos);
 	    assertFalse(medicos.isEmpty());
@@ -269,7 +269,7 @@ class CargadorCSVTest {
 	void altaBeneficioAnual() {
 	    controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2030, 5, 10);
 
-	    DTBeneficioAnual beneficio =
+	    DtBeneficioAnual beneficio =
 	            controladorUsuario.listarDatosBeneficioAnual("daniel.quintana22", 2030);
 
 	    assertAll(
@@ -292,7 +292,7 @@ class CargadorCSVTest {
 	void consultarBeneficiosAnuales() {
 	    controladorUsuario.altaBeneficioAnual("lgomez", 2032, 3, 7);
 
-	    Set<DTBeneficioAnual> beneficios =
+	    Set<DtBeneficioAnual> beneficios =
 	            controladorUsuario.listarBeneficiosAnuales("lgomez");
 
 	    assertTrue(
@@ -307,7 +307,7 @@ class CargadorCSVTest {
 	void consultarDatosBeneficioAnual() {
 	    controladorUsuario.altaBeneficioAnual("emilia.ramos23", 2033, 4, 8);
 
-	    DTBeneficioAnual beneficio =
+	    DtBeneficioAnual beneficio =
 	            controladorUsuario.listarDatosBeneficioAnual("emilia.ramos23", 2033);
 
 	    assertEquals(2033, beneficio.getAnio());
@@ -327,7 +327,7 @@ class CargadorCSVTest {
 	        new ArrayList<>(List.of("Antecedente nuevo"))
 	    );
 
-	    DTPaciente paciente =
+	    DtPaciente paciente =
 	            controladorUsuario.listarDatosPaciente("lgomez");
 
 	    assertAll(
@@ -374,7 +374,7 @@ class CargadorCSVTest {
 	        new ArrayList<>(List.of("Cardiología"))
 	    );
 
-	    DTMedico medico =
+	    DtMedico medico =
 	            controladorUsuario.listarDatosMedico("bsilva");
 
 	    assertAll(
@@ -406,7 +406,7 @@ class CargadorCSVTest {
 	        "Pediatría 080926"
 	    );
 
-	    DTConsulta consulta =
+	    DtConsulta consulta =
 	            controladorClinica.seleccionarConsulta("Pediatría 080926");
 
 	    assertEquals(
@@ -422,7 +422,7 @@ class CargadorCSVTest {
 	        "Pediatría 080926"
 	    );
 
-	    DTConsulta consulta =
+	    DtConsulta consulta =
 	            controladorClinica.seleccionarConsulta("Pediatría 080926");
 
 	    assertEquals(

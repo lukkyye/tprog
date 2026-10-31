@@ -1,19 +1,22 @@
 package com.gateway.delegators;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+
+
 import java.util.List;
 import java.util.Set;
 import com.gateway.connectors.ClinicControllerConnector;
 import com.gateway.interfaces.IClinicController;
-import com.models.datatypes.DTClinica;
-import com.models.datatypes.DTConsulta;
-import com.models.datatypes.DTConsultaDetalle;
-import com.models.datatypes.DTDiaConsulta;
-import com.models.datatypes.DTDiaSemana;
-import com.models.datatypes.DTPaciente;
-import com.models.datatypes.DTResConsulta;
-import com.models.datatypes.DTResConsultaDetalle;
-import com.models.datatypes.EstadoConsulta;
+import com.soap.DtClinica;
+import com.soap.DtConsulta;
+import com.soap.DtConsultaDetalle;
+import com.soap.DtDiaConsulta;
+import com.soap.DtDiaSemana;
+import com.soap.DtPaciente;
+import com.soap.DtResConsulta;
+import com.soap.DtResConsultaDetalle;
+import com.soap.EstadoConsulta;
+import com.soap.LocalDate;
+import com.soap.LocalTime;
 
 public class ClinicControllerDelegator implements IClinicController {
 	private ClinicControllerConnector controladorClinica;
@@ -23,7 +26,7 @@ public class ClinicControllerDelegator implements IClinicController {
 	}
 	
 	@Override
-	public Set<DTDiaConsulta> listarDatosDiaConsulta() {
+	public Set<DtDiaConsulta> listarDatosDiaConsulta() {
 		return controladorClinica.listarDatosDiaConsulta();
 	}
 
@@ -37,7 +40,7 @@ public class ClinicControllerDelegator implements IClinicController {
 	}
 
 	@Override
-	public DTConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) {
 		return controladorClinica.listarDatosConsulta(nomC);
 	}
 	@Override
@@ -45,34 +48,34 @@ public class ClinicControllerDelegator implements IClinicController {
 		controladorClinica.setEstadoConsulta(state, nombreConsulta);
 	}
 	@Override
-	public DTResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
 		return controladorClinica.listarDatosResConsultaCC(nomC, numReserva);
 	}
 
 	@Override
-	public Set<DTResConsulta> listarReservasConsulta(String nomC) {
+	public Set<DtResConsulta> listarReservasConsulta(String nomC) {
 		return controladorClinica.listarReservasConsulta(nomC);
 	}
 	
 	@Override
-	public Set<DTConsulta> selecListaConsultaDelDia(String nomD) {
+	public Set<DtConsulta> selecListaConsultaDelDia(String nomD) {
 		return controladorClinica.selecListaConsultaDelDia(nomD);
 	}
 
 	
 
 	@Override
-	public Set<DTPaciente> listarPacientes() {
+	public Set<DtPaciente> listarPacientes() {
 		return controladorClinica.listarPacientes();
 	}
 
 	@Override
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef) {
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, boolean aplicaBenef) {
 		controladorClinica.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
 	}
 
 	@Override
-	public Set<DTConsulta> listarConsultas() {
+	public Set<DtConsulta> listarConsultas() {
 		return controladorClinica.listarConsultas();
 	}
 
@@ -92,13 +95,13 @@ public class ClinicControllerDelegator implements IClinicController {
 	}
 
 	@Override
-	public void ingresarDiaConsulta(String nombre, String descripcion, DTDiaSemana dia, LocalTime horaInicio,
+	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) {
 		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
 
 	@Override
-	public List<DTDiaConsulta> listarDiaConsultas() {
+	public List<DtDiaConsulta> listarDiaConsultas() {
 		return controladorClinica.listarDiaConsultas();
 	}
 
@@ -108,12 +111,12 @@ public class ClinicControllerDelegator implements IClinicController {
 	}
 
 	@Override
-	public DTConsulta seleccionarConsulta(String nomC) {
+	public DtConsulta seleccionarConsulta(String nomC) {
 		return controladorClinica.seleccionarConsulta(nomC);
 	}
 
 	@Override
-	public DTClinica seleccionarClinica(String nombre) {
+	public DtClinica seleccionarClinica(String nombre) {
 		return controladorClinica.seleccionarClinica(nombre);
 	}
 }

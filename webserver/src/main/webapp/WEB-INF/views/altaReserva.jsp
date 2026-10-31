@@ -2,7 +2,7 @@
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page import="com.models.datatypes.DTConsulta" %>
 <%
-    String ctx = request.getContextPath();
+String ctx = request.getContextPath();
     String tipoUsuario = (String) session.getAttribute("tipoUsuario");
     boolean esMedico = "Medico".equalsIgnoreCase(tipoUsuario);
     boolean esPaciente = "Paciente".equalsIgnoreCase(tipoUsuario);
@@ -11,7 +11,7 @@
     }
 
     // Obtener los atributos enviados desde el Servlet
-    DTConsulta consulta = (DTConsulta) request.getAttribute("consulta");
+    DtConsulta consulta = (DtConsulta) request.getAttribute("consulta");
     Float costoReserva = (Float) request.getAttribute("costoReserva");
     if (costoReserva == null) {
         costoReserva = 0.0f;

@@ -5,9 +5,9 @@
 <%@ page import="com.models.datatypes.DTMedico" %>
 
 <%
-    DTUsuario usuario = (DTUsuario) request.getAttribute("usuario");
-    DTPaciente paciente = (DTPaciente) request.getAttribute("datosPaciente");
-    DTMedico medico = (DTMedico) request.getAttribute("datosMedico");
+DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
+    DtPaciente paciente = (DtPaciente) request.getAttribute("datosPaciente");
+    DtMedico medico = (DtMedico) request.getAttribute("datosMedico");
     String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 %>
 

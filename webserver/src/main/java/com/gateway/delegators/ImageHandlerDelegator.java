@@ -1,6 +1,5 @@
 package com.gateway.delegators;
 
-import java.awt.image.BufferedImage;
 
 import com.gateway.connectors.ImageHandlerConnector;
 import com.gateway.interfaces.IImageHandler;
@@ -20,13 +19,13 @@ public class ImageHandlerDelegator implements IImageHandler {
 	}
 
 	@Override
-	public BufferedImage getImg(String key) {
-		return ihc.getImg(key);
+	public String getImg64(String key) {
+		return ihc.getImg64(key);
 	}
 
 	@Override
-	public String getImg64(String key) {
-		return ihc.getImg64(key);
+	public void addImg(String b64, String key) {
+		ihc.addImg(b64, key);
 	}
 
 }

@@ -9,14 +9,14 @@
 <%@ page import="java.util.Set" %>
 
 <%
-    DTUsuario usuario = (DTUsuario) request.getAttribute("usuario");
-    DTMedico medico = (DTMedico) request.getAttribute("datosMedico");
+DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
+    DtMedico medico = (DtMedico) request.getAttribute("datosMedico");
 
     List<String> especialidades =
             (List<String>) request.getAttribute("especialidades");
 
-    Set<DTConsulta> consultas =
-            (Set<DTConsulta>) request.getAttribute("consultas");
+    Set<DtConsulta> consultas =
+            (Set<DtConsulta>) request.getAttribute("consultas");
 
     boolean esMiPerfil =
             Boolean.TRUE.equals(request.getAttribute("esMiPerfil"));
@@ -124,22 +124,36 @@
 
 <body>
 
-<% if (session.getAttribute("nickname") == null) { %>
+<%
+if (session.getAttribute("nickname") == null) {
+%>
     <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
-<% } else { %>
+<%
+} else {
+%>
     <jsp:include page="/WEB-INF/templates/navbar.jsp" />
-<% } %>
+<%
+}
+%>
 
 <main class="container-fluid py-5">
     <div class="layout-perfil d-flex gap-4">
 
-		<% if ("Medico".equals(tipoUsuarioSesion)) { %>
+		<%
+		if ("Medico".equals(tipoUsuarioSesion)) {
+		%>
     		<jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-		<% } else if ("Paciente".equals(tipoUsuarioSesion)) { %>
+		<%
+		} else if ("Paciente".equals(tipoUsuarioSesion)) {
+		%>
     		<jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-		<% } else { %>
+		<%
+		} else {
+		%>
     		<jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-		<% } %>
+		<%
+		}
+		%>
 
         <div class="contenido-perfil">
             <div class="card perfil-card">
@@ -148,7 +162,7 @@
                     <div class="row align-items-center g-4 mb-4">
                         <div class="col-md-3 text-center">
                             <img class="avatar"
-                                 src="<%= fotoPerfil %>"
+                                 src="<%=fotoPerfil%>"
                                  alt="Perfil de médico">
                         </div>
 
@@ -158,24 +172,34 @@
                             </p>
 
                             <h1 class="titulo-seccion mb-3">
-                                <% if (usuario != null) { %>
-                                    <%= usuario.nombre() %> <%= usuario.apellido() %>
-                                <% } else { %>
+                                <%
+                                if (usuario != null) {
+                                %>
+                                    <%=usuario.nombre()%> <%=usuario.apellido()%>
+                                <%
+                                } else {
+                                %>
                                     Mis datos
-                                <% } %>
+                                <%
+                                }
+                                %>
                             </h1>
 
-                            <% if (usuario != null) { %>
+                            <%
+                            if (usuario != null) {
+                            %>
                                 <p class="mb-1">
                                     <strong>Nickname:</strong>
-                                    <%= usuario.nickname() %>
+                                    <%=usuario.nickname()%>
                                 </p>
 
                                 <p class="mb-0">
                                     <strong>Correo electrónico:</strong>
-                                    <%= usuario.correo() %>
+                                    <%=usuario.correo()%>
                                 </p>
-                            <% } %>
+                            <%
+                            }
+                            %>
                         </div>
                     </div>
 
@@ -185,51 +209,73 @@
                         Datos del médico
                     </h2>
 
-                    <% if (medico != null) { %>
+                    <%
+                    if (medico != null) {
+                    %>
                         <div class="dato">
                             <strong>Número de registro:</strong>
-                            <%= medico.nroReg() %>
+                            <%=medico.nroReg()%>
                         </div>
 
                         <div class="dato">
                             <strong>Mes de licencia:</strong>
-                            <%= medico.mesLic() %>
+                            <%=medico.mesLic()%>
                         </div>
 
                         <div class="dato">
                             <strong>Porcentaje adicional:</strong>
-                            <%= medico.porcentajeCost() %>%
+                            <%=medico.porcentajeCost()%>%
                         </div>
 
                         <div class="dato">
                             <strong>Sitio web:</strong>
-                            <% if (medico.link() != null && !medico.link().isBlank()) { %>
-                                <%= medico.link() %>
-                            <% } else { %>
+                            <%
+                            if (medico.link() != null && !medico.link().isBlank()) {
+                            %>
+                                <%=medico.link()%>
+                            <%
+                            } else {
+                            %>
                                 No cuenta con un sitio web.
-                            <% } %>
+                            <%
+                            }
+                            %>
                         </div>
-                    <% } else { %>
+                    <%
+                    } else {
+                    %>
                         <p class="text-secondary">
                             No se encontraron los datos del médico.
                         </p>
-                    <% } %>
+                    <%
+                    }
+                    %>
 
                     <h2 class="titulo-seccion h4 mt-4 mb-3">
                         Especialidades
                     </h2>
 
-                    <% if (especialidades != null && !especialidades.isEmpty()) { %>
-                        <% for (String especialidad : especialidades) { %>
+                    <%
+                    if (especialidades != null && !especialidades.isEmpty()) {
+                    %>
+                        <%
+                        for (String especialidad : especialidades) {
+                        %>
                             <span class="etiqueta-especialidad">
-                                <%= especialidad %>
+                                <%=especialidad%>
                             </span>
-                        <% } %>
-                    <% } else { %>
+                        <%
+                        }
+                        %>
+                    <%
+                    } else {
+                    %>
                         <p class="text-secondary">
                             No tiene especialidades registradas.
                         </p>
-                    <% } %>
+                    <%
+                    }
+                    %>
 
                     <h2 class="titulo-seccion h4 mt-4 mb-3">
                         Consultas asociadas
@@ -237,13 +283,13 @@
 
                     <div class="list-group">
                         <%
-                            boolean hayConsultasVisibles = false;
+                        boolean hayConsultasVisibles = false;
 
-                            if (consultas != null) {
-                                for (DTConsulta consulta : consultas) {
-                                    if (esMiPerfil
-                                            || consulta.estado() == EstadoConsulta.Aceptada) {
-                                        hayConsultasVisibles = true;
+                                                    if (consultas != null) {
+                                                        for (DtConsulta consulta : consultas) {
+                                                            if (esMiPerfil
+                                                                    || consulta.estado() == EstadoConsulta.Aceptada) {
+                                                                hayConsultasVisibles = true;
                         %>
                                             <a class="list-group-item list-group-item-action consulta-enlace mb-2 rounded"
                                                href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">

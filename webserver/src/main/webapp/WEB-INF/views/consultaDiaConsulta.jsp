@@ -5,9 +5,9 @@
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 
 <%
-    String tipoUsuario = (String) session.getAttribute("tipoUsuario");
-    DTDiaConsulta diaConsulta =
-        (DTDiaConsulta) request.getAttribute("diaConsulta");
+String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+    DtDiaConsulta diaConsulta =
+        (DtDiaConsulta) request.getAttribute("diaConsulta");
 %>
 
 <!DOCTYPE html>

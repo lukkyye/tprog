@@ -16,8 +16,8 @@ import java.time.ZoneId;
 import java.time.DateTimeException;
 
 import logica.controladores.*;
-import logica.datatypes.DTDiaConsulta;
-import logica.datatypes.DTMedico;
+import logica.datatypes.DtDiaConsulta;
+import logica.datatypes.DtMedico;
 import logica.excepciones.ConsultaNombreAlreadyExistsException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.FechaDiaSemanaInvalidaException;
@@ -182,10 +182,10 @@ public class AltaDeConsulta extends JInternalFrame {
     }
     
    private void cargarCombos() {
-	   for (DTDiaConsulta d : controladorClinica.listarDatosDiaConsulta()) {
+	   for (DtDiaConsulta d : controladorClinica.listarDatosDiaConsulta()) {
 		   DiasConsultasBox.addItem(d.getNomD());
 	   }
-	   for (DTMedico m : controladorUsuario.listarMedicos()) {
+	   for (DtMedico m : controladorUsuario.listarMedicos()) {
 		   MedicosBox.addItem(m.getNickname());
 	   }
    }

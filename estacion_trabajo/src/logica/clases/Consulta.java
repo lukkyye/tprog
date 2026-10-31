@@ -1,10 +1,10 @@
 package logica.clases;
 import java.time.LocalDate;
 
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTConsultaDetalle;
-import logica.datatypes.DTResConsulta;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtConsultaDetalle;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResConsultaDetalle;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,8 +67,8 @@ public class Consulta {
 		return estado;
 	}
 	
-	public Set<DTResConsulta> getResConsultas(){
-		Set<DTResConsulta> dtReservas = new HashSet<DTResConsulta>();
+	public Set<DtResConsulta> getResConsultas(){
+		Set<DtResConsulta> dtReservas = new HashSet<DtResConsulta>();
 		for (Reserva r : reservas) {
 			
 			dtReservas.add(r.getDataResConsulta()); 
@@ -76,18 +76,18 @@ public class Consulta {
 		return dtReservas;
 	}
 	
-	public DTConsultaDetalle getDataConsultaDetalle() { 
-		Set<DTResConsulta> arg = new HashSet<DTResConsulta>();
+	public DtConsultaDetalle getDataConsultaDetalle() { 
+		Set<DtResConsulta> arg = new HashSet<DtResConsulta>();
 		for (Reserva reserva : reservas) {
-			DTResConsulta dtconsulta = new DTResConsulta(nomC, reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), reserva.getCostoR());
+			DtResConsulta dtconsulta = new DtResConsulta(nomC, reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), reserva.getCostoR());
 			arg.add(dtconsulta);
 		}
-		DTConsultaDetalle consultaDetalle = new DTConsultaDetalle(nomC, medico, fecha, sala, cantNum, arg, costoC, estado);
+		DtConsultaDetalle consultaDetalle = new DtConsultaDetalle(nomC, medico, fecha, sala, cantNum, arg, costoC, estado);
 		return consultaDetalle;
 	}
 	
-	public DTConsulta getDataConsulta() {
-		DTConsulta consulta = new DTConsulta(nomC, fecha, sala, cantNum, costoC, estado);
+	public DtConsulta getDataConsulta() {
+		DtConsulta consulta = new DtConsulta(nomC, fecha, sala, cantNum, costoC, estado);
 		return consulta;
 	}
 	
@@ -121,7 +121,7 @@ public class Consulta {
 	}	
 
 	
-	public DTResConsultaDetalle listarDatosResConsultaC(int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaC(int numReserva) {
 	    for (Reserva r : reservas) {
 	        if (r.getNumReserva() == numReserva) {
 	            return r.getDataResConsultaDetalle();

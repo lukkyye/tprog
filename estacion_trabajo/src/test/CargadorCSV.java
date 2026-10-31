@@ -22,7 +22,7 @@ import logica.datatypes.EstadoConsulta;
 
 import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
-import logica.datatypes.DTDiaSemana;
+import logica.datatypes.DtDiaSemana;
 import logica.datatypes.TipoMes;
 
 
@@ -139,7 +139,7 @@ public class CargadorCSV {
 			String ref = fila[0];
 			String nombre = fila[1];
 			String desc = fila[2];
-			DTDiaSemana dia = parseDia(fila[3]);
+			DtDiaSemana dia = parseDia(fila[3]);
 			LocalTime horaInicio = LocalTime.parse(fila[4].trim());
 			String nombreEspecialidad = especialidadesPorRef.get(fila[5]);
 			String nombreClinica = clinicasPorRef.get(fila[6]);
@@ -186,10 +186,10 @@ public class CargadorCSV {
 	}
 
 
-	private DTDiaSemana parseDia(String valorCsv) {
+	private DtDiaSemana parseDia(String valorCsv) {
 		String sinAcentos = Normalizer.normalize(valorCsv.trim(), Normalizer.Form.NFD)
 				.replaceAll("\\p{M}", "");
-		return DTDiaSemana.valueOf(sinAcentos);
+		return DtDiaSemana.valueOf(sinAcentos);
 	}
 
 	private Map<String, String[]> indexarPorRef(String archivo) {

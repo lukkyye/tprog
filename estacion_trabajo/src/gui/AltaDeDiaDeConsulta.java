@@ -15,7 +15,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-import logica.datatypes.DTDiaSemana;
+import logica.datatypes.DtDiaSemana;
 
 import logica.controladores.ControladorClinica;
 import logica.excepciones.DiaConsultaAlreadyExistsException;
@@ -26,7 +26,7 @@ public class AltaDeDiaDeConsulta extends JInternalFrame {
     private JTextField txtDescripcion;
     private JTextField txtHoraInicio;
 
-    private JComboBox<DTDiaSemana> comboDiaSemana;
+    private JComboBox<DtDiaSemana> comboDiaSemana;
     private JComboBox<String> comboEspecialidad;
     private JComboBox<String> comboClinica;
 
@@ -171,8 +171,8 @@ public class AltaDeDiaDeConsulta extends JInternalFrame {
         btnCancelar.addActionListener(e -> dispose());
         
         comboDiaSemana.setModel(
-        	    new DefaultComboBoxModel<DTDiaSemana>(
-        	        DTDiaSemana.values()
+        	    new DefaultComboBoxModel<DtDiaSemana>(
+        	        DtDiaSemana.values()
         	    )
         	);
         
@@ -182,8 +182,8 @@ public class AltaDeDiaDeConsulta extends JInternalFrame {
 
         // Cargar días de la semana
         comboDiaSemana.setModel(
-                new DefaultComboBoxModel<DTDiaSemana>(
-                        DTDiaSemana.values()
+                new DefaultComboBoxModel<DtDiaSemana>(
+                        DtDiaSemana.values()
                 )
         );
 
@@ -214,8 +214,8 @@ public class AltaDeDiaDeConsulta extends JInternalFrame {
             String horaTexto =
                     txtHoraInicio.getText().trim();
 
-            DTDiaSemana dia =
-                    (DTDiaSemana) comboDiaSemana.getSelectedItem();
+            DtDiaSemana dia =
+                    (DtDiaSemana) comboDiaSemana.getSelectedItem();
 
             String especialidad =
                     (String) comboEspecialidad.getSelectedItem();

@@ -67,9 +67,9 @@
             <h1 class="mb-4">Mis Reservas</h1>
 
 <%
-		HashSet<DTResConsulta> reservas = (HashSet<DTResConsulta>) request.getAttribute("reservas");
+HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute("reservas");
     if (reservas != null && !reservas.isEmpty()) {
-        for (DTResConsulta reserva : reservas) {
+        for (DtResConsulta reserva : reservas) {
 %>
             <div class="card shadow rounded-4 border-0 bg-light p-4 mb-3">
                 <div class="d-flex align-items-center mb-3">

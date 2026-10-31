@@ -23,7 +23,7 @@ import logica.controladores.*;
 
 import javax.swing.JOptionPane;
 import javax.swing.JDesktopPane;
-import logica.datatypes.DTPaciente;
+import logica.datatypes.DtPaciente;
 
 public class ConsultaDeUsuario extends JInternalFrame {
 
@@ -95,7 +95,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 
         ControladorUsuario controlador = new ControladorUsuario();
 
-        Set<DTUsuario> usuarios = controlador.listarUsuarios();
+        Set<DtUsuario> usuarios = controlador.listarUsuarios();
 
         String[] nicknames = usuarios.stream()
                 .map(dtu->dtu.getNickname())
@@ -170,7 +170,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 
             if (esPaciente) {
             	//solo tiene un elemento y es el DTUsuario que tiene unickname=nickname
-            	DTUsuario pseudolista = usuarios
+            	DtUsuario pseudolista = usuarios
             			.stream()
             			.filter(u->u.getNickname().equals(nickname))
             			.collect(Collectors.toList()).getFirst();

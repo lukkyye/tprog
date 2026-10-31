@@ -1,13 +1,13 @@
 package gui;
 import javax.swing.JInternalFrame;
-import logica.datatypes.DTResConsultaDetalle;
+import logica.datatypes.DtResConsultaDetalle;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class ConsultaReserva extends JInternalFrame{
-	public ConsultaReserva(DTResConsultaDetalle detalle) {
+	public ConsultaReserva(DtResConsultaDetalle detalle) {
 	    super("Detalle de Reserva de Consulta", true, true, true, true);
 
 	    setSize(600, 500);

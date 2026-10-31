@@ -69,11 +69,11 @@
                         </option>
 
                         <%
-                            HashSet<DTConsulta> consultas =
-                                (HashSet<DTConsulta>) request.getAttribute("consultas");
+                        HashSet<DtConsulta> consultas =
+                                                        (HashSet<DtConsulta>) request.getAttribute("consultas");
 
-                            if (consultas != null && !consultas.isEmpty()) {
-                                for (DTConsulta consulta : consultas) {
+                                                    if (consultas != null && !consultas.isEmpty()) {
+                                                        for (DtConsulta consulta : consultas) {
                         %>
                                     <option value="<%= consulta.nomC() %>">
                                         <%= consulta.nomC() %>  -  <%= consulta.fechaC() %>

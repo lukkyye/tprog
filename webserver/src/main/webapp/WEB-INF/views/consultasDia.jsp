@@ -89,11 +89,11 @@
     <h1 class="mb-2">Consultas <%=h1%></h1>
 
     <%
-        Set<DTConsulta> consultas =
-            (Set<DTConsulta>) request.getAttribute("consultas");
+    Set<DtConsulta> consultas =
+                (Set<DtConsulta>) request.getAttribute("consultas");
 
-        if (consultas != null && !consultas.isEmpty()) {
-            for (DTConsulta consulta : consultas) {
+            if (consultas != null && !consultas.isEmpty()) {
+                for (DtConsulta consulta : consultas) {
     %>
 
     <div class="card shadow-sm rounded-4 border-0 bg-light p-4">

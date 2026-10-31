@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import logica.datatypes.DTConsulta;
-import logica.datatypes.DTConsultaDetalle;
+import logica.datatypes.DtConsulta;
+import logica.datatypes.DtConsultaDetalle;
 
 public class ConsultaMedico extends JInternalFrame {
 
     private String nickname;
-    private ArrayList<DTConsulta> consultasMedico;
+    private ArrayList<DtConsulta> consultasMedico;
 
     public ConsultaMedico(String nickname) {
         super(
@@ -179,10 +179,10 @@ public class ConsultaMedico extends JInternalFrame {
     
         ControladorUsuario controlador = new ControladorUsuario();
 
-        DTMedico medico =
+        DtMedico medico =
                 controlador.listarDatosMedico(nickname);
 
-        DTUsuario usuario = controlador.listarUsuarios()
+        DtUsuario usuario = controlador.listarUsuarios()
                 .stream()
                 .filter(u -> u.getNickname().equals(nickname))
                 .findFirst()
@@ -213,7 +213,7 @@ public class ConsultaMedico extends JInternalFrame {
                 medico.getLink()
         );
         
-        Set<DTConsulta> consultas =
+        Set<DtConsulta> consultas =
                 controlador.listarConsultasAsociadas(nickname);
 
         consultasMedico = new ArrayList<>(consultas);
@@ -247,10 +247,10 @@ public class ConsultaMedico extends JInternalFrame {
 
                     if (indice != -1) {
 
-                        DTConsulta consultaSeleccionada =
+                        DtConsulta consultaSeleccionada =
                                 consultasMedico.get(indice);
 
-                        DTConsultaDetalle detalle =
+                        DtConsultaDetalle detalle =
                                 controlador.listarDatosConsulta(
                                         consultaSeleccionada.getNomC()
                                 );

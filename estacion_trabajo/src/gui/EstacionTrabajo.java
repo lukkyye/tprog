@@ -2,6 +2,9 @@ package gui;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import server.Publisher;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -220,7 +223,9 @@ public class EstacionTrabajo extends JFrame { //ventana externa
     }
 
     public static void main(String[] args) {
-
+    	Publisher publicador = new Publisher();
+    	publicador.publicar();
+    	
         SwingUtilities.invokeLater(() -> {
             EstacionTrabajo ventana = new EstacionTrabajo();
             ventana.setVisible(true);

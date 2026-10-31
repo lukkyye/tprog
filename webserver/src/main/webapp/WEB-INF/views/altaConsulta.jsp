@@ -23,8 +23,8 @@
     }
 %>
 <%
-    @SuppressWarnings("unchecked")
-    List<DTDiaConsulta> dias = (List<DTDiaConsulta>) request.getAttribute("dias");
+@SuppressWarnings("unchecked")
+    List<DtDiaConsulta> dias = (List<DtDiaConsulta>) request.getAttribute("dias");
     String diaSel = (String) request.getAttribute("diaSel");
     String mensaje = (String) request.getAttribute("mensaje");
     String exito = (String) request.getAttribute("exito");
@@ -35,28 +35,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Salud.uy - Alta de Consulta</title>
-    <link rel="icon" type="image/png" href="<%= ctx %>/img/FAVICON.png">
+    <link rel="icon" type="image/png" href="<%=ctx%>/img/FAVICON.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
 </head>
 
 <body class="min-vh-100 container-fluid bg-body">
 
-    <% if (esMedico || esPaciente) { %>
+    <%
+    if (esMedico || esPaciente) {
+    %>
         <jsp:include page="/WEB-INF/templates/navbar.jsp" />
-    <% } else { %>
+    <%
+    } else {
+    %>
         <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
-    <% } %>
+    <%
+    }
+    %>
 
     <main class="container-fluid d-flex mt-5 gap-4">
 
-        <% if (esMedico) { %>
+        <%
+        if (esMedico) {
+        %>
             <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-        <% } else if (esPaciente) { %>
+        <%
+        } else if (esPaciente) {
+        %>
             <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-        <% } else { %>
+        <%
+        } else {
+        %>
             <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-        <% } %>
+        <%
+        }
+        %>
 
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
             <section class="bg-light rounded-4 shadow p-4 p-sm-5 w-100">
@@ -68,24 +82,36 @@
                     <strong>Ingresada</strong> hasta que el administrador la acepte.
                 </p>
 
-                <% if (exito != null) { %>
-                    <div class="alert alert-success" role="alert"><%= h(exito) %></div>
-                <% } %>
+                <%
+                if (exito != null) {
+                %>
+                    <div class="alert alert-success" role="alert"><%=h(exito)%></div>
+                <%
+                }
+                %>
 
-                <% if (mensaje != null) { %>
-                    <div class="alert alert-danger" role="alert"><%= h(mensaje) %></div>
-                <% } %>
+                <%
+                if (mensaje != null) {
+                %>
+                    <div class="alert alert-danger" role="alert"><%=h(mensaje)%></div>
+                <%
+                }
+                %>
                 <div id="errorCliente" class="alert alert-danger d-none" role="alert"></div>
 
-                <% if (dias == null || dias.isEmpty()) { %>
+                <%
+                if (dias == null || dias.isEmpty()) {
+                %>
                     <div class="alert alert-warning" role="alert">
                         Debe existir al menos un día de consulta dado de alta.
                         Podés crearlo desde
-                        <a href="<%= ctx %>/AltaDiaConsultaServlet">Alta de Día de Consulta</a>.
+                        <a href="<%=ctx%>/AltaDiaConsultaServlet">Alta de Día de Consulta</a>.
                     </div>
-                <% } else { %>
+                <%
+                } else {
+                %>
 
-                <form id="formConsulta" action="<%= ctx %>/AltaConsultaServlet"
+                <form id="formConsulta" action="<%=ctx%>/AltaConsultaServlet"
                       method="post" enctype="multipart/form-data"
                       onsubmit="return validarConsulta();">
 
@@ -95,7 +121,9 @@
                         </label>
                         <select id="dia" name="dia" class="form-select" required>
                             <option value="" data-dia="">Seleccionar día de consulta</option>
-                            <% for (DTDiaConsulta d : dias) { %>
+                            <%
+                            for (DtDiaConsulta d : dias) {
+                            %>
                                 <option value="<%= h(d.nomD()) %>"
                                         data-dia="<%= d.dia() %>"
                                         <%= d.nomD().equals(diaSel) ? "selected" : "" %>>
