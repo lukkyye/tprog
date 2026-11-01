@@ -99,7 +99,9 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<String> listarEspecialidades() {
-		return (Set<String>) port.listarEspecialidades();
+	    return new java.util.HashSet<>(
+	        java.util.Arrays.asList(port.listarEspecialidades())
+	    );
 	}
 
 	@Override
@@ -119,7 +121,7 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public List<DtDiaConsulta> listarDiaConsultas() {
-		return new ArrayList<DtDiaConsulta>(Arrays.asList(port.listarDiaConsultas()));
+		return port.listarDiaConsultas().getItem();
 	}
 	
 	@Override

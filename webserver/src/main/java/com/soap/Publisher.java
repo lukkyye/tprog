@@ -174,8 +174,7 @@ public interface Publisher {
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarEspecialidadesRequest", output = "http://server/Publisher/listarEspecialidadesResponse")
-    public HashSet listarEspecialidades();
-
+    public String[] listarEspecialidades();
     /**
      * 
      * @param arg0
@@ -535,7 +534,7 @@ public interface Publisher {
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarDiaConsultasRequest", output = "http://server/Publisher/listarDiaConsultasResponse")
-    public ArrayList listarDiaConsultas();
+    public DtDiaConsultaArray listarDiaConsultas();
 
     /**
      * 

@@ -157,8 +157,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<String> listarEspecialidades() {
-		return (HashSet<String>) controladorClinica.listarEspecialidades();
+	public String[] listarEspecialidades() {
+	    return controladorClinica.listarEspecialidades().toArray(new String[0]);
 	}
 
 	@WebMethod

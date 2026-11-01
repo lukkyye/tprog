@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.models.datatypes.DTDiaConsulta" %>
+<%@ page import="com.soap.DtDiaConsulta" %>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -61,22 +62,21 @@
         <!-- DIAS DE CONSULTA -->
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
 
-            <%
-            ImageHandlerDelegator img = new ImageHandlerDelegator();
+         <%
+    		ImageHandlerDelegator img = new ImageHandlerDelegator();
 
-                            ArrayLiDtDiaConsultalta> array =
-                                (ArrayLiDtDiaConsultalta>) request.getAttribute("dtDiasConsulta");
+   			List<DtDiaConsulta> array = (List<DtDiaConsulta>) request.getAttribute("dtDiasConsulta");
 
-                            if (array != null && !array.isEmpty()) {
+    		if (array != null && !array.isEmpty()) {
 
-                                foDtDiaConsultalta dtdc : array) {
+        		for (DtDiaConsulta dtdc : array) {
 
-                                    String src = img.getImg64(dtdc.nomD());
+            		String src = img.getImg64(dtdc.getNomD());
 
-                                    if (src == null) {
-                                        src = request.getContextPath() + "/img/LOGOGENERAL.png";
-                                    }
-            %>
+            		if (src == null) {
+        				src = request.getContextPath() + "/img/LOGOGENERAL.png";
+            		}
+		%>
 
                 <div class="card shadow rounded-4 border-0 bg-light p-4">
 
@@ -91,11 +91,11 @@
 
                         <div class="col-9 ps-3">
                             <h4 class="m-0 fw-bold">
-                                <%= dtdc.nomD() %>
+                                <%= dtdc.getNomD() %>
                             </h4>
 
                             <p class="mb-0 text-muted mt-2">
-                                <%= dtdc.descD() %>
+                                <%= dtdc.getDescD() %>
                             </p>
                         </div>
 
@@ -103,12 +103,12 @@
 
                     <div class="d-flex justify-content-center gap-2 pt-2 border-top">
 
-                        <a href="${pageContext.request.contextPath}/ConsultaDiaConsultaServlet?nombreDia=<%= java.net.URLEncoder.encode(dtdc.nomD(), "UTF-8") %>"
+                        <a href="${pageContext.request.contextPath}/ConsultaDiaConsultaServlet?nombreDia=<%= java.net.URLEncoder.encode(dtdc.getNomD(), "UTF-8") %>"
                            class="btn btn-outline-primary">
                             Ver Detalle
                         </a>
 
-                        <a href="${pageContext.request.contextPath}/ConsultasDiaServlet?nombreDia=<%= java.net.URLEncoder.encode(dtdc.nomD(), "UTF-8") %>"
+                        <a href="${pageContext.request.contextPath}/ConsultasDiaServlet?nombreDia=<%= java.net.URLEncoder.encode(dtdc.getNomD(), "UTF-8") %>"
                            class="btn btn-primary">
                             Ver Consultas Asociadas
                         </a>
