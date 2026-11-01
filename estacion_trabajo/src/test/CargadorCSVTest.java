@@ -46,8 +46,13 @@ class CargadorCSVTest {
 	void consultarUsuario_Medico(){
 		DtMedico dtmedico_expected = new DtMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
 		DtUsuario dtusuario_expected = new DtUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
-		Set<DtConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
-		DtMedico dtmedico = controladorUsuario.listarDatosMedico("bsilva");
+		try {
+			Set<DtConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
+		} catch (UserNotFoundException | ConsultaNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DtMedico dtmedico=assertDoesNotThrow(()->controladorUsuario.listarDatosMedico("bsilva"));
 		DtUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.getNickname().equals("bsilva"))
@@ -64,8 +69,13 @@ class CargadorCSVTest {
 	void consultarUsuario_Paciente() {
 		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 5, 7, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
 		DtUsuario dtusuario_expected = new DtUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
-		DtPaciente dtpaciente = controladorUsuario.listarDatosPaciente("lgomez");
-		Set<DtResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
+		DtPaciente dtpaciente = assertDoesNotThrow(()->controladorUsuario.listarDatosPaciente("lgomez"));
+		try {
+			Set<DtResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		DtUsuario dtusuario = controladorUsuario.listarUsuarios()
 				.stream()
 				.filter(u->u.getNickname().equals("lgomez"))
@@ -81,12 +91,14 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarEspecialidad() {
-		Especialidad especialidad = manejadorEspecialidad.getEspecialidad("Cardiología");
-		assertAll(
-				()->assertEquals("Cardiología", especialidad.getNombre()),
-				()->assertEquals(20,especialidad.getPorcentajeAdicional())
-				);
+	    Especialidad especialidad = assertDoesNotThrow(
+	        () -> manejadorEspecialidad.getEspecialidad("Cardiología")
+	    );
 
+	    assertAll(
+	        () -> assertEquals("Cardiología", especialidad.getNombre()),
+	        () -> assertEquals(20, especialidad.getPorcentajeAdicional())
+	    );
 	}
 
 	@Test
@@ -134,11 +146,11 @@ class CargadorCSVTest {
 	void consultarDeReservaDeConsulta() {
 		DtResConsultaDetalle reserva_expected = new DtResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656);
 		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
-		DtPaciente dtpaciente = controladorUsuario.seleccionarPaciente("lgomez");
+		DtPaciente dtpaciente = assertDoesNotThrow(()->controladorUsuario.seleccionarPaciente("lgomez"));
 		
 		String nomP = dtpaciente.getNickname();
 		String nomC = "Cardiología 240826";
-		DtResConsultaDetalle res = controladorUsuario.listarDatosResConsulta(nomC, nomP);
+		DtResConsultaDetalle res = assertDoesNotThrow(()->controladorUsuario.listarDatosResConsulta(nomC, nomP));
 		assertAll(
 				()->assertEquals(reserva_expected,res)
 			);
@@ -170,7 +182,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void unicidadNombreClinica_AltaDeClinica() {
-		controladorClinica.ingresarClinica("cl1", "", "", 1, 1, "");
+		assertDoesNotThrow(()->controladorClinica.ingresarClinica("cl1", "", "", 1, 1, ""));
 		assertThrows(NombreClinicaAlreadyExistsException.class, ()->{
 			controladorClinica.ingresarClinica("cl1", "asd", "asd", 1, 2, "web.com");
 		});
@@ -267,11 +279,14 @@ class CargadorCSVTest {
 	
 	@Test
 	void altaBeneficioAnual() {
-	    controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2030, 5, 10);
+	    try {
+			controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2030, 5, 10);
+		} catch (UserNotFoundException | BeneficioAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	    DtBeneficioAnual beneficio =
-	            controladorUsuario.listarDatosBeneficioAnual("daniel.quintana22", 2030);
-
+	    DtBeneficioAnual beneficio = assertDoesNotThrow(()->controladorUsuario.listarDatosBeneficioAnual("daniel.quintana22", 2030));
 	    assertAll(
 	        () -> assertEquals(2030, beneficio.getAnio()),
 	        () -> assertEquals(5, beneficio.getCantOrdenes()),
@@ -281,7 +296,7 @@ class CargadorCSVTest {
 
 	@Test
 	void altaBeneficioAnualDuplicado() {
-	    controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2031, 5, 10);
+	    assertDoesNotThrow(()->controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2031, 5, 10));
 
 	    assertThrows(BeneficioAlreadyExistsException.class, () -> {
 	        controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2031, 8, 20);
@@ -290,10 +305,10 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarBeneficiosAnuales() {
-	    controladorUsuario.altaBeneficioAnual("lgomez", 2032, 3, 7);
+		assertDoesNotThrow(()->controladorUsuario.altaBeneficioAnual("lgomez", 2032, 3, 7));
 
-	    Set<DtBeneficioAnual> beneficios =
-	            controladorUsuario.listarBeneficiosAnuales("lgomez");
+	    Set<DtBeneficioAnual> beneficios = assertDoesNotThrow( ()->
+	            controladorUsuario.listarBeneficiosAnuales("lgomez"));
 
 	    assertTrue(
 	        beneficios.stream()
@@ -305,10 +320,10 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarDatosBeneficioAnual() {
-	    controladorUsuario.altaBeneficioAnual("emilia.ramos23", 2033, 4, 8);
+		assertDoesNotThrow(()->controladorUsuario.altaBeneficioAnual("emilia.ramos23", 2033, 4, 8));
 
-	    DtBeneficioAnual beneficio =
-	            controladorUsuario.listarDatosBeneficioAnual("emilia.ramos23", 2033);
+	    DtBeneficioAnual beneficio =assertDoesNotThrow(()->
+	            controladorUsuario.listarDatosBeneficioAnual("emilia.ramos23", 2033));
 
 	    assertEquals(2033, beneficio.getAnio());
 	    assertEquals(4, beneficio.getCantOrdenes());
@@ -317,7 +332,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void modificarPerfilPaciente() {
-	    controladorUsuario.modificarPaciente(
+	    assertDoesNotThrow(()->controladorUsuario.modificarPaciente(
 	        "lgomez",
 	        "LauraNueva",
 	        "GomezNueva",
@@ -325,10 +340,10 @@ class CargadorCSVTest {
 	        LocalDate.of(2024, 3, 1),
 	        45678901,
 	        new ArrayList<>(List.of("Antecedente nuevo"))
-	    );
+	    ));
 
-	    DtPaciente paciente =
-	            controladorUsuario.listarDatosPaciente("lgomez");
+	    DtPaciente paciente = assertDoesNotThrow(()->
+	            controladorUsuario.listarDatosPaciente("lgomez"));
 
 	    assertAll(
 	        () -> assertEquals("LauraNueva",
@@ -363,6 +378,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void modificarPerfilMedico() {
+		assertDoesNotThrow( ()->
 	    controladorUsuario.modificarMedico(
 	        "bsilva",
 	        "BrunoNuevo",
@@ -372,10 +388,10 @@ class CargadorCSVTest {
 	        15,
 	        "https://nuevo-link.com",
 	        new ArrayList<>(List.of("Cardiología"))
-	    );
+	    ));
 
-	    DtMedico medico =
-	            controladorUsuario.listarDatosMedico("bsilva");
+	    DtMedico medico = assertDoesNotThrow(()->
+	            controladorUsuario.listarDatosMedico("bsilva"));
 
 	    assertAll(
 	        () -> assertEquals("BrunoNuevo",
@@ -401,13 +417,14 @@ class CargadorCSVTest {
 
 	@Test
 	void aceptarConsulta() {
+		assertDoesNotThrow(()->
 	    controladorClinica.setEstadoConsulta(
 	        EstadoConsulta.Aceptada,
 	        "Pediatría 080926"
-	    );
+	    ));
 
-	    DtConsulta consulta =
-	            controladorClinica.seleccionarConsulta("Pediatría 080926");
+	    DtConsulta consulta = assertDoesNotThrow(()->
+	            controladorClinica.seleccionarConsulta("Pediatría 080926"));
 
 	    assertEquals(
 	        EstadoConsulta.Aceptada,
@@ -417,13 +434,14 @@ class CargadorCSVTest {
 
 	@Test
 	void rechazarConsulta() {
+		assertDoesNotThrow(()->
 	    controladorClinica.setEstadoConsulta(
 	        EstadoConsulta.Rechazada,
 	        "Pediatría 080926"
-	    );
+	    ));
 
-	    DtConsulta consulta =
-	            controladorClinica.seleccionarConsulta("Pediatría 080926");
+	    DtConsulta consulta = assertDoesNotThrow(()->
+	            controladorClinica.seleccionarConsulta("Pediatría 080926"));
 
 	    assertEquals(
 	        EstadoConsulta.Rechazada,

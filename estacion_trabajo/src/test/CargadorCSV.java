@@ -24,6 +24,23 @@ import logica.controladores.ControladorClinica;
 import logica.controladores.ControladorUsuario;
 import logica.datatypes.DtDiaSemana;
 import logica.datatypes.TipoMes;
+import logica.excepciones.BeneficioAlreadyExistsException;
+import logica.excepciones.BeneficioSinOrdenesException;
+import logica.excepciones.ConsultaNombreAlreadyExistsException;
+import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.DiaConsultaAlreadyExistsException;
+import logica.excepciones.EmailAlreadyExistsException;
+import logica.excepciones.EspecialidadAlreadyExistsException;
+import logica.excepciones.FechaDiaSemanaInvalidaException;
+import logica.excepciones.IdAlreadyExistsException;
+import logica.excepciones.MedicoSinEspecialidadException;
+import logica.excepciones.NicknameAlreadyExistsException;
+import logica.excepciones.NoNumberAvailableException;
+import logica.excepciones.NombreClinicaAlreadyExistsException;
+import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
+import logica.excepciones.ReservaAlreadyExistsException;
+import logica.excepciones.SpecialityNotFoundException;
+import logica.excepciones.UserNotFoundException;
 
 
 public class CargadorCSV {
@@ -55,7 +72,12 @@ public class CargadorCSV {
 			String nombre = fila[1];
 			int porcentaje = Integer.parseInt(fila[2].trim());
 
-			controladorUsuario.altaEspecialidad(nombre, porcentaje);
+			try {
+				controladorUsuario.altaEspecialidad(nombre, porcentaje);
+			} catch (EspecialidadAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			especialidadesPorRef.put(ref, nombre);
 		}
 	}
@@ -70,7 +92,12 @@ public class CargadorCSV {
 			float costoTicket = Float.parseFloat(fila[5].trim());
 			float costoConsulta = Float.parseFloat(fila[6].trim());
 
-			controladorClinica.ingresarClinica(nombre, desc, dir, costoTicket, costoConsulta, link);
+			try {
+				controladorClinica.ingresarClinica(nombre, desc, dir, costoTicket, costoConsulta, link);
+			} catch (NombreClinicaAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			clinicasPorRef.put(ref, nombre);
 		}
 	}
@@ -100,8 +127,15 @@ public class CargadorCSV {
 				for (String refEsp : refsEspecialidades) {
 					nombresEspecialidades.add(especialidadesPorRef.get(refEsp.trim()));
 				}
-				controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo,
-						nroReg, mesLic, porcAdicional, sitioWeb, nombresEspecialidades);
+				try {
+					controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo,
+							nroReg, mesLic, porcAdicional, sitioWeb, nombresEspecialidades);
+				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException
+						| NumeroDeRegistroAlreadyExistsException | MedicoSinEspecialidadException
+						| SpecialityNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} else if (tipo.equals("P")) {
 				String[] datosPaciente = pacientesPorRef.get(ref);
@@ -115,8 +149,13 @@ public class CargadorCSV {
 					antSalud.add(antecedentes);
 				}
 
-				controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo,
-						fechaNac, fechaIngreso, doc, antSalud);
+				try {
+					controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo,
+							fechaNac, fechaIngreso, doc, antSalud);
+				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException | IdAlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			usuariosPorRef.put(ref, nickname);
@@ -130,7 +169,12 @@ public class CargadorCSV {
 			int cantOrdenes = Integer.parseInt(fila[3]);
 			int cantTicket = Integer.parseInt(fila[4]);
 			System.out.printf("%s,%s,%s,%s,%s\n",fila);
-			controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
+			try {
+				controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
+			} catch (UserNotFoundException | BeneficioAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -144,8 +188,13 @@ public class CargadorCSV {
 			String nombreEspecialidad = especialidadesPorRef.get(fila[5]);
 			String nombreClinica = clinicasPorRef.get(fila[6]);
 			
-			controladorClinica.ingresarDiaConsulta(nombre, desc, dia, horaInicio,
-					nombreEspecialidad, nombreClinica);
+			try {
+				controladorClinica.ingresarDiaConsulta(nombre, desc, dia, horaInicio,
+						nombreEspecialidad, nombreClinica);
+			} catch (DiaConsultaAlreadyExistsException | SpecialityNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			diasConsultaPorRef.put(ref, nombre);
 		}
 	}
@@ -163,8 +212,19 @@ public class CargadorCSV {
 			//String costo = fila[7];
 			String state = fila[8];
 			
-			controladorClinica.ingresarConsulta(nombreDia, nicknameMedico, nombre, fecha, sala, cantNum);
-			controladorClinica.setEstadoConsulta(EstadoConsulta.fromString(state), nombre);
+			try {
+				controladorClinica.ingresarConsulta(nombreDia, nicknameMedico, nombre, fecha, sala, cantNum);
+			} catch (MedicoSinEspecialidadException | ConsultaNombreAlreadyExistsException
+					| FechaDiaSemanaInvalidaException | UserNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				controladorClinica.setEstadoConsulta(EstadoConsulta.fromString(state), nombre);
+			} catch (ConsultaNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			consultasPorRef.put(ref, nombre);
 		}
@@ -181,7 +241,13 @@ public class CargadorCSV {
 				aplicaBenef = true;
 			}
 
-			controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
+			try {
+				controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
+			} catch (ReservaAlreadyExistsException | NoNumberAvailableException | UserNotFoundException
+					| BeneficioSinOrdenesException | ConsultaNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
