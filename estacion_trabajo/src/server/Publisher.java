@@ -58,10 +58,22 @@ public class Publisher {
 		controladorUsuario=new ControladorUsuario();
 		manejadorImagen=ManejadorImagen.getInstance();
 	}
+//	@WebMethod(exclude=true)
+//	public void publicar() {
+//		endpoint = Endpoint.publish("http://localhost:9128/publisher", this);
+//	}
+	
 	@WebMethod(exclude=true)
 	public void publicar() {
-		endpoint = Endpoint.publish("http://localhost:9128/publisher", this);
+	    try { endpoint = Endpoint.publish("http://0.0.0.0:9128/publisher", this);
+	    	System.out.println("servicio publicado?: " + endpoint.isPublished());
+	    } catch (Exception e) {
+	        System.out.println("ERROR AL PUBLICAR SOAP:");
+	        e.printStackTrace();
+	    }
 	}
+	
+	
 	@WebMethod(exclude=true)
 	public Endpoint getEndpoint() {
 		return endpoint;
@@ -157,10 +169,12 @@ public class Publisher {
 		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
 
+
 	@WebMethod
-	public ArrayList<DtDiaConsulta> listarDiaConsultas() {
-		return (ArrayList<DtDiaConsulta>) controladorClinica.listarDiaConsultas();
+	public DtDiaConsulta[] listarDiaConsultas() {
+		return  controladorClinica.listarDiaConsultas().toArray(new DtDiaConsulta[0]);
 	}
+
 
 	@WebMethod
 	public ArrayList<String> getConsultasPorEspecialidad(String especialidad) {

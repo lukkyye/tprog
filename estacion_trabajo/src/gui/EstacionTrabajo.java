@@ -225,6 +225,8 @@ public class EstacionTrabajo extends JFrame { //ventana externa
     public static void main(String[] args) {
     	Publisher publicador = new Publisher();
     	publicador.publicar();
+    	System.out.println("SERVICIO SOAP PUBLICADO");
+    	
     	
         SwingUtilities.invokeLater(() -> {
             EstacionTrabajo ventana = new EstacionTrabajo();

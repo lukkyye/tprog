@@ -2,6 +2,7 @@ package com.gateway.connectors;
 
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.gateway.interfaces.IClinicController;
@@ -118,9 +119,9 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public List<DtDiaConsulta> listarDiaConsultas() {
-		return (List<DtDiaConsulta>) port.listarDiaConsultas();
+		return new ArrayList<DtDiaConsulta>(Arrays.asList(port.listarDiaConsultas()));
 	}
-
+	
 	@Override
 	public List<String> getConsultasPorEspecialidad(String especialidad) {
 		return (List<String>) port.getConsultasPorEspecialidad(especialidad);
