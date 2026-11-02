@@ -19,6 +19,40 @@
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/FAVICON.png">
 
     <style>
+
+		  .bienvenida-movil {
+		    min-height: calc(100vh - 100px);
+		    display: flex;
+		    justify-content: center;
+		    align-items: flex-start;
+		    text-align: center;
+		
+		    background-image: url('${pageContext.request.contextPath}/img/hospital.png');
+		    background-size: 100% 100%;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		}
+
+		  @media (max-width: 991.98px) {
+		
+		    .bienvenida-movil {
+		        width: 100%;
+		        min-height: calc(100vh - 100px);
+		        margin: 0;
+		        padding: 0;
+		        border-radius: 0;
+		    }
+		
+		    .bienvenida-movil h2 {
+		        margin-top: 150px;
+		    }
+		
+		    main:has(.bienvenida-movil) {
+		        display: block !important;
+		        margin-top: 0 !important;
+		        padding: 0 !important;
+		    }
+		}
     
 		@media (max-width: 991.98px) {
 			.menu-lateral-escritorio {
@@ -45,6 +79,11 @@
     <%
         String tipoUsuario = (String) session.getAttribute("tipoUsuario");
     %>
+    <%
+    	String userAgent = request.getHeader("User-Agent");
+    	boolean esMovil = userAgent != null &&
+        	userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
+	%>
 
 						<!-- NAVBAR -->
 						<div class="d-none d-lg-block">
@@ -62,20 +101,25 @@
     <!-- CONTENIDO PRINCIPAL -->
 	<main class="container-fluid d-flex mt-5 gap-4">
 	
-									  <% if (request.getHeader("User-Agent").contains("Mobile")) { %>
-			    <%-- En moviles no mostramos el menu lateral --%>
-			<% } else { %>
-			
-			    <% if ("Paciente".equals(tipoUsuario)) { %>
-			        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-			    <% } else if ("Medico".equals(tipoUsuario)) { %>
-			        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-			    <% } else { %>
-			        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-			    <% } %>
-			
-			<% } %>
+			<% if (!esMovil) { %>
 
+    <% if ("Paciente".equals(tipoUsuario)) { %>
+        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+    <% } else if ("Medico".equals(tipoUsuario)) { %>
+        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+    <% } else { %>
+        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+    <% } %>
+
+<% } %>
+
+
+	<% if (esMovil) { %>
+
+	    <div class="bienvenida-movil">
+	    	<h2 class="fw-bold">¡Bienvenido a Salud.uy!</h2>
+	    </div>
+    <% } else { %>
         <!-- DIAS DE CONSULTA -->
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
  
@@ -156,6 +200,7 @@
             %>
 
         </div>
+       	<% } %>
 
     </main>
 

@@ -12,6 +12,19 @@
 	
 	
     <style>
+		    @media (max-width: 767.98px) {
+		    main {
+		        min-height: calc(100vh - 80px);
+		        display: flex;
+		        align-items: center;
+		        justify-content: center;
+		    }
+		
+		    main .row {
+		        width: 100%;
+		        margin: 0;
+		    }
+		}
     
         body {
         
@@ -79,20 +92,25 @@
         }
     </style>
 </head>
+ <%
+    	String userAgent = request.getHeader("User-Agent");
+    	boolean esMovil = userAgent != null &&
+        	userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
+	%>
 
 <body class="d-flex flex-column">
-
-<header class="bg-white border-bottom px-4 py-3">
-    <nav class="d-flex justify-content-between align-items-center">
-        <a href="/webserver/home">
-            <img src="/webserver/img/LOGOGENERAL.png"
-                 alt="salud.uy"
-                 width="120">
-        </a>
-
-    </nav>
-</header>
-	
+ 	<% if (!esMovil) { %>
+		<header class="bg-white border-bottom px-4 py-3">
+		    <nav class="d-flex justify-content-between align-items-center">
+		        <a href="/webserver/home">
+		            <img src="/webserver/img/LOGOGENERAL.png"
+		                 alt="salud.uy"
+		                 width="120">
+		        </a>
+		
+		    </nav>
+		</header>
+	<% } %>
     <main class="container py-5">
         <div class="tarjeta-login mx-auto">
             <div class="row g-0">
