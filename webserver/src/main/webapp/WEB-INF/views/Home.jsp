@@ -19,6 +19,12 @@
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/FAVICON.png">
 
     <style>
+    
+		@media (max-width: 991.98px) {
+			.menu-lateral-escritorio {
+		        display: none !important;
+		    }
+		}
         .hoverable:hover {
             background-color: rgba(180, 180, 180, 0.8);
         }
@@ -40,28 +46,39 @@
         String tipoUsuario = (String) session.getAttribute("tipoUsuario");
     %>
 
-    <!-- NAVBAR -->
-    <% if ("Paciente".equals(tipoUsuario) || "Medico".equals(tipoUsuario)) { %>
-        <jsp:include page="/WEB-INF/templates/navbar.jsp" />
-    <% } else { %>
-        <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
-    <% } %>
+						<!-- NAVBAR -->
+						<div class="d-none d-lg-block">
+						    <% if ("Paciente".equals(tipoUsuario) || "Medico".equals(tipoUsuario)) { %>
+						        <jsp:include page="/WEB-INF/templates/navbar.jsp" />
+						    <% } else { %>
+						        <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
+						    <% } %>
+						</div>
+						
+						<div class="d-block d-lg-none">
+						    <jsp:include page="/WEB-INF/templates/navbarMovil.jsp" />
+						</div>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="container-fluid d-flex mt-5 gap-4">
-
-        <!-- MENU LATERAL -->
-        <% if ("Paciente".equals(tipoUsuario)) { %>
-            <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-        <% } else if ("Medico".equals(tipoUsuario)) { %>
-            <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-        <% } else { %>
-            <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-        <% } %>
+	<main class="container-fluid d-flex mt-5 gap-4">
+	
+									  <% if (request.getHeader("User-Agent").contains("Mobile")) { %>
+			    <%-- En moviles no mostramos el menu lateral --%>
+			<% } else { %>
+			
+			    <% if ("Paciente".equals(tipoUsuario)) { %>
+			        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+			    <% } else if ("Medico".equals(tipoUsuario)) { %>
+			        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+			    <% } else { %>
+			        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+			    <% } %>
+			
+			<% } %>
 
         <!-- DIAS DE CONSULTA -->
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
-
+ 
          <%
     		ImageHandlerDelegator img = new ImageHandlerDelegator();
 

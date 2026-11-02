@@ -19,10 +19,26 @@ public class LogoutServlet extends HttpServlet {
     }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().invalidate();	
-		response.sendRedirect("/webserver/home");
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		request.getSession().invalidate();	
+//		response.sendRedirect("/webserver/home");
+//	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String userAgent = request.getHeader("User-Agent");
+
+        boolean esMovil = userAgent != null &&
+                userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
+
+        request.getSession().invalidate();
+
+        if (esMovil) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/home");
+        }
+    }
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

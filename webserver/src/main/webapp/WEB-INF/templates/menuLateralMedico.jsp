@@ -24,7 +24,7 @@
     }
 </style>
 
-<aside class="d-flex flex-column gap-4 ps-3 p-0 pe-2 pb-5 sidebar-scroll position-sticky"
+<aside class="menu-lateral-escritorio d-flex flex-column gap-4 ps-3 p-0 pe-2 pb-5 sidebar-scroll position-sticky"
        style="top: 80px; flex: 0 0 23%; max-width: 23%; height: calc(100vh - 90px); overflow-y: auto; overflow-x: hidden; box-sizing: border-box;">
 
     <!-- Dar de Alta -->
