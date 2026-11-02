@@ -1,6 +1,7 @@
 package com.gateway.connectors;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import com.gateway.interfaces.IUserController;
@@ -62,7 +63,7 @@ public class UserControllerConnector implements IUserController {
 
 	@Override
 	public Set<DtUsuario> listarUsuarios() {
-		return (Set<DtUsuario>) port.listarUsuarios();
+		return port.listarUsuarios().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -77,22 +78,22 @@ public class UserControllerConnector implements IUserController {
 
 	@Override
 	public Set<DtConsulta> listarConsultasAsociadas(String nicknameUsu) throws ConsultaNotFoundException_Exception, UserNotFoundException_Exception {
-		return (Set<DtConsulta>) port.listarConsultasAsociadas(nicknameUsu);
+		return port.listarConsultasAsociadas(nicknameUsu).getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
 	public Set<DtResConsulta> listarResConsultas(String nicknameUsu) throws UserNotFoundException_Exception {
-		return (Set<DtResConsulta>) port.listarResConsultas(nicknameUsu);
+		return port.listarResConsultas(nicknameUsu).getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
 	public Set<DtPaciente> listarPacientes() {
-		return (Set<DtPaciente>) port.listarPacientes();
+		return port.listarPacientes().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
 	public Set<DtMedico> listarMedicos() {
-		return (Set<DtMedico>) port.listarMedicos();
+		return port.listarMedicos().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -117,7 +118,7 @@ public class UserControllerConnector implements IUserController {
 
 	@Override
 	public Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) throws UserNotFoundException_Exception {
-		return (Set<DtBeneficioAnual>) port.listarBeneficiosAnuales(nickname);
+		return port.listarBeneficiosAnuales(nickname).getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -132,7 +133,7 @@ public class UserControllerConnector implements IUserController {
 
 	@Override
 	public List<String> listarEspecialidadesMedico(String nickname) throws UserNotFoundException_Exception {
-		return (List<String>) port.listarEspecialidadesMedico(nickname);
+		return port.listarEspecialidadesMedico(nickname).getItem();
 	}
 
 	@Override

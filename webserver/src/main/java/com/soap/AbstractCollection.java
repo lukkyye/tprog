@@ -28,8 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "abstractCollection")
 @XmlSeeAlso({
-    AbstractList.class,
-    AbstractSet.class
+    AbstractList.class
 })
 public abstract class AbstractCollection {
 

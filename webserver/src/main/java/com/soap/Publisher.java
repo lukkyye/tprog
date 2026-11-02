@@ -51,12 +51,12 @@ public interface Publisher {
     /**
      * 
      * @return
-     *     returns server.HashSet
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarClinicasRequest", output = "http://server/Publisher/listarClinicasResponse")
-    public HashSet listarClinicas();
+    public StringArray listarClinicas();
 
     /**
      * 
@@ -225,7 +225,7 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      * @throws UserNotFoundException_Exception
      */
     @WebMethod
@@ -233,7 +233,7 @@ public interface Publisher {
     @Action(input = "http://server/Publisher/listarEspecialidadesMedicoRequest", output = "http://server/Publisher/listarEspecialidadesMedicoResponse", fault = {
         @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/listarEspecialidadesMedico/Fault/UserNotFoundException")
     })
-    public ArrayList listarEspecialidadesMedico(
+    public StringArray listarEspecialidadesMedico(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0)
         throws UserNotFoundException_Exception
@@ -327,22 +327,22 @@ public interface Publisher {
     /**
      * 
      * @return
-     *     returns server.HashSet
+     *     returns server.DtUsuarioArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarUsuariosRequest", output = "http://server/Publisher/listarUsuariosResponse")
-    public HashSet listarUsuarios();
+    public DtUsuarioArray listarUsuarios();
 
     /**
      * 
      * @return
-     *     returns server.HashSet
+     *     returns server.DtPacienteArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarPacientesRequest", output = "http://server/Publisher/listarPacientesResponse")
-    public HashSet listarPacientes();
+    public DtPacienteArray listarPacientes();
 
     /**
      * 
@@ -406,7 +406,7 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.HashSet
+     *     returns server.DtBeneficioAnualArray
      * @throws UserNotFoundException_Exception
      */
     @WebMethod
@@ -414,7 +414,7 @@ public interface Publisher {
     @Action(input = "http://server/Publisher/listarBeneficiosAnualesRequest", output = "http://server/Publisher/listarBeneficiosAnualesResponse", fault = {
         @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/listarBeneficiosAnuales/Fault/UserNotFoundException")
     })
-    public HashSet listarBeneficiosAnuales(
+    public DtBeneficioAnualArray listarBeneficiosAnuales(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0)
         throws UserNotFoundException_Exception
@@ -447,12 +447,12 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.HashSet
+     *     returns server.DtConsultaArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/selecListaConsultaDelDiaRequest", output = "http://server/Publisher/selecListaConsultaDelDiaResponse")
-    public HashSet selecListaConsultaDelDia(
+    public DtConsultaArray selecListaConsultaDelDia(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -563,7 +563,7 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.HashSet
+     *     returns server.DtResConsultaArray
      * @throws ConsultaNotFoundException_Exception
      */
     @WebMethod
@@ -571,7 +571,7 @@ public interface Publisher {
     @Action(input = "http://server/Publisher/listarReservasConsultaRequest", output = "http://server/Publisher/listarReservasConsultaResponse", fault = {
         @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/listarReservasConsulta/Fault/ConsultaNotFoundException")
     })
-    public HashSet listarReservasConsulta(
+    public DtResConsultaArray listarReservasConsulta(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0)
         throws ConsultaNotFoundException_Exception
@@ -630,12 +630,12 @@ public interface Publisher {
     /**
      * 
      * @return
-     *     returns server.HashSet
+     *     returns server.DtConsultaArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarConsultasRequest", output = "http://server/Publisher/listarConsultasResponse")
-    public HashSet listarConsultas();
+    public DtConsultaArray listarConsultas();
 
     /**
      * 
@@ -687,12 +687,12 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/getConsultasPorEspecialidadRequest", output = "http://server/Publisher/getConsultasPorEspecialidadResponse")
-    public ArrayList getConsultasPorEspecialidad(
+    public StringArray getConsultasPorEspecialidad(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -716,7 +716,7 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.HashSet
+     *     returns server.DtConsultaArray
      * @throws ConsultaNotFoundException_Exception
      * @throws UserNotFoundException_Exception
      */
@@ -726,7 +726,7 @@ public interface Publisher {
         @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/listarConsultasAsociadas/Fault/UserNotFoundException"),
         @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/listarConsultasAsociadas/Fault/ConsultaNotFoundException")
     })
-    public HashSet listarConsultasAsociadas(
+    public DtConsultaArray listarConsultasAsociadas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0)
         throws ConsultaNotFoundException_Exception, UserNotFoundException_Exception
@@ -736,7 +736,7 @@ public interface Publisher {
      * 
      * @param arg0
      * @return
-     *     returns server.HashSet
+     *     returns server.DtResConsultaArray
      * @throws UserNotFoundException_Exception
      */
     @WebMethod
@@ -744,7 +744,7 @@ public interface Publisher {
     @Action(input = "http://server/Publisher/listarResConsultasRequest", output = "http://server/Publisher/listarResConsultasResponse", fault = {
         @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/listarResConsultas/Fault/UserNotFoundException")
     })
-    public HashSet listarResConsultas(
+    public DtResConsultaArray listarResConsultas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0)
         throws UserNotFoundException_Exception
@@ -753,12 +753,12 @@ public interface Publisher {
     /**
      * 
      * @return
-     *     returns server.HashSet
+     *     returns server.DtMedicoArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://server/Publisher/listarMedicosRequest", output = "http://server/Publisher/listarMedicosResponse")
-    public HashSet listarMedicos();
+    public DtMedicoArray listarMedicos();
 
     /**
      * 

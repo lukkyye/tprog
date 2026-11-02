@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.stream.Collectors;
+
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtMedico;
 import logica.datatypes.DtUsuario;
@@ -115,13 +117,13 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<DtResConsulta> listarReservasConsulta(String nomC) throws ConsultaNotFoundException {
-		return (HashSet<DtResConsulta>) controladorClinica.getReservasConsulta(nomC);
+	public DtResConsulta[] listarReservasConsulta(String nomC) throws ConsultaNotFoundException {
+		return (DtResConsulta[]) controladorClinica.getReservasConsulta(nomC).toArray(new DtResConsulta[0]);
 	}
 	
 	@WebMethod
-	public HashSet<DtConsulta> selecListaConsultaDelDia(String nomD) {
-		return (HashSet<DtConsulta>) controladorClinica.selecListaConsultaDelDia(nomD);
+	public DtConsulta[] selecListaConsultaDelDia(String nomD) {
+		return (DtConsulta[]) controladorClinica.selecListaConsultaDelDia(nomD).toArray(new DtConsulta[0]);
 	}
 
 	@WebMethod
@@ -130,8 +132,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<DtPaciente> listarPacientes() {
-		return (HashSet<DtPaciente>) controladorClinica.listarPacientes();
+	public DtPaciente[] listarPacientes() {
+		return  (DtPaciente[]) controladorClinica.listarPacientes().toArray(new DtPaciente[0]);
 	}
 
 	@WebMethod
@@ -142,8 +144,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<DtConsulta> listarConsultas() {
-		return (HashSet<DtConsulta>) controladorClinica.listarConsultas();
+	public DtConsulta[] listarConsultas() {
+		return (DtConsulta[]) controladorClinica.listarConsultas().toArray(new DtConsulta[0]);
 	}
 
 	@WebMethod
@@ -154,8 +156,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<String> listarClinicas() {
-		return (HashSet<String>) controladorClinica.listarClinicas();
+	public String[] listarClinicas() {
+		return (String[]) controladorClinica.listarClinicas().toArray(new String[0]);
 	}
 
 	@WebMethod
@@ -179,8 +181,8 @@ public class Publisher {
 
 
 	@WebMethod
-	public ArrayList<String> getConsultasPorEspecialidad(String especialidad) {
-		return (ArrayList<String>) controladorClinica.getConsultasPorEspecialidad(especialidad);
+	public String[] getConsultasPorEspecialidad(String especialidad) {
+		return (String[]) controladorClinica.getConsultasPorEspecialidad(especialidad).toArray(new String[0]);
 	}
 	
 	//======================================================================
@@ -220,8 +222,9 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<DtUsuario> listarUsuarios() {
-		return (HashSet<DtUsuario>) controladorUsuario.listarUsuarios();
+	public DtUsuario[] listarUsuarios() {
+		DtUsuario[] toReturn = (DtUsuario[]) controladorUsuario.listarUsuarios().stream().collect(Collectors.toList()).toArray(new DtUsuario[0]);
+		return toReturn;
 	}
 
 	@WebMethod
@@ -235,18 +238,18 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<DtConsulta> listarConsultasAsociadas(String nicknameUsu) throws UserNotFoundException, ConsultaNotFoundException {
-		return (HashSet<DtConsulta>) controladorUsuario.listarConsultasAsociadas(nicknameUsu);
+	public DtConsulta[] listarConsultasAsociadas(String nicknameUsu) throws UserNotFoundException, ConsultaNotFoundException {
+		return (DtConsulta[]) controladorUsuario.listarConsultasAsociadas(nicknameUsu).toArray(new DtConsulta[0]);
 	}
 
 	@WebMethod
-	public HashSet<DtResConsulta> listarResConsultas(String nicknameUsu) throws UserNotFoundException {
-		return (HashSet<DtResConsulta>) controladorUsuario.listarResConsultas(nicknameUsu);
+	public DtResConsulta[] listarResConsultas(String nicknameUsu) throws UserNotFoundException {
+		return (DtResConsulta[]) controladorUsuario.listarResConsultas(nicknameUsu).toArray(new DtResConsulta[0]);
 	}
 
 	@WebMethod
-	public HashSet<DtMedico> listarMedicos() {
-		return (HashSet<DtMedico>) controladorUsuario.listarMedicos();
+	public DtMedico[] listarMedicos() {
+		return (DtMedico[]) controladorUsuario.listarMedicos().toArray(new DtMedico[0]);
 	}
 
 	@WebMethod
@@ -260,8 +263,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public HashSet<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) throws UserNotFoundException {
-		return (HashSet<DtBeneficioAnual>) controladorUsuario.listarBeneficiosAnuales(nickname);
+	public DtBeneficioAnual[] listarBeneficiosAnuales(String nickname) throws UserNotFoundException {
+		return (DtBeneficioAnual[]) controladorUsuario.listarBeneficiosAnuales(nickname).toArray(new DtBeneficioAnual[0]);
 	}
 
 	@WebMethod
@@ -275,8 +278,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public ArrayList<String> listarEspecialidadesMedico(String nickname) throws UserNotFoundException {
-		return (ArrayList<String>) controladorUsuario.listarEspecialidadesMedico(nickname);
+	public String[] listarEspecialidadesMedico(String nickname) throws UserNotFoundException {
+		return (String[]) controladorUsuario.listarEspecialidadesMedico(nickname).toArray(new String[0]);
 	}
 
 	@WebMethod

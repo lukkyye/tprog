@@ -1,6 +1,7 @@
 package com.gateway.connectors;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,11 +44,13 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<DtDiaConsulta> listarDatosDiaConsulta() {
-		return (Set<DtDiaConsulta>) port.listarDatosDiaConsulta();
+		Set<DtDiaConsulta> toReturn = port.listarDatosDiaConsulta().getItem().stream().collect(Collectors.toSet());
+		return toReturn;
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) throws NombreClinicaAlreadyExistsException_Exception {
+		
 		return port.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 	@Override
@@ -70,12 +73,12 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<DtResConsulta> listarReservasConsulta(String nomC) throws ConsultaNotFoundException_Exception {
-		return (Set<DtResConsulta>) port.listarReservasConsulta(nomC);
+		return port.listarReservasConsulta(nomC).getItem().stream().collect(Collectors.toSet());
 	}
 	
 	@Override
 	public Set<DtConsulta> selecListaConsultaDelDia(String nomD) {
-		return (Set<DtConsulta>) port.selecListaConsultaDelDia(nomD);
+		return port.selecListaConsultaDelDia(nomD).getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -85,7 +88,7 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<DtPaciente> listarPacientes() {
-		return (Set<DtPaciente>) port.listarPacientes();
+		return port.listarPacientes().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -95,7 +98,7 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<DtConsulta> listarConsultas() {
-		return (Set<DtConsulta>) port.listarConsultas();
+		return port.listarConsultas().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -105,14 +108,12 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<String> listarClinicas() {
-		return (Set<String>) port.listarClinicas();
+		return port.listarClinicas().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
 	public Set<String> listarEspecialidades() {
-		HashSet<String> toReturn = new HashSet<String>();
-		port.listarEspecialidades().getItem().forEach(str->toReturn.add(str));
-	    return toReturn;
+	    return port.listarEspecialidades().getItem().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -137,6 +138,6 @@ public class ClinicControllerConnector implements IClinicController {
 	
 	@Override
 	public List<String> getConsultasPorEspecialidad(String especialidad) {
-		return (List<String>) port.getConsultasPorEspecialidad(especialidad);
+		return port.getConsultasPorEspecialidad(especialidad).getItem();
 	}
 }

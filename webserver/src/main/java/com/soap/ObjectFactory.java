@@ -261,13 +261,13 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HashSet }
+     * Create an instance of {@link DtConsulta }
      * 
      * @return
-     *     the new instance of {@link HashSet }
+     *     the new instance of {@link DtConsulta }
      */
-    public HashSet createHashSet() {
-        return new HashSet();
+    public DtConsulta createDtConsulta() {
+        return new DtConsulta();
     }
 
     /**
@@ -298,6 +298,16 @@ public class ObjectFactory {
      */
     public DtResConsultaDetalle createDtResConsultaDetalle() {
         return new DtResConsultaDetalle();
+    }
+
+    /**
+     * Create an instance of {@link DtResConsulta }
+     * 
+     * @return
+     *     the new instance of {@link DtResConsulta }
+     */
+    public DtResConsulta createDtResConsulta() {
+        return new DtResConsulta();
     }
 
     /**
@@ -341,16 +351,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtConsulta }
-     * 
-     * @return
-     *     the new instance of {@link DtConsulta }
-     */
-    public DtConsulta createDtConsulta() {
-        return new DtConsulta();
-    }
-
-    /**
      * Create an instance of {@link DtConsultaDetalle }
      * 
      * @return
@@ -361,13 +361,33 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtResConsulta }
+     * Create an instance of {@link DtConsultaArray }
      * 
      * @return
-     *     the new instance of {@link DtResConsulta }
+     *     the new instance of {@link DtConsultaArray }
      */
-    public DtResConsulta createDtResConsulta() {
-        return new DtResConsulta();
+    public DtConsultaArray createDtConsultaArray() {
+        return new DtConsultaArray();
+    }
+
+    /**
+     * Create an instance of {@link DtPacienteArray }
+     * 
+     * @return
+     *     the new instance of {@link DtPacienteArray }
+     */
+    public DtPacienteArray createDtPacienteArray() {
+        return new DtPacienteArray();
+    }
+
+    /**
+     * Create an instance of {@link DtResConsultaArray }
+     * 
+     * @return
+     *     the new instance of {@link DtResConsultaArray }
+     */
+    public DtResConsultaArray createDtResConsultaArray() {
+        return new DtResConsultaArray();
     }
 
     /**
@@ -378,6 +398,36 @@ public class ObjectFactory {
      */
     public DtDiaConsultaArray createDtDiaConsultaArray() {
         return new DtDiaConsultaArray();
+    }
+
+    /**
+     * Create an instance of {@link DtUsuarioArray }
+     * 
+     * @return
+     *     the new instance of {@link DtUsuarioArray }
+     */
+    public DtUsuarioArray createDtUsuarioArray() {
+        return new DtUsuarioArray();
+    }
+
+    /**
+     * Create an instance of {@link DtMedicoArray }
+     * 
+     * @return
+     *     the new instance of {@link DtMedicoArray }
+     */
+    public DtMedicoArray createDtMedicoArray() {
+        return new DtMedicoArray();
+    }
+
+    /**
+     * Create an instance of {@link DtBeneficioAnualArray }
+     * 
+     * @return
+     *     the new instance of {@link DtBeneficioAnualArray }
+     */
+    public DtBeneficioAnualArray createDtBeneficioAnualArray() {
+        return new DtBeneficioAnualArray();
     }
 
     /**
