@@ -19,12 +19,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.gateway.delegators.ImageHandlerDelegator;
-import com.models.controladores.ControladorClinica;
-import com.models.controladores.ControladorUsuario;
-import com.models.datatypes.DTDiaSemana;
-import com.models.datatypes.EstadoConsulta;
-import com.models.datatypes.TipoMes;
-import com.models.manejadores.ManejadorImagen;
+
 
 public class CargadorCSV {
 	public static final String lUCAS = "Desktop/tprog/webserver/src/main/java/com/models/test/";

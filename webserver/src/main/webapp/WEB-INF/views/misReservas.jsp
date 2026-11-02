@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
-<%@ page import="com.models.datatypes.DTResConsulta" %>
+<%@ page import="com.soap.DtResConsulta" %>
 <%	
 	String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 %>
@@ -75,22 +75,22 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
                 <div class="d-flex align-items-center mb-3">
                     
                     <%
-                    	String coso = String.valueOf(reserva.numReserva()) + "  -  " + reserva.nomC();
+                    	String coso = String.valueOf(reserva.getNumReserva()) + "  -  " + reserva.getNomC();
                     %>
                     <div class="col-9 ps-3">
                         <h4 class="m-0 fw-bold">Reserva #<%=coso %></h4>
-                        <p class="mb-0 text-muted mt-2"><strong>Fecha:</strong> <%= reserva.fechaRes() %></p>
-                        <p class="mb-0 text-muted"><strong>Costo Total:</strong> $<%= reserva.costoR() %></p>
+                        <p class="mb-0 text-muted mt-2"><strong>Fecha:</strong> <%= reserva.getFechaRes() %></p>
+                        <p class="mb-0 text-muted"><strong>Costo Total:</strong> $<%= reserva.getCostoR() %></p>
                         <p class="mb-0 text-muted"><strong>Aplica Beneficio Anual:</strong> 
-                            <span class="badge <%= reserva.aplicaBenef() ? "bg-success" : "bg-secondary" %>">
-                                <%= reserva.aplicaBenef() ? "Sí" : "No" %>
+                            <span class="badge <%= reserva.isAplicaBenef() ? "bg-success" : "bg-secondary" %>">
+                                <%= reserva.isAplicaBenef() ? "Sí" : "No" %>
                             </span>
                         </p>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-2 border-top">
-                    <a href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.nomC(), "UTF-8") %>&num=<%=reserva.numReserva()%>" 
+                    <a href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&num=<%=reserva.getNumReserva()%>" 
                        class="btn btn-outline-primary btn-sm">
                         Ver Detalle
                     </a>

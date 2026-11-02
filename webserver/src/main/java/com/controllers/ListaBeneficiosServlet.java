@@ -6,7 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.DTBeneficioAnual;
+import com.soap.DtBeneficioAnual;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,8 +33,14 @@ public class ListaBeneficiosServlet extends HttpServlet {
             return;
         }
 
-        List<DTBeneficioAnual> beneficios = new ArrayList<>(userController.listarBeneficiosAnuales(nickname));
-        beneficios.sort(Comparator.comparingInt(DTBeneficioAnual::anio));
+        List<DtBeneficioAnual> beneficios = null;
+		try {
+			beneficios = new ArrayList<>(userController.listarBeneficiosAnuales(nickname));
+		} catch (UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        beneficios.sort(Comparator.comparingInt(dtb->dtb.getAnio()));
 
         request.setAttribute("beneficios", beneficios);
         request.getRequestDispatcher("/WEB-INF/views/listaBeneficios.jsp").forward(request, response);

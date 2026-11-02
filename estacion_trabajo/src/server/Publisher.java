@@ -1,4 +1,5 @@
 package server;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.ws.Endpoint;
 	
 @WebService
@@ -133,7 +135,7 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, Boolean aplicaBenef)
+	public void reservarConsulta(String nicknamePaciente, String nomC, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class) LocalDate fechaReserva, Boolean aplicaBenef)
 	throws ReservaAlreadyExistsException, NoNumberAvailableException, BeneficioSinOrdenesException, ConsultaNotFoundException, UserNotFoundException 
 	{
 		controladorClinica.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
@@ -145,7 +147,7 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum)
+	public void ingresarConsulta(String nomD, String med, String nomC, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fecha, int sala, int cantNum)
 	throws ConsultaNombreAlreadyExistsException, UserNotFoundException, MedicoSinEspecialidadException, FechaDiaSemanaInvalidaException
 	{
 		controladorClinica.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
@@ -162,9 +164,9 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, LocalTime horaInicio,
+	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, @XmlJavaTypeAdapter(logica.datatypes.LocalTimeAdapter.class) LocalTime horaInicio,
 			String nombreEspecialidad, String nombreClinica) throws
-	DiaConsultaAlreadyExistsException, SpecialityNotFoundException, DiaConsultaAlreadyExistsException
+	DiaConsultaAlreadyExistsException, SpecialityNotFoundException
 	{
 		controladorClinica.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
 	}
@@ -201,7 +203,7 @@ public class Publisher {
 
 	@WebMethod
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
-			LocalDate fechaNac, LocalDate fechaIn, int doc, ArrayList<String> antSalud)
+			@XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaNac, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaIn, int doc, ArrayList<String> antSalud)
 	throws NicknameAlreadyExistsException, EmailAlreadyExistsException, IdAlreadyExistsException
 	{
 		return controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
@@ -284,8 +286,8 @@ public class Publisher {
 	}
 
 	@WebMethod
-	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
-			LocalDate fechaIn, int doc, ArrayList<String> antSalud) throws UserNotFoundException{
+	public void modificarPaciente(String nickname, String nombre, String apellido, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaNac,
+			@XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaIn, int doc, ArrayList<String> antSalud) throws UserNotFoundException{
 		controladorUsuario.modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 

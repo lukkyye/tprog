@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.gateway.delegators.ImageHandlerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -35,17 +37,32 @@ public class MisDatosServlet extends HttpServlet {
 
         UserControllerDelegator controlador = new UserControllerDelegator();
 
-        request.setAttribute("usuario", controlador.listarDatosUsuario(nickname));
+        try {
+			request.setAttribute("usuario", controlador.listarDatosUsuario(nickname));
+		} catch (UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         if ("Paciente".equals(tipoUsuario)) {
-            request.setAttribute(
-                    "datosPaciente",
-                    controlador.listarDatosPaciente(nickname)
-            );
-            request.setAttribute(
-                    "reservas",
-                    controlador.listarResConsultas(nickname)
-            );
+            try {
+				request.setAttribute(
+				        "datosPaciente",
+				        controlador.listarDatosPaciente(nickname)
+				);
+			} catch (UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				request.setAttribute(
+				        "reservas",
+				        controlador.listarResConsultas(nickname)
+				);
+			} catch (UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             
             request.setAttribute("esMiPerfil", true);
 
@@ -56,18 +73,33 @@ public class MisDatosServlet extends HttpServlet {
         }
 
         if ("Medico".equals(tipoUsuario)) {
-            request.setAttribute(
-                    "datosMedico",
-                    controlador.listarDatosMedico(nickname)
-            );
-            request.setAttribute(
-                    "especialidades",
-                    controlador.listarEspecialidadesMedico(nickname)
-            );
-            request.setAttribute(
-                    "consultas",
-                    controlador.listarConsultasAsociadas(nickname)
-            );
+            try {
+				request.setAttribute(
+				        "datosMedico",
+				        controlador.listarDatosMedico(nickname)
+				);
+			} catch (UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				request.setAttribute(
+				        "especialidades",
+				        controlador.listarEspecialidadesMedico(nickname)
+				);
+			} catch (UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            try {
+				request.setAttribute(
+				        "consultas",
+				        controlador.listarConsultasAsociadas(nickname)
+				);
+			} catch (ConsultaNotFoundException_Exception | UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             request.setAttribute("esMiPerfil", true);
 
             request.getRequestDispatcher(

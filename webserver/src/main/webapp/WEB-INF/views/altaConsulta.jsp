@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.models.datatypes.DTDiaConsulta" %>
+<%@ page import="com.soap.DtDiaConsulta" %>
 <%!
     private static String h(Object valor) {
         if (valor == null) {
@@ -124,10 +124,10 @@
                             <%
                             for (DtDiaConsulta d : dias) {
                             %>
-                                <option value="<%= h(d.nomD()) %>"
-                                        data-dia="<%= d.dia() %>"
-                                        <%= d.nomD().equals(diaSel) ? "selected" : "" %>>
-                                    <%= h(d.nomD()) %> (<%= d.dia() %>, <%= d.horaIni() %>)
+                                <option value="<%= h(d.getNomD()) %>"
+                                        data-dia="<%= d.getDia() %>"
+                                        <%= d.getNomD().equals(diaSel) ? "selected" : "" %>>
+                                    <%= h(d.getNomD()) %> (<%= d.getDia() %>, <%= d.getHoraIni() %>)
                                 </option>
                             <% } %>
                         </select>

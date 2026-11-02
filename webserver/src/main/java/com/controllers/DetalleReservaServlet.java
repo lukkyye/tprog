@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.DTResConsultaDetalle;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DtResConsultaDetalle;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,7 +39,13 @@ public class DetalleReservaServlet extends HttpServlet {
     		e.printStackTrace();
     	}
     	
-        DTResConsultaDetalle reserva = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
+        DtResConsultaDetalle reserva = null;
+		try {
+			reserva = clinicController.listarDatosResConsultaCC(consulta, paramReserva);
+		} catch (ConsultaNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         if (reserva == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,
                     "No se encontro la reserva.");

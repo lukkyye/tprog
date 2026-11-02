@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.models.datatypes.DTPaciente" %>
+<%@ page import="com.soap.DtPaciente" %>
 <%!
     private static String h(Object valor) {
         if (valor == null) {
@@ -120,9 +120,9 @@
                             <%
                             for (DtPaciente p : pacientes) {
                             %>
-                                <option value="<%= h(p.nickname()) %>"
-                                    <%= p.nickname().equals(pacienteSel) ? "selected" : "" %>>
-                                    <%= h(p.nickname()) %>
+                                <option value="<%= h(p.getNickname()) %>"
+                                    <%= p.getNickname().equals(pacienteSel) ? "selected" : "" %>>
+                                    <%= h(p.getNickname()) %>
                                 </option>
                             <% } %>
                         </select>

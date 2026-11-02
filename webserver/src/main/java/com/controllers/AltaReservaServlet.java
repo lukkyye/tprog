@@ -6,9 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gateway.delegators.UserControllerDelegator;
+import com.soap.BeneficioSinOrdenesException_Exception;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DtConsulta;
+import com.soap.DtResConsulta;
+import com.soap.NoNumberAvailableException_Exception;
+import com.soap.ReservaAlreadyExistsException_Exception;
+import com.soap.UserNotFoundException_Exception;
 import com.gateway.delegators.ClinicControllerDelegator;
-import com.models.datatypes.DTConsulta;
-import com.models.datatypes.DTResConsulta;
+
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,14 +34,25 @@ public class AltaReservaServlet extends HttpServlet {
         
         String nomConsulta = request.getParameter("nombreConsulta");
         String nickname = (String) request.getSession().getAttribute("nickname");
-        DTConsulta consulta = clinicController.seleccionarConsulta(nomConsulta);
-        float costoReserva;
+        DtConsulta consulta=null;
+		try {
+			consulta = clinicController.seleccionarConsulta(nomConsulta);
+		} catch (ConsultaNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        float costoReserva = 0;
         
-        if((2026 - userController.listarDatosPaciente(nickname).fechaNac().getYear()) >= 60 ) {
-        	costoReserva = (float) (consulta.costoC() * 0.8);
-        } else {
-        	costoReserva = consulta.costoC();
-        }
+        try {
+			if((2026 - LocalDate.parse(userController.listarDatosPaciente(nickname).getFechaNac()).getYear()) >= 60 ) {
+				costoReserva = (float) (consulta.getCostoC() * 0.8);
+			} else {
+				costoReserva = consulta.getCostoC();
+			}
+		} catch (UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         request.setAttribute("consulta", consulta);
         request.setAttribute("costoReserva", costoReserva);
         
@@ -51,26 +68,48 @@ public class AltaReservaServlet extends HttpServlet {
         String nickname = (String) request.getSession().getAttribute("nickname");
         String nomConsulta = request.getParameter("consulta");
         
-        DTConsulta consulta = clinicController.seleccionarConsulta(nomConsulta);
+        DtConsulta consulta = null;
+		try {
+			consulta = clinicController.seleccionarConsulta(nomConsulta);
+		} catch (ConsultaNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        Set<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
+        Set<DtResConsulta> reservasUsuario = null;
+		try {
+			reservasUsuario = userController.listarResConsultas(nickname);
+		} catch (UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         boolean yaTieneReserva = false;
         if (reservasUsuario != null) {
-            for (DTResConsulta r : reservasUsuario) {
+            for (DtResConsulta r : reservasUsuario) {
             	//ACA
-            	if (nomConsulta != null && userController.listarDatosResConsulta(nomConsulta, nickname)!=null) {
-            		yaTieneReserva = true;
-                    break;
-            	}
+            	try {
+					if (nomConsulta != null && userController.listarDatosResConsulta(nomConsulta, nickname)!=null) {
+						yaTieneReserva = true;
+					    break;
+					}
+				} catch (ConsultaNotFoundException_Exception | UserNotFoundException_Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }
         
-        float costoReserva;
-        if((2026 - userController.listarDatosPaciente(nickname).fechaNac().getYear()) >= 60 ) {
-        	costoReserva = (float) (consulta.costoC() * 0.8f);
-        }else {
-        	costoReserva = consulta.costoC();
-        }
+        float costoReserva = 0;
+        try {
+			if((2026 - LocalDate.parse(userController.listarDatosPaciente(nickname).getFechaNac()).getYear()) >= 60 ) {
+				costoReserva = (float) (consulta.getCostoC() * 0.8f);
+			}else {
+				costoReserva = consulta.getCostoC();
+			}
+		} catch (UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         System.out.println("Costo linea 70: " + String.valueOf(costoReserva));
 
         if (yaTieneReserva) {
@@ -85,10 +124,16 @@ public class AltaReservaServlet extends HttpServlet {
             return;
         }
         
-        Set<DTResConsulta> reservasConsulta = clinicController.listarReservasConsulta(nomConsulta);
+        Set<DtResConsulta> reservasConsulta = null;
+		try {
+			reservasConsulta = clinicController.listarReservasConsulta(nomConsulta);
+		} catch (ConsultaNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         int cantReservas = (reservasConsulta != null) ? reservasConsulta.size() : 0;
 
-        if (consulta != null && cantReservas >= consulta.cantNum()) {
+        if (consulta != null && cantReservas >= consulta.getCantNum()) {
             request.setAttribute("errorReserva", "CUPO_FULL");
             request.setAttribute("mensajeError", "Lo sentimos, se ha alcanzado el número máximo de cupos disponibles para esta consulta.");
             
@@ -102,7 +147,14 @@ public class AltaReservaServlet extends HttpServlet {
         String aplicaBenef = request.getParameter("aplicaBenef");
         boolean benef = "true".equalsIgnoreCase(aplicaBenef);
 
-        clinicController.reservarConsulta(nickname, nomConsulta, LocalDate.now(), benef);
+        try {
+			clinicController.reservarConsulta(nickname, nomConsulta, LocalDate.now(), benef);
+		} catch (BeneficioSinOrdenesException_Exception | ConsultaNotFoundException_Exception
+				| NoNumberAvailableException_Exception | ReservaAlreadyExistsException_Exception
+				| UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         response.sendRedirect(request.getContextPath() + "/MisReservasServlet");
     }

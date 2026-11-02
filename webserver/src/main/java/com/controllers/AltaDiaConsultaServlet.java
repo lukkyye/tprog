@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.gateway.connectors.ImageHandlerConnector;
 import com.gateway.delegators.ClinicControllerDelegator;
-import com.models.datatypes.DTDiaSemana;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -17,6 +16,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 import com.gateway.delegators.ImageHandlerDelegator;
+import com.soap.DiaConsultaAlreadyExistsException_Exception;
+import com.soap.DtDiaSemana;
+import com.soap.SpecialityNotFoundException_Exception;
 
 @WebServlet("/AltaDiaConsultaServlet")
 @MultipartConfig
@@ -46,7 +48,7 @@ public class AltaDiaConsultaServlet extends HttpServlet {
 
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        DTDiaSemana diaSemana = DTDiaSemana.valueOf(request.getParameter("dia"));
+        DtDiaSemana diaSemana = DtDiaSemana.valueOf(request.getParameter("dia"));
         String horaTexto = request.getParameter("horaInicio");
         String nombreEspecialidad =
                 request.getParameter("nombreEspecialidad");
@@ -97,7 +99,13 @@ public class AltaDiaConsultaServlet extends HttpServlet {
             request.setAttribute("mensaje",
                     "No se pudo registrar el dia de consulta: "
                     + e.getMessage());
-        }
+        } catch (DiaConsultaAlreadyExistsException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SpecialityNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         cargarDatos(request);
         request.getRequestDispatcher(

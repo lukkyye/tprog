@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Set;
 
 import com.gateway.connectors.ClinicControllerConnector;
-import com.models.datatypes.DTDiaConsulta;
-import com.models.datatypes.DTConsulta;
+import com.soap.DtConsulta;
+import com.soap.DtDiaConsulta;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,13 +40,13 @@ public class ConsultaDiaConsultaServlet extends HttpServlet {
         ClinicControllerConnector controlador =
             new ClinicControllerConnector();
 
-        Set<DTDiaConsulta> dias =
+        Set<DtDiaConsulta> dias =
             controlador.listarDatosDiaConsulta();
 
-        DTDiaConsulta diaSeleccionado = null;
+        DtDiaConsulta diaSeleccionado = null;
 
-        for (DTDiaConsulta dia : dias) {
-            if (dia.nomD().equals(nombreDia)) {
+        for (DtDiaConsulta dia : dias) {
+            if (dia.getNomD().equals(nombreDia)) {
                 diaSeleccionado = dia;
                 break;
             }
@@ -60,7 +60,7 @@ public class ConsultaDiaConsultaServlet extends HttpServlet {
             return;
         }
 
-        Set<DTConsulta> consultas =
+        Set<DtConsulta> consultas =
             controlador.selecListaConsultaDelDia(nombreDia);
 
         request.setAttribute("diaConsulta", diaSeleccionado);

@@ -9,10 +9,11 @@ import java.util.List;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.ImageHandlerDelegator;
-import com.models.datatypes.DTDiaConsulta;
-import com.models.excepciones.ConsultaNombreAlreadyExistsException;
-import com.models.excepciones.FechaDiaSemanaInvalidaException;
-import com.models.excepciones.MedicoSinEspecialidadException;
+import com.soap.ConsultaNombreAlreadyExistsException_Exception;
+import com.soap.DtDiaConsulta;
+import com.soap.FechaDiaSemanaInvalidaException_Exception;
+import com.soap.MedicoSinEspecialidadException_Exception;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -84,7 +85,7 @@ public class AltaConsultaServlet extends HttpServlet {
             if (sala < 1 || cantNum < 1) {
                 throw new IllegalArgumentException("La sala y la cantidad de números deben ser mayores a 0.");
             }
-
+             
             clinicController.ingresarConsulta(dia, medico, nombre.trim(), fecha, sala, cantNum);
 
             guardarImagen(request, nombre.trim());
@@ -97,9 +98,12 @@ public class AltaConsultaServlet extends HttpServlet {
                     "Sala y Cantidad de números deben ser valores numéricos.");
         } catch (DateTimeParseException e) {
             request.setAttribute("mensaje", "La fecha ingresada no es válida.");
-        } catch (ConsultaNombreAlreadyExistsException | MedicoSinEspecialidadException | FechaDiaSemanaInvalidaException | IllegalArgumentException e) {
+        } catch (ConsultaNombreAlreadyExistsException_Exception | MedicoSinEspecialidadException_Exception | FechaDiaSemanaInvalidaException_Exception | IllegalArgumentException e) {
             request.setAttribute("mensaje", e.getMessage());
-        }
+        } catch (UserNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         cargarDias(request);
         request.getRequestDispatcher(VISTA).forward(request, response);
@@ -114,8 +118,8 @@ public class AltaConsultaServlet extends HttpServlet {
     }
 
     private boolean existeDia(String nombreDia) {
-        for (DTDiaConsulta d : clinicController.listarDatosDiaConsulta()) {
-            if (d.nomD().equals(nombreDia)) {
+        for (DtDiaConsulta d : clinicController.listarDatosDiaConsulta()) {
+            if (d.getNomD().equals(nombreDia)) {
                 return true;
             }
         }
@@ -123,8 +127,8 @@ public class AltaConsultaServlet extends HttpServlet {
     }
 
     private void cargarDias(HttpServletRequest request) {
-        List<DTDiaConsulta> dias = new ArrayList<>(clinicController.listarDatosDiaConsulta());
-        dias.sort(Comparator.comparing(DTDiaConsulta::nomD));
+        List<DtDiaConsulta> dias = new ArrayList<>(clinicController.listarDatosDiaConsulta());
+        dias.sort(Comparator.comparing(dtdc->dtdc.getNomD()));
         request.setAttribute("dias", dias);
     }
 

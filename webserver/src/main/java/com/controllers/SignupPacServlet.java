@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.excepciones.EmailAlreadyExistsException;
-import com.models.excepciones.IdAlreadyExistsException;
-import com.models.excepciones.NicknameAlreadyExistsException;
+import com.soap.EmailAlreadyExistsException_Exception;
+import com.soap.IdAlreadyExistsException_Exception;
+import com.soap.NicknameAlreadyExistsException_Exception;
+
 
 /**
  * Servlet implementation class SignupPacServlet
@@ -70,11 +71,11 @@ public class SignupPacServlet extends HttpServlet {
 						com.gateway.delegators.ImageHandlerDelegator ihd = new com.gateway.delegators.ImageHandlerDelegator();
 						ihd.addImg(img, nickname);
 					}
-				} catch (NicknameAlreadyExistsException e){
+				} catch (NicknameAlreadyExistsException_Exception e){
 					state = e.getMessage();
-				} catch (EmailAlreadyExistsException e2) {
+				} catch (EmailAlreadyExistsException_Exception e2) {
 					state = e2.getMessage();
-				} catch (IdAlreadyExistsException e3) {
+				} catch (IdAlreadyExistsException_Exception e3) {
 					state = e3.getMessage();
 				}
 				if (state == null) {

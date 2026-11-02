@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="com.models.datatypes.DTDiaConsulta" %>
+<%@ page import="com.soap.DtDiaConsulta" %>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 
 <%
@@ -51,7 +51,7 @@ String tipoUsuario = (String) session.getAttribute("tipoUsuario");
                 <% if (diaConsulta != null) { %>
                 <%
     ImageHandlerDelegator IMG = new ImageHandlerDelegator();
-    String imagen = IMG.getImg64(diaConsulta.nomD());
+    String imagen = IMG.getImg64(diaConsulta.getNomD());
 %>
 
                     <div class="row g-4">
@@ -83,32 +83,32 @@ String tipoUsuario = (String) session.getAttribute("tipoUsuario");
 
                             <h4 class="mb-4">
                                 Dia de Consulta:
-                                <%= diaConsulta.nomD() %>
+                                <%= diaConsulta.getNomD() %>
                             </h4>
 
                             <div class="mb-3">
                                 <strong>Nombre:</strong>
-                                <p class="mb-0"><%= diaConsulta.nomD() %></p>
+                                <p class="mb-0"><%= diaConsulta.getNomD() %></p>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Descripcion:</strong>
-                                <p class="mb-0"><%= diaConsulta.descD() %></p>
+                                <p class="mb-0"><%= diaConsulta.getDescD() %></p>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Dia:</strong>
-                                <p class="mb-0"><%= diaConsulta.dia() %></p>
+                                <p class="mb-0"><%= diaConsulta.getDia() %></p>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Hora de inicio:</strong>
-                                <p class="mb-0"><%= diaConsulta.horaIni() %></p>
+                                <p class="mb-0"><%= diaConsulta.getHoraIni() %></p>
                             </div>
 
                             <div class="mb-3">
                                 <strong>Costo:</strong>
-                                <p class="mb-0">$ <%= diaConsulta.costoD() %></p>
+                                <p class="mb-0">$ <%= diaConsulta.getCostoD() %></p>
                             </div>
 
                         </div>

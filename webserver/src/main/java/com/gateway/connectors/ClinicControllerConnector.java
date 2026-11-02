@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.gateway.interfaces.IClinicController;
+import com.soap.BeneficioSinOrdenesException_Exception;
+import com.soap.ConsultaNombreAlreadyExistsException_Exception;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DiaConsultaAlreadyExistsException_Exception;
 import com.soap.DtClinica;
 import com.soap.DtConsulta;
 import com.soap.DtConsultaDetalle;
@@ -14,11 +18,18 @@ import com.soap.DtDiaSemana;
 import com.soap.DtPaciente;
 import com.soap.DtResConsultaDetalle;
 import com.soap.EstadoConsulta;
-import com.soap.HashSet;
-import com.soap.LocalDate;
-import com.soap.LocalTime;
+import com.soap.FechaDiaSemanaInvalidaException_Exception;
+import java.util.HashSet;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import com.soap.MedicoSinEspecialidadException_Exception;
+import com.soap.NoNumberAvailableException_Exception;
+import com.soap.NombreClinicaAlreadyExistsException_Exception;
 import com.soap.Publisher;
 import com.soap.PublisherService;
+import com.soap.ReservaAlreadyExistsException_Exception;
+import com.soap.SpecialityNotFoundException_Exception;
+import com.soap.UserNotFoundException_Exception;
 import com.soap.DtResConsulta;
 
 public class ClinicControllerConnector implements IClinicController {	
@@ -36,7 +47,7 @@ public class ClinicControllerConnector implements IClinicController {
 	}
 
 	@Override
-	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) {
+	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link) throws NombreClinicaAlreadyExistsException_Exception {
 		return port.ingresarClinica(nombre, desc, dir, costoT, costoC, link);
 	}
 	@Override
@@ -44,21 +55,21 @@ public class ClinicControllerConnector implements IClinicController {
 		return (new PublisherService()).getPublisherPort().seleccionarClinica(nombre);
 	}
 	@Override
-	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) {
+	public void setEstadoConsulta(EstadoConsulta state, String nombreConsulta) throws ConsultaNotFoundException_Exception {
 		port.setEstadoConsulta(state, nombreConsulta);
 	}
 	@Override
-	public DtConsultaDetalle listarDatosConsulta(String nomC) {
+	public DtConsultaDetalle listarDatosConsulta(String nomC) throws ConsultaNotFoundException_Exception {
 		return port.listarDatosConsulta(nomC);
 	}
 
 	@Override
-	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) {
+	public DtResConsultaDetalle listarDatosResConsultaCC(String nomC, int numReserva) throws ConsultaNotFoundException_Exception {
 		return port.listarDatosResConsultaCC(nomC, numReserva);
 	}
 
 	@Override
-	public Set<DtResConsulta> listarReservasConsulta(String nomC) {
+	public Set<DtResConsulta> listarReservasConsulta(String nomC) throws ConsultaNotFoundException_Exception {
 		return (Set<DtResConsulta>) port.listarReservasConsulta(nomC);
 	}
 	
@@ -68,7 +79,7 @@ public class ClinicControllerConnector implements IClinicController {
 	}
 
 	@Override
-	public DtConsulta seleccionarConsulta(String nomC) {
+	public DtConsulta seleccionarConsulta(String nomC) throws ConsultaNotFoundException_Exception {
 		return port.seleccionarConsulta(nomC);
 	}
 
@@ -78,8 +89,8 @@ public class ClinicControllerConnector implements IClinicController {
 	}
 
 	@Override
-	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, boolean aplicaBenef) {
-		port.reservarConsulta(nicknamePaciente, nomC, fechaReserva, aplicaBenef);
+	public void reservarConsulta(String nicknamePaciente, String nomC, LocalDate fechaReserva, boolean aplicaBenef) throws BeneficioSinOrdenesException_Exception, ConsultaNotFoundException_Exception, NoNumberAvailableException_Exception, ReservaAlreadyExistsException_Exception, UserNotFoundException_Exception {
+		port.reservarConsulta(nicknamePaciente, nomC, fechaReserva.toString() , aplicaBenef);
 	}
 
 	@Override
@@ -88,8 +99,8 @@ public class ClinicControllerConnector implements IClinicController {
 	}
 
 	@Override
-	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) {
-		port.ingresarConsulta(nomD, med, nomC, fecha, sala, cantNum);
+	public void ingresarConsulta(String nomD, String med, String nomC, LocalDate fecha, int sala, int cantNum) throws ConsultaNombreAlreadyExistsException_Exception, FechaDiaSemanaInvalidaException_Exception, MedicoSinEspecialidadException_Exception, UserNotFoundException_Exception {
+		port.ingresarConsulta(nomD, med, nomC, fecha.toString(), sala, cantNum);
 	}
 
 	@Override
@@ -99,20 +110,20 @@ public class ClinicControllerConnector implements IClinicController {
 
 	@Override
 	public Set<String> listarEspecialidades() {
-	    return new java.util.HashSet<>(
-	        java.util.Arrays.asList(port.listarEspecialidades())
-	    );
+		HashSet<String> toReturn = new HashSet<String>();
+		port.listarEspecialidades().getItem().forEach(str->toReturn.add(str));
+	    return toReturn;
 	}
 
 	@Override
 	public void ingresarDiaConsulta(String nombre, String descripcion, DtDiaSemana dia, LocalTime horaInicio,
-			String nombreEspecialidad, String nombreClinica) {
-		port.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio, nombreEspecialidad, nombreClinica);
+			String nombreEspecialidad, String nombreClinica) throws DiaConsultaAlreadyExistsException_Exception, SpecialityNotFoundException_Exception {
+		port.ingresarDiaConsulta(nombre, descripcion, dia, horaInicio.toString(), nombreEspecialidad, nombreClinica);
 	}
 
 	@Override
 	public boolean ingresarClinica(String nombre, String desc, String dir, float costoT, float costoC, String link,
-			String img) {
+			String img) throws NombreClinicaAlreadyExistsException_Exception {
 		if (img!=null && !img.isEmpty()) {
 			//imagen
 		}

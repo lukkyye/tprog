@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.models.datatypes.DTConsultaDetalle" %>
-<%@ page import="com.models.datatypes.DTResConsulta" %>
-<%@ page import="com.models.datatypes.EstadoConsulta" %>
+<%@ page import="com.soap.DtConsultaDetalle" %>
+<%@ page import="com.soap.DtResConsulta" %>
+<%@ page import="com.soap.EstadoConsulta" %>
 <%!
     // Escapa texto para mostrarlo en HTML (tambien dentro de atributos entre comillas).
     private static String h(Object valor) {
@@ -27,7 +27,7 @@
 %>
 <%
 DtConsultaDetalle consulta = (DtConsultaDetalle) request.getAttribute("consulta");
-    String imagen = (new ImageHandlerDelegator()).getImg64(consulta.nomC());
+    String imagen = (new ImageHandlerDelegator()).getImg64(consulta.getNomC());
     boolean esMedicoDeLaConsulta =
         Boolean.TRUE.equals(request.getAttribute("esMedicoDeLaConsulta"));
     @SuppressWarnings("unchecked")
@@ -86,7 +86,7 @@ DtConsultaDetalle consulta = (DtConsultaDetalle) request.getAttribute("consulta"
             </div>
         <%
         } else {
-                       String nomCodificado = java.net.URLEncoder.encode(consulta.nomC(), java.nio.charset.StandardCharsets.UTF_8);
+                       String nomCodificado = java.net.URLEncoder.encode(consulta.getNomC(), java.nio.charset.StandardCharsets.UTF_8);
         %>
 
             <section class="bg-light rounded-4 shadow p-4 p-sm-5 w-100">
@@ -111,14 +111,14 @@ DtConsultaDetalle consulta = (DtConsultaDetalle) request.getAttribute("consulta"
                         </div>
                     </div>
                     <div class="col-12 col-md-8">
-                        <h4 class="mb-3"><%=h(consulta.nomC())%>
+                        <h4 class="mb-3"><%=h(consulta.getNomC())%>
                             <%
                             if (esMedicoDeLaConsulta) {
-                                                               EstadoConsulta e = consulta.estado();
+                                                               EstadoConsulta e = consulta.getEstado();
                             %>
                                 <span class="badge fs-6 align-middle
-                                    <%=e == EstadoConsulta.Aceptada ? "bg-success"
-                                      : e == EstadoConsulta.Rechazada ? "bg-danger"
+                                    <%=e == EstadoConsulta.ACEPTADA ? "bg-success"
+                                      : e == EstadoConsulta.RECHAZADA ? "bg-danger"
                                       : "bg-warning text-dark"%>">
                                     <%=e%>
                                 </span>
@@ -126,11 +126,11 @@ DtConsultaDetalle consulta = (DtConsultaDetalle) request.getAttribute("consulta"
                             }
                             %>
                         </h4>
-                        <div class="mb-2"><strong>Médico:</strong> <%=h(consulta.medico())%></div>
-                        <div class="mb-2"><strong>Fecha:</strong> <%=consulta.fechaC()%></div>
-                        <div class="mb-2"><strong>Sala:</strong> <%=consulta.sala()%></div>
-                        <div class="mb-2"><strong>Cantidad de números:</strong> <%=consulta.cantNum()%></div>
-                        <div class="mb-0"><strong>Costo:</strong> $<%=String.format("%.2f", consulta.costoC())%></div>
+                        <div class="mb-2"><strong>Médico:</strong> <%=h(consulta.getMedico())%></div>
+                        <div class="mb-2"><strong>Fecha:</strong> <%=consulta.getFechaC()%></div>
+                        <div class="mb-2"><strong>Sala:</strong> <%=consulta.getSala()%></div>
+                        <div class="mb-2"><strong>Cantidad de números:</strong> <%=consulta.getCantNum()%></div>
+                        <div class="mb-0"><strong>Costo:</strong> $<%=String.format("%.2f", consulta.getCostoC())%></div>
                     </div>
                 </div>
             </section>
@@ -160,14 +160,14 @@ DtConsultaDetalle consulta = (DtConsultaDetalle) request.getAttribute("consulta"
                             for (DtResConsulta r : reservas) {
                             %>
                                 <tr>
-                                    <td class="fw-bold"><%= r.numReserva() %></td>
-                                    <td><%= r.nomC() %></td>
-                                    <td><%= r.fechaRes() %></td>
-                                    <td>$<%= String.format("%.2f", r.costoR()) %></td>
-                                    <td><%= r.aplicaBenef() ? "Sí" : "No" %></td>
+                                    <td class="fw-bold"><%= r.getNumReserva() %></td>
+                                    <td><%= r.getNomC() %></td>
+                                    <td><%= r.getFechaRes() %></td>
+                                    <td>$<%= String.format("%.2f", r.getCostoR()) %></td>
+                                    <td><%= r.isAplicaBenef() ? "Sí" : "No" %></td>
                                     <td class="text-end">
                                         <a class="btn btn-sm btn-primary"
-                                           href="<%= ctx %>/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>&num=<%= r.numReserva() %>">
+                                           href="<%= ctx %>/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(consulta.getNomC(), "UTF-8") %>&num=<%= r.getNumReserva() %>">
                                             Ver reserva
                                         </a>
                                     </td>
@@ -185,11 +185,11 @@ DtConsultaDetalle consulta = (DtConsultaDetalle) request.getAttribute("consulta"
             <% if (miReserva != null) { %>
             <section class="bg-light rounded-4 shadow p-4 p-sm-5 w-100">
                 <h3 class="mb-3">Mi reserva</h3>
-                <div class="mb-2"><strong>Número:</strong> <%= miReserva.numReserva() %></div>
-                <div class="mb-2"><strong>Consulta:</strong> <%= miReserva.nomC() %></div>
-                <div class="mb-2"><strong>Fecha de reserva:</strong> <%= miReserva.fechaRes() %></div>
-                <div class="mb-2"><strong>Costo:</strong> $<%=miReserva.costoR()%></div>
-                <div class="mb-3"><strong>Beneficio anual:</strong> <%= miReserva.aplicaBenef() ? "Sí" : "No" %></div>
+                <div class="mb-2"><strong>Número:</strong> <%= miReserva.getNumReserva() %></div>
+                <div class="mb-2"><strong>Consulta:</strong> <%= miReserva.getNomC() %></div>
+                <div class="mb-2"><strong>Fecha de reserva:</strong> <%= miReserva.getFechaRes() %></div>
+                <div class="mb-2"><strong>Costo:</strong> $<%=miReserva.getCostoR()%></div>
+                <div class="mb-3"><strong>Beneficio anual:</strong> <%= miReserva.isAplicaBenef() ? "Sí" : "No" %></div>
             </section>
             <% } %>
 

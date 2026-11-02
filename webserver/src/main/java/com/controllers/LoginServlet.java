@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.TipoMes;
-import com.models.excepciones.UserNotFoundException;
+import com.soap.UserNotFoundException;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,9 +31,9 @@ public class LoginServlet extends HttpServlet {
 		    HttpSession session = request.getSession();
 		    String usertype="";
 		    try {
-		    	user_controller.seleccionarPaciente(nickname).nickname();
+		    	user_controller.seleccionarPaciente(nickname).getNickname();
 		    	usertype="Paciente";
-		    } catch (UserNotFoundException e){
+		    } catch (UserNotFoundException_Exception e){
 		    	usertype="Medico";
 		    }
 		    session.setAttribute("nickname", nickname);

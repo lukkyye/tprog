@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 
-<%@ page import="com.models.datatypes.DTUsuario" %>
-<%@ page import="com.models.datatypes.DTPaciente" %>
-<%@ page import="com.models.datatypes.DTResConsulta" %>
+<%@ page import="com.soap.DtUsuario" %>
+<%@ page import="com.soap.DtPaciente" %>
+<%@ page import="com.soap.DtResConsulta" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Set" %>
 
@@ -13,7 +13,7 @@ DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
 
     List<String> antecedentes = null;
     if (paciente != null) {
-        antecedentes = paciente.antSalud();
+        antecedentes = paciente.getAntSalud();
     }
 
     Set<DtResConsulta> reservas =
@@ -28,7 +28,7 @@ DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
     String fotoPerfil = null;
     if (usuario != null) {
         fotoPerfil = new com.gateway.delegators.ImageHandlerDelegator()
-                .getImg64(usuario.nickname());
+                .getImg64(usuario.getNickname());
     }
 
     if (fotoPerfil == null || fotoPerfil.isBlank()) {
@@ -167,7 +167,7 @@ if (session.getAttribute("nickname") == null) {
                                 <%
                                 if (usuario != null) {
                                 %>
-                                    <%=usuario.nombre()%> <%=usuario.apellido()%>
+                                    <%=usuario.getNombre()%> <%=usuario.getApellido()%>
                                 <%
                                 } else {
                                 %>
@@ -182,12 +182,12 @@ if (session.getAttribute("nickname") == null) {
                             %>
                                 <p class="mb-1">
                                     <strong>Nickname:</strong>
-                                    <%=usuario.nickname()%>
+                                    <%=usuario.getNickname()%>
                                 </p>
 
                                 <p class="mb-0">
                                     <strong>Correo electrónico:</strong>
-                                    <%=usuario.correo()%>
+                                    <%=usuario.getCorreo()%>
                                 </p>
                             <%
                             }
@@ -206,27 +206,27 @@ if (session.getAttribute("nickname") == null) {
                     %>
                         <div class="dato">
                             <strong>Documento:</strong>
-                            <%=paciente.doc()%>
+                            <%=paciente.getDoc()%>
                         </div>
 
                         <div class="dato">
                             <strong>Fecha de nacimiento:</strong>
-                            <%=paciente.fechaNac()%>
+                            <%=paciente.getFechaNac()%>
                         </div>
 
                         <div class="dato">
                             <strong>Fecha de ingreso:</strong>
-                            <%=paciente.fechaIngreso()%>
+                            <%=paciente.getFechaIngreso()%>
                         </div>
 
                         <div class="dato">
                             <strong>Órdenes acumuladas:</strong>
-                            <%=paciente.cantOrdenesAcum()%>
+                            <%=paciente.getCantOrdenesAcum()%>
                         </div>
 
                         <div class="dato">
                             <strong>Tickets acumulados:</strong>
-                            <%=paciente.cantTicketAcum()%>
+                            <%=paciente.getCantTicketAcum()%>
                         </div>
 
                         <h2 class="titulo-seccion h4 mt-4 mb-3">
@@ -279,30 +279,30 @@ if (session.getAttribute("nickname") == null) {
                                 for (DtResConsulta reserva : reservas) {
                                 %>
                                     <a class="list-group-item list-group-item-action mb-2 rounded"
-                                       href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.nomC(), "UTF-8") %>&num=<%= reserva.numReserva() %>">
+                                       href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&num=<%= reserva.getNumReserva() %>">
 
                                         <h5 class="mb-2">
-                                            Reserva número <%= reserva.numReserva() %>
+                                            Reserva número <%= reserva.getNumReserva() %>
                                         </h5>
 
 										<p class="mb-1">
                                             <strong>Consulta:</strong>
-                                            <%= reserva.nomC() %>
+                                            <%= reserva.getNomC() %>
                                         </p>
 
                                         <p class="mb-1">
                                             <strong>Fecha de reserva:</strong>
-                                            <%= reserva.fechaRes() %>
+                                            <%= reserva.getFechaRes() %>
                                         </p>
 
                                         <p class="mb-1">
                                             <strong>Aplica beneficio:</strong>
-                                            <%= reserva.aplicaBenef() ? "Sí" : "No" %>
+                                            <%= reserva.isAplicaBenef() ? "Sí" : "No" %>
                                         </p>
 
                                         <p class="mb-0">
                                             <strong>Costo:</strong>
-                                            <%= reserva.costoR() %>
+                                            <%= reserva.getCostoR() %>
                                         </p>
                                     </a>
                                 <% } %>

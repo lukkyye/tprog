@@ -3,7 +3,7 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="com.models.datatypes.DTConsulta" %>
+<%@ page import="com.soap.DtConsulta" %>
 <%@ page import="com.gateway.delegators.ClinicControllerDelegator" %>
 <%
     ClinicControllerDelegator clinicController =
@@ -100,15 +100,15 @@
     	<div class="d-flex align-items-center mb-3">
                         <div class="col-9 ps-3">
                             <h4 class="m-0 fw-bold">
-                                <%= consulta.nomC() %>
+                                <%= consulta.getNomC() %>
                             </h4>
 
                             <p class="mb-0 text-muted mt-2"><strong>Fecha: </strong>
-                                <%= consulta.fechaC() %>
+                                <%= consulta.getFechaC() %>
                             </p>
                             
                             <p class="mb-0 text-muted mt-2"> <strong>Costo: </strong>
-                                $<%= consulta.costoC() %>
+                                $<%= consulta.getCostoC() %>
                             </p>
                         </div>
 
@@ -116,12 +116,12 @@
 
                     <div class="d-flex justify-content-center gap-2 pt-2 border-top">
 
-                        <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+                        <a class="btn btn-secondary" href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.getNomC(), "UTF-8") %>">
     						Ver detalle
 						</a>
 						
 						<% if ("Paciente".equals(tipoUsuario)) { %>
-    					<a class="btn btn-primary"  href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+    					<a class="btn btn-primary"  href="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.getNomC(), "UTF-8") %>">
         					Reservar
     					</a>
 						<% } %>

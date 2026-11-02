@@ -3,8 +3,10 @@ package com.controllers;
 import java.io.IOException;
 
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.DTBeneficioAnual;
-import com.models.excepciones.BeneficioNotFoundException;
+import com.soap.BeneficioNotFoundException;
+import com.soap.BeneficioNotFoundException_Exception;
+import com.soap.DtBeneficioAnual;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,9 +40,9 @@ public class ConsultaBeneficioServlet extends HttpServlet {
         }
 
         try {
-            DTBeneficioAnual beneficio = userController.listarDatosBeneficioAnual(nickname, anio);
+            DtBeneficioAnual beneficio = userController.listarDatosBeneficioAnual(nickname, anio);
             request.setAttribute("beneficio", beneficio);
-        } catch (BeneficioNotFoundException e) {
+        } catch (BeneficioNotFoundException_Exception | UserNotFoundException_Exception e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
             return;
         }

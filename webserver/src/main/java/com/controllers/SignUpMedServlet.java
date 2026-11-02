@@ -15,10 +15,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.TipoMes;
-import com.models.excepciones.EmailAlreadyExistsException;
-import com.models.excepciones.IdAlreadyExistsException;
-import com.models.excepciones.NicknameAlreadyExistsException;
+import com.soap.EmailAlreadyExistsException_Exception;
+import com.soap.IdAlreadyExistsException_Exception;
+import com.soap.MedicoSinEspecialidadException_Exception;
+import com.soap.NicknameAlreadyExistsException_Exception;
+import com.soap.NumeroDeRegistroAlreadyExistsException_Exception;
+import com.soap.SpecialityNotFoundException_Exception;
+import com.soap.TipoMes;
+
 
 
 @WebServlet("/signup/m")
@@ -59,7 +63,22 @@ public class SignUpMedServlet extends HttpServlet {
 		float porcentajeAdicional=Float.parseFloat(request.getParameter("porcentajeAdicional"));
 		String link=request.getParameter("sitioWeb");
 		Part img = request.getPart("imagen");
-		TipoMes mesLic=TipoMes.fromString(request.getParameter("mesLicencia"));
+		
+		TipoMes mesLic= switch (request.getParameter("mesLicencia").toLowerCase()) {
+		case "enero" -> TipoMes.ENERO;
+		case "febrero" -> TipoMes.FEBRERO;
+		case "marzo" -> TipoMes.MARZO;
+		case "abril" -> TipoMes.ABRIL;
+		case "mayo" -> TipoMes.MAYO;
+		case "junio" -> TipoMes.JUNIO;
+		case "julio" -> TipoMes.JULIO;
+		case "agosto" -> TipoMes.AGOSTO;
+		case "septiembre" -> TipoMes.SEPTIEMBRE;
+		case "octubre" -> TipoMes.OCTUBRE;
+		case "noviembre" -> TipoMes.NOVIEMBRE;
+		case "diciembre" -> TipoMes.DICIEMBRE;
+		default -> null;
+		};
 		UserControllerDelegator controladorUsuario = new UserControllerDelegator();
 		if (nickname!=null && name!=null && lastname!=null && mail!=null && password!=null && 
 				nroReg!=null && mesLic!=null) {
@@ -70,12 +89,19 @@ public class SignUpMedServlet extends HttpServlet {
 						com.gateway.delegators.ImageHandlerDelegator ihd = new com.gateway.delegators.ImageHandlerDelegator();
 						ihd.addImg(img, nickname);
 					}
-				} catch (NicknameAlreadyExistsException e){
+				} catch (NicknameAlreadyExistsException_Exception e){
 					state = e.getMessage();
-				} catch (EmailAlreadyExistsException e2) {
+				} catch (EmailAlreadyExistsException_Exception e2) {
 					state = e2.getMessage();
-				} catch (IdAlreadyExistsException e3) {
-					state = e3.getMessage();
+				} catch (MedicoSinEspecialidadException_Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NumeroDeRegistroAlreadyExistsException_Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SpecialityNotFoundException_Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				request.setAttribute("success", state==null ? "Se registró correctamente el nuevo usuario. Por favor inicie sesión." : state);
 				request.getRequestDispatcher("/WEB-INF/views/SignUpMed.jsp").forward(request, response);

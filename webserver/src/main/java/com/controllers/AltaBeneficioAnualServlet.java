@@ -1,16 +1,17 @@
 package com.controllers;
 
 import java.io.IOException;
+
+import com.gateway.delegators.UserControllerDelegator;
+import com.soap.BeneficioAlreadyExistsException_Exception;
+import com.soap.DtPaciente;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import com.gateway.delegators.UserControllerDelegator;
-import com.soap.DtPaciente;
-import com.soap.BeneficioAlreadyExistsException;
-import com.soap.UserNotFoundException;
-
+import com.soap.UserNotFoundException_Exception;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -79,9 +80,9 @@ public class AltaBeneficioAnualServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
             request.setAttribute("mensaje", "El año y las cantidades deben ser números enteros.");
-        } catch (BeneficioAlreadyExistsException e) {
+        } catch (BeneficioAlreadyExistsException_Exception e) {
             request.setAttribute("mensaje", e.getMessage() + ". Modifica el año o los datos, o cancela.");
-        } catch (UserNotFoundException | IllegalArgumentException e) {
+        } catch (UserNotFoundException_Exception | IllegalArgumentException e) {
             request.setAttribute("mensaje", e.getMessage());
         }
 

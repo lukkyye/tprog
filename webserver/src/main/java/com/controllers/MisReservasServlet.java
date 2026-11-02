@@ -7,6 +7,9 @@ import java.util.Set;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DtResConsulta;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,9 +17,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import com.models.datatypes.DTClinica;
-import com.models.datatypes.DTResConsulta;
-import com.models.datatypes.DTResConsultaDetalle;
 
 @WebServlet("/MisReservasServlet")
 public class MisReservasServlet extends HttpServlet {
@@ -37,13 +37,23 @@ public class MisReservasServlet extends HttpServlet {
         
         //Obtenemos nombre de consulta
         String nombreC = request.getParameter("consulta");
-        Set<DTResConsulta> reservas = new HashSet<>();;
+        Set<DtResConsulta> reservas = new HashSet<>();;
         
         if (nombreC == null || nombreC.isBlank()) {
-        	reservas = userController.listarResConsultas(nickname);
+        	try {
+				reservas = userController.listarResConsultas(nickname);
+			} catch (UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }else {
         	//debo quedarme con las reservas asociadas a la consulta 
-        	reservas = clinicController.listarReservasConsulta(nombreC);
+        	try {
+				reservas = clinicController.listarReservasConsulta(nombreC);
+			} catch (ConsultaNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         //Guardamos lista de reservas en reservas

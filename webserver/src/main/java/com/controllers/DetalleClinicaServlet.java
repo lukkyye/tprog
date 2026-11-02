@@ -4,7 +4,7 @@ package com.controllers;
 import java.io.IOException;
 
 import com.gateway.delegators.ClinicControllerDelegator;
-import com.models.datatypes.DTClinica;
+import com.soap.DtClinica;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,7 +32,7 @@ public class DetalleClinicaServlet extends HttpServlet {
             return;
         }
 
-        DTClinica clinica = clinicController.seleccionarClinica(nombre);
+        DtClinica clinica = clinicController.seleccionarClinica(nombre);
 
         if (clinica == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,

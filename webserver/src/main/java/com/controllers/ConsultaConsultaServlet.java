@@ -9,10 +9,11 @@ import java.util.Set;
 
 import com.gateway.delegators.*;
 import com.gateway.delegators.ImageHandlerDelegator;
-import com.models.datatypes.DTConsultaDetalle;
-import com.models.datatypes.DTResConsulta;
-import com.models.datatypes.EstadoConsulta;
-import com.models.excepciones.ConsultaNotFoundException;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DtConsultaDetalle;
+import com.soap.DtResConsulta;
+import com.soap.EstadoConsulta;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,10 +39,10 @@ public class ConsultaConsultaServlet extends HttpServlet {
             return;
         }
 
-        DTConsultaDetalle consulta;
+        DtConsultaDetalle consulta;
         try {
             consulta = clinicController.listarDatosConsulta(nombreConsulta);
-        } catch (ConsultaNotFoundException e) {
+        } catch (ConsultaNotFoundException_Exception e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "No se encontró la consulta.");
             return;
         }
@@ -52,23 +53,29 @@ public class ConsultaConsultaServlet extends HttpServlet {
         boolean esMedico = nickname != null && "Medico".equalsIgnoreCase(tipo);
         boolean esPaciente = nickname != null && "Paciente".equalsIgnoreCase(tipo);
 
-        boolean esMedicoDeLaConsulta = esMedico && consulta.medico().equals(nickname);
+        boolean esMedicoDeLaConsulta = esMedico && consulta.getMedico().equals(nickname);
 
-        if (consulta.estado() != EstadoConsulta.Aceptada && !esMedicoDeLaConsulta) {
+        if (consulta.getEstado() != EstadoConsulta.ACEPTADA && !esMedicoDeLaConsulta) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "No se encontró la consulta.");
             return;
         }
 
-        List<DTResConsulta> reservas = new ArrayList<>();
-        DTResConsulta miReserva = null;
+        List<DtResConsulta> reservas = new ArrayList<>();
+        DtResConsulta miReserva = null;
         if (esMedicoDeLaConsulta) {
-            reservas.addAll(consulta.reservas());
-            reservas.sort(Comparator.comparingInt(DTResConsulta::numReserva));
+            reservas.addAll(consulta.getReservas());
+            reservas.sort(Comparator.comparingInt(dtrc->dtrc.getNumReserva()));
         } else if (esPaciente) {
-        	Set<DTResConsulta> reservasUsuario = userController.listarResConsultas(nickname);
+        	Set<DtResConsulta> reservasUsuario = null;
+			try {
+				reservasUsuario = userController.listarResConsultas(nickname);
+			} catch (UserNotFoundException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             if (reservasUsuario != null) {
-                for (DTResConsulta r : reservasUsuario) {
-                	if (r.nomC().equals(nombreConsulta)) {
+                for (DtResConsulta r : reservasUsuario) {
+                	if (r.getNomC().equals(nombreConsulta)) {
                 		miReserva = r;
                 	}
                 }

@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.models.datatypes.DTClinica" %>
+<%@ page import="com.soap.DtClinica" %>
 
 <%
 DtClinica clinica = (DtClinica) request.getAttribute("clinica");
@@ -89,7 +89,7 @@ DtClinica clinica = (DtClinica) request.getAttribute("clinica");
 
                         <div class="col-md-5">
                             <%
-                                String imagen = (new com.gateway.delegators.ImageHandlerDelegator()).getImg64(clinica.nombre());
+                                String imagen = (new com.gateway.delegators.ImageHandlerDelegator()).getImg64(clinica.getNombre());
                                 if (imagen != null && !imagen.isBlank()) {
                                     String src = imagen;
                             %>
@@ -111,14 +111,14 @@ DtClinica clinica = (DtClinica) request.getAttribute("clinica");
                         </div>
 
                         <div class="col-md-7">
-                            <h2 class="mb-4"><%= clinica.nombre() %></h2>
+                            <h2 class="mb-4"><%= clinica.getNombre() %></h2>
 
                             <div class="mb-3">
                                 <div class="detail-label">Descripcion</div>
                                 <div class="detail-value">
-                                    <%= clinica.desc() != null
-                                            && !clinica.desc().isBlank()
-                                            ? clinica.desc()
+                                    <%= clinica.getDesc() != null
+                                            && !clinica.getDesc().isBlank()
+                                            ? clinica.getDesc()
                                             : "Sin descripcion disponible" %>
                                 </div>
                             </div>
@@ -126,9 +126,9 @@ DtClinica clinica = (DtClinica) request.getAttribute("clinica");
                             <div class="mb-3">
                                 <div class="detail-label">Direccion</div>
                                 <div class="detail-value">
-                                    <%= clinica.dir() != null
-                                            && !clinica.dir().isBlank()
-                                            ? clinica.dir()
+                                    <%= clinica.getDir() != null
+                                            && !clinica.getDir().isBlank()
+                                            ? clinica.getDir()
                                             : "Sin direccion disponible" %>
                                 </div>
                             </div>
@@ -136,12 +136,12 @@ DtClinica clinica = (DtClinica) request.getAttribute("clinica");
                             <div class="mb-3">
                                 <div class="detail-label">Sitio web</div>
                                 <div class="detail-value">
-                                    <% if (clinica.web() != null
-                                            && !clinica.web().isBlank()) { %>
-                                        <a href="<%= clinica.web() %>"
+                                    <% if (clinica.getWeb() != null
+                                            && !clinica.getWeb().isBlank()) { %>
+                                        <a href="<%= clinica.getWeb() %>"
                                            target="_blank"
                                            rel="noopener noreferrer">
-                                            <%= clinica.web() %>
+                                            <%= clinica.getWeb() %>
                                         </a>
                                     <% } else { %>
                                         Sin sitio web disponible
@@ -155,14 +155,14 @@ DtClinica clinica = (DtClinica) request.getAttribute("clinica");
                                 <div class="col-sm-6">
                                     <div class="detail-label">Costo del ticket</div>
                                     <div class="detail-value fw-semibold">
-                                        $ <%= clinica.cTicket() %>
+                                        $ <%= clinica.getCTicket() %>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="detail-label">Costo de consulta</div>
                                     <div class="detail-value fw-semibold">
-                                        $ <%= clinica.cConsulta() %>
+                                        $ <%= clinica.getCConsulta() %>
                                     </div>
                                 </div>
                             </div>

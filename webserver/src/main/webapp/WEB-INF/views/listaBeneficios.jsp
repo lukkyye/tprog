@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.models.datatypes.DTBeneficioAnual" %>
+<%@ page import="com.soap.DtBeneficioAnual" %>
 <%!
     private static String h(Object valor) {
         if (valor == null) {
@@ -89,9 +89,9 @@
                             for (DtBeneficioAnual b : beneficios) {
                             %>
                                 <tr>
-                                    <td class="fw-bold"><%= b.anio() %></td>
-                                    <td><%= b.ordenesUsadas() %> / <%= b.cantOrdenes() %></td>
-                                    <td><%= b.cantTicket() %></td>
+                                    <td class="fw-bold"><%= b.getAnio() %></td>
+                                    <td><%= b.getOrdenesUsadas() %> / <%= b.getCantOrdenes() %></td>
+                                    <td><%= b.getCantTicket() %></td>
                                 </tr>
                             <% } %>
                             </tbody>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 
-<%@ page import="com.models.datatypes.DTUsuario" %>
-<%@ page import="com.models.datatypes.DTMedico" %>
-<%@ page import="com.models.datatypes.DTConsulta" %>
-<%@ page import="com.models.datatypes.EstadoConsulta" %>
+<%@ page import="com.soap.DtUsuario" %>
+<%@ page import="com.soap.DtMedico" %>
+<%@ page import="com.soap.DtConsulta" %>
+<%@ page import="com.soap.EstadoConsulta" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Set" %>
 
@@ -25,7 +25,7 @@ DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
 
     if (usuario != null) {
         fotoPerfil = new com.gateway.delegators.ImageHandlerDelegator()
-                .getImg64(usuario.nickname());
+                .getImg64(usuario.getNickname());
     }
 
     if (fotoPerfil == null || fotoPerfil.isBlank()) {
@@ -175,7 +175,7 @@ if (session.getAttribute("nickname") == null) {
                                 <%
                                 if (usuario != null) {
                                 %>
-                                    <%=usuario.nombre()%> <%=usuario.apellido()%>
+                                    <%=usuario.getNombre()%> <%=usuario.getApellido()%>
                                 <%
                                 } else {
                                 %>
@@ -190,12 +190,12 @@ if (session.getAttribute("nickname") == null) {
                             %>
                                 <p class="mb-1">
                                     <strong>Nickname:</strong>
-                                    <%=usuario.nickname()%>
+                                    <%=usuario.getNickname()%>
                                 </p>
 
                                 <p class="mb-0">
                                     <strong>Correo electrónico:</strong>
-                                    <%=usuario.correo()%>
+                                    <%=usuario.getCorreo()%>
                                 </p>
                             <%
                             }
@@ -214,25 +214,25 @@ if (session.getAttribute("nickname") == null) {
                     %>
                         <div class="dato">
                             <strong>Número de registro:</strong>
-                            <%=medico.nroReg()%>
+                            <%=medico.getNroReg()%>
                         </div>
 
                         <div class="dato">
                             <strong>Mes de licencia:</strong>
-                            <%=medico.mesLic()%>
+                            <%=medico.getMesLic()%>
                         </div>
 
                         <div class="dato">
                             <strong>Porcentaje adicional:</strong>
-                            <%=medico.porcentajeCost()%>%
+                            <%=medico.getPorcentajeCost()%>%
                         </div>
 
                         <div class="dato">
                             <strong>Sitio web:</strong>
                             <%
-                            if (medico.link() != null && !medico.link().isBlank()) {
+                            if (medico.getLink() != null && !medico.getLink().isBlank()) {
                             %>
-                                <%=medico.link()%>
+                                <%=medico.getLink()%>
                             <%
                             } else {
                             %>
@@ -288,39 +288,39 @@ if (session.getAttribute("nickname") == null) {
                                                     if (consultas != null) {
                                                         for (DtConsulta consulta : consultas) {
                                                             if (esMiPerfil
-                                                                    || consulta.estado() == EstadoConsulta.Aceptada) {
+                                                                    || consulta.getEstado() == EstadoConsulta.ACEPTADA) {
                                                                 hayConsultasVisibles = true;
                         %>
                                             <a class="list-group-item list-group-item-action consulta-enlace mb-2 rounded"
-                                               href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>">
+                                               href="${pageContext.request.contextPath}/ConsultaConsultaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.getNomC(), "UTF-8") %>">
 
                                                 <h5 class="mb-2">
-                                                    <%= consulta.nomC() %>
+                                                    <%= consulta.getNomC() %>
                                                 </h5>
 
                                                 <p class="mb-1">
                                                     <strong>Fecha:</strong>
-                                                    <%= consulta.fechaC() %>
+                                                    <%= consulta.getFechaC() %>
                                                 </p>
 
                                                 <p class="mb-1">
                                                     <strong>Estado:</strong>
-                                                    <%= consulta.estado() %>
+                                                    <%= consulta.getEstado() %>
                                                 </p>
 
                                                 <p class="mb-1">
                                                     <strong>Sala:</strong>
-                                                    <%= consulta.sala() %>
+                                                    <%= consulta.getSala() %>
                                                 </p>
 
                                                 <p class="mb-1">
                                                     <strong>Cantidad de números:</strong>
-                                                    <%= consulta.cantNum() %>
+                                                    <%= consulta.getCantNum() %>
                                                 </p>
 
                                                 <p class="mb-0">
                                                     <strong>Costo:</strong>
-                                                    <%= consulta.costoC() %>
+                                                    <%= consulta.getCostoC() %>
                                                 </p>
                                             </a>
                         <%

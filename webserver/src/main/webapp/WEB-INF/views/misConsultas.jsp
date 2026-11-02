@@ -3,7 +3,7 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="com.models.datatypes.DTConsulta" %>
+<%@ page import="com.soap.DtConsulta" %>
 <%@ page import="com.gateway.delegators.ClinicControllerDelegator" %>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
 <%
@@ -75,8 +75,8 @@
                                                     if (consultas != null && !consultas.isEmpty()) {
                                                         for (DtConsulta consulta : consultas) {
                         %>
-                                    <option value="<%= consulta.nomC() %>">
-                                        <%= consulta.nomC() %>  -  <%= consulta.fechaC() %>
+                                    <option value="<%= consulta.getNomC() %>">
+                                        <%= consulta.getNomC() %>  -  <%= consulta.getFechaC() %>
                                     </option>
                         <%
                                 }

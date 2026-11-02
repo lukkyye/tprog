@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.models.datatypes.DTResConsultaDetalle" %>
+<%@ page import="com.soap.DtResConsultaDetalle" %>
 
 <%
 DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("reserva");
@@ -96,21 +96,21 @@ DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("rese
                             <div class="mb-3">
                                 <div class="detail-label">Fecha</div>
                                 <div class="detail-value">
-                                    <%= reserva.fechaRes() %>
+                                    <%= reserva.getFechaRes() %>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <div class="detail-label">Numero</div>
                                 <div class="detail-value">
-                                    <%= reserva.numReserva() %>
+                                    <%= reserva.getNumReserva() %>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <div class="detail-label">Aplica beneficio anual</div>
                                 <div class="detail-value">
-                                    <%= reserva.aplicaBenef() ? "Sí" : "No" %>
+                                    <%= reserva.isAplicaBenef() ? "Sí" : "No" %>
                                 </div>
                             </div>
                             
@@ -120,28 +120,28 @@ DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("rese
                             <div class="mb-3">
                                 <div class="detail-label">Nombre</div>
                                 <div class="detail-value">
-                                    <%= reserva.nomC() %>
+                                    <%= reserva.getNomC() %>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <div class="detail-label">Fecha</div>
                                 <div class="detail-value">
-                                    <%= reserva.fechaC() %>
+                                    <%= reserva.getFechaC() %>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <div class="detail-label">Sala</div>
                                 <div class="detail-value">
-                                    <%= reserva.salaC() %>
+                                    <%= reserva.getSalaC() %>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <div class="detail-label">Cantidad de Numeros</div>
                                 <div class="detail-value">
-                                    <%= reserva.cantNumC() %>
+                                    <%= reserva.getCantNumC() %>
                                 </div>
                             </div>
 
@@ -151,14 +151,14 @@ DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("rese
                                 <div class="col-sm-6">
                                     <div class="detail-label">Costo de consulta</div>
                                     <div class="detail-value fw-semibold">
-                                        $ <%= reserva.costoC() %>
+                                        $ <%= reserva.getCostoC() %>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="detail-label">Costo de reserva</div>
                                     <div class="detail-value fw-semibold">
-                                        $ <%= reserva.costoR() %>
+                                        $ <%= reserva.getCostoR() %>
                                     </div>
                                 </div>
                             </div>

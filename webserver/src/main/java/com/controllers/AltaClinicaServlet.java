@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.ImageHandlerDelegator;
+import com.soap.NombreClinicaAlreadyExistsException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -111,7 +112,10 @@ public class AltaClinicaServlet extends HttpServlet {
             log("Error al registrar clinica", e);
             request.setAttribute("mensaje",
                     "Ocurrio un error al registrar la clinica.");
-        }
+        } catch (NombreClinicaAlreadyExistsException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         request.getRequestDispatcher("/WEB-INF/views/altaClinica.jsp")
                .forward(request, response);

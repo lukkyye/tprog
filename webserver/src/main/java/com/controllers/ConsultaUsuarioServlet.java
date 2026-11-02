@@ -3,10 +3,11 @@ package com.controllers;
 import java.io.IOException;
 
 import com.gateway.delegators.UserControllerDelegator;
-import com.models.datatypes.DTPaciente;
-import com.models.datatypes.DTMedico;
-import com.models.datatypes.DTUsuario;
-import com.models.excepciones.UserNotFoundException;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DtMedico;
+import com.soap.DtPaciente;
+import com.soap.DtUsuario;
+import com.soap.UserNotFoundException_Exception;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -47,11 +48,11 @@ public class ConsultaUsuarioServlet extends HttpServlet {
             return;
         }
 
-        DTUsuario usuario;
+        DtUsuario usuario;
 
         try {
             usuario = controlador.listarDatosUsuario(nickname);
-        } catch (UserNotFoundException e) {
+        } catch (UserNotFoundException_Exception e) {
             request.setAttribute("error", "No se encontró ese usuario.");
             request.setAttribute("usuarios", controlador.listarUsuarios());
 
@@ -64,7 +65,7 @@ public class ConsultaUsuarioServlet extends HttpServlet {
         request.setAttribute("usuario", usuario);
 
         try {
-            DTPaciente paciente = controlador.listarDatosPaciente(nickname);
+            DtPaciente paciente = controlador.listarDatosPaciente(nickname);
             request.setAttribute("datosPaciente", paciente);
             request.setAttribute("esMiPerfil", false);
 
@@ -73,17 +74,33 @@ public class ConsultaUsuarioServlet extends HttpServlet {
             ).forward(request, response);
             return;
 
-        } catch (UserNotFoundException e) {
-            DTMedico medico = controlador.listarDatosMedico(nickname);
+        } catch (UserNotFoundException_Exception e) {
+            DtMedico medico = null;
+			try {
+				medico = controlador.listarDatosMedico(nickname);
+			} catch (UserNotFoundException_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             request.setAttribute("datosMedico", medico);
-            request.setAttribute(
-                    "especialidades",
-                    controlador.listarEspecialidadesMedico(nickname)
-            );
-            request.setAttribute(
-                    "consultas",
-                    controlador.listarConsultasAsociadas(nickname)
-            );
+            try {
+				request.setAttribute(
+				        "especialidades",
+				        controlador.listarEspecialidadesMedico(nickname)
+				);
+			} catch (UserNotFoundException_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            try {
+				request.setAttribute(
+				        "consultas",
+				        controlador.listarConsultasAsociadas(nickname)
+				);
+			} catch (ConsultaNotFoundException_Exception | UserNotFoundException_Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             request.setAttribute("esMiPerfil", false);
 
             request.getRequestDispatcher(

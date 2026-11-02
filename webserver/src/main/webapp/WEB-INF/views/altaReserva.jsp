@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
-<%@ page import="com.models.datatypes.DTConsulta" %>
+<%@ page import="com.soap.DtConsulta" %>
 <%
 String ctx = request.getContextPath();
     String tipoUsuario = (String) session.getAttribute("tipoUsuario");
@@ -70,28 +70,28 @@ String ctx = request.getContextPath();
                     </div>
                 <% } %>
 
-                <form action="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.nomC(), "UTF-8") %>"" method="post">
+                <form action="${pageContext.request.contextPath}/AltaReservaServlet?nombreConsulta=<%= java.net.URLEncoder.encode(consulta.getNomC(), "UTF-8") %>"" method="post">
 
-                    <input type="hidden" name="consulta" value="<%= (consulta != null) ? consulta.nomC() : "" %>">
+                    <input type="hidden" name="consulta" value="<%= (consulta != null) ? consulta.getNomC() : "" %>">
 
                     <div class="mb-3">
                         <div class="detail-label">Consulta</div>
                         <div class="detail-value fw-bold">
-                            <%= (consulta != null) ? consulta.nomC() : "No seleccionada" %>
+                            <%= (consulta != null) ? consulta.getNomC() : "No seleccionada" %>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <div class="detail-label">Fecha</div>
                         <div class="detail-value">
-                            <%= (consulta != null && consulta.fechaC() != null) ? consulta.fechaC() : "-" %>
+                            <%= (consulta != null && consulta.getFechaC() != null) ? consulta.getFechaC() : "-" %>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <div class="detail-label">Sala</div>
                         <div class="detail-value">
-                            <%= (consulta != null) ? consulta.sala() : "-" %>
+                            <%= (consulta != null) ? consulta.getSala() : "-" %>
                         </div>
                     </div>
                     
@@ -110,7 +110,7 @@ String ctx = request.getContextPath();
                         <div class="col-sm-6">
                             <div class="detail-label">Costo de consulta</div>
                             <div class="detail-value fw-semibold">
-                                $ <%= (consulta != null) ? consulta.costoC() : 0.0f %>
+                                $ <%= (consulta != null) ? consulta.getCostoC() : 0.0f %>
                             </div>
                         </div>
 

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<%@ page import="com.models.datatypes.DTUsuario" %>
-<%@ page import="com.models.datatypes.DTPaciente" %>
-<%@ page import="com.models.datatypes.DTMedico" %>
+<%@ page import="com.soap.DtUsuario" %>
+<%@ page import="com.soap.DtPaciente" %>
+<%@ page import="com.soap.DtMedico" %>
 
 <%
 DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
@@ -22,26 +22,26 @@ DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
     <h1>Mis datos</h1>
 
     <% if (usuario != null) { %>
-        <p><strong>Nickname:</strong> <%= usuario.nickname() %></p>
-        <p><strong>Nombre:</strong> <%= usuario.nombre() %></p>
-        <p><strong>Apellido:</strong> <%= usuario.apellido() %></p>
-        <p><strong>Correo:</strong> <%= usuario.correo() %></p>
+        <p><strong>Nickname:</strong> <%= usuario.getNickname() %></p>
+        <p><strong>Nombre:</strong> <%= usuario.getNombre() %></p>
+        <p><strong>Apellido:</strong> <%= usuario.getApellido() %></p>
+        <p><strong>Correo:</strong> <%= usuario.getCorreo() %></p>
     <% } %>
 
     <% if (paciente != null) { %>
         <h2>Datos de paciente</h2>
-        <p><strong>Documento:</strong> <%= paciente.doc() %></p>
-        <p><strong>Fecha de nacimiento:</strong> <%= paciente.fechaNac() %></p>
-        <p><strong>Fecha de ingreso:</strong> <%= paciente.fechaIngreso() %></p>
-        <p><strong>Antecedentes de salud:</strong> <%= paciente.antSalud() %></p>
+        <p><strong>Documento:</strong> <%= paciente.getDoc() %></p>
+        <p><strong>Fecha de nacimiento:</strong> <%= paciente.getFechaNac() %></p>
+        <p><strong>Fecha de ingreso:</strong> <%= paciente.getFechaIngreso() %></p>
+        <p><strong>Antecedentes de salud:</strong> <%= paciente.getAntSalud() %></p>
     <% } %>
 
     <% if (medico != null) { %>
         <h2>Datos de médico</h2>
-        <p><strong>Número de registro:</strong> <%= medico.nroReg() %></p>
-        <p><strong>Mes de licencia:</strong> <%= medico.mesLic() %></p>
-        <p><strong>Porcentaje de costo:</strong> <%= medico.porcentajeCost() %></p>
-        <p><strong>Enlace:</strong> <%= medico.link() %></p>
+        <p><strong>Número de registro:</strong> <%= medico.getNroReg() %></p>
+        <p><strong>Mes de licencia:</strong> <%= medico.getMesLic() %></p>
+        <p><strong>Porcentaje de costo:</strong> <%= medico.getPorcentajeCost() %></p>
+        <p><strong>Enlace:</strong> <%= medico.getLink() %></p>
     <% } %>
 
     <a href="<%= request.getContextPath() %>/home">Volver al inicio</a>

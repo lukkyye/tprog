@@ -53,7 +53,7 @@ public class ManejadorImagen {
 			}
 			return "data:image/png;base64," + Base64.getEncoder().encodeToString(baos.toByteArray());
 		}
-		return null;
+		return "";
 	}
 	public void addImg(String b64, String key) {
 		byte[] bytes = Base64.getDecoder().decode(b64);
