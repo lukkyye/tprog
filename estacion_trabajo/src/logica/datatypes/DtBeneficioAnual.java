@@ -10,15 +10,17 @@ public class DtBeneficioAnual {
     private int cantOrdenes;
     private int cantTicket;
     private int ordenesUsadas;
+    private int ticketUsados;
 
     public DtBeneficioAnual() {
     }
 
-    public DtBeneficioAnual(int anio, int cantOrdenes, int cantTicket, int ordenesUsadas) {
+    public DtBeneficioAnual(int anio, int cantOrdenes, int cantTicket, int ordenesUsadas, int ticketUsados) {
         this.anio = anio;
         this.cantOrdenes = cantOrdenes;
         this.cantTicket = cantTicket;
         this.ordenesUsadas = ordenesUsadas;
+        this.ticketUsados = ticketUsados;
     }
 
     public int getAnio() {
@@ -48,12 +50,24 @@ public class DtBeneficioAnual {
     public int getOrdenesUsadas() {
         return ordenesUsadas;
     }
+    
+    public int getTicketUsados() {
+    	return ticketUsados;
+    }
 
     public void setOrdenesUsadas(int ordenesUsadas) {
         this.ordenesUsadas = ordenesUsadas;
     }
+    
+    public void setTicketUsados(int ticketUsados) {
+    	this.ticketUsados = ticketUsados;
+    }
 
     public int ordenesDisponibles() {
         return cantOrdenes - ordenesUsadas;
+    }
+    
+    public int ticketDisponibles() {
+    	return cantTicket - ticketUsados;
     }
 }

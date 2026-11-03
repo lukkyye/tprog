@@ -113,6 +113,17 @@ public class Paciente extends Usuario{
 		}
 		return elegido;
 	}
+	
+	public BeneficioAnual beneficioConTicketMasAntiguo() {
+		BeneficioAnual elegido = null;
+		for (BeneficioAnual b : benef) {
+			boolean esMasAntiguo = elegido == null || b.getAnio() < elegido.getAnio();
+			if (b.tieneTicketDisponibles() && esMasAntiguo) {
+				elegido = b;
+			}
+		}
+		return elegido;
+	}
 
 	public int getDoc() {
 		return this.doc;
