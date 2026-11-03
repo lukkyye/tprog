@@ -27,7 +27,7 @@
 		    align-items: flex-start;
 		    text-align: center;
 		
-		    background-image: url('${pageContext.request.contextPath}/img/hospital.png');
+		    background-image: url('${pageContext.request.contextPath}/img/home-movil.png');
 		    background-size: 100% 100%;
 		    background-position: center;
 		    background-repeat: no-repeat;
@@ -117,7 +117,7 @@
 	<% if (esMovil) { %>
 
 	    <div class="bienvenida-movil">
-	    	<h2 class="fw-bold">¡Bienvenido a Salud.uy!</h2>
+	    	<h2 class="fw-bold">¡Bienvenido/a a Salud.uy!</h2>
 	    </div>
     <% } else { %>
         <!-- DIAS DE CONSULTA -->
