@@ -118,8 +118,13 @@
                 <div class="col-md-6 panel-logo d-flex
                             flex-column align-items-center
                             justify-content-center text-center">
+                            
+                            
 
-                    <a href="/home"
+                    <a 
+                    <% if (!esMovil) { %>
+                    href="/webserver/home"
+                    <% } %>
                        class="d-block w-100">
                         <img src="/webserver/img/LOGOGENERAL.png"
                              alt="salud.uy"
@@ -172,13 +177,14 @@
                                 class="btn boton-entrar btn-lg w-100">
                             Entrar
                         </button>
-
+					<% if (!esMovil) { %>
                         <a href="/webserver/home"
                            class="btn btn-outline-light w-100 mt-3">
                             Cancelar
                         </a>
+                        <% } %>
                     </form>
-
+  				<% if (!esMovil) { %>
                     <p class="text-center mt-4 mb-0">
                         ¿No tenés cuenta?
                         <a href="/webserver/signup"
@@ -186,6 +192,7 @@
                             Registrate
                         </a>
                     </p>
+				<% } %>
                 </div>
 
             </div>
