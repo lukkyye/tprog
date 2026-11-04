@@ -5,7 +5,10 @@ import logica.clases.Medico;
 import logica.clases.Paciente;
 import logica.clases.Reserva;
 import logica.clases.Especialidad;
+import logica.clases.Medicamento;
+
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +19,7 @@ import logica.excepciones.BeneficioNotFoundException;
 import logica.excepciones.ConsultaNotFoundException;
 import logica.excepciones.EmailAlreadyExistsException;
 import logica.excepciones.IdAlreadyExistsException;
+import logica.excepciones.MedicamentoAlreadyExistsException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
@@ -311,6 +315,11 @@ public class ManejadorUsuario {
 		paciente.setFechaIn(fechaIn);
 		paciente.setDoc(doc);
 		paciente.setAntSalud(antSalud);
+	}
+	
+	public void agregarMedicamento(String nickname, String nombre, String posologia, LocalDate indicacion, float costoMed) throws UserNotFoundException, MedicamentoAlreadyExistsException {
+		Paciente paciente = getPaciente(nickname);
+		paciente.agregarMedicamento(new Medicamento(nombre, posologia, indicacion, costoMed));
 	}
 
 }

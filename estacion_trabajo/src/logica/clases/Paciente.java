@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtPaciente;
+import logica.excepciones.MedicamentoAlreadyExistsException;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Paciente extends Usuario{
 	private LocalDate fechaIn;
 	private Set<BeneficioAnual> benef;
 	private Set<Reserva> reservas;
+	private Set<Medicamento> medicamentos;
 	
 	public Paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud){
 			super(nickname, password, nombre, apellido, correo);
@@ -28,6 +30,7 @@ public class Paciente extends Usuario{
 			this.fechaIn = _fechaIn;
 			this.benef = new HashSet<BeneficioAnual>();
 			this.reservas = new HashSet<Reserva>();
+			this.medicamentos = new HashSet<Medicamento>();
 	}
 	
 	public Set<Reserva> getReservas() {
@@ -128,4 +131,22 @@ public class Paciente extends Usuario{
 	public int getDoc() {
 		return this.doc;
 	}
+	
+	public Medicamento getMedicamento(String nombre, LocalDate indicacion) {
+		for (Medicamento m : medicamentos) {
+			if (m.esMismo(nombre, indicacion)) {
+				return m;
+			}
+		}
+		return null;
+	}
+	
+	public void agregarMedicamento(Medicamento medicamento) throws MedicamentoAlreadyExistsException {
+		if (getMedicamento(medicamento.getNombre(), medicamento.getIndicacion()) != null) {
+			throw new MedicamentoAlreadyExistsException("Ya se recetó " + medicamento.getNombre() + " a este paciente en esa fecha");
+		}
+		medicamentos.add(medicamento);
+	}
+	
+
 }

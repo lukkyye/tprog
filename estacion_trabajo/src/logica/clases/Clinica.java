@@ -50,5 +50,18 @@ public class Clinica {
 	    diasconsulta.add(diaConsulta);
 	}
 	
+	public float getCostoTicket() {
+		return cTicket;
+	}
+	
+	public boolean tieneDiaConsulta(String nomD) {
+		for (DiaConsulta d : diasconsulta) {
+			if (d.getNom().equals(nomD)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 }

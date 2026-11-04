@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DtSolicitudMedicamento {
 	private String nicknamePaciente;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate entrega;
 	private String direccion;
 	private boolean usaBenef;

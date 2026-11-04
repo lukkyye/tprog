@@ -6,17 +6,21 @@ import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtSolicitudMedicamento;
 
 public class Medicamento {
+	public static final int PLAZO_DIAS = 30;
+	
 	private String nombre;
 	private String posologia;
+	private LocalDate indicacion;
 	private LocalDate vencimiento;
 	private boolean usado;
 	private float costoMed;
 	private DtSolicitudMedicamento solMed;
 	
-	public Medicamento(String nombre, String posologia, LocalDate vencimiento, float costoMed) {
+	public Medicamento(String nombre, String posologia, LocalDate indicacion, float costoMed) {
 		this.nombre = nombre;
 		this.posologia = posologia;
-		this.vencimiento = vencimiento;
+		this.indicacion = indicacion;
+		this.vencimiento = indicacion.plusDays(PLAZO_DIAS);
 		this.usado = false;
 		this.costoMed = costoMed;
 		this.solMed = null;
@@ -24,8 +28,8 @@ public class Medicamento {
 	public String getNombre() {
 		return nombre;
 	}
-	public String getPosologia() {
-		return posologia;
+	public LocalDate getIndicacion() {
+		return indicacion;
 	}
 	public LocalDate getVencimiento() {
 		return vencimiento;
@@ -36,11 +40,13 @@ public class Medicamento {
 	public float getCostoMed() {
 		return costoMed;
 	}
-	public DtSolicitudMedicamento getSolMed() {
-		return solMed;
-	}
 	public void setSolMed(String NicknamePaciente, LocalDate entrega, String direccion, boolean usaBenef) {
 		solMed = new DtSolicitudMedicamento(NicknamePaciente, entrega, direccion, usaBenef, costoMed);
 	}
+	
+	public boolean esMismo(String _nombre, LocalDate _indicacion) {
+		return nombre.equalsIgnoreCase(_nombre) && indicacion.equals(_indicacion);
+	}
+	
 
 }

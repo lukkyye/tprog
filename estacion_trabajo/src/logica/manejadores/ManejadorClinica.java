@@ -86,7 +86,14 @@ public class ManejadorClinica {
         );
     }
     
-    
+    public Clinica clinicaDeDiaConsulta(String nomD) {
+    	for (Clinica c : getClinicas().values()) {
+    		if (c.tieneDiaConsulta(nomD)) {
+    			return c;
+    		}
+    	}
+    		return null;
+    }
     
 
     

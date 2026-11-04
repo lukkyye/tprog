@@ -1,11 +1,15 @@
 package logica.controladores;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Set;
+
+import logica.manejadores.ManejadorClinica;
 import logica.manejadores.ManejadorConsulta;
 import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
+import logica.clases.Clinica;
 import logica.clases.Consulta;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtConsulta;
@@ -18,13 +22,17 @@ import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 import logica.excepciones.BeneficioAlreadyExistsException;
 import logica.excepciones.BeneficioNotFoundException;
+import logica.excepciones.ClinicaNotFoundException;
 import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.DatosMedicamentoInvalidosException;
 import logica.excepciones.EmailAlreadyExistsException;
 import logica.excepciones.EspecialidadAlreadyExistsException;
 import logica.excepciones.IdAlreadyExistsException;
+import logica.excepciones.MedicamentoAlreadyExistsException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
+import logica.excepciones.ReservaDoesntExistsException;
 import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.UserNotFoundException;
 
@@ -127,6 +135,23 @@ public class ControladorUsuario {
 	
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) throws UserNotFoundException {
 		ManejadorUsuario.getInstance().modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
+	}
+	
+	// Caso de uso: Recetar Medicamento (lo llama el Médico luego de ingresar los detalles de la consulta)
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia) throws UserNotFoundException, ConsultaNotFoundException, ClinicaNotFoundException, ReservaDoesntExistsException, MedicamentoAlreadyExistsException, DatosMedicamentoInvalidosException {
+		if (nombre == null || nombre.isBlank() || posologia == null || posologia.isBlank()) {
+			throw new DatosMedicamentoInvalidosException("Debe ingresar el nombre y la posología del medicamento");
+		}
+		ManejadorUsuario.getInstance().getUsuario(nicknamePaciente);
+		Consulta consulta = ManejadorConsulta.getInstance().getConsulta(nomC);
+		if (!consulta.tieneReserva(nicknamePaciente)) {
+			throw new ReservaDoesntExistsException("El paciente " + nicknamePaciente + " no tiene reserva en la consulta " + nomC);
+		}
+		Clinica clinica = ManejadorClinica.getInstance().clinicaDeDiaConsulta(consulta.getDiaConsulta());
+		if (clinica == null) {
+			throw new ClinicaNotFoundException("No se encontró la clínica de la consulta " + nomC);
+		}
+		ManejadorUsuario.getInstance().agregarMedicamento(nicknamePaciente, nombre.trim(), posologia.trim(), LocalDate.now(), clinica.getCostoTicket());
 	}
 	
 }
