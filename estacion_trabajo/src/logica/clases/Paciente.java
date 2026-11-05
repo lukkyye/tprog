@@ -4,8 +4,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import logica.datatypes.DtBeneficioAnual;
+import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtPaciente;
+import logica.datatypes.DtSolicitudMedicamento;
+import logica.excepciones.BeneficioSinTicketsException;
+import logica.excepciones.DatosMedicamentoInvalidosException;
+import logica.excepciones.FechaEntregaInvalidaException;
 import logica.excepciones.MedicamentoAlreadyExistsException;
+import logica.excepciones.MedicamentoNotFoundException;
+import logica.excepciones.MedicamentoVencidoException;
+import logica.excepciones.MedicamentoYaSolicitadoException;
 
 import java.util.ArrayList;
 
@@ -18,7 +26,7 @@ public class Paciente extends Usuario{
 	private LocalDate fechaIn;
 	private Set<BeneficioAnual> benef;
 	private Set<Reserva> reservas;
-	private Set<Medicamento> medicamentos;
+	private List<Medicamento> medicamentos;
 	
 	public Paciente(String nickname, String password, String nombre, String apellido, String correo, LocalDate _fechaNac, LocalDate _fechaIn, int _doc, List<String> _antSalud){
 			super(nickname, password, nombre, apellido, correo);
@@ -30,7 +38,7 @@ public class Paciente extends Usuario{
 			this.fechaIn = _fechaIn;
 			this.benef = new HashSet<BeneficioAnual>();
 			this.reservas = new HashSet<Reserva>();
-			this.medicamentos = new HashSet<Medicamento>();
+			this.medicamentos = new ArrayList<Medicamento>();
 	}
 	
 	public Set<Reserva> getReservas() {
@@ -148,5 +156,46 @@ public class Paciente extends Usuario{
 		medicamentos.add(medicamento);
 	}
 	
+	public List<DtMedicamento> getDtMedicamentos() {
+		List<DtMedicamento> result = new ArrayList<DtMedicamento>();
+		for (Medicamento m : medicamentos) {
+			result.add(m.getDtMedicamento());
+		}
+		return result;
+	}
+	
+	public DtSolicitudMedicamento solicitarMedicamento(String nombre, LocalDate indicacion, LocalDate hoy, LocalDate entrega, String direccion, boolean usaBenef) throws MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException, FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
+		Medicamento medicamento = getMedicamento(nombre, indicacion);
+		if (medicamento == null) {
+			throw new MedicamentoNotFoundException("El paciente no tiene recetado el medicamento " + nombre);
+		}
+		if (medicamento.getUsado()) {
+			throw new MedicamentoYaSolicitadoException("El medicamento " + nombre + " ya fue solicitado");
+		}
+		if (medicamento.estaVencido(hoy)) {
+			throw new MedicamentoVencidoException("El plazo para solicitar " + nombre + " venció el " + medicamento.getVencimiento());
+		}
+		if (entrega == null || !entrega.isAfter(hoy)) {
+			throw new FechaEntregaInvalidaException("La fecha de entrega debe ser posterior a la fecha actual");
+		}
+		if (direccion == null || direccion.isBlank()) {
+			throw new DatosMedicamentoInvalidosException("Debe ingresar una dirección de entrega");
+		}
+		BeneficioAnual beneficio = null;
+		float costo = medicamento.getCostoMed();
+		if (usaBenef) {
+			beneficio = beneficioConTicketMasAntiguo();
+			if (beneficio == null) {
+				throw new BeneficioSinTicketsException("El paciente no tiene tickets disponibles en sus beneficios anuales");
+			}
+			costo = 0.0f;
+		}
+		DtSolicitudMedicamento solicitud = new DtSolicitudMedicamento(nickname, entrega, direccion.trim(), usaBenef, costo);
+		medicamento.registrarSolicitud(solicitud);
+		if (beneficio != null) {
+			beneficio.usarTicket();
+		}
+		return solicitud;
+	}
 
 }

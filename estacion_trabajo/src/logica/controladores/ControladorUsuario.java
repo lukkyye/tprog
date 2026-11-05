@@ -14,21 +14,28 @@ import logica.clases.Consulta;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtConsulta;
 import logica.datatypes.DtConsultaDetalle;
+import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtMedico;
 import logica.datatypes.DtPaciente;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtSolicitudMedicamento;
 import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 import logica.excepciones.BeneficioAlreadyExistsException;
 import logica.excepciones.BeneficioNotFoundException;
+import logica.excepciones.BeneficioSinTicketsException;
 import logica.excepciones.ClinicaNotFoundException;
 import logica.excepciones.ConsultaNotFoundException;
 import logica.excepciones.DatosMedicamentoInvalidosException;
 import logica.excepciones.EmailAlreadyExistsException;
 import logica.excepciones.EspecialidadAlreadyExistsException;
+import logica.excepciones.FechaEntregaInvalidaException;
 import logica.excepciones.IdAlreadyExistsException;
 import logica.excepciones.MedicamentoAlreadyExistsException;
+import logica.excepciones.MedicamentoNotFoundException;
+import logica.excepciones.MedicamentoVencidoException;
+import logica.excepciones.MedicamentoYaSolicitadoException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
@@ -137,7 +144,6 @@ public class ControladorUsuario {
 		ManejadorUsuario.getInstance().modificarPaciente(nickname, nombre, apellido, fechaNac, fechaIn, doc, antSalud);
 	}
 	
-	// Caso de uso: Recetar Medicamento (lo llama el Médico luego de ingresar los detalles de la consulta)
 	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia) throws UserNotFoundException, ConsultaNotFoundException, ClinicaNotFoundException, ReservaDoesntExistsException, MedicamentoAlreadyExistsException, DatosMedicamentoInvalidosException {
 		if (nombre == null || nombre.isBlank() || posologia == null || posologia.isBlank()) {
 			throw new DatosMedicamentoInvalidosException("Debe ingresar el nombre y la posología del medicamento");
@@ -154,4 +160,12 @@ public class ControladorUsuario {
 		ManejadorUsuario.getInstance().agregarMedicamento(nicknamePaciente, nombre.trim(), posologia.trim(), LocalDate.now(), clinica.getCostoTicket());
 	}
 	
+	public List<DtMedicamento> listarMedicamentosRecetados(String nickname) throws UserNotFoundException {
+		return ManejadorUsuario.getInstance().medicamentosRecetados(nickname);
+	}
+	
+	public DtSolicitudMedicamento solicitarMedicamento(String nicknamePaciente, String nombre, LocalDate indicacion, LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException, MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException, FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
+			return ManejadorUsuario.getInstance().solicitarMedicamento(nicknamePaciente, nombre, indicacion, LocalDate.now(), entrega, direccion, usaBenef);
+	}
+
 }

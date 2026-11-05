@@ -20,14 +20,14 @@ public class DtMedicamento {
 	
     public DtMedicamento() {
     }
-	public DtMedicamento(String nombre, String posologia, LocalDate indicacion, LocalDate vencimiento, boolean usado, float costoMed) {
+	public DtMedicamento(String nombre, String posologia, LocalDate indicacion, LocalDate vencimiento, boolean usado, float costoMed, DtSolicitudMedicamento solMed) {
 		this.nombre = nombre;
 		this.posologia = posologia;
 		this.indicacion = indicacion;
 		this.vencimiento = vencimiento;
 		this.usado = usado;
 		this.costoMed = costoMed;
-		this.solMed = null;
+		this.solMed = solMed;
 	}
 	public String getNombre() {
 		return nombre;

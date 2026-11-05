@@ -47,6 +47,18 @@ public class Medicamento {
 	public boolean esMismo(String _nombre, LocalDate _indicacion) {
 		return nombre.equalsIgnoreCase(_nombre) && indicacion.equals(_indicacion);
 	}
+	public DtMedicamento getDtMedicamento() {
+		return new DtMedicamento(nombre, posologia, indicacion, vencimiento, usado, costoMed, solMed);
+	}
 	
+	public boolean estaVencido(LocalDate hoy) {
+		return hoy.isAfter(vencimiento);
+	}
+	public void registrarSolicitud(DtSolicitudMedicamento solicitud) {
+		this.solMed = solicitud;
+		this.usado = true;
+	}
+
+
 
 }

@@ -16,10 +16,16 @@ import java.util.Map;
 import java.util.Set;
 import logica.excepciones.BeneficioAlreadyExistsException;
 import logica.excepciones.BeneficioNotFoundException;
+import logica.excepciones.BeneficioSinTicketsException;
 import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.DatosMedicamentoInvalidosException;
 import logica.excepciones.EmailAlreadyExistsException;
+import logica.excepciones.FechaEntregaInvalidaException;
 import logica.excepciones.IdAlreadyExistsException;
 import logica.excepciones.MedicamentoAlreadyExistsException;
+import logica.excepciones.MedicamentoNotFoundException;
+import logica.excepciones.MedicamentoVencidoException;
+import logica.excepciones.MedicamentoYaSolicitadoException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
@@ -27,10 +33,12 @@ import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.UserNotFoundException;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtConsulta;
+import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtMedico;
 import logica.datatypes.DtPaciente;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtSolicitudMedicamento;
 import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
 
@@ -321,5 +329,14 @@ public class ManejadorUsuario {
 		Paciente paciente = getPaciente(nickname);
 		paciente.agregarMedicamento(new Medicamento(nombre, posologia, indicacion, costoMed));
 	}
+	
+	public List<DtMedicamento> medicamentosRecetados(String nickname) throws UserNotFoundException {
+		return getPaciente(nickname).getDtMedicamentos();
+	}
+	
+	public DtSolicitudMedicamento solicitarMedicamento(String nickname, String nombre, LocalDate indicacion, LocalDate hoy, LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException, MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException, FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
+		return getPaciente(nickname).solicitarMedicamento(nombre, indicacion, hoy, entrega, direccion, usaBenef);
+	}
+
 
 }
