@@ -48,6 +48,21 @@ public class ConsultaReserva extends JInternalFrame{
 	    gbc_lblFechaReserva.gridy = 2;
 	    getContentPane().add(lblFechaReserva, gbc_lblFechaReserva);
 	    
+	    JLabel lblNewLabel_1_3 = new JLabel("Paciente que Reservo: ");
+	    GridBagConstraints gbc_lblNewLabel_1_3 = new GridBagConstraints();
+	    gbc_lblNewLabel_1_2.anchor = GridBagConstraints.WEST;
+	    gbc_lblNewLabel_1_2.insets = new Insets(0, 0, 5, 5);
+	    gbc_lblNewLabel_1_2.gridx = 5;
+	    gbc_lblNewLabel_1_2.gridy = 2;
+	    getContentPane().add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
+	    
+	    JLabel lblNicknamePaciente = new JLabel("New label");
+	    GridBagConstraints gbc_lblNicknamePaciente = new GridBagConstraints();
+	    gbc_lblFechaReserva.insets = new Insets(0, 0, 5, 0);
+	    gbc_lblFechaReserva.gridx = 7;
+	    gbc_lblFechaReserva.gridy = 2;
+	    getContentPane().add(lblNicknamePaciente, gbc_lblNicknamePaciente);
+	    
 	    JLabel lblNewLabel_1_1 = new JLabel("Aplica Beneficio:  ");
 	    GridBagConstraints gbc_lblNewLabel_1_1 = new GridBagConstraints();
 	    gbc_lblNewLabel_1_1.anchor = GridBagConstraints.WEST;

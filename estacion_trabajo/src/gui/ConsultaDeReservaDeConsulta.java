@@ -213,6 +213,7 @@ public class ConsultaDeReservaDeConsulta extends JInternalFrame {
         sb.append("=========================================\n");
         sb.append("Número de Reserva: ").append(detalle.getNumReserva()).append("\n");
         sb.append("Fecha de Reserva:  ").append(detalle.getFechaRes()).append("\n");
+        sb.append("Paciente que Reservo:  ").append(detalle.getNicknamePacienteRes()).append("\n");
         sb.append("Aplica Beneficio:  ").append(detalle.getAplicaBenef() ? "Sí" : "No").append("\n");
         sb.append("Costo Reserva:     $").append(detalle.getCostoR()).append("\n\n");
         sb.append("-----------------------------------------\n");

@@ -80,7 +80,7 @@ public class Consulta {
 	public DtConsultaDetalle getDataConsultaDetalle() { 
 		Set<DtResConsulta> arg = new HashSet<DtResConsulta>();
 		for (Reserva reserva : reservas) {
-			DtResConsulta dtconsulta = new DtResConsulta(nomC, reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), reserva.getCostoR());
+			DtResConsulta dtconsulta = new DtResConsulta(nomC, reserva.getFechaRS(), reserva.getNumReserva(), reserva.getAplicaBenef(), reserva.getCostoR(), reserva.getNicknamePaciente());
 			arg.add(dtconsulta);
 		}
 		DtConsultaDetalle consultaDetalle = new DtConsultaDetalle(nomC, medico, fecha, sala, cantNum, arg, costoC, estado);

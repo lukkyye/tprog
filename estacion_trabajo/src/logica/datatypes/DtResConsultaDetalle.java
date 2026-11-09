@@ -22,13 +22,14 @@ public class DtResConsultaDetalle {
     private int cantNumC;
     private float costoC;
     private float costoR;
+    private String nicknamePaciente;
 
     public DtResConsultaDetalle() {
     }
 
     public DtResConsultaDetalle(LocalDate fechaRes, int numReserva, boolean aplicaBenef,
                                 String medicoC, String nomC, LocalDate fechaC,
-                                int salaC, int cantNumC, float costoC, float costoR) {
+                                int salaC, int cantNumC, float costoC, float costoR, String nicknamePaciente) {
         this.fechaRes = fechaRes;
         this.numReserva = numReserva;
         this.aplicaBenef = aplicaBenef;
@@ -39,6 +40,7 @@ public class DtResConsultaDetalle {
         this.cantNumC = cantNumC;
         this.costoC = costoC;
         this.costoR = costoR;
+        this.nicknamePaciente = nicknamePaciente;
     }
 
     public LocalDate getFechaRes() {
@@ -119,5 +121,13 @@ public class DtResConsultaDetalle {
 
     public void setCostoR(float costoR) {
         this.costoR = costoR;
+    }
+    
+    public String getNicknamePacienteRes() {
+    	return nicknamePaciente;
+    }
+    
+    public void setNicknamePacienteRes(String nicknamePaciente) {
+    	this.nicknamePaciente = nicknamePaciente;
     }
 }

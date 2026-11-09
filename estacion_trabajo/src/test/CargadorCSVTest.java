@@ -144,7 +144,7 @@ class CargadorCSVTest {
 	
 	@Test
 	void consultarDeReservaDeConsulta() {
-		DtResConsultaDetalle reserva_expected = new DtResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656);
+		DtResConsultaDetalle reserva_expected = new DtResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656, "lgomez");
 		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
 		DtPaciente dtpaciente = assertDoesNotThrow(()->controladorUsuario.seleccionarPaciente("lgomez"));
 		

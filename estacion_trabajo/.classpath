@@ -8,5 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="lib/jakarta.xml.bind-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-core.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta.activation-api.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta.xml.ws-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

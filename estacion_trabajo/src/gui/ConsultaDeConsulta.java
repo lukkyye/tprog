@@ -230,7 +230,9 @@ public class ConsultaDeConsulta extends JInternalFrame {
             panel.setBackground(isSelected ? new Color(220, 235, 252) : Color.WHITE);
             panel.add(new JLabel(" N° Reserva: " + value.getNumReserva()));
             panel.add(new JLabel(" Fecha: " + value.getFechaRes()));
+            panel.add(new JLabel(" Paciente: " + value.getNicknamePacienteRes()));
             panel.add(new JLabel(" Beneficio: " + (value.getAplicaBenef() ? "Sí" : "No")));
+            panel.add(new JLabel(" Costo: " + value.getCostoR()));
             return panel;
         });
 
@@ -254,13 +256,16 @@ public class ConsultaDeConsulta extends JInternalFrame {
                         "=== DATOS DE LA RESERVA ===\n" +
                         "Número de Reserva: " + resDetalle.getNumReserva() + "\n" +
                         "Fecha Reserva: " + resDetalle.getFechaRes() + "\n" +
+                        "Paciente Reserva: " + resDetalle.getNicknamePacienteRes() + "\n" +
                         "Aplica Beneficio: " + (resDetalle.getAplicaBenef() ? "Sí" : "No") + "\n" +
                         "Costo Reserva: $" + resDetalle.getCostoR() + "\n\n" +
                         "=== DATOS DE LA CONSULTA ===\n" +
                         "Consulta: " + nomC + "\n" +
                         "Médico: " + resDetalle.getMedicoC() + "\n" +
                         "Fecha Consulta: " + resDetalle.getFechaC() + "\n" +
-                        "Sala: " + resDetalle.getSalaC(),
+                        "Sala: " + resDetalle.getSalaC() + "\n" +
+                        "Cantidad de Numeros: " + resDetalle.getCantNumC() + "\n" +
+                        "Costo Consulta: " + resDetalle.getCostoC(),
                         "Detalle de Reserva #" + resDetalle.getNumReserva(),
                         JOptionPane.INFORMATION_MESSAGE);
                 } else {

@@ -185,6 +185,7 @@ public class ConsultaDetalle extends JInternalFrame {
                     .map(reserva ->
                         "Reserva " + reserva.getNumReserva()
                         + " - " + reserva.getFechaRes()
+                        + " - " + reserva.getNicknamePacienteRes()
                         + " - $" + reserva.getCostoR()
                     )
                     .toArray(String[]::new);

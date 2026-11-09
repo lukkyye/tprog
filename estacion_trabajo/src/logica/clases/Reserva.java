@@ -6,6 +6,7 @@ import logica.excepciones.ConsultaNotFoundException;
 import logica.datatypes.DtConsultaDetalle;
 import logica.manejadores.ManejadorConsulta;
 import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResAsistio;
 
 public class Reserva {
 	private String nicknamePaciente;
@@ -14,6 +15,9 @@ public class Reserva {
     private int numReserva;
     private boolean aplicaBenef;
     private float costoR;
+    private boolean asistio;
+    private String motivo;
+    private String diagnostico;
 	
     public Reserva(String nicknamePaciente, String nom_consulta_aso, LocalDate fechaRS, int numReserva,
             boolean aplicaBenef, float costoR) {
@@ -24,6 +28,9 @@ public class Reserva {
     		this.numReserva = numReserva;
     		this.aplicaBenef = aplicaBenef;
     		this.costoR = costoR;
+    		this.asistio = false;
+    		this.motivo = "";
+    		this.diagnostico = "";
     }
 	
     public String getNicknamePaciente() {
@@ -50,9 +57,18 @@ public class Reserva {
         return costoR;
     }
     
-    public DtResConsulta getDataResConsulta() {
-    	return new DtResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR);
+    public boolean getAsistio() {
+    	return asistio;
     }
+    
+    public DtResConsulta getDataResConsulta() {
+    	return new DtResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR, nicknamePaciente);
+    }
+    
+    public DtResAsistio getDataResAsistio() throws ConsultaNotFoundException {
+    	return new DtResAsistio(asistio, motivo, diagnostico);
+    }
+    
     
     public DtResConsultaDetalle getDataResConsultaDetalle() throws ConsultaNotFoundException {
 
@@ -71,7 +87,8 @@ public class Reserva {
             dtConsulta.getSala(),
             dtConsulta.getCantNum(),
             dtConsulta.getCostoC(),
-            costoR
+            costoR,
+            nicknamePaciente
         );
     }
  }
