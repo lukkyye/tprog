@@ -79,6 +79,13 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
                     %>
                     <div class="col-9 ps-3">
                         <h4 class="m-0 fw-bold">Reserva #<%=coso %></h4>
+                        <%
+    						if ("Medico".equals(tipoUsuario)) {
+						%>
+    						<p class="mb-0 text-muted mt-2"><strong>Paciente:</strong> <%= reserva.getNicknamePacienteRes() %></p>
+						<%
+    						}
+						%>
                         <p class="mb-0 text-muted mt-2"><strong>Fecha:</strong> <%= reserva.getFechaRes() %></p>
                         <p class="mb-0 text-muted"><strong>Costo Total:</strong> $<%= reserva.getCostoR() %></p>
                         <p class="mb-0 text-muted"><strong>Aplica Beneficio Anual:</strong> 
