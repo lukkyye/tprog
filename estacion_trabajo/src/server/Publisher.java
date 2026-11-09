@@ -13,19 +13,28 @@ import logica.datatypes.TipoMes;
 import logica.excepciones.BeneficioAlreadyExistsException;
 import logica.excepciones.BeneficioNotFoundException;
 import logica.excepciones.BeneficioSinOrdenesException;
+import logica.excepciones.BeneficioSinTicketsException;
+import logica.excepciones.ClinicaNotFoundException;
 import logica.excepciones.ConsultaNombreAlreadyExistsException;
 import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.DatosMedicamentoInvalidosException;
 import logica.excepciones.DiaConsultaAlreadyExistsException;
 import logica.excepciones.EmailAlreadyExistsException;
 import logica.excepciones.EspecialidadAlreadyExistsException;
 import logica.excepciones.FechaDiaSemanaInvalidaException;
+import logica.excepciones.FechaEntregaInvalidaException;
 import logica.excepciones.IdAlreadyExistsException;
+import logica.excepciones.MedicamentoAlreadyExistsException;
+import logica.excepciones.MedicamentoNotFoundException;
+import logica.excepciones.MedicamentoVencidoException;
+import logica.excepciones.MedicamentoYaSolicitadoException;
 import logica.excepciones.MedicoSinEspecialidadException;
 import logica.excepciones.NicknameAlreadyExistsException;
 import logica.excepciones.NoNumberAvailableException;
 import logica.excepciones.NombreClinicaAlreadyExistsException;
 import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
 import logica.excepciones.ReservaAlreadyExistsException;
+import logica.excepciones.ReservaDoesntExistsException;
 import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.UserNotFoundException;
 import logica.manejadores.ManejadorImagen;
@@ -36,9 +45,11 @@ import logica.datatypes.DtConsulta;
 import logica.datatypes.DtConsultaDetalle;
 import logica.datatypes.DtDiaConsulta;
 import logica.datatypes.DtDiaSemana;
+import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtPaciente;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtSolicitudMedicamento;
 import logica.datatypes.EstadoConsulta;
 
 import jakarta.jws.WebMethod;
@@ -298,6 +309,31 @@ public class Publisher {
 	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) throws ConsultaNotFoundException, UserNotFoundException {
 		return controladorUsuario.listarDatosResConsulta(nomC, nickname);
 	}
+	
+	@WebMethod
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia)
+	throws UserNotFoundException, ConsultaNotFoundException, ClinicaNotFoundException, ReservaDoesntExistsException,
+	MedicamentoAlreadyExistsException, DatosMedicamentoInvalidosException
+	{
+		controladorUsuario.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
+	}
+	
+	@WebMethod
+	public DtMedicamento[] listarMedicamentosRecetados(String nickname) throws UserNotFoundException {
+		return (DtMedicamento[]) controladorUsuario.listarMedicamentosRecetados(nickname).toArray(new DtMedicamento[0]);
+	}
+	
+	@WebMethod
+	public DtSolicitudMedicamento solicitarMedicamento(String nicknamePaciente, String nombre,
+			@XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class) LocalDate indicacion,
+			@XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class) LocalDate entrega,
+			String direccion, boolean usaBenef)
+	throws UserNotFoundException, MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException,
+	FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException
+	{
+		return controladorUsuario.solicitarMedicamento(nicknamePaciente, nombre, indicacion, entrega, direccion, usaBenef);
+	}
+	
 	//======================================================================
 	//======================================================================
 	//	HASTA LLEGA LO DE USUARIO
