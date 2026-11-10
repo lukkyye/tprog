@@ -166,6 +166,12 @@ public class ControladorClinica {
 			 beneficio.usarOrden();
 		 }
 	}
+	
+	//*public void altaDetalleReserva(String nomConsulta, int numRes, boolean asistio, String motivo, String diagnostico) {
+	//*	ManejadorUsuario manejadorUsuario = ManejadorUsuario.getInstance();
+	//*	ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
+	//*}
+	
 	public Set<DtConsulta> listarConsultas() {
 	    ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
 	    Set<DtConsulta> result = new HashSet<>();
