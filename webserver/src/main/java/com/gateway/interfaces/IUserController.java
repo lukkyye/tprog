@@ -39,9 +39,7 @@ import com.soap.MedicamentoYaSolicitadoException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
 
-import logica.excepciones.ConsultaNotFoundException;
-import logica.excepciones.UserNotFoundException;
-import logica.manejadores.ManejadorUsuario;
+
 
 
 

@@ -4,6 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import com.soap.DtResAsistio;
 import com.gateway.interfaces.IUserController;
 import com.soap.ArrayList;
 import com.soap.BeneficioAlreadyExistsException_Exception;
@@ -180,5 +182,16 @@ public class UserControllerConnector implements IUserController {
 			ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
 			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception {
 		port.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
+	}
+
+	@Override
+	public void altaDetalleReserva(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo,
+			String diagnostico) throws UserNotFoundException_Exception {
+		port.altaDetalleReserva(nomC, numRes, nicknamePac, asistio, motivo, diagnostico);
+	}
+
+	@Override
+	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException_Exception {
+		return port.getAltaDetalleReserva(nomC, numR);
 	}
 }

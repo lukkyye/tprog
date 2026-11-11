@@ -420,6 +420,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtResAsistio }
+     * 
+     * @return
+     *     the new instance of {@link DtResAsistio }
+     */
+    public DtResAsistio createDtResAsistio() {
+        return new DtResAsistio();
+    }
+
+    /**
      * Create an instance of {@link DtResConsulta }
      * 
      * @return

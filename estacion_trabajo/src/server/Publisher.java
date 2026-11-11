@@ -47,6 +47,7 @@ import logica.datatypes.DtDiaConsulta;
 import logica.datatypes.DtDiaSemana;
 import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResAsistio;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.DtSolicitudMedicamento;
@@ -334,6 +335,17 @@ public class Publisher {
 		return controladorUsuario.solicitarMedicamento(nicknamePaciente, nombre, indicacion, entrega, direccion, usaBenef);
 	}
 	
+	
+	@WebMethod
+	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException {
+		return controladorUsuario.getAltaDetalleReserva(nomC, numR);
+	}
+	
+	@WebMethod
+	public void altaDetalleReserva(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo, String diagnostico) throws UserNotFoundException{
+		controladorUsuario.altaDetalleReserva(nomC, numRes, nicknamePac, asistio, motivo, diagnostico);
+	}
+
 	//======================================================================
 	//======================================================================
 	//	HASTA LLEGA LO DE USUARIO

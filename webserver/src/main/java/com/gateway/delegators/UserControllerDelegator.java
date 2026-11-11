@@ -22,6 +22,7 @@ import com.soap.DtConsultaDetalle;
 import com.soap.DtMedicamento;
 import com.soap.DtMedico;
 import com.soap.DtPaciente;
+import com.soap.DtResAsistio;
 import com.soap.DtResConsulta;
 import com.soap.DtResConsultaDetalle;
 import com.soap.DtSolicitudMedicamento;
@@ -174,6 +175,17 @@ public class UserControllerDelegator implements IUserController {
 			ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
 			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception {
 		ucc.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
+	}
+
+	@Override
+	public void altaDetalleReserva(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo,
+			String diagnostico) throws UserNotFoundException_Exception {
+		ucc.altaDetalleReserva(nomC, numRes, nicknamePac, asistio, motivo, diagnostico);
+	}
+
+	@Override
+	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException_Exception {
+		return ucc.getAltaDetalleReserva(nomC, numR);
 	}
 	
 }

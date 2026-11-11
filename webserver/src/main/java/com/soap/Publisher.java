@@ -902,6 +902,57 @@ public interface Publisher {
      * 
      * @param arg0
      * @param arg1
+     * @return
+     *     returns server.DtResAsistio
+     * @throws ConsultaNotFoundException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/getAltaDetalleReservaRequest", output = "http://server/Publisher/getAltaDetalleReservaResponse", fault = {
+        @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/getAltaDetalleReserva/Fault/ConsultaNotFoundException")
+    })
+    public DtResAsistio getAltaDetalleReserva(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        int arg1)
+        throws ConsultaNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @throws UserNotFoundException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://server/Publisher/altaDetalleReservaRequest", output = "http://server/Publisher/altaDetalleReservaResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/altaDetalleReserva/Fault/UserNotFoundException")
+    })
+    public void altaDetalleReserva(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        int arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        boolean arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5)
+        throws UserNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
      */
     @WebMethod
     @Action(input = "http://server/Publisher/addImgRequest", output = "http://server/Publisher/addImgResponse")
