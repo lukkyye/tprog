@@ -3,6 +3,9 @@ package com.controllers;
 import java.io.IOException;
 
 import com.gateway.delegators.ClinicControllerDelegator;
+import com.gateway.delegators.UserControllerDelegator;
+import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DtResConsultaDetalle;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,6 +18,7 @@ public class AltaDetalleReservaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ClinicControllerDelegator clinicController = new ClinicControllerDelegator();
+    private UserControllerDelegator userController = new UserControllerDelegator();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -53,9 +57,22 @@ public class AltaDetalleReservaServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/altaDetalleReserva.jsp").forward(request, response);
             return;
         }
+        
+        DtResConsultaDetalle reserva = null;
+		try {
+			reserva = clinicController.listarDatosResConsultaCC(nomConsulta, numRes);
+		} catch (ConsultaNotFoundException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        if (reserva == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND,
+                    "No se encontro la reserva.");
+            return;
+        }
 
         try {
-            clinicController.altaDetalleReserva(nomConsulta, numRes, asistio, motivo, diagnostico);
+            // userController
 
             response.sendRedirect(request.getContextPath() + "/MisConsultasServlet");
 

@@ -61,12 +61,40 @@ public class Reserva {
     	return asistio;
     }
     
+    public void setAsistio(boolean asistio) {
+    	this.asistio = asistio;
+    }
+    
+    public String getMotivo() {
+    	return motivo;
+    }
+    
+    public void setMotivo(String motivo) {
+    	this.motivo = motivo;
+    }
+    
+    public String getDiagnostico() {
+    	return diagnostico;
+    }
+    
+    public void setDiagnostico(String diag) {
+    	this.diagnostico = diag;
+    }
+    
+    public boolean tieneDetalleReserva() {
+    	if (motivo == "") {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+    
     public DtResConsulta getDataResConsulta() {
     	return new DtResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR, nicknamePaciente);
     }
     
     public DtResAsistio getDataResAsistio() throws ConsultaNotFoundException {
-    	return new DtResAsistio(asistio, motivo, diagnostico);
+    	return new DtResAsistio(nomConsultaAsoc, numReserva, nicknamePaciente, asistio, motivo, diagnostico);
     }
     
     

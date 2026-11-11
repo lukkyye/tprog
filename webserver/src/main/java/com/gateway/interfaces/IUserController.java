@@ -12,6 +12,7 @@ import java.util.Set;
 
 import com.soap.BeneficioAlreadyExistsException_Exception;
 import com.soap.BeneficioNotFoundException_Exception;
+import com.soap.UserNotFoundException_Exception;
 import com.soap.BeneficioSinTicketsException_Exception;
 import com.soap.ClinicaNotFoundException_Exception;
 import com.soap.ConsultaNotFoundException_Exception;
@@ -22,6 +23,7 @@ import com.soap.DtConsultaDetalle;
 import com.soap.DtMedico;
 import com.soap.DtPaciente;
 import com.soap.DtResConsulta;
+import com.soap.DtResAsistio;                        //FALTA AGREGAR EN SOAP
 import com.soap.DtSolicitudMedicamento;
 import com.soap.DtMedicamento;
 import com.soap.DtResConsultaDetalle;
@@ -36,6 +38,10 @@ import com.soap.MedicamentoVencidoException_Exception;
 import com.soap.MedicamentoYaSolicitadoException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
+
+import logica.excepciones.ConsultaNotFoundException;
+import logica.excepciones.UserNotFoundException;
+import logica.manejadores.ManejadorUsuario;
 
 
 
@@ -71,6 +77,10 @@ public interface IUserController {
 
 	void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) throws UserNotFoundException_Exception, BeneficioAlreadyExistsException_Exception;
 
+	void altaDetalleReserva(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo, String diagnostico) throws UserNotFoundException_Exception;
+	
+	DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException_Exception;
+	
 	Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) throws UserNotFoundException_Exception;
 
 	DtBeneficioAnual listarDatosBeneficioAnual(String nickname, int anio) throws BeneficioNotFoundException_Exception, UserNotFoundException_Exception;

@@ -11,12 +11,14 @@ import logica.manejadores.ManejadorEspecialidad;
 import logica.manejadores.ManejadorUsuario;
 import logica.clases.Clinica;
 import logica.clases.Consulta;
+import logica.clases.Reserva;
 import logica.datatypes.DtBeneficioAnual;
 import logica.datatypes.DtConsulta;
 import logica.datatypes.DtConsultaDetalle;
 import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtMedico;
 import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResAsistio;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.DtSolicitudMedicamento;
@@ -118,6 +120,16 @@ public class ControladorUsuario {
 	
 	public void altaBeneficioAnual(String nickname, int anio, int cantOrdenes, int cantTicket) throws UserNotFoundException, BeneficioAlreadyExistsException {
 		ManejadorUsuario.getInstance().agregarBeneficio(nickname, anio, cantOrdenes, cantTicket);
+	}
+	
+	//ACA VA FUNCION DE ALTADETALLERESERVA QUE EJECUTA EL MEDICO
+	public void altaDetalleReserva(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo, String diagnostico) throws UserNotFoundException{
+		ManejadorUsuario.getInstance().altaDetalleReserva(nomC, numRes, nicknamePac, asistio, motivo, diagnostico);
+	}
+	
+	//ACA VA FUNCION DE GET DETALLE RESERVA
+	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException {
+		return ManejadorUsuario.getInstance().getAltaDetalleReserva(nomC, numR);
 	}
 	
 	public Set<DtBeneficioAnual> listarBeneficiosAnuales(String nickname) throws UserNotFoundException {

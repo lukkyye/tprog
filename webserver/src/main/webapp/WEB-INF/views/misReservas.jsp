@@ -99,8 +99,24 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
                 <div class="d-flex justify-content-end gap-2 pt-2 border-top">
                     <a href="${pageContext.request.contextPath}/DetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&num=<%=reserva.getNumReserva()%>" 
                        class="btn btn-outline-primary btn-sm">
-                        Ver Detalle
+                        Ver Detalle Reserva
                     </a>
+                    
+                    <a href="${pageContext.request.contextPath}/DetalleReservaAsistioServlet?nomConsulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&numRes=<%=reserva.getNumReserva()%>" 
+                       class="btn btn-outline-primary btn-sm">
+                        Ver Detalle Consulta
+                    </a>
+                    
+                    <%
+    						if ("Medico".equals(tipoUsuario)) {
+						%>
+    						<a href="${pageContext.request.contextPath}/AltaDetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&num=<%=reserva.getNumReserva()%>" 
+                       class="btn btn-outline-primary btn-sm">
+                        Alta Detalles de Reserva
+                    </a>
+						<%
+    						}
+						%>
                 </div>
             </div>
 <%
@@ -124,7 +140,7 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
 <%
     } else {
 %>
-    <a href="${pageContext.request.contextPath}/home" class="btn btn-secondary">
+    <a href="${pageContext.request.contextPath}/HomeServlet" class="btn btn-secondary">
                     Volver
                 </a>
 <%

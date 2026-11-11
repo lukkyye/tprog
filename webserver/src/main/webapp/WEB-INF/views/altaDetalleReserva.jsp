@@ -129,6 +129,13 @@
                         <button type="submit" class="btn btn-primary">
                             Dar de alta los detalles de la reserva
                         </button>
+                        
+                        <a href="${pageContext.request.contextPath}/AltaMedicamentoServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&num=<%=reserva.getNumReserva()%>" 
+                       class="btn btn-outline-primary btn-sm">
+                        <button type="submit" class="btn btn-secondary">
+                            Dar de alta Medicamento
+                        </button>
+                        </a>
                     </div>
 
                 </form>

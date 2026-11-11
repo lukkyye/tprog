@@ -1,6 +1,7 @@
 package logica.manejadores;
 import logica.clases.Usuario;
 import logica.clases.BeneficioAnual;
+import logica.clases.Consulta;
 import logica.clases.Medico;
 import logica.clases.Paciente;
 import logica.clases.Reserva;
@@ -36,6 +37,7 @@ import logica.datatypes.DtConsulta;
 import logica.datatypes.DtMedicamento;
 import logica.datatypes.DtMedico;
 import logica.datatypes.DtPaciente;
+import logica.datatypes.DtResAsistio;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.DtSolicitudMedicamento;
@@ -126,6 +128,36 @@ public class ManejadorUsuario {
 			return result;
 		}
 		throw new UserNotFoundException("El usuario encontrado no es de tipo Medico");
+	}
+	
+	//ACA VA ALTADETALLERESEVA QUE EJECUTA EL MEDICO
+	public void altaDetalleReserva(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo, String diagnostico) throws UserNotFoundException{
+		Usuario usuario = getUsuario(nicknamePac);
+		if (usuario instanceof Paciente paciente) {
+	        for (Reserva reserva : paciente.getReservas()) {
+	            if (reserva.getConsultasAsoc().equals(nomC)) {
+	                if(reserva.tieneDetalleReserva()) {
+	                	return; //YA TIENE DETALLE LA RESERVA 
+	                } else {
+	                	reserva.setAsistio(asistio);
+	                	reserva.setMotivo(motivo);
+	                	reserva.setDiagnostico(diagnostico);
+	                }
+	            }
+	        }
+	    }
+	}
+	
+	//ACA VA GET ALTA DETALLE RESERVA
+	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException {
+		ManejadorConsulta mconsultas = ManejadorConsulta.getInstance();
+		Consulta consulta = mconsultas.getConsulta(nomC);
+		for (Reserva reserva : consulta.getReservas()) {
+			if (reserva.getNumReserva() == numR) {
+				return reserva.getDataResAsistio();
+			}
+		}
+		return null;
 	}
 	
 	
