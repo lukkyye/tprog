@@ -21,6 +21,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="numReserva" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         <element name="aplicaBenef" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         <element name="costoR" type="{http://www.w3.org/2001/XMLSchema}float"/>
+ *         <element name="nicknamePaciente" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -35,7 +36,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "fechaRes",
     "numReserva",
     "aplicaBenef",
-    "costoR"
+    "costoR",
+    "nicknamePaciente"
 })
 public class DtResConsulta {
 
@@ -44,6 +46,7 @@ public class DtResConsulta {
     protected int numReserva;
     protected boolean aplicaBenef;
     protected float costoR;
+    protected String nicknamePaciente;
 
     /**
      * Obtiene el valor de la propiedad nomC.
@@ -139,6 +142,30 @@ public class DtResConsulta {
      */
     public void setCostoR(float value) {
         this.costoR = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad nicknamePaciente.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNicknamePaciente() {
+        return nicknamePaciente;
+    }
+
+    /**
+     * Define el valor de la propiedad nicknamePaciente.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNicknamePaciente(String value) {
+        this.nicknamePaciente = value;
     }
 
 }

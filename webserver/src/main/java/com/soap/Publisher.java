@@ -805,6 +805,103 @@ public interface Publisher {
      * 
      * @param arg0
      * @param arg1
+     * @param arg2
+     * @param arg3
+     * @throws ClinicaNotFoundException_Exception
+     * @throws ConsultaNotFoundException_Exception
+     * @throws DatosMedicamentoInvalidosException_Exception
+     * @throws MedicamentoAlreadyExistsException_Exception
+     * @throws ReservaDoesntExistsException_Exception
+     * @throws UserNotFoundException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://server/Publisher/recetarMedicamentoRequest", output = "http://server/Publisher/recetarMedicamentoResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/recetarMedicamento/Fault/UserNotFoundException"),
+        @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/recetarMedicamento/Fault/ConsultaNotFoundException"),
+        @FaultAction(className = ClinicaNotFoundException_Exception.class, value = "http://server/Publisher/recetarMedicamento/Fault/ClinicaNotFoundException"),
+        @FaultAction(className = ReservaDoesntExistsException_Exception.class, value = "http://server/Publisher/recetarMedicamento/Fault/ReservaDoesntExistsException"),
+        @FaultAction(className = MedicamentoAlreadyExistsException_Exception.class, value = "http://server/Publisher/recetarMedicamento/Fault/MedicamentoAlreadyExistsException"),
+        @FaultAction(className = DatosMedicamentoInvalidosException_Exception.class, value = "http://server/Publisher/recetarMedicamento/Fault/DatosMedicamentoInvalidosException")
+    })
+    public void recetarMedicamento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3)
+        throws ClinicaNotFoundException_Exception, ConsultaNotFoundException_Exception, DatosMedicamentoInvalidosException_Exception, MedicamentoAlreadyExistsException_Exception, ReservaDoesntExistsException_Exception, UserNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns server.DtMedicamentoArray
+     * @throws UserNotFoundException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/listarMedicamentosRecetadosRequest", output = "http://server/Publisher/listarMedicamentosRecetadosResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/listarMedicamentosRecetados/Fault/UserNotFoundException")
+    })
+    public DtMedicamentoArray listarMedicamentosRecetados(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws UserNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @return
+     *     returns server.DtSolicitudMedicamento
+     * @throws BeneficioSinTicketsException_Exception
+     * @throws DatosMedicamentoInvalidosException_Exception
+     * @throws FechaEntregaInvalidaException_Exception
+     * @throws MedicamentoNotFoundException_Exception
+     * @throws MedicamentoVencidoException_Exception
+     * @throws MedicamentoYaSolicitadoException_Exception
+     * @throws UserNotFoundException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/solicitarMedicamentoRequest", output = "http://server/Publisher/solicitarMedicamentoResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/UserNotFoundException"),
+        @FaultAction(className = MedicamentoNotFoundException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/MedicamentoNotFoundException"),
+        @FaultAction(className = MedicamentoYaSolicitadoException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/MedicamentoYaSolicitadoException"),
+        @FaultAction(className = MedicamentoVencidoException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/MedicamentoVencidoException"),
+        @FaultAction(className = FechaEntregaInvalidaException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/FechaEntregaInvalidaException"),
+        @FaultAction(className = DatosMedicamentoInvalidosException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/DatosMedicamentoInvalidosException"),
+        @FaultAction(className = BeneficioSinTicketsException_Exception.class, value = "http://server/Publisher/solicitarMedicamento/Fault/BeneficioSinTicketsException")
+    })
+    public DtSolicitudMedicamento solicitarMedicamento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        boolean arg5)
+        throws BeneficioSinTicketsException_Exception, DatosMedicamentoInvalidosException_Exception, FechaEntregaInvalidaException_Exception, MedicamentoNotFoundException_Exception, MedicamentoVencidoException_Exception, MedicamentoYaSolicitadoException_Exception, UserNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
      */
     @WebMethod
     @Action(input = "http://server/Publisher/addImgRequest", output = "http://server/Publisher/addImgResponse")

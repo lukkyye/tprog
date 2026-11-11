@@ -27,19 +27,28 @@ public class ObjectFactory {
     private final static QName _BeneficioAlreadyExistsException_QNAME = new QName("http://server/", "BeneficioAlreadyExistsException");
     private final static QName _BeneficioNotFoundException_QNAME = new QName("http://server/", "BeneficioNotFoundException");
     private final static QName _BeneficioSinOrdenesException_QNAME = new QName("http://server/", "BeneficioSinOrdenesException");
+    private final static QName _BeneficioSinTicketsException_QNAME = new QName("http://server/", "BeneficioSinTicketsException");
+    private final static QName _ClinicaNotFoundException_QNAME = new QName("http://server/", "ClinicaNotFoundException");
     private final static QName _ConsultaNombreAlreadyExistsException_QNAME = new QName("http://server/", "ConsultaNombreAlreadyExistsException");
     private final static QName _ConsultaNotFoundException_QNAME = new QName("http://server/", "ConsultaNotFoundException");
+    private final static QName _DatosMedicamentoInvalidosException_QNAME = new QName("http://server/", "DatosMedicamentoInvalidosException");
     private final static QName _DiaConsultaAlreadyExistsException_QNAME = new QName("http://server/", "DiaConsultaAlreadyExistsException");
     private final static QName _EmailAlreadyExistsException_QNAME = new QName("http://server/", "EmailAlreadyExistsException");
     private final static QName _EspecialidadAlreadyExistsException_QNAME = new QName("http://server/", "EspecialidadAlreadyExistsException");
     private final static QName _FechaDiaSemanaInvalidaException_QNAME = new QName("http://server/", "FechaDiaSemanaInvalidaException");
+    private final static QName _FechaEntregaInvalidaException_QNAME = new QName("http://server/", "FechaEntregaInvalidaException");
     private final static QName _IdAlreadyExistsException_QNAME = new QName("http://server/", "IdAlreadyExistsException");
+    private final static QName _MedicamentoAlreadyExistsException_QNAME = new QName("http://server/", "MedicamentoAlreadyExistsException");
+    private final static QName _MedicamentoNotFoundException_QNAME = new QName("http://server/", "MedicamentoNotFoundException");
+    private final static QName _MedicamentoVencidoException_QNAME = new QName("http://server/", "MedicamentoVencidoException");
+    private final static QName _MedicamentoYaSolicitadoException_QNAME = new QName("http://server/", "MedicamentoYaSolicitadoException");
     private final static QName _MedicoSinEspecialidadException_QNAME = new QName("http://server/", "MedicoSinEspecialidadException");
     private final static QName _NicknameAlreadyExistsException_QNAME = new QName("http://server/", "NicknameAlreadyExistsException");
     private final static QName _NoNumberAvailableException_QNAME = new QName("http://server/", "NoNumberAvailableException");
     private final static QName _NombreClinicaAlreadyExistsException_QNAME = new QName("http://server/", "NombreClinicaAlreadyExistsException");
     private final static QName _NumeroDeRegistroAlreadyExistsException_QNAME = new QName("http://server/", "NumeroDeRegistroAlreadyExistsException");
     private final static QName _ReservaAlreadyExistsException_QNAME = new QName("http://server/", "ReservaAlreadyExistsException");
+    private final static QName _ReservaDoesntExistsException_QNAME = new QName("http://server/", "ReservaDoesntExistsException");
     private final static QName _SpecialityNotFoundException_QNAME = new QName("http://server/", "SpecialityNotFoundException");
     private final static QName _UserNotFoundException_QNAME = new QName("http://server/", "UserNotFoundException");
 
@@ -81,6 +90,26 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link BeneficioSinTicketsException }
+     * 
+     * @return
+     *     the new instance of {@link BeneficioSinTicketsException }
+     */
+    public BeneficioSinTicketsException createBeneficioSinTicketsException() {
+        return new BeneficioSinTicketsException();
+    }
+
+    /**
+     * Create an instance of {@link ClinicaNotFoundException }
+     * 
+     * @return
+     *     the new instance of {@link ClinicaNotFoundException }
+     */
+    public ClinicaNotFoundException createClinicaNotFoundException() {
+        return new ClinicaNotFoundException();
+    }
+
+    /**
      * Create an instance of {@link ConsultaNombreAlreadyExistsException }
      * 
      * @return
@@ -98,6 +127,16 @@ public class ObjectFactory {
      */
     public ConsultaNotFoundException createConsultaNotFoundException() {
         return new ConsultaNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link DatosMedicamentoInvalidosException }
+     * 
+     * @return
+     *     the new instance of {@link DatosMedicamentoInvalidosException }
+     */
+    public DatosMedicamentoInvalidosException createDatosMedicamentoInvalidosException() {
+        return new DatosMedicamentoInvalidosException();
     }
 
     /**
@@ -141,6 +180,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FechaEntregaInvalidaException }
+     * 
+     * @return
+     *     the new instance of {@link FechaEntregaInvalidaException }
+     */
+    public FechaEntregaInvalidaException createFechaEntregaInvalidaException() {
+        return new FechaEntregaInvalidaException();
+    }
+
+    /**
      * Create an instance of {@link IdAlreadyExistsException }
      * 
      * @return
@@ -148,6 +197,46 @@ public class ObjectFactory {
      */
     public IdAlreadyExistsException createIdAlreadyExistsException() {
         return new IdAlreadyExistsException();
+    }
+
+    /**
+     * Create an instance of {@link MedicamentoAlreadyExistsException }
+     * 
+     * @return
+     *     the new instance of {@link MedicamentoAlreadyExistsException }
+     */
+    public MedicamentoAlreadyExistsException createMedicamentoAlreadyExistsException() {
+        return new MedicamentoAlreadyExistsException();
+    }
+
+    /**
+     * Create an instance of {@link MedicamentoNotFoundException }
+     * 
+     * @return
+     *     the new instance of {@link MedicamentoNotFoundException }
+     */
+    public MedicamentoNotFoundException createMedicamentoNotFoundException() {
+        return new MedicamentoNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link MedicamentoVencidoException }
+     * 
+     * @return
+     *     the new instance of {@link MedicamentoVencidoException }
+     */
+    public MedicamentoVencidoException createMedicamentoVencidoException() {
+        return new MedicamentoVencidoException();
+    }
+
+    /**
+     * Create an instance of {@link MedicamentoYaSolicitadoException }
+     * 
+     * @return
+     *     the new instance of {@link MedicamentoYaSolicitadoException }
+     */
+    public MedicamentoYaSolicitadoException createMedicamentoYaSolicitadoException() {
+        return new MedicamentoYaSolicitadoException();
     }
 
     /**
@@ -211,6 +300,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ReservaDoesntExistsException }
+     * 
+     * @return
+     *     the new instance of {@link ReservaDoesntExistsException }
+     */
+    public ReservaDoesntExistsException createReservaDoesntExistsException() {
+        return new ReservaDoesntExistsException();
+    }
+
+    /**
      * Create an instance of {@link SpecialityNotFoundException }
      * 
      * @return
@@ -268,6 +367,26 @@ public class ObjectFactory {
      */
     public DtConsulta createDtConsulta() {
         return new DtConsulta();
+    }
+
+    /**
+     * Create an instance of {@link DtMedicamento }
+     * 
+     * @return
+     *     the new instance of {@link DtMedicamento }
+     */
+    public DtMedicamento createDtMedicamento() {
+        return new DtMedicamento();
+    }
+
+    /**
+     * Create an instance of {@link DtSolicitudMedicamento }
+     * 
+     * @return
+     *     the new instance of {@link DtSolicitudMedicamento }
+     */
+    public DtSolicitudMedicamento createDtSolicitudMedicamento() {
+        return new DtSolicitudMedicamento();
     }
 
     /**
@@ -371,6 +490,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtMedicamentoArray }
+     * 
+     * @return
+     *     the new instance of {@link DtMedicamentoArray }
+     */
+    public DtMedicamentoArray createDtMedicamentoArray() {
+        return new DtMedicamentoArray();
+    }
+
+    /**
      * Create an instance of {@link DtPacienteArray }
      * 
      * @return
@@ -470,6 +599,32 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BeneficioSinTicketsException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link BeneficioSinTicketsException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "BeneficioSinTicketsException")
+    public JAXBElement<BeneficioSinTicketsException> createBeneficioSinTicketsException(BeneficioSinTicketsException value) {
+        return new JAXBElement<>(_BeneficioSinTicketsException_QNAME, BeneficioSinTicketsException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ClinicaNotFoundException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ClinicaNotFoundException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "ClinicaNotFoundException")
+    public JAXBElement<ClinicaNotFoundException> createClinicaNotFoundException(ClinicaNotFoundException value) {
+        return new JAXBElement<>(_ClinicaNotFoundException_QNAME, ClinicaNotFoundException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ConsultaNombreAlreadyExistsException }{@code >}
      * 
      * @param value
@@ -493,6 +648,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server/", name = "ConsultaNotFoundException")
     public JAXBElement<ConsultaNotFoundException> createConsultaNotFoundException(ConsultaNotFoundException value) {
         return new JAXBElement<>(_ConsultaNotFoundException_QNAME, ConsultaNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DatosMedicamentoInvalidosException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link DatosMedicamentoInvalidosException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "DatosMedicamentoInvalidosException")
+    public JAXBElement<DatosMedicamentoInvalidosException> createDatosMedicamentoInvalidosException(DatosMedicamentoInvalidosException value) {
+        return new JAXBElement<>(_DatosMedicamentoInvalidosException_QNAME, DatosMedicamentoInvalidosException.class, null, value);
     }
 
     /**
@@ -548,6 +716,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FechaEntregaInvalidaException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link FechaEntregaInvalidaException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "FechaEntregaInvalidaException")
+    public JAXBElement<FechaEntregaInvalidaException> createFechaEntregaInvalidaException(FechaEntregaInvalidaException value) {
+        return new JAXBElement<>(_FechaEntregaInvalidaException_QNAME, FechaEntregaInvalidaException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link IdAlreadyExistsException }{@code >}
      * 
      * @param value
@@ -558,6 +739,58 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server/", name = "IdAlreadyExistsException")
     public JAXBElement<IdAlreadyExistsException> createIdAlreadyExistsException(IdAlreadyExistsException value) {
         return new JAXBElement<>(_IdAlreadyExistsException_QNAME, IdAlreadyExistsException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MedicamentoAlreadyExistsException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link MedicamentoAlreadyExistsException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "MedicamentoAlreadyExistsException")
+    public JAXBElement<MedicamentoAlreadyExistsException> createMedicamentoAlreadyExistsException(MedicamentoAlreadyExistsException value) {
+        return new JAXBElement<>(_MedicamentoAlreadyExistsException_QNAME, MedicamentoAlreadyExistsException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MedicamentoNotFoundException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link MedicamentoNotFoundException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "MedicamentoNotFoundException")
+    public JAXBElement<MedicamentoNotFoundException> createMedicamentoNotFoundException(MedicamentoNotFoundException value) {
+        return new JAXBElement<>(_MedicamentoNotFoundException_QNAME, MedicamentoNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MedicamentoVencidoException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link MedicamentoVencidoException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "MedicamentoVencidoException")
+    public JAXBElement<MedicamentoVencidoException> createMedicamentoVencidoException(MedicamentoVencidoException value) {
+        return new JAXBElement<>(_MedicamentoVencidoException_QNAME, MedicamentoVencidoException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MedicamentoYaSolicitadoException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link MedicamentoYaSolicitadoException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "MedicamentoYaSolicitadoException")
+    public JAXBElement<MedicamentoYaSolicitadoException> createMedicamentoYaSolicitadoException(MedicamentoYaSolicitadoException value) {
+        return new JAXBElement<>(_MedicamentoYaSolicitadoException_QNAME, MedicamentoYaSolicitadoException.class, null, value);
     }
 
     /**
@@ -636,6 +869,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server/", name = "ReservaAlreadyExistsException")
     public JAXBElement<ReservaAlreadyExistsException> createReservaAlreadyExistsException(ReservaAlreadyExistsException value) {
         return new JAXBElement<>(_ReservaAlreadyExistsException_QNAME, ReservaAlreadyExistsException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReservaDoesntExistsException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ReservaDoesntExistsException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://server/", name = "ReservaDoesntExistsException")
+    public JAXBElement<ReservaDoesntExistsException> createReservaDoesntExistsException(ReservaDoesntExistsException value) {
+        return new JAXBElement<>(_ReservaDoesntExistsException_QNAME, ReservaDoesntExistsException.class, null, value);
     }
 
     /**

@@ -8,23 +8,34 @@ import com.gateway.interfaces.IUserController;
 import com.soap.ArrayList;
 import com.soap.BeneficioAlreadyExistsException_Exception;
 import com.soap.BeneficioNotFoundException_Exception;
+import com.soap.BeneficioSinTicketsException_Exception;
+import com.soap.ClinicaNotFoundException_Exception;
 import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DatosMedicamentoInvalidosException_Exception;
 import com.soap.DtBeneficioAnual;
 import com.soap.DtConsulta;
 import com.soap.DtConsultaDetalle;
+import com.soap.DtMedicamento;
 import com.soap.DtMedico;
 import com.soap.DtPaciente;
 import com.soap.DtResConsulta;
 import com.soap.DtResConsultaDetalle;
+import com.soap.DtSolicitudMedicamento;
 import com.soap.DtUsuario;
 import com.soap.EmailAlreadyExistsException_Exception;
 import com.soap.EspecialidadAlreadyExistsException_Exception;
+import com.soap.FechaEntregaInvalidaException_Exception;
 import com.soap.IdAlreadyExistsException_Exception;
+import com.soap.MedicamentoAlreadyExistsException_Exception;
+import com.soap.MedicamentoNotFoundException_Exception;
+import com.soap.MedicamentoVencidoException_Exception;
+import com.soap.MedicamentoYaSolicitadoException_Exception;
 import com.soap.MedicoSinEspecialidadException_Exception;
 import com.soap.NicknameAlreadyExistsException_Exception;
 import com.soap.NumeroDeRegistroAlreadyExistsException_Exception;
 import com.soap.Publisher;
 import com.soap.PublisherService;
+import com.soap.ReservaDoesntExistsException_Exception;
 import com.soap.SpecialityNotFoundException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
@@ -146,5 +157,28 @@ public class UserControllerConnector implements IUserController {
 	public void modificarPaciente(String nickname, String nombre, String apellido, LocalDate fechaNac,
 			LocalDate fechaIn, int doc, List<String> antSalud) throws UserNotFoundException_Exception {
 		port.modificarPaciente(nickname, nombre, apellido, fechaNac.toString(), fechaIn.toString(), doc, (ArrayList) antSalud);
+	}
+
+	@Override
+	public DtSolicitudMedicamento solicitarMedicamento(String nicknamePaciente, String nombre, LocalDate indicacion,
+			LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException_Exception,
+			MedicamentoNotFoundException_Exception, MedicamentoYaSolicitadoException_Exception,
+			MedicamentoVencidoException_Exception, FechaEntregaInvalidaException_Exception,
+			DatosMedicamentoInvalidosException_Exception, BeneficioSinTicketsException_Exception {
+		// TODO Auto-generated method stub
+		return port.solicitarMedicamento(nicknamePaciente, nombre, indicacion.toString(), entrega.toString(), direccion, usaBenef);
+	}
+
+	@Override
+	public List<DtMedicamento> listarMedicamentosRecetados(String nickname) throws UserNotFoundException_Exception {
+		return port.listarMedicamentosRecetados(nickname).getItem();
+	}
+
+	@Override
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia)
+			throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+			ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
+			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception {
+		port.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
 	}
 }

@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import com.soap.MedicoSinEspecialidadException_Exception;
 import com.soap.NicknameAlreadyExistsException_Exception;
 import com.soap.NumeroDeRegistroAlreadyExistsException_Exception;
+import com.soap.ReservaDoesntExistsException_Exception;
 import com.soap.SpecialityNotFoundException_Exception;
 
 import java.util.List;
@@ -11,18 +12,28 @@ import com.gateway.connectors.UserControllerConnector;
 import com.gateway.interfaces.IUserController;
 import com.soap.BeneficioAlreadyExistsException_Exception;
 import com.soap.BeneficioNotFoundException_Exception;
+import com.soap.BeneficioSinTicketsException_Exception;
+import com.soap.ClinicaNotFoundException_Exception;
 import com.soap.ConsultaNotFoundException_Exception;
+import com.soap.DatosMedicamentoInvalidosException_Exception;
 import com.soap.DtBeneficioAnual;
 import com.soap.DtConsulta;
 import com.soap.DtConsultaDetalle;
+import com.soap.DtMedicamento;
 import com.soap.DtMedico;
 import com.soap.DtPaciente;
 import com.soap.DtResConsulta;
 import com.soap.DtResConsultaDetalle;
+import com.soap.DtSolicitudMedicamento;
 import com.soap.DtUsuario;
 import com.soap.EmailAlreadyExistsException_Exception;
 import com.soap.EspecialidadAlreadyExistsException_Exception;
+import com.soap.FechaEntregaInvalidaException_Exception;
 import com.soap.IdAlreadyExistsException_Exception;
+import com.soap.MedicamentoAlreadyExistsException_Exception;
+import com.soap.MedicamentoNotFoundException_Exception;
+import com.soap.MedicamentoVencidoException_Exception;
+import com.soap.MedicamentoYaSolicitadoException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
 
@@ -141,6 +152,28 @@ public class UserControllerDelegator implements IUserController {
 	@Override
 	public DtResConsultaDetalle listarDatosResConsulta(String nomC, String nickname) throws ConsultaNotFoundException_Exception, UserNotFoundException_Exception {
 		return ucc.listarDatosResConsulta(nomC, nickname);
+	}
+
+	@Override
+	public DtSolicitudMedicamento solicitarMedicamento(String nicknamePaciente, String nombre, LocalDate indicacion,
+			LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException_Exception,
+			MedicamentoNotFoundException_Exception, MedicamentoYaSolicitadoException_Exception,
+			MedicamentoVencidoException_Exception, FechaEntregaInvalidaException_Exception,
+			DatosMedicamentoInvalidosException_Exception, BeneficioSinTicketsException_Exception {
+		return ucc.solicitarMedicamento(nicknamePaciente, nombre, indicacion, entrega, direccion, usaBenef);
+	}
+
+	@Override
+	public List<DtMedicamento> listarMedicamentosRecetados(String nickname) throws UserNotFoundException_Exception {
+		return ucc.listarMedicamentosRecetados(nickname);
+	}
+
+	@Override
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia)
+			throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+			ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
+			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception {
+		ucc.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
 	}
 	
 }

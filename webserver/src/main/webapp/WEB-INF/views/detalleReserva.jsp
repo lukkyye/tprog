@@ -103,7 +103,7 @@ DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("rese
                             <div class="mb-3">
                                 <div class="detail-label">Paciente</div>
                                 <div class="detail-value">
-                                    <%= reserva.getNicknamePacienteRes() %>
+                                    <%= reserva.getNicknamePaciente() %>
                                 </div>
                             </div>
 

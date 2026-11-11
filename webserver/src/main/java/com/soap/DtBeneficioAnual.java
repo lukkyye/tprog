@@ -20,6 +20,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="cantOrdenes" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         <element name="cantTicket" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         <element name="ordenesUsadas" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         <element name="ticketUsados" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -33,7 +34,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "anio",
     "cantOrdenes",
     "cantTicket",
-    "ordenesUsadas"
+    "ordenesUsadas",
+    "ticketUsados"
 })
 public class DtBeneficioAnual {
 
@@ -41,6 +43,7 @@ public class DtBeneficioAnual {
     protected int cantOrdenes;
     protected int cantTicket;
     protected int ordenesUsadas;
+    protected int ticketUsados;
 
     /**
      * Obtiene el valor de la propiedad anio.
@@ -104,6 +107,22 @@ public class DtBeneficioAnual {
      */
     public void setOrdenesUsadas(int value) {
         this.ordenesUsadas = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad ticketUsados.
+     * 
+     */
+    public int getTicketUsados() {
+        return ticketUsados;
+    }
+
+    /**
+     * Define el valor de la propiedad ticketUsados.
+     * 
+     */
+    public void setTicketUsados(int value) {
+        this.ticketUsados = value;
     }
 
 }

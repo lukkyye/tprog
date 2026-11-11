@@ -82,7 +82,7 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
                         <%
     						if ("Medico".equals(tipoUsuario)) {
 						%>
-    						<p class="mb-0 text-muted mt-2"><strong>Paciente:</strong> <%= reserva.getNicknamePacienteRes() %></p>
+    						<p class="mb-0 text-muted mt-2"><strong>Paciente:</strong> <%= reserva.getNicknamePaciente() %></p>
 						<%
     						}
 						%>

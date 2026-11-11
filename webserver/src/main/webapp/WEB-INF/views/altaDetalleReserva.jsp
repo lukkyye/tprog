@@ -96,7 +96,7 @@
                         <div class="col-md-4">
                             <div class="detail-label">Paciente</div>
                             <div class="detail-value">
-                                <%= (reserva != null && reserva.getNicknamePacienteRes() != null) ? reserva.getNicknamePacienteRes() : "-" %>
+                                <%= (reserva != null && reserva.getNicknamePaciente() != null) ? reserva.getNicknamePaciente() : "-" %>
                             </div>
                         </div>
                     </div>
