@@ -32,8 +32,8 @@ public class AltaDetalleReservaServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
 
-        String nomConsulta = request.getParameter("nomConsulta");
-        String numResStr = request.getParameter("numRes");
+        String nomConsulta = request.getParameter("nomC");
+        String numResStr = request.getParameter("num");
         String asistioStr = request.getParameter("asistio");
         String motivo = request.getParameter("motivo");
         String diagnostico = request.getParameter("diagnostico");
