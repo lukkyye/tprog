@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="com.soap.DtResAsistio" %>
 
 <%
@@ -76,7 +78,11 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
     <section class="flex-grow-1 pe-4" style="min-width: 0;">
 
 
-        <% if (reserva != null) { %>
+        <% if (reserva != null) { 
+        	String consultaCodificada = (reserva.getNomConsulta() != null) 
+                    ? URLEncoder.encode(reserva.getNomConsulta(), StandardCharsets.UTF_8) 
+                    : "";
+        %>
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1>Detalle de Consulta</h1>
@@ -125,18 +131,22 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                             <div class="mb-3">
                                 <div class="detail-label">Motivo</div>
                                 <div class="detail-value">
-                                    <%= reserva.getMotivo() %>
+                                    <% if (reserva.getMotivo() != null && !reserva.getMotivo().isBlank()) { %>
+                                        <%= reserva.getMotivo() %>
+                                    <% } else { %>
+                                        No asistió a la consulta.
+                                    <% } %>
                                 </div>
                             </div>
                             
                             <div class="mb-3">
                                 <div class="detail-label">Diagnostico</div>
                                 <div class="detail-value">
-                                <% if (reserva.getDiagnostico() != null) { %>
-                                    <%= reserva.getDiagnostico() %>
-                                 <% } else { %>
-                                 	No se encuentra diagnostico asociado.
-                                 <% } %>
+                                <% if (reserva.getDiagnostico() != null && !reserva.getDiagnostico().isBlank()) { %>
+                                        <%= reserva.getDiagnostico() %>
+                                    <% } else { %>
+                                        No dispone de un diagnostico
+                                    <% } %>
                                 </div>
                             </div>
                             
@@ -145,21 +155,43 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                     </div>
                 </div>
             </div>
-            <a href="#" onclick="history.back()"
-                   class="btn btn-outline-secondary">
-                    Volver a reservas
-             </a>
+            <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+            
+            
+            <%
+                    if ("Medico".equals(tipoUsuario) && reserva.isAsistio()) {
+                        String pacienteCodificado = (reserva.getNicknamePaciente() != null) 
+                                ? URLEncoder.encode(reserva.getNicknamePaciente(), StandardCharsets.UTF_8) 
+                                : "";
+                %>
+                    <a href="${pageContext.request.contextPath}/AltaMedicamentoServlet?consulta=<%= consultaCodificada %>&nicknamePaciente=<%= pacienteCodificado %>"
+                       class="btn btn-secondary">
+                        Dar de Alta Medicamento
+                    </a>
+                <% } %>
+            
+            <a href="${pageContext.request.contextPath}/MisReservasServlet?consulta=<%= consultaCodificada %>" class="btn btn-outline-secondary">
+            	Volver a Reservas
+            </a>
+            
+            </div>
 
-        <% } else { %>
+        <% } else { 
+        		String consultaCodificada = (reserva.getNomConsulta() != null) 
+                       ? URLEncoder.encode(reserva.getNomConsulta(), StandardCharsets.UTF_8) 
+                       : "";%>
 
             <div class="alert alert-warning">
                 No se encontraron los detalles de la consulta.
             </div>
-
-            <a href="#" onclick="history.back()"
-               class="btn btn-secondary">
-                Volver a reservas.
+            
+            <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+            
+            <a href="${pageContext.request.contextPath}/MisReservasServlet?consulta=<%= consultaCodificada %>" class="btn btn-outline-secondary">
+            	Volver a Reservas
             </a>
+            
+            </div>
 
         <% } %>
  		</section>

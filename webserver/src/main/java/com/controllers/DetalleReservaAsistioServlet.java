@@ -37,6 +37,7 @@ public class DetalleReservaAsistioServlet extends HttpServlet {
     	}
     	
         DtResAsistio reserva = null;
+        
 		try {
 			reserva = userController.getAltaDetalleReserva(consulta, numRes);
 		} catch (ConsultaNotFoundException_Exception e) {

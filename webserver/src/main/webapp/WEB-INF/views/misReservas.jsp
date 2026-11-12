@@ -110,7 +110,7 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
                     <%
     						if ("Medico".equals(tipoUsuario)) {
 						%>
-    						<a href="${pageContext.request.contextPath}/AltaDetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&num=<%=reserva.getNumReserva()%>&nicknamePaciente=<%=reserva.getNicknamePaciente()%>" 
+    						<a href="${pageContext.request.contextPath}/AltaDetalleReservaServlet?consulta=<%= java.net.URLEncoder.encode(reserva.getNomC(), "UTF-8") %>&numRes=<%=reserva.getNumReserva()%>" 
                        class="btn btn-outline-primary btn-sm">
                         Alta Detalles de Reserva
                     </a>
