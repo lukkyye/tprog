@@ -2,6 +2,7 @@ package test;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+
 
 import logica.datatypes.EstadoConsulta;
 
@@ -41,15 +43,17 @@ import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
 import logica.excepciones.ReservaAlreadyExistsException;
 import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.UserNotFoundException;
+import logica.manejadores.ManejadorImagen;
 
 
 public class CargadorCSV {
-
+	private static final String RELATIVE_PATH_LUCAS = "Desktop/tprog1/estacion_trabajo/src/test/";
+	private static final String RELATIVE_PATH = RELATIVE_PATH_LUCAS;
 	private static final DateTimeFormatter FECHA_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private final ControladorUsuario controladorUsuario = new ControladorUsuario();
 	private final ControladorClinica controladorClinica = new ControladorClinica();
-
+	private final ManejadorImagen manejadorImagen = ManejadorImagen.getInstance();
 	private final Map<String, String> especialidadesPorRef = new HashMap<>();
 	private final Map<String, String> clinicasPorRef = new HashMap<>();
 	private final Map<String, String> usuariosPorRef = new HashMap<>(); // nickname
@@ -91,9 +95,20 @@ public class CargadorCSV {
 			String link = fila[4];
 			float costoTicket = Float.parseFloat(fila[5].trim());
 			float costoConsulta = Float.parseFloat(fila[6].trim());
+			String imgref = fila[7];
 
 			try {
 				controladorClinica.ingresarClinica(nombre, desc, dir, costoTicket, costoConsulta, link);
+				if (!imgref.isEmpty() && !imgref.isBlank() && imgref!=null) {
+					try {	
+						InputStream is = CargadorCSV.class.getResourceAsStream(imgref);
+						BufferedImage img = ImageIO.read(is);
+						
+						(manejadorImagen).addImg(bufferedImageToBase64(img, imgref.split("\\.")[1]), nombre);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			} catch (NombreClinicaAlreadyExistsException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -114,6 +129,7 @@ public class CargadorCSV {
 			String apellido = fila[4];
 			String correo = fila[5];
 			String password = fila[6];
+			String imgref = fila[7];
 			
 			if (tipo.equals("M")) {
 				String[] datosMedico = medicosPorRef.get(ref);
@@ -122,7 +138,7 @@ public class CargadorCSV {
 				String sitioWeb = datosMedico[3].isEmpty() ? "" : datosMedico[3];
 				int porcAdicional = Integer.parseInt(datosMedico[4].trim());
 				String[] refsEspecialidades = datosMedico[5].split(",");
-
+				
 				ArrayList<String> nombresEspecialidades = new ArrayList<>();
 				for (String refEsp : refsEspecialidades) {
 					nombresEspecialidades.add(especialidadesPorRef.get(refEsp.trim()));
@@ -130,6 +146,15 @@ public class CargadorCSV {
 				try {
 					controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo,
 							nroReg, mesLic, porcAdicional, sitioWeb, nombresEspecialidades);
+					if (!imgref.isEmpty() && !imgref.isBlank() && imgref!=null) {
+						try {
+							InputStream is = CargadorCSV.class.getResourceAsStream(imgref);
+							BufferedImage img = ImageIO.read(is);
+							(manejadorImagen).addImg(bufferedImageToBase64(img, imgref.split("\\.")[1]), nombre);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException
 						| NumeroDeRegistroAlreadyExistsException | MedicoSinEspecialidadException
 						| SpecialityNotFoundException e) {
@@ -187,10 +212,20 @@ public class CargadorCSV {
 			LocalTime horaInicio = LocalTime.parse(fila[4].trim());
 			String nombreEspecialidad = especialidadesPorRef.get(fila[5]);
 			String nombreClinica = clinicasPorRef.get(fila[6]);
+			String imgref=fila[8];
 			
 			try {
 				controladorClinica.ingresarDiaConsulta(nombre, desc, dia, horaInicio,
 						nombreEspecialidad, nombreClinica);
+				if (!imgref.isEmpty() && !imgref.isBlank() && imgref!=null) {
+					try {	
+						InputStream is = CargadorCSV.class.getResourceAsStream(imgref);
+						BufferedImage img = ImageIO.read(is);
+						(manejadorImagen).addImg(bufferedImageToBase64(img, imgref.split("\\.")[1]), nombre);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			} catch (DiaConsultaAlreadyExistsException | SpecialityNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -291,4 +326,15 @@ public class CargadorCSV {
 		}
 		return filas;
 	}
+	
+	public static String bufferedImageToBase64(BufferedImage image, String format) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        
+        // Escribe la imagen en el flujo de bytes (format puede ser "png", "jpg", etc.)
+        ImageIO.write(image, format, outputStream);
+        
+        // Obtiene los bytes y los codifica a Base64
+        byte[] imageBytes = outputStream.toByteArray();
+        return java.util.Base64.getEncoder().encodeToString(imageBytes);
+    }
 }
