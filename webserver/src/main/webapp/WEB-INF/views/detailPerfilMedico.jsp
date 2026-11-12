@@ -28,7 +28,7 @@ DtUsuario usuario = (DtUsuario) request.getAttribute("usuario");
                 .getImg64(usuario.getNickname());
     }
 
-    if (fotoPerfil == null || fotoPerfil.isBlank()) {
+    if (fotoPerfil == null || fotoPerfil.isEmpty()) {
         fotoPerfil = request.getContextPath() + "/img/MEDICO.png";
     }
 

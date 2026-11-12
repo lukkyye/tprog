@@ -150,7 +150,7 @@ public class CargadorCSV {
 						try {
 							InputStream is = CargadorCSV.class.getResourceAsStream(imgref);
 							BufferedImage img = ImageIO.read(is);
-							(manejadorImagen).addImg(bufferedImageToBase64(img, imgref.split("\\.")[1]), nombre);
+							(manejadorImagen).addImg(bufferedImageToBase64(img, imgref.split("\\.")[1]), nickname);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -177,6 +177,15 @@ public class CargadorCSV {
 				try {
 					controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo,
 							fechaNac, fechaIngreso, doc, antSalud);
+					if (!imgref.isEmpty() && !imgref.isBlank() && imgref!=null) {
+						try {
+							InputStream is = CargadorCSV.class.getResourceAsStream(imgref);
+							BufferedImage img = ImageIO.read(is);
+							(manejadorImagen).addImg(bufferedImageToBase64(img, imgref.split("\\.")[1]), nickname);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (NicknameAlreadyExistsException | EmailAlreadyExistsException | IdAlreadyExistsException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
