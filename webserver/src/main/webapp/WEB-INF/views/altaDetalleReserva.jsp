@@ -75,8 +75,9 @@
 
                 <form action="${pageContext.request.contextPath}/AltaDetalleReservaServlet" method="post">
 
-                    <input type="hidden" name="nomConsulta" value="<%= (reserva != null && reserva.getNomC() != null) ? reserva.getNomC() : "" %>">
-                    <input type="hidden" name="numRes" value="<%= (reserva != null) ? reserva.getNumReserva() : "" %>">
+                    <input type="hidden" name="nomC" value="<%= (reserva != null && reserva.getNomC() != null) ? reserva.getNomC() : "" %>">
+                    <input type="hidden" name="num" value="<%= (reserva != null) ? reserva.getNumReserva() : "" %>">
+                    <input type="hidden" name="nicknamePaciente" value="<%= (reserva != null) ? reserva.getNicknamePaciente() : "" %>">
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-4">
