@@ -103,7 +103,7 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                             <div class="mb-3">
                                 <div class="detail-label">Numero de Reserva</div>
                                 <div class="detail-value">
-                                    <%= reserva.getNumReserva() %>
+                                    <%= reserva.getNumRes() %>
                                 </div>
                             </div>
                             
@@ -117,7 +117,7 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                             <div class="mb-3">
                                 <div class="detail-label">Asistio</div>
                                 <div class="detail-value">
-                                    <%= reserva.isAplicaBenef() ? "Sí" : "No" %>
+                                    <%= reserva.isAsistio() ? "Sí" : "No" %>
                                 </div>
                             </div>
                             
@@ -132,8 +132,8 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                             <div class="mb-3">
                                 <div class="detail-label">Diagnostico</div>
                                 <div class="detail-value">
-                                <% if (reserva.getDiag() != null) { %>
-                                    <%= reserva.getDiag() %>
+                                <% if (reserva.getDiagnostico() != null) { %>
+                                    <%= reserva.getDiagnostico() %>
                                  <% } else { %>
                                  	No se encuentra diagnostico asociado.
                                  <% } %>
