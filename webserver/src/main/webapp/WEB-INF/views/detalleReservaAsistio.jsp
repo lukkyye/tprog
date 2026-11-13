@@ -16,10 +16,8 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Salud.uy - Detalle de Consulta</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link rel="icon" type="image/png"
-          href="${pageContext.request.contextPath}/img/FAVICON.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/FAVICON.png">
 
     <style>
         .clinic-image {
@@ -79,8 +77,7 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
 
 
         <% if (reserva != null) { 
-        	String consultaCodificada = (reserva.getNomConsulta() != null) 
-                    ? URLEncoder.encode(reserva.getNomConsulta(), StandardCharsets.UTF_8) 
+        	String consultaCodificada = (reserva.getNomConsulta() != null) ? URLEncoder.encode(reserva.getNomConsulta(), StandardCharsets.UTF_8) 
                     : "";
         %>
 
@@ -90,14 +87,9 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
 
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-body p-4 p-md-5">
-
                     <div class="d-flex justify-content-start row g-4">
-
-                
-
                         <div class="container-fluid">
-                            <h2 class="mb-4">
-                            	Consulta</h2>
+                            <h2 class="mb-4"> Consulta</h2>
 
                             <div class="mb-3">
                                 <div class="detail-label">Nombre Consulta</div>
@@ -115,15 +107,14 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                             
                             <div class="mb-3">
                                 <div class="detail-label">Paciente</div>
-                                <div class="detail-value">
-                                    <%= reserva.getNicknamePaciente() %>
+                                <div class="detail-value"> <%= reserva.getNicknamePaciente() %>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <div class="detail-label">Asistio</div>
-                                <div class="detail-value">
-                                    <%= reserva.isAsistio() ? "Sí" : "No" %>
+                                <div class="detail-value"> 
+                                	<%= reserva.isAsistio() ? "Sí" : "No" %>
                                 </div>
                             </div>
                             
@@ -131,8 +122,8 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                             <div class="mb-3">
                                 <div class="detail-label">Motivo</div>
                                 <div class="detail-value">
-                                    <% if (reserva.getMotivo() != null && !reserva.getMotivo().isBlank()) { %>
-                                        <%= reserva.getMotivo() %>
+                                    <% if (reserva.getMotivo() != null && !reserva.getMotivo().isBlank()) { %> 
+                                    <%= reserva.getMotivo() %>
                                     <% } else { %>
                                         No asistió a la consulta.
                                     <% } %>
@@ -149,27 +140,20 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
                                     <% } %>
                                 </div>
                             </div>
-                            
                         </div>
-
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-end gap-2 pt-2 border-top">
-            
-            
             <%
                     if ("Medico".equals(tipoUsuario) && reserva.isAsistio()) {
-                        String pacienteCodificado = (reserva.getNicknamePaciente() != null) 
-                                ? URLEncoder.encode(reserva.getNicknamePaciente(), StandardCharsets.UTF_8) 
-                                : "";
+                        String pacienteCodificado = (reserva.getNicknamePaciente() != null) ? URLEncoder.encode(reserva.getNicknamePaciente(), StandardCharsets.UTF_8) : "";
                 %>
-                    <a href="${pageContext.request.contextPath}/AltaMedicamentoServlet?consulta=<%= consultaCodificada %>&nicknamePaciente=<%= pacienteCodificado %>"
+                    <a href="${pageContext.request.contextPath}/RecetarMedicamentoServlet?consulta=<%= consultaCodificada %>&nicknamePaciente=<%= pacienteCodificado %>"
                        class="btn btn-secondary">
                         Dar de Alta Medicamento
                     </a>
                 <% } %>
-            
             <a href="${pageContext.request.contextPath}/MisReservasServlet?consulta=<%= consultaCodificada %>" class="btn btn-outline-secondary">
             	Volver a Reservas
             </a>
@@ -177,9 +161,7 @@ DtResAsistio reserva = (DtResAsistio) request.getAttribute("reserva");
             </div>
 
         <% } else { 
-        		String consultaCodificada = (reserva.getNomConsulta() != null) 
-                       ? URLEncoder.encode(reserva.getNomConsulta(), StandardCharsets.UTF_8) 
-                       : "";%>
+        		String consultaCodificada = (reserva.getNomConsulta() != null) ? URLEncoder.encode(reserva.getNomConsulta(), StandardCharsets.UTF_8) : "";%>
 
             <div class="alert alert-warning">
                 No se encontraron los detalles de la consulta.

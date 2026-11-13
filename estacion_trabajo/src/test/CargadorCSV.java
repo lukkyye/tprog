@@ -280,10 +280,8 @@ public class CargadorCSV {
 			LocalDate fechaReserva = LocalDate.parse(fila[1], FECHA_FMT);
 			String nicknamePaciente = usuariosPorRef.get(fila[3]);
 			String nombreConsulta = consultasPorRef.get(fila[4]);
-			boolean aplicaBenef = false;
-			if (nicknamePaciente == "lgomez" && nombreConsulta == "Cardiología 121026 6") {
-				aplicaBenef = true;
-			}
+			String tipoPago = fila.length > 6 ? fila[6].trim() : "";
+			boolean aplicaBenef = !tipoPago.isEmpty();
 
 			try {
 				controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
