@@ -12,6 +12,42 @@
 	
 	
     <style>
+    
+		    /* Ocultar elementos exclusivos de escritorio */
+		.solo-escritorio {
+		    display: block;
+		}
+		
+
+			/* Por defecto: mostrar elementos de escritorio */
+		.solo-escritorio {
+		    display: block;
+		}
+		
+		/* Si el servidor detecta un celular */
+		.usuario-movil .solo-escritorio {
+		    display: none !important;
+		}
+		
+		/* Si el ancho de pantalla es menor a 992px */
+		@media (max-width: 991.98px) {
+		    .solo-escritorio {
+		        display: none !important;
+		    }
+		
+		    main {
+		        min-height: calc(100vh - 80px);
+		        display: flex;
+		        align-items: center;
+		        justify-content: center;
+		    }
+		
+		    main .row {
+		        width: 100%;
+		        margin: 0;
+		    }
+		}
+    
 		    @media (max-width: 767.98px) {
 		    main {
 		        min-height: calc(100vh - 80px);
@@ -98,9 +134,9 @@
         	userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
 	%>
 
-<body class="d-flex flex-column">
- 	<% if (!esMovil) { %>
-		<header class="bg-white border-bottom px-4 py-3">
+<body class="d-flex flex-column <%= esMovil ? "usuario-movil" : "" %>">
+
+		<header class="solo-escritorio bg-white border-bottom px-4 py-3">
 		    <nav class="d-flex justify-content-between align-items-center">
 		        <a href="/webserver/home">
 		            <img src="/webserver/img/LOGOGENERAL.png"
@@ -110,7 +146,7 @@
 		
 		    </nav>
 		</header>
-	<% } %>
+
     <main class="container py-5">
         <div class="tarjeta-login mx-auto">
             <div class="row g-0">
@@ -121,15 +157,12 @@
                             
                             
 
-                    <a 
-                    <% if (!esMovil) { %>
-                    href="/webserver/home"
-                    <% } %>
-                       class="d-block w-100">
-                        <img src="/webserver/img/LOGOGENERAL.png"
-                             alt="salud.uy"
-                             class="logo-grande">
-                    </a>
+                    
+                    <a id="enlaceLogo" href="/webserver/home" class="d-block w-100">
+    					<img src="/webserver/img/LOGOGENERAL.png"
+         				alt="salud.uy"
+         				class="logo-grande">
+					</a>
 
                 </div>
 
@@ -177,22 +210,18 @@
                                 class="btn boton-entrar btn-lg w-100">
                             Entrar
                         </button>
-					<% if (!esMovil) { %>
-                        <a href="/webserver/home"
-                           class="btn btn-outline-light w-100 mt-3">
-                            Cancelar
-                        </a>
-                        <% } %>
+					<a href="/webserver/home"
+   						class="btn btn-outline-light w-100 mt-3 solo-escritorio">
+    					Cancelar
+					</a>
                     </form>
-  				<% if (!esMovil) { %>
-                    <p class="text-center mt-4 mb-0">
+  				<p class="text-center mt-4 mb-0 solo-escritorio">
                         ¿No tenés cuenta?
                         <a href="/webserver/signup"
-                           class="text-white fw-bold">
-                            Registrate
-                        </a>
-                    </p>
-				<% } %>
+       					class="text-white fw-bold">
+        				Registrate
+    					</a>
+				</p>
                 </div>
 
             </div>
@@ -200,4 +229,15 @@
     </main>
 
 </body>
+	<script>
+	    const esMovilServidor = <%= esMovil %>;
+	
+	    document.getElementById("enlaceLogo").addEventListener("click", function(e) {
+	        const pantallaChica = window.innerWidth < 992;
+	
+	        if (esMovilServidor || pantallaChica) {
+	            e.preventDefault();
+	        }
+	    });
+	</script>
 </html>

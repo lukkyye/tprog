@@ -4,16 +4,15 @@
    <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
    
    <%
-    //ImageHandlerDelegator img = new ImageHandlerDelegator();
+    ImageHandlerDelegator img = new ImageHandlerDelegator();
 
-    //String profilePicture = (String) img.getImg64(
-    //    (String) session.getAttribute("nickname")
-    //);
+    String profilePicture = (String) img.getImg64(
+        (String) session.getAttribute("nickname")
+    );
 
-   // if (profilePicture == null) {
-       //profilePicture = request.getContextPath() + "/img/VISITANTE.png";
-    //}
-   String profilePicture = request.getContextPath() + "/img/VISITANTE.png";
+    if (profilePicture == null) {
+       profilePicture = request.getContextPath() + "/img/VISITANTE.png";
+    }
 %>
 
 <header class="mb-2">
