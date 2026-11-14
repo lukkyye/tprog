@@ -1,5 +1,6 @@
 package logica.manejadores;
 import logica.clases.Usuario;
+
 import logica.clases.BeneficioAnual;
 import logica.clases.Consulta;
 import logica.clases.Medico;
@@ -43,6 +44,11 @@ import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.DtSolicitudMedicamento;
 import logica.datatypes.DtUsuario;
 import logica.datatypes.TipoMes;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import logica.datatypes.DtValoracionConsulta;
+import logica.excepciones.ReservaDoesntExistsException;
 
 
 public class ManejadorUsuario {
@@ -158,6 +164,55 @@ public class ManejadorUsuario {
 			}
 		}
 		return null;
+	}
+	
+	public List<DtValoracionConsulta> listarConsultasAsistidas(String nickname)
+	        throws UserNotFoundException, ConsultaNotFoundException {
+	    Paciente paciente = pacienteParaValorar(nickname);
+	    List<DtValoracionConsulta> resultado = new ArrayList<>();
+
+	    for (Reserva reserva : paciente.getReservas()) {
+	        if (reserva.getAsistio()) {
+	            Consulta consulta = ManejadorConsulta.getInstance()
+	                    .getConsulta(reserva.getConsultasAsoc());
+	            resultado.add(consulta.datosValoracion(reserva));
+	        }
+	    }
+
+	    resultado.sort(Comparator.comparing(DtValoracionConsulta::getFechaConsulta)
+	            .reversed().thenComparing(DtValoracionConsulta::getNombreConsulta));
+	    return resultado;
+	}
+
+	public DtValoracionConsulta obtenerValoracionConsulta(String nickname, String nombreConsulta)
+	        throws UserNotFoundException, ConsultaNotFoundException, ReservaDoesntExistsException {
+	    Reserva reserva = buscarReservaAsistida(nickname, nombreConsulta);
+	    return ManejadorConsulta.getInstance()
+	            .getConsulta(nombreConsulta).datosValoracion(reserva);
+	}
+
+	public boolean valorarConsulta(String nickname, String nombreConsulta, int puntaje)
+	        throws UserNotFoundException, ConsultaNotFoundException, ReservaDoesntExistsException {
+	    Reserva reserva = buscarReservaAsistida(nickname, nombreConsulta);
+	    return ManejadorConsulta.getInstance()
+	            .getConsulta(nombreConsulta).registrarValoracion(reserva, puntaje);
+	}
+
+	private Reserva buscarReservaAsistida(String nickname, String nombreConsulta)
+	        throws UserNotFoundException, ReservaDoesntExistsException {
+	    for (Reserva reserva : pacienteParaValorar(nickname).getReservas()) {
+	        if (reserva.getConsultasAsoc().equals(nombreConsulta) && reserva.getAsistio()) {
+	            return reserva;
+	        }
+	    }
+	    throw new ReservaDoesntExistsException("No hay una reserva asistida para esa consulta.");
+	}
+
+	private Paciente pacienteParaValorar(String nickname) throws UserNotFoundException {
+	    if (getUsuario(nickname) instanceof Paciente paciente) {
+	        return paciente;
+	    }
+	    throw new UserNotFoundException("El usuario no es de tipo Paciente.");
 	}
 	
 	

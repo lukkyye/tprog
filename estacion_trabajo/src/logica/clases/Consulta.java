@@ -1,12 +1,14 @@
 package logica.clases;
 import java.time.LocalDate;
 
+
 import logica.datatypes.DtConsulta;
 import logica.datatypes.DtConsultaDetalle;
 import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
 import java.util.HashSet;
 import java.util.Set;
+import logica.datatypes.DtValoracionConsulta;
 
 import logica.datatypes.EstadoConsulta;
 import logica.excepciones.ConsultaNotFoundException;
@@ -21,6 +23,10 @@ public class Consulta {
 	private String nomC;
 	private EstadoConsulta estado;
 	private Set<Reserva> reservas;
+	
+	private Float promedioConsulta;
+	private long sumaValoraciones;
+	private int cantidadValoraciones;
 	
 	public Consulta(String diaConsulta, String medico, String nomC, LocalDate fecha, int sala, int cantNum, float costoC, EstadoConsulta estado) { //Ver costoC
 		this.nomC = nomC;
@@ -52,7 +58,7 @@ public class Consulta {
         return cantNum;
     }
 	
-	public void agregarReserva(Reserva reserva) {
+	public synchronized void agregarReserva(Reserva reserva) {
 	    reservas.add(reserva);
 	}
 	
@@ -133,6 +139,26 @@ public class Consulta {
 
 	public void setEstado(EstadoConsulta estado) {
 		this.estado=estado;
+	}
+	
+	public synchronized DtValoracionConsulta datosValoracion(Reserva reserva) {
+	    return new DtValoracionConsulta(
+	            nomC, fecha.toString(), promedioConsulta, reserva.getValoracionPaciente());
+	}
+
+	public synchronized boolean registrarValoracion(Reserva reserva, int puntaje) {
+	    if (!reservas.contains(reserva) || !reserva.getAsistio() || puntaje < 1 || puntaje > 5) {
+	        throw new IllegalArgumentException("La reserva o el puntaje son inválidos.");
+	    }
+	    if (reserva.getValoracionPaciente() != null) {
+	        return false;
+	    }
+
+	    reserva.setValoracionPaciente(puntaje);
+	    sumaValoraciones += puntaje;
+	    cantidadValoraciones++;
+	    promedioConsulta = (float) sumaValoraciones / cantidadValoraciones;
+	    return true;
 	}
 
 	

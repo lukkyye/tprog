@@ -44,7 +44,7 @@ import logica.excepciones.NumeroDeRegistroAlreadyExistsException;
 import logica.excepciones.ReservaDoesntExistsException;
 import logica.excepciones.SpecialityNotFoundException;
 import logica.excepciones.UserNotFoundException;
-
+import logica.datatypes.DtValoracionConsulta;
 
 public class ControladorUsuario {
 	
@@ -178,6 +178,21 @@ public class ControladorUsuario {
 	
 	public DtSolicitudMedicamento solicitarMedicamento(String nicknamePaciente, String nombre, LocalDate indicacion, LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException, MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException, FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
 			return ManejadorUsuario.getInstance().solicitarMedicamento(nicknamePaciente, nombre, indicacion, LocalDate.now(), entrega, direccion, usaBenef);
+	}
+	
+	public List<DtValoracionConsulta> listarConsultasAsistidas(String nickname)
+	        throws UserNotFoundException, ConsultaNotFoundException {
+	    return ManejadorUsuario.getInstance().listarConsultasAsistidas(nickname);
+	}
+
+	public DtValoracionConsulta obtenerValoracionConsulta(String nickname, String nombreConsulta)
+	        throws UserNotFoundException, ConsultaNotFoundException, ReservaDoesntExistsException {
+	    return ManejadorUsuario.getInstance().obtenerValoracionConsulta(nickname, nombreConsulta);
+	}
+
+	public boolean valorarConsulta(String nickname, String nombreConsulta, int puntaje)
+	        throws UserNotFoundException, ConsultaNotFoundException, ReservaDoesntExistsException {
+	    return ManejadorUsuario.getInstance().valorarConsulta(nickname, nombreConsulta, puntaje);
 	}
 
 }

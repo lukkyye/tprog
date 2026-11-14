@@ -1,6 +1,7 @@
 package com.gateway.interfaces;
 
 import java.time.LocalDate;
+
 import com.soap.MedicoSinEspecialidadException_Exception;
 import com.soap.NicknameAlreadyExistsException_Exception;
 import com.soap.NumeroDeRegistroAlreadyExistsException_Exception;
@@ -38,6 +39,7 @@ import com.soap.MedicamentoVencidoException_Exception;
 import com.soap.MedicamentoYaSolicitadoException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
+import com.soap.DtValoracionConsulta;
 
 
 
@@ -104,4 +106,14 @@ public interface IUserController {
 			throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception, ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
 			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception;
 	
+	List<DtValoracionConsulta> listarConsultasAsistidas(String nickname)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception;
+
+	DtValoracionConsulta obtenerValoracionConsulta(String nickname, String nombreConsulta)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+	               ReservaDoesntExistsException_Exception;
+
+	boolean valorarConsulta(String nickname, String nombreConsulta, int puntaje)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+	               ReservaDoesntExistsException_Exception;
 }

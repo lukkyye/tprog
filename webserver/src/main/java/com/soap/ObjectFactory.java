@@ -919,5 +919,13 @@ public class ObjectFactory {
     public JAXBElement<UserNotFoundException> createUserNotFoundException(UserNotFoundException value) {
         return new JAXBElement<>(_UserNotFoundException_QNAME, UserNotFoundException.class, null, value);
     }
+    
+    public DtValoracionConsulta createDtValoracionConsulta() {
+        return new DtValoracionConsulta();
+    }
+
+    public DtValoracionConsultaArray createDtValoracionConsultaArray() {
+        return new DtValoracionConsultaArray();
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.gateway.connectors;
 import java.util.List;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
@@ -41,6 +42,7 @@ import com.soap.ReservaDoesntExistsException_Exception;
 import com.soap.SpecialityNotFoundException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
+import com.soap.DtValoracionConsulta;
 
 
 public class UserControllerConnector implements IUserController {
@@ -193,5 +195,25 @@ public class UserControllerConnector implements IUserController {
 	@Override
 	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException_Exception {
 		return port.getAltaDetalleReserva(nomC, numR);
+	}
+	
+	@Override
+	public List<DtValoracionConsulta> listarConsultasAsistidas(String nickname)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception {
+	    return port.listarConsultasAsistidas(nickname).getItem();
+	}
+
+	@Override
+	public DtValoracionConsulta obtenerValoracionConsulta(String nickname, String nombreConsulta)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+	               ReservaDoesntExistsException_Exception {
+	    return port.obtenerValoracionConsulta(nickname, nombreConsulta);
+	}
+
+	@Override
+	public boolean valorarConsulta(String nickname, String nombreConsulta, int puntaje)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+	               ReservaDoesntExistsException_Exception {
+	    return port.valorarConsulta(nickname, nombreConsulta, puntaje);
 	}
 }

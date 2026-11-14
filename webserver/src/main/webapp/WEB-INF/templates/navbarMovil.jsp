@@ -56,7 +56,7 @@ if (nickname != null) {
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/movil/consultas-asistidas">
                             Valorar consultas
                         </a>
                     </li>

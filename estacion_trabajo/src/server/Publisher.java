@@ -1,6 +1,7 @@
 package server;
 
 import java.time.LocalDate;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,6 +53,7 @@ import logica.datatypes.DtResConsulta;
 import logica.datatypes.DtResConsultaDetalle;
 import logica.datatypes.DtSolicitudMedicamento;
 import logica.datatypes.EstadoConsulta;
+import logica.datatypes.DtValoracionConsulta;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
@@ -60,6 +62,8 @@ import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.ws.Endpoint;
+
+
 	
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
@@ -368,4 +372,24 @@ public class Publisher {
 	public String getImg64(String key) {
 		return manejadorImagen.getImg64(key);
 	}
+	
+	@WebMethod
+	public DtValoracionConsulta[] listarConsultasAsistidas(String nickname)
+	        throws UserNotFoundException, ConsultaNotFoundException {
+	    return controladorUsuario.listarConsultasAsistidas(nickname)
+	            .toArray(DtValoracionConsulta[]::new);
+	}
+
+	@WebMethod
+	public DtValoracionConsulta obtenerValoracionConsulta(String nickname, String nombreConsulta)
+	        throws UserNotFoundException, ConsultaNotFoundException, ReservaDoesntExistsException {
+	    return controladorUsuario.obtenerValoracionConsulta(nickname, nombreConsulta);
+	}
+
+	@WebMethod
+	public boolean valorarConsulta(String nickname, String nombreConsulta, int puntaje)
+	        throws UserNotFoundException, ConsultaNotFoundException, ReservaDoesntExistsException {
+	    return controladorUsuario.valorarConsulta(nickname, nombreConsulta, puntaje);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.gateway.delegators;
 import java.time.LocalDate;
+
 import com.soap.MedicoSinEspecialidadException_Exception;
 import com.soap.NicknameAlreadyExistsException_Exception;
 import com.soap.NumeroDeRegistroAlreadyExistsException_Exception;
@@ -37,6 +38,7 @@ import com.soap.MedicamentoVencidoException_Exception;
 import com.soap.MedicamentoYaSolicitadoException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
+import com.soap.DtValoracionConsulta;
 
 
 public class UserControllerDelegator implements IUserController {
@@ -186,6 +188,26 @@ public class UserControllerDelegator implements IUserController {
 	@Override
 	public DtResAsistio getAltaDetalleReserva(String nomC, int numR) throws ConsultaNotFoundException_Exception {
 		return ucc.getAltaDetalleReserva(nomC, numR);
+	}
+	
+	@Override
+	public List<DtValoracionConsulta> listarConsultasAsistidas(String nickname)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception {
+	    return ucc.listarConsultasAsistidas(nickname);
+	}
+
+	@Override
+	public DtValoracionConsulta obtenerValoracionConsulta(String nickname, String nombreConsulta)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+	               ReservaDoesntExistsException_Exception {
+	    return ucc.obtenerValoracionConsulta(nickname, nombreConsulta);
+	}
+
+	@Override
+	public boolean valorarConsulta(String nickname, String nombreConsulta, int puntaje)
+	        throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+	               ReservaDoesntExistsException_Exception {
+	    return ucc.valorarConsulta(nickname, nombreConsulta, puntaje);
 	}
 	
 }

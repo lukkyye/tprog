@@ -974,5 +974,28 @@ public interface Publisher {
     public String getImg64(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+    
+    @WebMethod
+    @WebResult(partName = "return")
+    public DtValoracionConsultaArray listarConsultasAsistidas(
+            @WebParam(name = "arg0", partName = "arg0") String nickname)
+            throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception;
+
+    @WebMethod
+    @WebResult(partName = "return")
+    public DtValoracionConsulta obtenerValoracionConsulta(
+            @WebParam(name = "arg0", partName = "arg0") String nickname,
+            @WebParam(name = "arg1", partName = "arg1") String nombreConsulta)
+            throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+                   ReservaDoesntExistsException_Exception;
+
+    @WebMethod
+    @WebResult(partName = "return")
+    public boolean valorarConsulta(
+            @WebParam(name = "arg0", partName = "arg0") String nickname,
+            @WebParam(name = "arg1", partName = "arg1") String nombreConsulta,
+            @WebParam(name = "arg2", partName = "arg2") int puntaje)
+            throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
+                   ReservaDoesntExistsException_Exception;
 
 }
