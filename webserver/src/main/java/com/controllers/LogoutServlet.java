@@ -31,9 +31,12 @@ public class LogoutServlet extends HttpServlet {
         boolean esMovil = userAgent != null &&
                 userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
 
+        boolean pantallaChica =
+                Boolean.parseBoolean(request.getParameter("pantallaChica"));
+
         request.getSession().invalidate();
 
-        if (esMovil) {
+        if (esMovil || pantallaChica) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             response.sendRedirect(request.getContextPath() + "/home");

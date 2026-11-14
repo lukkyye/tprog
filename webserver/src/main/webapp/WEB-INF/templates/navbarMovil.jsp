@@ -68,8 +68,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/logout">
-                            Cerrar sesion
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout?pantallaChica=true">
+                            Cerrar sesión
                         </a>
                     </li>
 

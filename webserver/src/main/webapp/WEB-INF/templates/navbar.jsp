@@ -13,7 +13,10 @@
                 </form>
                 
                 <div class="d-flex flex-row user-section gap-2 align-items-center">
-                    <a href="/webserver/logout" class="btn btn-secondary">Cerrar Sesión</a>
+                    <a id="cerrarSesion"
+   						href="${pageContext.request.contextPath}/logout">
+                            Cerrar sesión
+                        </a>
 					<a href="${pageContext.request.contextPath}/misdatos"
    						class="btn btn-primary">
     					Mis Datos
@@ -40,5 +43,16 @@
                     </div>
                 </div>
         </nav>
+        <script>
+    document.getElementById("cerrarSesion").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const pantallaChica = window.innerWidth < 992;
+
+        window.location.href =
+            "${pageContext.request.contextPath}/logout?pantallaChica=" + pantallaChica;
+    });
+</script>
+        
         <hr class="text-black m-0">
 </header>

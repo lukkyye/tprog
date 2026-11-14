@@ -32,6 +32,25 @@
 		    background-position: center;
 		    background-repeat: no-repeat;
 		}
+			/* Por defecto: version escritorio */
+			.contenido-movil {
+			    display: none;
+			}
+			
+			.contenido-escritorio {
+			    display: flex;
+			    gap: 1.5rem;
+			    width: 100%;
+			}
+			
+			/* Si el User-Agent detecta un movil */
+			.usuario-movil .contenido-escritorio {
+			    display: none !important;
+			}
+			
+			.usuario-movil .contenido-movil {
+			    display: flex !important;
+			}
 
 		  @media (max-width: 991.98px) {
 		
@@ -52,7 +71,19 @@
 		        margin-top: 0 !important;
 		        padding: 0 !important;
 		    }
+		    
+			.contenido-escritorio {
+        		display: none !important;
+    		}
+    
+			.contenido-movil {
+        		display: flex !important;
+    		}
 		}
+		
+		
+	
+			
     
 		@media (max-width: 991.98px) {
 			.menu-lateral-escritorio {
@@ -84,7 +115,7 @@
     	boolean esMovil = userAgent != null &&
         	userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
 	%>
-
+		
 						<!-- NAVBAR -->
 						<div class="d-none d-lg-block">
 						    <% if ("Paciente".equals(tipoUsuario) || "Medico".equals(tipoUsuario)) { %>
@@ -93,71 +124,64 @@
 						        <jsp:include page="/WEB-INF/templates/navbarVisitante.jsp" />
 						    <% } %>
 						</div>
-						
+					
 						<div class="d-block d-lg-none">
 						    <jsp:include page="/WEB-INF/templates/navbarMovil.jsp" />
 						</div>
-
-    <!-- CONTENIDO PRINCIPAL -->
-	<main class="container-fluid d-flex mt-5 gap-4">
+						
 	
-			<% if (!esMovil) { %>
 
-    <% if ("Paciente".equals(tipoUsuario)) { %>
-        <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
-    <% } else if ("Medico".equals(tipoUsuario)) { %>
-        <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
-    <% } else { %>
-        <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
-    <% } %>
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container-fluid d-flex mt-5 gap-4
+    <%= esMovil ? "usuario-movil" : "" %>">
 
-<% } %>
+        <!-- MOVIL -->
+		<div class="contenido-movil bienvenida-movil">
+            <h2 class="fw-bold">Bienvenido/a a Salud.uy</h2>
+        </div>
 
+	<div class="contenido-escritorio">
 
-	<% if (esMovil) { %>
+        <!-- MENU LATERAL -->
+        <% if ("Paciente".equals(tipoUsuario)) { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralPaciente.jsp" />
+        <% } else if ("Medico".equals(tipoUsuario)) { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralMedico.jsp" />
+        <% } else { %>
+            <jsp:include page="/WEB-INF/templates/menuLateralVisitante.jsp" />
+        <% } %>
 
-	    <div class="bienvenida-movil">
-	    	<h2 class="fw-bold">¡Bienvenido/a a Salud.uy!</h2>
-	    </div>
-    <% } else { %>
         <!-- DIAS DE CONSULTA -->
         <div class="col-md-9 pe-5 d-flex flex-column gap-4">
- 
-         <%
-    		ImageHandlerDelegator img = new ImageHandlerDelegator();
 
-   			List<DtDiaConsulta> array = (List<DtDiaConsulta>) request.getAttribute("dtDiasConsulta");
+            <%
+                ImageHandlerDelegator img = new ImageHandlerDelegator();
 
-    		if (array != null && !array.isEmpty()) {
+                List<DtDiaConsulta> array =
+                    (List<DtDiaConsulta>) request.getAttribute("dtDiasConsulta");
 
-        		for (DtDiaConsulta dtdc : array) {
+                if (array != null && !array.isEmpty()) {
+                    for (DtDiaConsulta dtdc : array) {
 
-            		String src = img.getImg64(dtdc.getNomD());
+                        String src = img.getImg64(dtdc.getNomD());
 
-            		if (src == null) {
-        				src = request.getContextPath() + "/img/LOGOGENERAL.png";
-            		}
-		%>
+                        if (src == null) {
+                            src = request.getContextPath() + "/img/LOGOGENERAL.png";
+                        }
+            %>
 
                 <div class="card shadow rounded-4 border-0 bg-light p-4">
-
                     <div class="d-flex align-items-center mb-3">
 
                         <div class="col-3 text-center">
-                            <img
-                                style="max-height: auto; width: 128px; object-fit: contain;"
-                                src="<%= src %>"
-                                alt="Imagen de dia consulta">
+                            <img style="max-height: auto; width: 128px; object-fit: contain;"
+                                 src="<%= src %>"
+                                 alt="Imagen de dia consulta">
                         </div>
 
                         <div class="col-9 ps-3">
-                            <h4 class="m-0 fw-bold">
-                                <%= dtdc.getNomD() %>
-                            </h4>
-
-                            <p class="mb-0 text-muted mt-2">
-                                <%= dtdc.getDescD() %>
-                            </p>
+                            <h4 class="m-0 fw-bold"><%= dtdc.getNomD() %></h4>
+                            <p class="mb-0 text-muted mt-2"><%= dtdc.getDescD() %></p>
                         </div>
 
                     </div>
@@ -175,24 +199,18 @@
                         </a>
 
                     </div>
-
                 </div>
 
             <%
                     }
-
                 } else {
             %>
 
-                <!-- MENSAJE CUANDO NO HAY DIAS DE CONSULTA -->
                 <section class="bg-light rounded-4 shadow p-4 p-sm-5 w-100">
-
-                    <h2 class="mb-4">Días de Consulta</h2>
-
+                    <h2 class="mb-4">Dias de Consulta</h2>
                     <div class="alert alert-info text-center mb-0">
-                        No hay días de consulta disponibles.
+                        No hay dias de consulta disponibles.
                     </div>
-
                 </section>
 
             <%
@@ -200,9 +218,10 @@
             %>
 
         </div>
-       	<% } %>
 
-    </main>
+</div>
+
+</main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
