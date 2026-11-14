@@ -70,6 +70,7 @@
                         </div>
                         <p class="mb-2"><%= h(m.getPosologia()) %></p>
                         <p class="text-muted small mb-2">
+                        	Consulta: <%= fecha(m.getNomC()) %>.
                             Recetado el <%= fecha(m.getIndicacion()) %>.
                             <% if (!m.isUsado()) { %>
                                 Se puede solicitar hasta el <%= fecha(m.getVencimiento()) %>.

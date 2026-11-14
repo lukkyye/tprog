@@ -17,10 +17,12 @@ public class DtMedicamento {
 	private boolean usado;
 	private float costoMed;
 	private DtSolicitudMedicamento solMed;
+	private String nomC;
+
 	
     public DtMedicamento() {
     }
-	public DtMedicamento(String nombre, String posologia, LocalDate indicacion, LocalDate vencimiento, boolean usado, float costoMed, DtSolicitudMedicamento solMed) {
+	public DtMedicamento(String nombre, String posologia, LocalDate indicacion, LocalDate vencimiento, boolean usado, float costoMed, DtSolicitudMedicamento solMed, String nomC) {
 		this.nombre = nombre;
 		this.posologia = posologia;
 		this.indicacion = indicacion;
@@ -28,6 +30,7 @@ public class DtMedicamento {
 		this.usado = usado;
 		this.costoMed = costoMed;
 		this.solMed = solMed;
+		this.nomC = nomC;
 	}
 	public String getNombre() {
 		return nombre;
@@ -71,5 +74,11 @@ public class DtMedicamento {
 	public void setSolMed(DtSolicitudMedicamento solMed) {
 		this.solMed = solMed;
 	}
-
+	public String getNomC() { 
+		return nomC; 
+	}
+	public void setNomC(String nomC) { 
+		this.nomC = nomC; 
+	}
+	
 }

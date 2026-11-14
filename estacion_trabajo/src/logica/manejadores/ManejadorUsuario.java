@@ -357,9 +357,9 @@ public class ManejadorUsuario {
 		paciente.setAntSalud(antSalud);
 	}
 	
-	public void agregarMedicamento(String nickname, String nombre, String posologia, LocalDate indicacion, float costoMed) throws UserNotFoundException, MedicamentoAlreadyExistsException {
+	public void agregarMedicamento(String nickname, String nombre, String posologia, LocalDate indicacion, float costoMed, String nomC) throws UserNotFoundException, MedicamentoAlreadyExistsException {
 		Paciente paciente = getPaciente(nickname);
-		paciente.agregarMedicamento(new Medicamento(nombre, posologia, indicacion, costoMed));
+		paciente.agregarMedicamento(new Medicamento(nombre, posologia, indicacion, costoMed, nomC));
 	}
 	
 	public List<DtMedicamento> medicamentosRecetados(String nickname) throws UserNotFoundException {

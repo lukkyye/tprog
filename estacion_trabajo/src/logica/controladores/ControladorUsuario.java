@@ -169,7 +169,7 @@ public class ControladorUsuario {
 		if (clinica == null) {
 			throw new ClinicaNotFoundException("No se encontró la clínica de la consulta " + nomC);
 		}
-		ManejadorUsuario.getInstance().agregarMedicamento(nicknamePaciente, nombre.trim(), posologia.trim(), LocalDate.now(), clinica.getCostoTicket());
+		ManejadorUsuario.getInstance().agregarMedicamento(nicknamePaciente, nombre.trim(), posologia.trim(), LocalDate.now(), clinica.getCostoTicket(), nomC);
 	}
 	
 	public List<DtMedicamento> listarMedicamentosRecetados(String nickname) throws UserNotFoundException {

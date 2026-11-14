@@ -15,8 +15,10 @@ public class Medicamento {
 	private boolean usado;
 	private float costoMed;
 	private DtSolicitudMedicamento solMed;
+	private String nomC;
+
 	
-	public Medicamento(String nombre, String posologia, LocalDate indicacion, float costoMed) {
+	public Medicamento(String nombre, String posologia, LocalDate indicacion, float costoMed, String nomC) {
 		this.nombre = nombre;
 		this.posologia = posologia;
 		this.indicacion = indicacion;
@@ -24,6 +26,7 @@ public class Medicamento {
 		this.usado = false;
 		this.costoMed = costoMed;
 		this.solMed = null;
+		this.nomC = nomC;
 	}
 	public String getNombre() {
 		return nombre;
@@ -40,6 +43,9 @@ public class Medicamento {
 	public float getCostoMed() {
 		return costoMed;
 	}
+	public String getNomC() {
+	    return nomC;
+	}
 	public void setSolMed(String NicknamePaciente, LocalDate entrega, String direccion, boolean usaBenef) {
 		solMed = new DtSolicitudMedicamento(NicknamePaciente, entrega, direccion, usaBenef, costoMed);
 	}
@@ -48,7 +54,7 @@ public class Medicamento {
 		return nombre.equalsIgnoreCase(_nombre) && indicacion.equals(_indicacion);
 	}
 	public DtMedicamento getDtMedicamento() {
-		return new DtMedicamento(nombre, posologia, indicacion, vencimiento, usado, costoMed, solMed);
+		return new DtMedicamento(nombre, posologia, indicacion, vencimiento, usado, costoMed, solMed, nomC);
 	}
 	
 	public boolean estaVencido(LocalDate hoy) {
