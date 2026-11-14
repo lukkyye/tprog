@@ -23,6 +23,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="usado" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         <element name="costoMed" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         <element name="solMed" type="{http://server/}dtSolicitudMedicamento" minOccurs="0"/>
+ *         <element name="nomC" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -39,7 +40,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "vencimiento",
     "usado",
     "costoMed",
-    "solMed"
+    "solMed",
+    "nomC"
 })
 public class DtMedicamento {
 
@@ -50,6 +52,7 @@ public class DtMedicamento {
     protected boolean usado;
     protected float costoMed;
     protected DtSolicitudMedicamento solMed;
+    protected String nomC;
 
     /**
      * Obtiene el valor de la propiedad nombre.
@@ -201,6 +204,30 @@ public class DtMedicamento {
      */
     public void setSolMed(DtSolicitudMedicamento value) {
         this.solMed = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad nomC.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNomC() {
+        return nomC;
+    }
+
+    /**
+     * Define el valor de la propiedad nomC.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNomC(String value) {
+        this.nomC = value;
     }
 
 }
