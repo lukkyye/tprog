@@ -13,11 +13,10 @@
 	
     <style>
     
-		    /* Ocultar elementos exclusivos de escritorio */
-		.solo-escritorio {
-		    display: block;
+	
+		.usuario-movil .solo-escritorio {
+		    display: none !important;
 		}
-		
 
 			/* Por defecto: mostrar elementos de escritorio */
 		.solo-escritorio {
@@ -176,7 +175,9 @@
                 	<%= request.getAttribute("error") %>
             			</div>
         			<% } %>
-                    <form method="POST" action="${pageContext.request.contextPath}/login">
+                   <form id="formLogin" method="POST" action="${pageContext.request.contextPath}/login">
+
+    					<input type="hidden" id="pantallaChica" name="pantallaChica">
 
                         <div class="mb-3">
                             <label for="nickname" class="form-label">
@@ -229,15 +230,23 @@
     </main>
 
 </body>
-	<script>
-	    const esMovilServidor = <%= esMovil %>;
-	
-	    document.getElementById("enlaceLogo").addEventListener("click", function(e) {
-	        const pantallaChica = window.innerWidth < 992;
-	
-	        if (esMovilServidor || pantallaChica) {
-	            e.preventDefault();
-	        }
-	    });
-	</script>
+<script>
+    const esMovilServidor = <%= esMovil %>;
+
+    // Controlar el clic sobre el logo
+    document.getElementById("enlaceLogo").addEventListener("click", function(e) {
+        const pantallaChica = window.innerWidth < 992;
+
+        if (esMovilServidor || pantallaChica) {
+            e.preventDefault();
+        }
+    });
+
+    // Enviar la resolucion al LoginServlet
+    document.getElementById("formLogin").addEventListener("submit", function() {
+        const pantallaChica = window.innerWidth < 992;
+
+        document.getElementById("pantallaChica").value = pantallaChica;
+    });
+</script>
 </html>

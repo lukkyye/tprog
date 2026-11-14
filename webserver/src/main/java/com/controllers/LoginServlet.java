@@ -58,6 +58,13 @@ public class LoginServlet extends HttpServlet {
 	    boolean esMovil = userAgent != null &&
 	            userAgent.matches("(?i).*android.*|.*iphone.*|.*ipad.*|.*mobile.*");
 
+	    // Detectar si la pantalla tiene un ancho menor a 992px
+	    boolean pantallaChica =
+	            Boolean.parseBoolean(request.getParameter("pantallaChica"));
+
+	    // Considerar movil si se cumple cualquiera de las dos condiciones
+	    esMovil = esMovil || pantallaChica;
+
 	    if (nickname != null && password != null &&
 	            user_controller.login(nickname, password)) {
 

@@ -3,16 +3,17 @@
     pageEncoding="UTF-8"%>
    <%@ page import="com.gateway.delegators.ImageHandlerDelegator" %>
    
-   <%
-    ImageHandlerDelegator img = new ImageHandlerDelegator();
+  <%
+ImageHandlerDelegator img = new ImageHandlerDelegator();
 
-    String profilePicture = (String) img.getImg64(
-        (String) session.getAttribute("nickname")
-    );
+String nickname = (String) session.getAttribute("nickname");
+String profilePicture;
 
-    if (profilePicture == null) {
-       profilePicture = request.getContextPath() + "/img/VISITANTE.png";
-    }
+if (nickname != null) {
+    profilePicture = img.getImg64(nickname);
+} else {
+    profilePicture = request.getContextPath() + "/img/VISITANTE.png";
+}
 %>
 
 <header class="mb-2">
