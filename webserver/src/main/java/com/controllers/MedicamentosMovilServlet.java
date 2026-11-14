@@ -78,7 +78,7 @@ public class MedicamentosMovilServlet extends HttpServlet {
 				LocalDate entrega = LocalDate.parse(entregaTxt);
 				DtSolicitudMedicamento solicitud = userController.solicitarMedicamento(nickname, nombre, indicacion,
 						entrega, direccion, usaBenef);
-				String costo = solicitud.getCostoMed() == 0f ? "sin costo (beneficio anual)" : "$ " + solicitud.getCostoMed();
+				String costo = solicitud.getCostoMed() == 0f ? "$ 0.0 (Beneficio Anual)" : "$ " + solicitud.getCostoMed();
 				request.getSession().setAttribute(MENSAJE_EXITO, "Pedido registrado: " + nombre + " se entregará el " + entrega + " en " + solicitud.getDireccion() + ". Costo: " + costo + ".");
 				response.sendRedirect(request.getContextPath() + "/movil/medicamentos");
 				return;
