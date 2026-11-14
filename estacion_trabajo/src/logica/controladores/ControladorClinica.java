@@ -84,8 +84,9 @@ public class ControladorClinica {
 	    Consulta consulta = manejadorConsulta.getConsulta(nomC);
 	    if (consulta != null) {
 	        return consulta.listarDatosResConsultaC(numReserva);
+	    } else {
+	    	throw new ConsultaNotFoundException();
 	    }
-	    return null;
 	}
 	
 	public Set<DtResConsulta> getReservasConsulta(String nomC) throws ConsultaNotFoundException{

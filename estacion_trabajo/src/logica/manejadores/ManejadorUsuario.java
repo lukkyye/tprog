@@ -270,7 +270,7 @@ public class ManejadorUsuario {
 	            }
 	        }
 	    }
-	    return null;
+	    throw new ConsultaNotFoundException();
 	}
 	
 	private Paciente getPaciente(String nickname) throws UserNotFoundException{
