@@ -1,0 +1,39 @@
+package logica.manejadores;
+import  logica.clases.Consulta;
+import java.util.HashMap;
+import java.util.Map;
+
+import  logica.excepciones.ConsultaNotFoundException;
+
+
+public class ManejadorConsulta {
+	private static ManejadorConsulta instance;
+	private Map<String, Consulta> consultas;
+	
+	private ManejadorConsulta() {
+		consultas = new HashMap<String, Consulta>();
+	}
+	
+	public static ManejadorConsulta getInstance() {
+		if (instance==null) {
+			instance=new ManejadorConsulta();
+		}
+		return instance;
+		
+	}
+	
+	public Consulta getConsulta(String nombre) throws ConsultaNotFoundException {
+		if (consultas.containsKey(nombre)) {
+			return consultas.get(nombre);
+		}
+		throw new ConsultaNotFoundException();
+	}
+	
+	public Map<String, Consulta> getConsulta() {
+	    return consultas;
+	}
+	public void agregarConsulta(Consulta consulta) {
+	    consultas.put(consulta.getNomC(), consulta);
+	}
+	
+}
