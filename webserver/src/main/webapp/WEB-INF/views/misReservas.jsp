@@ -140,7 +140,7 @@ HashSet<DtResConsulta> reservas = (HashSet<DtResConsulta>) request.getAttribute(
 <%
     } else {
 %>
-    <a href="${pageContext.request.contextPath}/HomeServlet" class="btn btn-secondary">
+    <a href="${pageContext.request.contextPath}/home" class="btn btn-secondary">
                     Volver
                 </a>
 <%
