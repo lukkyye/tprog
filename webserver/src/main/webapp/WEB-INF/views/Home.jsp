@@ -135,10 +135,31 @@
 <main class="container-fluid d-flex mt-5 gap-4
     <%= esMovil ? "usuario-movil" : "" %>">
 
-        <!-- MOVIL -->
-		<div class="contenido-movil bienvenida-movil">
-            <h2 class="fw-bold">Bienvenido/a a Salud.uy</h2>
+ <!-- MOVIL -->
+<div class="contenido-movil bienvenida-movil">
+
+    <% if (!"Paciente".equals(tipoUsuario) && !"Medico".equals(tipoUsuario)) { %>
+
+        <div class="text-center mt-5 px-3">
+            <h2 class="fw-bold">¡Bienvenido/a a Salud.uy!</h2>
+
+            <p class="mt-3">
+                Para acceder a nuestros servicios, iniciá sesión.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/login"
+               class="btn btn-primary mt-3">
+                Iniciar sesion
+            </a>
         </div>
+
+    <% } else { %>
+
+        <h2 class="fw-bold">Bienvenido/a a Salud.uy</h2>
+
+    <% } %>
+
+</div>
 
 	<div class="contenido-escritorio">
 
