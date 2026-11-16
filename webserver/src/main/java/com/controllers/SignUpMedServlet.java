@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
 import com.soap.EmailAlreadyExistsException_Exception;
-import com.soap.IdAlreadyExistsException_Exception;
 import com.soap.MedicoSinEspecialidadException_Exception;
 import com.soap.NicknameAlreadyExistsException_Exception;
 import com.soap.NumeroDeRegistroAlreadyExistsException_Exception;

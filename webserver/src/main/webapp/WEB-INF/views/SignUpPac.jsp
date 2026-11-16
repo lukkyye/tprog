@@ -15,7 +15,7 @@
 <body class="registro-paciente">
 
     <header class="border-bottom bg-white px-4 py-3">
-        <a href="../index.html">
+        <a href="${pageContext.request.contextPath}/home">
             <img src="../img/LOGOGENERAL.png" alt="salud.uy" width="150">
         </a>
     </header>
