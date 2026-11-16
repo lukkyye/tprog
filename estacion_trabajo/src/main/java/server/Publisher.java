@@ -1,10 +1,15 @@
 package server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import  logica.datatypes.DtBeneficioAnual;
@@ -72,6 +77,8 @@ public class Publisher {
 	private ControladorClinica controladorClinica;
 	private ControladorUsuario controladorUsuario;
 	private ManejadorImagen manejadorImagen;
+	private String port="9128";
+	private String host="localhost";
 	
 	public Publisher() {
 		controladorClinica=new ControladorClinica();
@@ -83,10 +90,27 @@ public class Publisher {
 //		endpoint = Endpoint.publish("http://localhost:9128/publisher", this);
 //	}
 	
+	private void fromProperties() {
+		String filePath = System.getProperty("user.home")+File.separator+".saluduy"+File.separator +"config-ws.properties";
+		Properties props = new Properties();
+		try (FileInputStream input = new FileInputStream(filePath)) {
+			props.load(input);
+			port=props.getProperty("port");
+			host=props.getProperty("host");
+			System.out.println("Se usara host:"+host+" y port:"+port);
+		} catch (FileNotFoundException e) {
+			System.out.println("No se encontro el archivo, se usara host:localhost y port:9128");
+		} catch (IOException e) {
+			System.out.println("Error en la lectura, se usara host:localhost y port:9128");
+		}
+	}
+	
 	@WebMethod(exclude=true)
 	public void publicar() {
-	    try { endpoint = Endpoint.publish("http://0.0.0.0:9128/publisher", this);
-	    	System.out.println("servicio publicado?: " + endpoint.isPublished());
+		fromProperties();
+	    try { 
+	    	endpoint = Endpoint.publish("http://"+host+":"+port+"/publisher", this);
+	    	System.out.println("servicio publicado");
 	    } catch (Exception e) {
 	        System.out.println("ERROR AL PUBLICAR SOAP:");
 	        e.printStackTrace();

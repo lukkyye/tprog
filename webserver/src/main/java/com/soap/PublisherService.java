@@ -1,8 +1,14 @@
 
 package com.soap;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
+
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
@@ -25,19 +31,37 @@ public class PublisherService
     private final static URL PUBLISHERSERVICE_WSDL_LOCATION;
     private final static WebServiceException PUBLISHERSERVICE_EXCEPTION;
     private final static QName PUBLISHERSERVICE_QNAME = new QName("http://server/", "PublisherService");
-
+    private static String host;
+    private static String port;
+    
     static {
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:9128/publisher?wsdl");
+        	fromProperties();
+            url = new URL("http://"+ host +":"+port+"/publisher?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
         PUBLISHERSERVICE_WSDL_LOCATION = url;
         PUBLISHERSERVICE_EXCEPTION = e;
     }
-
+    
+    private static void fromProperties() {
+		String filePath = System.getProperty("user.home")+File.separator+".saluduy"+File.separator +"config-ws.properties";
+		Properties props = new Properties();
+		try (FileInputStream input = new FileInputStream(filePath)) {
+			props.load(input);
+			port=props.getProperty("port");
+			host=props.getProperty("host");
+			System.out.println("Se usara host:"+host+" y port:"+port);
+		} catch (FileNotFoundException e) {
+			System.out.println("No se encontro el archivo, se usara host:localhost y port:9128");
+		} catch (IOException e) {
+			System.out.println("Error en la lectura, se usara host:localhost y port:9128");
+		}
+	}
+    
     public PublisherService() {
         super(__getWsdlLocation(), PUBLISHERSERVICE_QNAME);
     }
