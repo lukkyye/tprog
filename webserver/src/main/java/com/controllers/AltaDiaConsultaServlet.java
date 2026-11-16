@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Set;
 
-import com.gateway.connectors.ImageHandlerConnector;
 import com.gateway.delegators.ClinicControllerDelegator;
 
 import jakarta.servlet.ServletException;
@@ -48,7 +47,7 @@ public class AltaDiaConsultaServlet extends HttpServlet {
 
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        DtDiaSemana diaSemana = DtDiaSemana.valueOf(request.getParameter("dia"));
+        DtDiaSemana diaSemana = DtDiaSemana.valueOf(request.getParameter("dia").toUpperCase()) ;
         String horaTexto = request.getParameter("horaInicio");
         String nombreEspecialidad =
                 request.getParameter("nombreEspecialidad");
