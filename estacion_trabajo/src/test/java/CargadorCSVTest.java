@@ -41,50 +41,74 @@ class CargadorCSVTest {
 	}
 
 	@Test
-	void consultarUsuario_Medico(){
-		DtMedico dtmedico_expected = new DtMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
-		DtUsuario dtusuario_expected = new DtUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
-		try {
-			Set<DtConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
-		} catch (UserNotFoundException | ConsultaNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		DtMedico dtmedico=assertDoesNotThrow(()->controladorUsuario.listarDatosMedico("bsilva"));
-		DtUsuario dtusuario = controladorUsuario.listarUsuarios()
-				.stream()
-				.filter(u->u.getNickname().equals("bsilva"))
-				.findFirst()
-				.orElse(null);
+	void consultarUsuario_Medico() {
 
-		assertAll(
-				()->assertEquals(dtusuario, dtusuario_expected),
-				()->assertEquals(dtmedico, dtmedico_expected)
-				);
+	    DtMedico dtmedico_expected = new DtMedico("bsilva", "REG1002", TipoMes.Julio, 5,"");
+	    DtUsuario dtusuario_expected = new DtUsuario("bsilva", "Bruno", "Silva", "bruno.silva@hospital.com");
+
+	    try {
+	        Set<DtConsulta> lis = controladorUsuario.listarConsultasAsociadas("bsilva");
+	    } catch (UserNotFoundException | ConsultaNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    DtMedico dtmedico = assertDoesNotThrow(()->controladorUsuario.listarDatosMedico("bsilva"));
+
+	    DtUsuario dtusuario = controladorUsuario.listarUsuarios()
+	            .stream()
+	            .filter(u->u.getNickname().equals("bsilva"))
+	            .findFirst()
+	            .orElse(null);
+
+	    assertAll(
+	        () -> assertEquals(dtmedico_expected.getNickname(), dtmedico.getNickname()),
+	        () -> assertEquals(dtmedico_expected.getNroReg(), dtmedico.getNroReg()),
+	        () -> assertEquals(dtmedico_expected.getMesLic(), dtmedico.getMesLic()),
+	        () -> assertEquals(dtmedico_expected.getPorcentajeCost(), dtmedico.getPorcentajeCost()),
+	        () -> assertEquals(dtmedico_expected.getLink(), dtmedico.getLink()),
+
+	        () -> assertEquals(dtusuario_expected.getNickname(), dtusuario.getNickname()),
+	        () -> assertEquals(dtusuario_expected.getNombre(), dtusuario.getNombre()),
+	        () -> assertEquals(dtusuario_expected.getApellido(), dtusuario.getApellido()),
+	        () -> assertEquals(dtusuario_expected.getCorreo(), dtusuario.getCorreo())
+	    );
 	}
+
 
 	@Test
 	void consultarUsuario_Paciente() {
-		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 5, 7, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
-		DtUsuario dtusuario_expected = new DtUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
-		DtPaciente dtpaciente = assertDoesNotThrow(()->controladorUsuario.listarDatosPaciente("lgomez"));
-		try {
-			Set<DtResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		DtUsuario dtusuario = controladorUsuario.listarUsuarios()
-				.stream()
-				.filter(u->u.getNickname().equals("lgomez"))
-				.findFirst()
-				.orElse(null);
-		System.out.println("ESPERADO: " + dtpaciente_expected);
-		System.out.println("OBTENIDO: " + dtpaciente);
-		assertAll(
-				()->assertEquals(dtpaciente, dtpaciente_expected),
-				()->assertEquals(dtusuario, dtusuario_expected)
-				);
+
+	    DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 5, 7, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
+	    DtUsuario dtusuario_expected = new DtUsuario("lgomez", "Laura", "Gómez", "laura.gomez@gmail.com");
+
+	    DtPaciente dtpaciente = assertDoesNotThrow(()->controladorUsuario.listarDatosPaciente("lgomez"));
+
+	    try {
+	        Set<DtResConsulta> list = controladorUsuario.listarResConsultas("lgomez");
+	    } catch (UserNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    DtUsuario dtusuario = controladorUsuario.listarUsuarios()
+	            .stream()
+	            .filter(u->u.getNickname().equals("lgomez"))
+	            .findFirst()
+	            .orElse(null);
+
+	    assertAll(
+	        () -> assertEquals(dtpaciente_expected.getNickname(), dtpaciente.getNickname()),
+	        () -> assertEquals(dtpaciente_expected.getFechaNac(), dtpaciente.getFechaNac()),
+	        () -> assertEquals(dtpaciente_expected.getCantOrdenesAcum(), dtpaciente.getCantOrdenesAcum()),
+	        () -> assertEquals(dtpaciente_expected.getCantTicketAcum(), dtpaciente.getCantTicketAcum()),
+	        () -> assertEquals(dtpaciente_expected.getAntSalud(), dtpaciente.getAntSalud()),
+	        () -> assertEquals(dtpaciente_expected.getDoc(), dtpaciente.getDoc()),
+	        () -> assertEquals(dtpaciente_expected.getFechaIngreso(), dtpaciente.getFechaIngreso()),
+
+	        () -> assertEquals(dtusuario_expected.getNickname(), dtusuario.getNickname()),
+	        () -> assertEquals(dtusuario_expected.getNombre(), dtusuario.getNombre()),
+	        () -> assertEquals(dtusuario_expected.getApellido(), dtusuario.getApellido()),
+	        () -> assertEquals(dtusuario_expected.getCorreo(), dtusuario.getCorreo())
+	    );
 	}
 
 	@Test
@@ -101,61 +125,105 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarClinica() {
-		DtClinica clinica_expected = new DtClinica("Hospital Británico", "Hospital general privado", "Av. Italia 2420", "https://www.hospitalbritanico.org.uy/", 350, 1200);
-		String c = controladorClinica.listarClinicas()
-                .stream()
-                .filter(b -> b.equals("Hospital Británico"))
-                .findFirst()
-                .orElse(null);
-		DtClinica nclinica = ManejadorClinica.getInstance().findClinica(c).getDt();
-		
-		assertAll(
-				()->assertEquals(clinica_expected,nclinica)
-			);
+	    DtClinica clinica_expected = new DtClinica("Hospital Británico", "Hospital general privado", "Av. Italia 2420", "https://www.hospitalbritanico.org.uy/", 350, 1200);
+
+	    String c = controladorClinica.listarClinicas()
+	            .stream()
+	            .filter(b -> b.equals("Hospital Británico"))
+	            .findFirst()
+	            .orElse(null);
+
+	    DtClinica nclinica = ManejadorClinica.getInstance().findClinica(c).getDt();
+
+	    assertAll(
+	        () -> assertEquals(clinica_expected.getNombre(), nclinica.getNombre()),
+	        () -> assertEquals(clinica_expected.getDesc(), nclinica.getDesc()),
+	        () -> assertEquals(clinica_expected.getDir(), nclinica.getDir()),
+	        () -> assertEquals(clinica_expected.getWeb(), nclinica.getWeb()),
+	        () -> assertEquals(clinica_expected.getCTicket(), nclinica.getCTicket()),
+	        () -> assertEquals(clinica_expected.getCConsulta(), nclinica.getCConsulta())
+	    );
 	}
-	
+
 	@Test
 	void consultarDiaConsulta() {
-		DtDiaConsulta diaconsulta_expected = new DtDiaConsulta("Cardiología - Lunes", "Atención cardiológica semanal", DtDiaSemana.Lunes, LocalTime.of(9, 00), 1440);
-		DtDiaConsulta d = controladorClinica.listarDatosDiaConsulta()
-                .stream()
-                .filter(b -> b.getNomD().equals("Cardiología - Lunes"))
-                .findFirst()
-                .orElse(null);
-		assertAll(
-				()->assertEquals(diaconsulta_expected,d)
-			);
+	    DtDiaConsulta diaconsulta_expected = new DtDiaConsulta("Cardiología - Lunes", "Atención cardiológica semanal", DtDiaSemana.Lunes, LocalTime.of(9, 00), 1440);
+	
+	    DtDiaConsulta d = controladorClinica.listarDatosDiaConsulta()
+	            .stream()
+	            .filter(b -> b.getNomD().equals("Cardiología - Lunes"))
+	            .findFirst()
+	            .orElse(null);
+	
+	    assertAll(
+	        () -> assertEquals(diaconsulta_expected.getNomD(), d.getNomD()),
+	        () -> assertEquals(diaconsulta_expected.getDescD(), d.getDescD()),
+	        () -> assertEquals(diaconsulta_expected.getDia(), d.getDia()),
+	        () -> assertEquals(diaconsulta_expected.getHoraIni(), d.getHoraIni()),
+	        () -> assertEquals(diaconsulta_expected.getCostoD(), d.getCostoD())
+	    );
 	}
 
 	@Test
 	void consultarConsulta() {
-		DtConsulta consulta_expected = new DtConsulta("Cardiología 240826", LocalDate.of(2026, 8, 24), 101, 3, 1656, EstadoConsulta.Aceptada );
-		DtConsulta co = controladorClinica.listarConsultas()
-                .stream()
-                .filter(b -> b.getNomC().equals("Cardiología 240826"))
-                .findFirst()
-                .orElse(null);
-		assertAll(
-				()->assertEquals(consulta_expected,co)
-			);
+	    DtConsulta consulta_expected = new DtConsulta(
+	        "Cardiología 240826",
+	        LocalDate.of(2026, 8, 24),
+	        101, 3, 1656,
+	        EstadoConsulta.Aceptada
+	    );
+
+	    DtConsulta co = controladorClinica.listarConsultas()
+	            .stream()
+	            .filter(b -> b.getNomC().equals("Cardiología 240826"))
+	            .findFirst()
+	            .orElse(null);
+
+	    assertAll(
+	        () -> assertEquals(consulta_expected.getNomC(), co.getNomC()),
+	        () -> assertEquals(consulta_expected.getFechaC(), co.getFechaC()),
+	        () -> assertEquals(consulta_expected.getSala(), co.getSala()),
+	        () -> assertEquals(consulta_expected.getCantNum(), co.getCantNum()),
+	        () -> assertEquals(consulta_expected.getCostoC(), co.getCostoC()),
+	        () -> assertEquals(consulta_expected.getEstado(), co.getEstado())
+	    );
 	}
 	
 	@Test
 	void consultarDeReservaDeConsulta() {
-		DtResConsultaDetalle reserva_expected = new DtResConsultaDetalle(LocalDate.of(2026, 8, 1), 1, false, "ana.perez", "Cardiología 240826", LocalDate.of(2026, 8, 24),  101, 3, 1656, 1656, "lgomez");
-		DtPaciente dtpaciente_expected = new DtPaciente("lgomez", LocalDate.of(1990, 4, 12), 0, 0, new ArrayList<String>(List.of("Sin antecedentes relevantes.")),45678901,LocalDate.of(2024, 3,1));
-		DtPaciente dtpaciente = assertDoesNotThrow(()->controladorUsuario.seleccionarPaciente("lgomez"));
-		
-		String nomP = dtpaciente.getNickname();
-		String nomC = "Cardiología 240826";
-		DtResConsultaDetalle res = assertDoesNotThrow(()->controladorUsuario.listarDatosResConsulta(nomC, nomP));
-		assertAll(
-				()->assertEquals(reserva_expected,res)
-			);
-		
-		
-		//hacer
+	    DtResConsultaDetalle reserva_expected = new DtResConsultaDetalle(
+	        LocalDate.of(2026, 8, 1),
+	        1,
+	        false,
+	        "ana.perez",
+	        "Cardiología 240826",
+	        LocalDate.of(2026, 8, 24),
+	        101, 3, 1656, 1656,
+	        "lgomez"
+	    );
+
+	    String nomP = "lgomez";
+	    String nomC = "Cardiología 240826";
+
+	    DtResConsultaDetalle res = assertDoesNotThrow(
+	        () -> controladorUsuario.listarDatosResConsulta(nomC, nomP)
+	    );
+
+	    assertAll(
+	        () -> assertEquals(reserva_expected.getFechaRes(), res.getFechaRes()),
+	        () -> assertEquals(reserva_expected.getNumReserva(), res.getNumReserva()),
+	        () -> assertEquals(reserva_expected.getAplicaBenef(), res.getAplicaBenef()),
+	        () -> assertEquals(reserva_expected.getMedicoC(), res.getMedicoC()),
+	        () -> assertEquals(reserva_expected.getNomC(), res.getNomC()),
+	        () -> assertEquals(reserva_expected.getFechaC(), res.getFechaC()),
+	        () -> assertEquals(reserva_expected.getSalaC(), res.getSalaC()),
+	        () -> assertEquals(reserva_expected.getCantNumC(), res.getCantNumC()),
+	        () -> assertEquals(reserva_expected.getCostoC(), res.getCostoC()),
+	        () -> assertEquals(reserva_expected.getCostoR(), res.getCostoR()),
+	        () -> assertEquals(reserva_expected.getNicknamePacienteRes(), res.getNicknamePacienteRes())
+	    );
 	}
+	
 	@Test
 	void unicidadNicknamePaciente_AltaDeUsuario() {
 		assertThrows(NicknameAlreadyExistsException.class, ()->{controladorUsuario.ingresarPaciente("s.lopez", "", "asd", "asd", "asd2@", LocalDate.now(), LocalDate.now(), 54849457, null);});
