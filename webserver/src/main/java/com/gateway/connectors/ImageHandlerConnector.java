@@ -23,11 +23,15 @@ public class ImageHandlerConnector implements IImageHandler {
 	@Override
 	public String getImg64(String key) {
 		// TODO Auto-generated method stub
+		
 		return port.getImg64(key);
 	}
 
 	@Override
 	public void addImg(String b64, String key) {
+		if (b64.isBlank() || b64==null) {
+			return;
+		}
 		port.addImg(b64, key);
 	}
 
