@@ -1,0 +1,13 @@
+Ref;Reserva;Asiste;Motivo;Diagnostico
+DT01;RC01;true;Control cardiológico preventivo;Sin hallazgos relevantes
+DT02;RC02;true;Seguimiento de hipertensión arterial;Hipertensión arterial controlada
+DT03;RC03;false;;
+DT04;RC04;true;Consulta por síntomas respiratorios leves;
+DT05;RC05;true;Control general y revisión de antecedentes;
+DT06;RC06;true;Control cardiológico;Sin hallazgos relevantes
+DT07;RC07;true;Seguimiento de presión arterial;Hipertensión arterial controlada
+DT08;RC08;false;;
+DT09;RC09;true;Consulta por congestión nasal;Rinitis
+DT10;RC10;true;Control clínico;
+DT11;RC13;true;Consulta por síntomas respiratorios;Cuadro respiratorio leve
+DT12;RC14;true;Control general;

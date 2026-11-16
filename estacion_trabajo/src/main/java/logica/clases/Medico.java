@@ -46,7 +46,7 @@ public class Medico extends Usuario{
 	}
 	
 	public DtMedico getDtmedico() {
-		return new DtMedico(nickname, nroReg, mesLic, porcentajeCosto, link);
+		return new DtMedico(getNickname(), nroReg, mesLic, porcentajeCosto, link);
 	}
 	
 	public Set<String> getConsultasAsoc(){
@@ -54,7 +54,7 @@ public class Medico extends Usuario{
 	}
 	
 	public String getNicknameM() {
-		return this.nickname;
+		return this.getNickname();
 	}
 	public String getNroReg(){ 
 		return this.nroReg; 

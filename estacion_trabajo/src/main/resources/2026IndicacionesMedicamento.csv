@@ -1,0 +1,11 @@
+Ref;DetalleConsulta;NombreMedicamento;Posologia;FechaIndicacion
+IM01;DT01;Medicamento A;1 unidad cada 24 horas durante 7 días;24/08/2026
+IM02;DT02;Medicamento B;1 unidad cada 24 horas durante 30 días;24/08/2026
+IM03;DT04;Medicamento C;1 unidad cada 12 horas durante 5 días;08/09/2026
+IM04;DT06;Medicamento A;1 unidad cada 24 horas durante 7 días;12/10/2026
+IM05;DT07;Medicamento B;1 unidad cada 24 horas durante 30 días;12/10/2026
+IM06;DT09;Medicamento D;1 unidad cada 12 horas durante 5 días;13/10/2026
+IM07;DT11;Medicamento C;1 unidad cada 8 horas durante 3 días;28/10/2026
+IM08;DT11;Medicamento E;1 unidad cada 24 horas durante 5 días;28/10/2026
+IM09;DT12;Medicamento F;1 unidad cada 24 horas durante 10 días;28/10/2026
+IM10;DT10;Medicamento D;1 unidad cada 12 horas durante 5 días;31/10/2026

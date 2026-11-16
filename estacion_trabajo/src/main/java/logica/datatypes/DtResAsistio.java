@@ -2,7 +2,6 @@ package logica.datatypes;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DtResAsistio {
@@ -16,7 +15,7 @@ public class DtResAsistio {
     public DtResAsistio() {
     }
 
-    public DtResAsistio(String nomC, int numRes,String nicknamePac, boolean asistio, String motivo, String diagnostico) {
+    public DtResAsistio(String nomC, int numRes, String nicknamePac, boolean asistio, String motivo, String diagnostico) {
     	this.nomConsulta = nomC;
     	this.numRes = numRes;
     	this.nicknamePaciente = nicknamePac;

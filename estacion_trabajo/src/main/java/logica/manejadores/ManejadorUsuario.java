@@ -10,7 +10,6 @@ import  logica.clases.Especialidad;
 import  logica.clases.Medicamento;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -142,7 +141,7 @@ public class ManejadorUsuario {
 		if (usuario instanceof Paciente paciente) {
 	        for (Reserva reserva : paciente.getReservas()) {
 	            if (reserva.getConsultasAsoc().equals(nomC)) {
-	                if(reserva.tieneDetalleReserva()) {
+	                if (reserva.tieneDetalleReserva()) {
 	                	return; //YA TIENE DETALLE LA RESERVA 
 	                } else {
 	                	reserva.setAsistio(asistio);
@@ -256,8 +255,8 @@ public class ManejadorUsuario {
 		}
 		Medico medico1 = new Medico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link);
 		for (String esp_nom : specs) {
-			Especialidad e = ManejadorEspecialidad.getInstance().getEspecialidad(esp_nom);
-			medico1.agregarEspecialidad(e);
+			Especialidad especialidad = ManejadorEspecialidad.getInstance().getEspecialidad(esp_nom);
+			medico1.agregarEspecialidad(especialidad);
 		}
 		usuarios.put(nickname, medico1);
 	}

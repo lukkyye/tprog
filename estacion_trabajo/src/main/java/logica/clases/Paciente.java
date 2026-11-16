@@ -70,7 +70,7 @@ public class Paciente extends Usuario{
 	}
 	
 	public DtPaciente getDtpaciente( ) {
-		return new DtPaciente(nickname, fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
+		return new DtPaciente(getNickname(), fechaNac, cantOrdenesAcum(), cantTicketAcum(), antSalud, doc, fechaIn);
 	}
 	
 	public BeneficioAnual getBeneficio(int anio) {
@@ -190,7 +190,7 @@ public class Paciente extends Usuario{
 			}
 			costo = 0.0f;
 		}
-		DtSolicitudMedicamento solicitud = new DtSolicitudMedicamento(nickname, entrega, direccion.trim(), usaBenef, costo);
+		DtSolicitudMedicamento solicitud = new DtSolicitudMedicamento(getNickname(), entrega, direccion.trim(), usaBenef, costo);
 		medicamento.registrarSolicitud(solicitud);
 		if (beneficio != null) {
 			beneficio.usarTicket();

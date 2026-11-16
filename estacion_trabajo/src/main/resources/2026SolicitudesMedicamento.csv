@@ -1,0 +1,7 @@
+Ref;IndicacionMedicamento;FechaSolicitud;FechaEntrega;Direccion;BeneficioAnual;Costo
+SM01;IM01;25/08/2026;27/08/2026;Av. Rivera 2500, Montevideo;;350
+SM02;IM02;26/08/2026;28/08/2026;Bv. Artigas 1800, Montevideo;BA03;0
+SM03;IM05;14/10/2026;16/10/2026;Bv. Artigas 1800, Montevideo;;350
+SM04;IM06;15/10/2026;17/10/2026;Av. Italia 3200, Montevideo;BA08;0
+SM05;IM07;10/11/2026;13/11/2026;Canelones 1500, Montevideo;;350
+SM06;IM09;11/11/2026;14/11/2026;Colonia 1800, Montevideo;;350

@@ -1,11 +1,11 @@
 package logica.clases;
 import  logica.datatypes.DtUsuario;
 public class Usuario { // abstract xq tiene hijos
-    protected String nickname;
-    protected String nombre;
-    protected String apellido;
-    protected String correo;
-    protected String password;
+    private String nickname;
+    private String nombre;
+    private String apellido;
+    private String correo;
+    private String password;
     
     public Usuario(String nickname, String password, String nombre, String apellido, String correo) { //este es el constructor
         this.nickname = nickname; //this. asigna a esa variable de ese objeto 

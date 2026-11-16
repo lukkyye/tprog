@@ -3,7 +3,6 @@ package loader;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,12 +15,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.imageio.ImageIO;
 
 
 import  logica.datatypes.EstadoConsulta;
-
+import logica.clases.Consulta;
+import logica.clases.Paciente;
+import logica.clases.Reserva;
 import  logica.controladores.ControladorClinica;
 import  logica.controladores.ControladorUsuario;
 import  logica.datatypes.DtDiaSemana;
@@ -43,7 +45,10 @@ import  logica.excepciones.NumeroDeRegistroAlreadyExistsException;
 import  logica.excepciones.ReservaAlreadyExistsException;
 import  logica.excepciones.SpecialityNotFoundException;
 import  logica.excepciones.UserNotFoundException;
+import logica.manejadores.ManejadorClinica;
+import logica.manejadores.ManejadorConsulta;
 import  logica.manejadores.ManejadorImagen;
+import logica.manejadores.ManejadorUsuario;
 
 
 public class CargadorCSV {
@@ -57,6 +62,9 @@ public class CargadorCSV {
 	private final Map<String, String> usuariosPorRef = new HashMap<>(); // nickname
 	private final Map<String, String> diasConsultaPorRef = new HashMap<>();
 	private final Map<String, String> consultasPorRef = new HashMap<>();
+	
+	// &reserva->String(&consulta)+String(&paciente)
+	private final Map<String, String> reservasPorRef = new HashMap<>();
 
 	public void cargarTodo() {
 		cargarEspecialidades();
@@ -66,6 +74,7 @@ public class CargadorCSV {
 		cargarDiasConsulta();
 		cargarConsultas();
 		cargarReservas();
+		cargarDetalles();
 	}
 
 	private void cargarEspecialidades() {
@@ -175,6 +184,29 @@ public class CargadorCSV {
 		}
 	}
 	
+	private void cargarDetalles() {
+		for (String[] fila : leerCsv("/2026DetallesConsulta.csv")) {
+			try {
+				String[] refsReserva = reservasPorRef.get(fila[1]).split(",");
+	            Consulta consulta = ManejadorConsulta.getInstance()
+	                    .getConsulta(consultasPorRef.get(refsReserva[0]));
+	            String nicknamePaciente = usuariosPorRef.get(refsReserva[1]);
+	            Reserva reserva = consulta.getReservas().stream()
+	                    .filter(x -> x.getNicknamePaciente().equals(nicknamePaciente))
+	                    .findFirst()
+	                    .orElseThrow(() -> new NoSuchElementException(
+	                            "No se encontró la reserva para el paciente: " + nicknamePaciente
+	                    ));
+	            reserva.setAsistio(fila[2].equals("true"));
+	            reserva.setDiagnostico(fila[4]);
+	            reserva.setMotivo(fila[3]);
+			} catch (ConsultaNotFoundException | NoSuchElementException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void cargarBeneficios() {
 		for (String[] fila : leerCsv("/2026BeneficiosAnuales.csv")) {
 			String nicknamePaciente = usuariosPorRef.get(fila[1]);
@@ -255,9 +287,10 @@ public class CargadorCSV {
 			String nombreConsulta = consultasPorRef.get(fila[4]);
 			String tipoPago = fila.length > 6 ? fila[6].trim() : "";
 			boolean aplicaBenef = !tipoPago.isEmpty();
-
+			
 			try {
 				controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
+				reservasPorRef.put(fila[0], fila[4]+","+fila[3]);
 			} catch (ReservaAlreadyExistsException | NoNumberAvailableException | UserNotFoundException
 					| BeneficioSinOrdenesException | ConsultaNotFoundException e) {
 				// TODO Auto-generated catch block
