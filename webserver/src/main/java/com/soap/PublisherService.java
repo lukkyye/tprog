@@ -56,8 +56,12 @@ public class PublisherService
 			host=props.getProperty("host");
 			System.out.println("Se usara host:"+host+" y port:"+port);
 		} catch (FileNotFoundException e) {
+			port="9128";
+			host="localhost";
 			System.out.println("No se encontro el archivo, se usara host:localhost y port:9128");
 		} catch (IOException e) {
+			port="9128";
+			host="localhost";
 			System.out.println("Error en la lectura, se usara host:localhost y port:9128");
 		}
 	}
