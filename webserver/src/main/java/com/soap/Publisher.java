@@ -100,7 +100,7 @@ public interface Publisher {
         @WebParam(name = "arg7", partName = "arg7")
         int arg7,
         @WebParam(name = "arg8", partName = "arg8")
-        ArrayList arg8)
+        StringArray arg8)
         throws EmailAlreadyExistsException_Exception, IdAlreadyExistsException_Exception, NicknameAlreadyExistsException_Exception
     ;
 
@@ -153,7 +153,7 @@ public interface Publisher {
         @WebParam(name = "arg8", partName = "arg8")
         String arg8,
         @WebParam(name = "arg9", partName = "arg9")
-        ArrayList arg9)
+        StringArray arg9)
         throws EmailAlreadyExistsException_Exception, MedicoSinEspecialidadException_Exception, NicknameAlreadyExistsException_Exception, NumeroDeRegistroAlreadyExistsException_Exception, SpecialityNotFoundException_Exception
     ;
 
@@ -455,39 +455,6 @@ public interface Publisher {
     public DtConsultaArray selecListaConsultaDelDia(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @return
-     *     returns boolean
-     * @throws NombreClinicaAlreadyExistsException_Exception
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server/Publisher/ingresarClinicaRequest", output = "http://server/Publisher/ingresarClinicaResponse", fault = {
-        @FaultAction(className = NombreClinicaAlreadyExistsException_Exception.class, value = "http://server/Publisher/ingresarClinica/Fault/NombreClinicaAlreadyExistsException")
-    })
-    public boolean ingresarClinica(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        float arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        float arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5)
-        throws NombreClinicaAlreadyExistsException_Exception
-    ;
 
     /**
      * 
@@ -974,28 +941,111 @@ public interface Publisher {
     public String getImg64(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
-    
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns server.DtValoracionConsultaArray
+     * @throws ConsultaNotFoundException_Exception
+     * @throws UserNotFoundException_Exception
+     */
     @WebMethod
     @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/listarConsultasAsistidasRequest", output = "http://server/Publisher/listarConsultasAsistidasResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/listarConsultasAsistidas/Fault/UserNotFoundException"),
+        @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/listarConsultasAsistidas/Fault/ConsultaNotFoundException")
+    })
     public DtValoracionConsultaArray listarConsultasAsistidas(
-            @WebParam(name = "arg0", partName = "arg0") String nickname)
-            throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception;
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws ConsultaNotFoundException_Exception, UserNotFoundException_Exception
+    ;
 
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns server.DtValoracionConsulta
+     * @throws ConsultaNotFoundException_Exception
+     * @throws ReservaDoesntExistsException_Exception
+     * @throws UserNotFoundException_Exception
+     */
     @WebMethod
     @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/obtenerValoracionConsultaRequest", output = "http://server/Publisher/obtenerValoracionConsultaResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/obtenerValoracionConsulta/Fault/UserNotFoundException"),
+        @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/obtenerValoracionConsulta/Fault/ConsultaNotFoundException"),
+        @FaultAction(className = ReservaDoesntExistsException_Exception.class, value = "http://server/Publisher/obtenerValoracionConsulta/Fault/ReservaDoesntExistsException")
+    })
     public DtValoracionConsulta obtenerValoracionConsulta(
-            @WebParam(name = "arg0", partName = "arg0") String nickname,
-            @WebParam(name = "arg1", partName = "arg1") String nombreConsulta)
-            throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
-                   ReservaDoesntExistsException_Exception;
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1)
+        throws ConsultaNotFoundException_Exception, ReservaDoesntExistsException_Exception, UserNotFoundException_Exception
+    ;
 
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @return
+     *     returns boolean
+     * @throws ConsultaNotFoundException_Exception
+     * @throws ReservaDoesntExistsException_Exception
+     * @throws UserNotFoundException_Exception
+     */
     @WebMethod
     @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/valorarConsultaRequest", output = "http://server/Publisher/valorarConsultaResponse", fault = {
+        @FaultAction(className = UserNotFoundException_Exception.class, value = "http://server/Publisher/valorarConsulta/Fault/UserNotFoundException"),
+        @FaultAction(className = ConsultaNotFoundException_Exception.class, value = "http://server/Publisher/valorarConsulta/Fault/ConsultaNotFoundException"),
+        @FaultAction(className = ReservaDoesntExistsException_Exception.class, value = "http://server/Publisher/valorarConsulta/Fault/ReservaDoesntExistsException")
+    })
     public boolean valorarConsulta(
-            @WebParam(name = "arg0", partName = "arg0") String nickname,
-            @WebParam(name = "arg1", partName = "arg1") String nombreConsulta,
-            @WebParam(name = "arg2", partName = "arg2") int puntaje)
-            throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
-                   ReservaDoesntExistsException_Exception;
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        int arg2)
+        throws ConsultaNotFoundException_Exception, ReservaDoesntExistsException_Exception, UserNotFoundException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @return
+     *     returns boolean
+     * @throws NombreClinicaAlreadyExistsException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://server/Publisher/ingresarClinicaRequest", output = "http://server/Publisher/ingresarClinicaResponse", fault = {
+        @FaultAction(className = NombreClinicaAlreadyExistsException_Exception.class, value = "http://server/Publisher/ingresarClinica/Fault/NombreClinicaAlreadyExistsException")
+    })
+    public boolean ingresarClinica(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        float arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        float arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5)
+        throws NombreClinicaAlreadyExistsException_Exception
+    ;
 
 }

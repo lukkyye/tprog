@@ -42,6 +42,9 @@ import com.soap.ReservaDoesntExistsException_Exception;
 import com.soap.SpecialityNotFoundException_Exception;
 import com.soap.TipoMes;
 import com.soap.UserNotFoundException_Exception;
+
+import com.soap.net.java.dev.jaxb.array.StringArray;
+
 import com.soap.DtValoracionConsulta;
 
 
@@ -57,13 +60,21 @@ public class UserControllerConnector implements IUserController {
 	@Override
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo,
 			String nroReg, TipoMes licencia, int porcCost, String link, List<String> specs) throws EmailAlreadyExistsException_Exception, MedicoSinEspecialidadException_Exception, NicknameAlreadyExistsException_Exception, NumeroDeRegistroAlreadyExistsException_Exception, SpecialityNotFoundException_Exception {
-		return port.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, (ArrayList) specs);
+		StringArray toPass = new StringArray();
+		for (String elem : specs) {
+			toPass.getItem().add(elem);
+		}
+		return port.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, toPass);
 	}
 
 	@Override
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
 			LocalDate fechaNac, LocalDate fechaIn, int doc, List<String> antSalud) throws EmailAlreadyExistsException_Exception, IdAlreadyExistsException_Exception, NicknameAlreadyExistsException_Exception {
-		return port.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac.toString(), fechaIn.toString(), doc, (ArrayList) antSalud);
+		StringArray toPass = new StringArray();
+		for (String elem : antSalud) {
+			toPass.getItem().add(elem);
+		}
+		return port.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac.toString(), fechaIn.toString(), doc, toPass);
 	}
 
 	@Override

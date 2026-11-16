@@ -8,6 +8,8 @@ import java.time.LocalDate;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -238,16 +240,16 @@ public class Publisher {
 	//======================================================================
 	@WebMethod
 	public boolean ingresarMedico(String nickname, String password, String nombre, String apellido, String correo,
-			String nroReg, TipoMes licencia, int porcCost, String link, ArrayList<String> specs) throws NicknameAlreadyExistsException, EmailAlreadyExistsException, NumeroDeRegistroAlreadyExistsException, MedicoSinEspecialidadException, SpecialityNotFoundException{
-		return controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, specs);
+			String nroReg, TipoMes licencia, int porcCost, String link, String[] specs) throws NicknameAlreadyExistsException, EmailAlreadyExistsException, NumeroDeRegistroAlreadyExistsException, MedicoSinEspecialidadException, SpecialityNotFoundException{
+		return controladorUsuario.ingresarMedico(nickname, password, nombre, apellido, correo, nroReg, licencia, porcCost, link, new ArrayList<>(Arrays.asList(specs)));
 	}
 
 	@WebMethod
 	public boolean ingresarPaciente(String nickname, String password, String nombre, String apellido, String correo,
-			@XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaNac, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaIn, int doc, ArrayList<String> antSalud)
+			@XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaNac, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class)LocalDate fechaIn, int doc, String[] antSalud)
 	throws NicknameAlreadyExistsException, EmailAlreadyExistsException, IdAlreadyExistsException
 	{
-		return controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, antSalud);
+		return controladorUsuario.ingresarPaciente(nickname, password, nombre, apellido, correo, fechaNac, fechaIn, doc, new ArrayList<>(Arrays.asList(antSalud)));
 	}
 
 	@WebMethod

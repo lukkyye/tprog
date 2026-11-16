@@ -370,6 +370,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtValoracionConsulta }
+     * 
+     * @return
+     *     the new instance of {@link DtValoracionConsulta }
+     */
+    public DtValoracionConsulta createDtValoracionConsulta() {
+        return new DtValoracionConsulta();
+    }
+
+    /**
      * Create an instance of {@link DtMedicamento }
      * 
      * @return
@@ -497,6 +507,16 @@ public class ObjectFactory {
      */
     public DtConsultaArray createDtConsultaArray() {
         return new DtConsultaArray();
+    }
+
+    /**
+     * Create an instance of {@link DtValoracionConsultaArray }
+     * 
+     * @return
+     *     the new instance of {@link DtValoracionConsultaArray }
+     */
+    public DtValoracionConsultaArray createDtValoracionConsultaArray() {
+        return new DtValoracionConsultaArray();
     }
 
     /**
@@ -918,14 +938,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server/", name = "UserNotFoundException")
     public JAXBElement<UserNotFoundException> createUserNotFoundException(UserNotFoundException value) {
         return new JAXBElement<>(_UserNotFoundException_QNAME, UserNotFoundException.class, null, value);
-    }
-    
-    public DtValoracionConsulta createDtValoracionConsulta() {
-        return new DtValoracionConsulta();
-    }
-
-    public DtValoracionConsultaArray createDtValoracionConsultaArray() {
-        return new DtValoracionConsultaArray();
     }
 
 }
