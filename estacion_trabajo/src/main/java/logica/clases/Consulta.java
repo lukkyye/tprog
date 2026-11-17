@@ -150,7 +150,7 @@ public class Consulta {
 	    if (!reservas.contains(reserva) || !reserva.getAsistio() || puntaje < 1 || puntaje > 5) {
 	        throw new IllegalArgumentException("La reserva o el puntaje son inválidos.");
 	    }
-	    if (reserva.getValoracionPaciente() != null) {
+	    if (reserva.getValoracionPaciente() != 0) {
 	        return false;
 	    }
 

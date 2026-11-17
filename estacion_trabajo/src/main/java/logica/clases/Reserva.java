@@ -16,7 +16,7 @@ public class Reserva {
     private boolean aplicaBenef;
     private float costoR;
     private volatile boolean asistio;
-    private Float valoracionPaciente;
+    private int valoracionPaciente;
     private String motivo;
     private String diagnostico;
 	
@@ -121,11 +121,11 @@ public class Reserva {
         );
     }
     
-    Float getValoracionPaciente() {
+    public int getValoracionPaciente() {
         return valoracionPaciente;
     }
 
-    void setValoracionPaciente(float puntaje) {
+    public void setValoracionPaciente(int puntaje) {
         valoracionPaciente = puntaje;
     }
  }

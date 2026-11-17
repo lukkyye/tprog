@@ -3,7 +3,7 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import  server.Publisher;
+import server.Publisher;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;

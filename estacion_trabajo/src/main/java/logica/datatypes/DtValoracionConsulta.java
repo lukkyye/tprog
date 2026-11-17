@@ -8,13 +8,13 @@ public class DtValoracionConsulta {
     private String nombreConsulta;
     private String fechaConsulta;
     private Float promedioConsulta;
-    private Float valoracionPaciente;
+    private int valoracionPaciente;
 
     public DtValoracionConsulta() {
     }
 
     public DtValoracionConsulta(String nombreConsulta, String fechaConsulta,
-            Float promedioConsulta, Float valoracionPaciente) {
+            Float promedioConsulta, int valoracionPaciente) {
         this.nombreConsulta = nombreConsulta;
         this.fechaConsulta = fechaConsulta;
         this.promedioConsulta = promedioConsulta;
@@ -33,7 +33,7 @@ public class DtValoracionConsulta {
         return promedioConsulta;
     }
 
-    public Float getValoracionPaciente() {
+    public int getValoracionPaciente() {
         return valoracionPaciente;
     }
 }

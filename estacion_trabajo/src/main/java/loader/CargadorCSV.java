@@ -75,6 +75,7 @@ public class CargadorCSV {
 		cargarConsultas();
 		cargarReservas();
 		cargarDetalles();
+		cargarValoraciones();
 	}
 
 	private void cargarEspecialidades() {
@@ -283,6 +284,35 @@ public class CargadorCSV {
 		}
 	}
 	
+	
+	private void cargarValoraciones() {
+		String[] rated = {"RC01", "RC02", "RC06", "RC07", "RC09", "RC13", "RC14"};
+		for (String elem: rated) {
+			String consulta = consultasPorRef.get(reservasPorRef.get(elem).split(",")[0]);
+			String user = usuariosPorRef.get(reservasPorRef.get(elem).split(",")[1]);
+			int valoracion = 0;
+			for (String[] readed : leerCsv("/2026Valoraciones.csv")) {
+				if (readed[1].equals(elem)) {
+					valoracion=Integer.parseInt(readed[2]);
+				}
+			}
+			if (valoracion!=0) {				
+				try {
+					if (ManejadorUsuario.getInstance().getUsuario(user) instanceof Paciente p) {
+						Reserva reserva = ManejadorConsulta.getInstance().getConsulta(consulta).getReservas().stream()
+								.filter(x->x.getNicknamePaciente().equals(user)).findFirst().get();
+						ManejadorConsulta.getInstance().getConsulta(consulta).registrarValoracion(reserva, valoracion);
+					}
+				} catch (UserNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ConsultaNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	private void cargarReservas() {
 		for (String[] fila : leerCsv("/2026Reservas.csv")) {
@@ -290,8 +320,7 @@ public class CargadorCSV {
 			String nicknamePaciente = usuariosPorRef.get(fila[3]);
 			String nombreConsulta = consultasPorRef.get(fila[4]);
 			String tipoPago = fila.length > 6 ? fila[6].trim() : "";
-			boolean aplicaBenef = !tipoPago.isEmpty();
-			
+			boolean aplicaBenef = !tipoPago.isEmpty();		
 			try {
 				controladorClinica.reservarConsulta(nicknamePaciente, nombreConsulta, fechaReserva, aplicaBenef);
 				reservasPorRef.put(fila[0], fila[4]+","+fila[3]);
@@ -302,8 +331,7 @@ public class CargadorCSV {
 			}
 		}
 	}
-
-
+	
 	private DtDiaSemana parseDia(String valorCsv) {
 		String sinAcentos = Normalizer.normalize(valorCsv.trim(), Normalizer.Form.NFD)
 				.replaceAll("\\p{M}", "");
