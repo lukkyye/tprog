@@ -17,7 +17,7 @@
     String fecha = LocalDate.parse(consulta.getFechaConsulta())
             .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     Float promedio = consulta.getPromedioConsulta();
-    Float puntaje = consulta.getValoracionPaciente();
+    Float puntaje = Float.valueOf(consulta.getValoracionPaciente());
     Boolean guardada = (Boolean) request.getAttribute("valGuardada");
 %>
 
