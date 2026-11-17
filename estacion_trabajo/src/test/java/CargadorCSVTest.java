@@ -1,5 +1,7 @@
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,18 +17,24 @@ import  logica.controladores.ControladorUsuario;
 import  logica.datatypes.DtBeneficioAnual;
 import  logica.datatypes.DtClinica;
 import  logica.datatypes.DtConsulta;
+import logica.datatypes.DtConsultaDetalle;
 import  logica.datatypes.DtDiaConsulta;
 import  logica.datatypes.DtDiaSemana;
+import logica.datatypes.DtMedicamento;
 import  logica.datatypes.DtMedico;
 import  logica.datatypes.DtPaciente;
+import logica.datatypes.DtResAsistio;
 import  logica.datatypes.DtResConsulta;
 import  logica.datatypes.DtResConsultaDetalle;
+import logica.datatypes.DtSolicitudMedicamento;
 import  logica.datatypes.DtUsuario;
+import logica.datatypes.DtValoracionConsulta;
 import  logica.datatypes.EstadoConsulta;
 import  logica.datatypes.TipoMes;
 import  logica.excepciones.*;
 import  logica.manejadores.ManejadorClinica;
 import  logica.manejadores.ManejadorEspecialidad;
+import logica.manejadores.ManejadorImagen;
 
 class CargadorCSVTest {
 
@@ -113,6 +121,7 @@ class CargadorCSVTest {
 
 	@Test
 	void consultarEspecialidad() {
+		manejadorEspecialidad.getEspecialidades();
 	    Especialidad especialidad = assertDoesNotThrow(
 	        () -> manejadorEspecialidad.getEspecialidad("Cardiología")
 	    );
@@ -342,6 +351,131 @@ class CargadorCSVTest {
 	    );
 	}
 	
+	@Test
+    void recetarMedicamento_DuplicadoContraRegistroDelCSV() {
+        assertThrows(MedicamentoAlreadyExistsException.class, () ->
+                controladorUsuario.recetarMedicamento(
+                        "lgomez",
+                        "Cardiología 240826",
+                        "Medicamento A",
+                        "1 unidad cada 24 horas durante 7 días",
+                        LocalDate.of(2026, 8, 24)
+                )
+        );
+    }
+	
+	@Test
+	void listarDatosConsultaUsuario_CSV() throws Exception {
+	    DtConsultaDetalle detalle = controladorUsuario.listarDatosConsulta("Cardiología 240826");
+
+	    assertAll(
+	        () -> assertEquals("Cardiología 240826", detalle.getNomC()),
+	        () -> assertEquals("ana.perez", detalle.getMedico()),
+	        () -> assertEquals(LocalDate.of(2026, 8, 24), detalle.getFechaC()),
+	        () -> assertEquals(101, detalle.getSala()),
+	        () -> assertEquals(3, detalle.getCantNum()),
+	        () -> assertEquals(1656f, detalle.getCostoC(), 0.01f),
+	        () -> assertEquals(EstadoConsulta.Aceptada, detalle.getEstado()),
+	        () -> assertEquals(2, detalle.getReservas().size())
+	    );
+
+	    DtConsultaDetalle sinReservas = controladorUsuario.listarDatosConsulta("Cardiología 130826");
+	    assertAll(
+	        () -> assertEquals("Cardiología 130826", sinReservas.getNomC()),
+	        () -> assertEquals("carla.rodriguez", sinReservas.getMedico()),
+	        () -> assertEquals(EstadoConsulta.Rechazada, sinReservas.getEstado()),
+	        () -> assertTrue(sinReservas.getReservas().isEmpty())
+	    );
+
+	    assertThrows(ConsultaNotFoundException.class, () ->
+	        controladorUsuario.listarDatosConsulta("Consulta Inexistente XYZ")
+	    );
+	}
+	
+	@Test
+	void listarDatosConsulta_CSV() throws Exception {
+	    DtConsultaDetalle detalle = controladorClinica.listarDatosConsulta("Cardiología 240826");
+
+	    assertAll(
+	        () -> assertEquals("Cardiología 240826", detalle.getNomC()),
+	        () -> assertEquals("ana.perez", detalle.getMedico()),
+	        () -> assertEquals(LocalDate.of(2026, 8, 24), detalle.getFechaC()),
+	        () -> assertEquals(101, detalle.getSala()),
+	        () -> assertEquals(3, detalle.getCantNum()),
+	        () -> assertEquals(1656f, detalle.getCostoC(), 0.01f),
+	        () -> assertEquals(EstadoConsulta.Aceptada, detalle.getEstado()),
+	        () -> assertEquals(2, detalle.getReservas().size())
+	    );
+
+	    assertThrows(ConsultaNotFoundException.class, () ->
+	        controladorClinica.listarDatosConsulta("Consulta Inexistente XYZ")
+	    );
+	}
+
+	@Test
+	void listarDatosResConsultaCC_CSV() throws Exception {
+	    // Reserva 1 de Cardiología 240826 -> RC01 (lgomez)
+	    DtResConsultaDetalle res1 = controladorClinica.listarDatosResConsultaCC("Cardiología 240826", 1);
+	    assertNotNull(res1);
+	    assertAll(
+	        () -> assertEquals("Cardiología 240826", res1.getNomC()),
+	        () -> assertEquals("ana.perez", res1.getMedicoC()),
+	        () -> assertEquals("lgomez", res1.getNicknamePacienteRes()),
+	        () -> assertEquals(1, res1.getNumReserva()),
+	        () -> assertEquals(LocalDate.of(2026, 8, 1), res1.getFechaRes()),
+	        () -> assertFalse(res1.getAplicaBenef()),
+	        () -> assertEquals(1656f, res1.getCostoR(), 0.01f)
+	    );
+
+	    // Reserva 2 de Cardiología 240826 -> RC02 (mar.fernandez, mayor de 60 años)
+	    DtResConsultaDetalle res2 = controladorClinica.listarDatosResConsultaCC("Cardiología 240826", 2);
+	    assertNotNull(res2);
+	    assertEquals("mar.fernandez", res2.getNicknamePacienteRes());
+	    assertEquals(1324.8f, res2.getCostoR(), 0.01f);
+
+	    // Número de reserva inexistente en consulta existente devuelve null
+	    assertNull(controladorClinica.listarDatosResConsultaCC("Cardiología 240826", 99));
+
+	    // Consulta inexistente lanza ConsultaNotFoundException
+	    assertThrows(ConsultaNotFoundException.class, () ->
+	        controladorClinica.listarDatosResConsultaCC("Consulta Inexistente XYZ", 1)
+	    );
+	}
+
+	@Test
+	void getReservasConsulta_CSV() throws Exception {
+	    Set<DtResConsulta> reservas = controladorClinica.getReservasConsulta("Cardiología 240826");
+
+	    assertEquals(2, reservas.size());
+	    assertTrue(reservas.stream().anyMatch(r -> r.getNumReserva() == 1 && r.getNicknamePacienteRes().equals("lgomez")));
+	    assertTrue(reservas.stream().anyMatch(r -> r.getNumReserva() == 2 && r.getNicknamePacienteRes().equals("mar.fernandez")));
+
+	    assertThrows(ConsultaNotFoundException.class, () ->
+	        controladorClinica.getReservasConsulta("Consulta Inexistente XYZ")
+	    );
+	}
+
+	@Test
+	void getConsultasPorEspecialidad_CSV() throws UserNotFoundException {
+	    // Fisioterapia (ES04) -> solo tiene DC08 -> CO13 ("Fisioterapia 151026 13")
+	    List<String> fisio = controladorClinica.getConsultasPorEspecialidad("Fisioterapia");
+	    assertNotNull(fisio);
+	    assertEquals(1, fisio.size());
+	    assertTrue(fisio.contains("Fisioterapia 151026 13"));
+	    controladorUsuario.listarEspecialidadesMedico("ana.perez");
+	    // Pediatría (ES02) -> tiene CO02 ("Pediatría 080926"), CO07 ("Pediatría 131026 7") y CO11 ("Pediatría 131026 11")
+	    List<String> pediatria = controladorClinica.getConsultasPorEspecialidad("Pediatría");
+	    assertNotNull(pediatria);
+	    assertTrue(pediatria.containsAll(List.of("Pediatría 080926", "Pediatría 131026 7", "Pediatría 131026 11")));
+
+	    // Traumatología (ES10) -> existe en el CSV pero no tiene consultas asociadas -> lista vacía
+	    List<String> trauma = controladorClinica.getConsultasPorEspecialidad("Traumatología");
+	    assertNotNull(trauma);
+	    assertTrue(trauma.isEmpty());
+
+	    // Especialidad inexistente -> devuelve null
+	    assertNull(controladorClinica.getConsultasPorEspecialidad("Especialidad Inexistente"));
+	}
 	
 	@Test
 	void altaBeneficioAnual() {
@@ -359,7 +493,9 @@ class CargadorCSVTest {
 	        () -> assertEquals(10, beneficio.getCantTicket())
 	    );
 	}
-
+	
+	
+	
 	@Test
 	void altaBeneficioAnualDuplicado() {
 	    assertDoesNotThrow(()->controladorUsuario.altaBeneficioAnual("daniel.quintana22", 2031, 5, 10));
@@ -514,4 +650,94 @@ class CargadorCSVTest {
 	        consulta.getEstado()
 	    );
 	}
+	
+	@Test
+    void manejadorImagen_GuardarYRecuperar() {
+        ManejadorImagen mImg = ManejadorImagen.getInstance();
+        assertFalse(mImg.addImg((BufferedImage) null, "nula"));
+        assertNull(mImg.getImg("inexistente"));
+        assertEquals("", mImg.getImg64("inexistente"));
+
+        BufferedImage img = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
+        assertTrue(mImg.addImg(img, "imgTest"));
+        assertNotNull(mImg.getImg("imgTest"));
+
+        String dataUrl = mImg.getImg64("imgTest");
+        assertTrue(dataUrl.startsWith("data:image/png;base64,"));
+
+        String rawBase64 = dataUrl.substring("data:image/png;base64,".length());
+        mImg.addImg(rawBase64, "imgDesdeB64");
+        assertNotNull(mImg.getImg("imgDesdeB64"));
+    }
+	
+	@Test
+    void verificarCargaMedicamentosYSolicitudes() throws Exception {
+       
+        List<DtMedicamento> medsLgomez = controladorUsuario.listarMedicamentosRecetados("lgomez");
+        assertTrue(medsLgomez.size() >= 2);
+        DtMedicamento medA = medsLgomez.stream()
+                .filter(m -> m.getNombre().equals("Medicamento A") && m.getIndicacon().equals(LocalDate.of(2026, 8, 24)))
+                .findFirst()
+                .orElse(null);
+        assertNotNull(medA);
+        assertTrue(medA.getUsado());
+        assertEquals(350f, medA.getCostoMed(), 0.01f);
+        assertNotNull(medA.getSolMed());
+        assertEquals("Av. Rivera 2500, Montevideo", medA.getSolMed().getDireccion());
+        assertThrows(MedicamentoYaSolicitadoException.class, () ->
+                controladorUsuario.solicitarMedicamento(
+                        "lgomez",
+                        "Medicamento A",
+                        LocalDate.of(2026, 8, 24),
+                        LocalDate.of(2026, 8, 26),
+                        LocalDate.of(2026, 8, 29),
+                        "Otra dir",
+                        false,
+                        null
+                )
+        );
+        DtBeneficioAnual ba03 = controladorUsuario.listarDatosBeneficioAnual("mar.fernandez", 2026);
+        assertTrue(ba03.getTicketUsados() >= 1);
+    }
+	
+	@Test
+    void verificarCargaValoracionesYPromedios() throws Exception {
+        
+        DtValoracionConsulta valLgomez = controladorUsuario.obtenerValoracionConsulta("lgomez", "Cardiología 240826");
+        assertEquals(5, valLgomez.getValoracionPaciente());
+        assertEquals(4.0f, valLgomez.getPromedioConsulta(), 0.01f);
+
+        DtValoracionConsulta valMario = controladorUsuario.obtenerValoracionConsulta("mar.fernandez", "Cardiología 240826");
+        assertEquals(3, valMario.getValoracionPaciente());
+        assertEquals(4.0f, valMario.getPromedioConsulta(), 0.01f);
+
+        assertFalse(controladorUsuario.valorarConsulta("lgomez", "Cardiología 240826", 2));
+
+        assertThrows(ReservaDoesntExistsException.class, () ->
+                controladorUsuario.valorarConsulta("s.lopez", "Pediatría 080926", 5)
+        );
+
+        List<DtValoracionConsulta> asistidasAndres = controladorUsuario.listarConsultasAsistidas("andrés.núñez19");
+        assertEquals(1, asistidasAndres.size());
+        assertEquals("Pediatría 131026 7", asistidasAndres.get(0).getNombreConsulta());
+        assertEquals(3, asistidasAndres.get(0).getValoracionPaciente());
+    }
+	@Test
+    void verificarLoginConUsuariosCSV() {
+        assertTrue(controladorUsuario.login("ana.perez", "aperez123"));
+        assertTrue(controladorUsuario.login("lgomez", "lgomez123"));
+        assertFalse(controladorUsuario.login("lgomez", "wrongpass"));
+    }
+	@Test
+    void verificarCargaDetallesAsistencia() throws Exception {
+        DtResAsistio dt01 = controladorUsuario.getAltaDetalleReserva("Cardiología 240826", 1);
+        assertNotNull(dt01);
+        assertTrue(dt01.getAsistio());
+        assertEquals("Control cardiológico preventivo", dt01.getMotivo());
+        assertEquals("Sin hallazgos relevantes", dt01.getDiag());
+
+        DtResAsistio dt03 = controladorUsuario.getAltaDetalleReserva("Pediatría 080926", 1);
+        assertNotNull(dt03);
+        assertFalse(dt03.getAsistio());
+    }
 } 

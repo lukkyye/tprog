@@ -102,7 +102,7 @@ public interface IUserController {
 	
 	public List<DtMedicamento> listarMedicamentosRecetados(String nickname) throws UserNotFoundException_Exception;
 	
-	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia)
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia, LocalDate indicacion)
 			throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception, ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
 			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception;
 	

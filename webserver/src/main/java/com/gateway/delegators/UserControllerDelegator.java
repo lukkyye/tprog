@@ -172,11 +172,11 @@ public class UserControllerDelegator implements IUserController {
 	}
 
 	@Override
-	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia)
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia, LocalDate indicacion)
 			throws UserNotFoundException_Exception, ConsultaNotFoundException_Exception,
 			ClinicaNotFoundException_Exception, ReservaDoesntExistsException_Exception,
 			MedicamentoAlreadyExistsException_Exception, DatosMedicamentoInvalidosException_Exception {
-		ucc.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
+		ucc.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia, indicacion);
 	}
 
 	@Override

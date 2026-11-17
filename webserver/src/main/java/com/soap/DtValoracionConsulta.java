@@ -19,7 +19,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="nombreConsulta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="fechaConsulta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="promedioConsulta" type="{http://www.w3.org/2001/XMLSchema}float" minOccurs="0"/>
- *         <element name="valoracionPaciente" type="{http://www.w3.org/2001/XMLSchema}float" minOccurs="0"/>
+ *         <element name="valoracionPaciente" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -40,7 +40,7 @@ public class DtValoracionConsulta {
     protected String nombreConsulta;
     protected String fechaConsulta;
     protected Float promedioConsulta;
-    protected Float valoracionPaciente;
+    protected int valoracionPaciente;
 
     /**
      * Obtiene el valor de la propiedad nombreConsulta.
@@ -117,24 +117,16 @@ public class DtValoracionConsulta {
     /**
      * Obtiene el valor de la propiedad valoracionPaciente.
      * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
      */
-    public Float getValoracionPaciente() {
+    public int getValoracionPaciente() {
         return valoracionPaciente;
     }
 
     /**
      * Define el valor de la propiedad valoracionPaciente.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
      */
-    public void setValoracionPaciente(Float value) {
+    public void setValoracionPaciente(int value) {
         this.valoracionPaciente = value;
     }
 
