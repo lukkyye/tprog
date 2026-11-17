@@ -209,7 +209,7 @@
             } else {
                 var p = fecha.split('-');
                 var nombreDia = DIAS[new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2])).getDay()];
-                if (diaSemana && nombreDia !== diaSemana) {
+                if (diaSemana && nombreDia.toUpperCase() !== diaSemana.toUpperCase()) {
                     mensaje = 'La fecha elegida cae ' + nombreDia
                             + ' y el día de consulta es ' + diaSemana + '.';
                 }
