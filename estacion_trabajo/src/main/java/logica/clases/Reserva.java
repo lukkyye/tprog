@@ -1,17 +1,18 @@
-package logica.clases;
-import java.time.LocalDate;
 
-import  logica.datatypes.DtResConsultaDetalle;
-import  logica.excepciones.ConsultaNotFoundException;
-import  logica.datatypes.DtConsultaDetalle;
-import  logica.manejadores.ManejadorConsulta;
-import  logica.datatypes.DtResConsulta;
-import  logica.datatypes.DtResAsistio;
+package logica.clases;
+
+import java.time.LocalDate;
+import logica.datatypes.DtResConsultaDetalle;
+import logica.excepciones.ConsultaNotFoundException;
+import logica.datatypes.DtConsultaDetalle;
+import logica.manejadores.ManejadorConsulta;
+import logica.datatypes.DtResConsulta;
+import logica.datatypes.DtResAsistio;
 
 public class Reserva {
-	private String nicknamePaciente;
-	private String nomConsultaAsoc;
-	private LocalDate fechaRS;
+    private String nicknamePaciente;
+    private String nomConsultaAsoc;
+    private LocalDate fechaRS;
     private int numReserva;
     private boolean aplicaBenef;
     private float costoR;
@@ -19,30 +20,30 @@ public class Reserva {
     private int valoracionPaciente;
     private String motivo;
     private String diagnostico;
-	
-    public Reserva(String nicknamePaciente, String nom_consulta_aso, LocalDate fechaRS, int numReserva,
-            boolean aplicaBenef, float costoR) {
 
-    		this.nicknamePaciente = nicknamePaciente;
-    		this.nomConsultaAsoc = nom_consulta_aso;
-    		this.fechaRS = fechaRS;
-    		this.numReserva = numReserva;
-    		this.aplicaBenef = aplicaBenef;
-    		this.costoR = costoR;
-    		this.asistio = false;
-    		this.motivo = "";
-    		this.diagnostico = "";
+    public Reserva(String nicknamePaciente, String nom_consulta_aso,
+            LocalDate fechaRS, int numReserva, boolean aplicaBenef, float costoR) {
+
+        this.nicknamePaciente = nicknamePaciente;
+        this.nomConsultaAsoc = nom_consulta_aso;
+        this.fechaRS = fechaRS;
+        this.numReserva = numReserva;
+        this.aplicaBenef = aplicaBenef;
+        this.costoR = costoR;
+        this.asistio = false;
+        this.motivo = "";
+        this.diagnostico = "";
     }
-	
+
     public String getNicknamePaciente() {
         return nicknamePaciente;
     }
-    
-	public String getConsultasAsoc() {
-		return nomConsultaAsoc;
-	}
-	
-	public LocalDate getFechaRS() {
+
+    public String getConsultasAsoc() {
+        return nomConsultaAsoc;
+    }
+
+    public LocalDate getFechaRS() {
         return fechaRS;
     }
 
@@ -57,53 +58,57 @@ public class Reserva {
     public float getCostoR() {
         return costoR;
     }
-    
+
     public boolean getAsistio() {
-    	return asistio;
+        return asistio;
     }
-    
+
     public void setAsistio(boolean asistio) {
-    	this.asistio = asistio;
+        this.asistio = asistio;
     }
-    
+
     public String getMotivo() {
-    	return motivo;
+        return motivo;
     }
-    
+
     public void setMotivo(String motivo) {
-    	this.motivo = motivo;
+        this.motivo = motivo;
     }
-    
+
     public String getDiagnostico() {
-    	return diagnostico;
+        return diagnostico;
     }
-    
+
     public void setDiagnostico(String diag) {
-    	this.diagnostico = diag;
+        this.diagnostico = diag;
     }
-    
+
     public boolean tieneDetalleReserva() {
-    	if (motivo == "") {
-    		return false;
-    	} else {
-    		return true;
-    	}
+        return motivo != null && !motivo.isBlank();
     }
-    
+
     public DtResConsulta getDataResConsulta() {
-    	return new DtResConsulta(nomConsultaAsoc, fechaRS, numReserva, aplicaBenef, costoR, nicknamePaciente);
+        return new DtResConsulta(
+            nomConsultaAsoc, fechaRS, numReserva,
+            aplicaBenef, costoR, nicknamePaciente
+        );
     }
-    
-    public DtResAsistio getDataResAsistio() throws ConsultaNotFoundException {
-    	return new DtResAsistio(nomConsultaAsoc, numReserva, nicknamePaciente, asistio, motivo, diagnostico);
-    }
-    
-    
-    public DtResConsultaDetalle getDataResConsultaDetalle() throws ConsultaNotFoundException {
 
-        ManejadorConsulta manejadorConsulta = ManejadorConsulta.getInstance();
+    public DtResAsistio getDataResAsistio()
+            throws ConsultaNotFoundException {
+        return new DtResAsistio(
+            nomConsultaAsoc, numReserva, nicknamePaciente,
+            asistio, motivo, diagnostico
+        );
+    }
+
+    public DtResConsultaDetalle getDataResConsultaDetalle()
+            throws ConsultaNotFoundException {
+
+        ManejadorConsulta manejadorConsulta =
+            ManejadorConsulta.getInstance();
+
         Consulta consulta = manejadorConsulta.getConsulta(nomConsultaAsoc);
-
         DtConsultaDetalle dtConsulta = consulta.getDataConsultaDetalle();
 
         return new DtResConsultaDetalle(
@@ -120,7 +125,7 @@ public class Reserva {
             nicknamePaciente
         );
     }
-    
+
     public int getValoracionPaciente() {
         return valoracionPaciente;
     }
@@ -128,5 +133,4 @@ public class Reserva {
     public void setValoracionPaciente(int puntaje) {
         valoracionPaciente = puntaje;
     }
- }
-
+}

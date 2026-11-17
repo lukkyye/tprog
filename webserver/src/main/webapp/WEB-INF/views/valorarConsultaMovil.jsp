@@ -44,7 +44,7 @@
 
                 <p>
                     <strong>Puntaje promedio</strong><br>
-                    <%= promedio == null ? "Aún sin valoraciones"
+                    <%= (promedio == null || promedio == 0) ? "Aún sin valoraciones"
                             : String.format(Locale.forLanguageTag("es-UY"), "%.1f de 5", promedio) %>
                 </p>
 
@@ -55,7 +55,7 @@
                     </p>
                 <% } %>
 
-                <% if (puntaje != null) { %>
+                <% if (puntaje != null && puntaje > 0) { %>
                     <p class="mb-0"><strong>Tu puntaje</strong> <%= puntaje.intValue() %> de 5</p>
                 <% } else { %>
                     <form method="post" action="<%= ctx %>/movil/valorar-consulta">

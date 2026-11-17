@@ -47,7 +47,8 @@
                            href="<%= ctx %>/movil/valorar-consulta?consulta=<%= nombreCodificado %>">
                             <span class="fw-semibold"><%= escaparHtml(nombre) %></span>
                             <span class="d-block text-body-secondary">
-                                <%= fecha %> · <%= consulta.getValoracionPaciente() == null
+                                <%= fecha %> · <%= (consulta.getValoracionPaciente() == null
+                                	    || consulta.getValoracionPaciente() == 0)
                                         ? "Pendiente de valorar" : "Ya valorada" %>
                             </span>
                         </a>

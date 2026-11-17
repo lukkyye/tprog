@@ -6,6 +6,7 @@ import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
 import com.soap.ConsultaNotFoundException_Exception;
 import com.soap.DtResConsultaDetalle;
+import com.soap.DtResAsistio;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,7 +40,10 @@ public class AltaDetalleReservaServlet extends HttpServlet {
         if (nomConsulta != null && !nomConsulta.isBlank() && numRes > 0) {
             try {
                 reserva = clinicController.listarDatosResConsultaCC(nomConsulta, numRes);
-                if (userController.getAltaDetalleReserva(nomConsulta, numRes).getMotivo() != "" || !userController.getAltaDetalleReserva(nomConsulta, numRes).getMotivo().isBlank()) {
+                DtResAsistio detalle = userController.getAltaDetalleReserva(nomConsulta, numRes);
+
+                if (detalle != null && detalle.getMotivo() != null
+                        && !detalle.getMotivo().isBlank()) {
                     yaExisteDetalle = true;
                 }
             } catch (ConsultaNotFoundException_Exception e) {
