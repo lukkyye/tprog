@@ -170,12 +170,60 @@ public class ControladorUsuario {
 		ManejadorUsuario.getInstance().agregarMedicamento(nicknamePaciente, nombre.trim(), posologia.trim(), LocalDate.now(), clinica.getCostoTicket(), nomC);
 	}
 	
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre,
+	        String posologia, LocalDate fechaIndicacion)
+	        throws UserNotFoundException, ConsultaNotFoundException, ClinicaNotFoundException,
+	        ReservaDoesntExistsException, MedicamentoAlreadyExistsException, DatosMedicamentoInvalidosException {
+
+	    if (nombre == null || nombre.isBlank() || posologia == null || posologia.isBlank()) {
+	        throw new DatosMedicamentoInvalidosException(
+	                "Debe ingresar el nombre y la posología del medicamento");
+	    }
+
+	    if (fechaIndicacion == null) {
+	        throw new DatosMedicamentoInvalidosException("La fecha de indicacion es obligatoria");
+	    }
+
+	    ManejadorUsuario.getInstance().getUsuario(nicknamePaciente);
+	    Consulta consulta = ManejadorConsulta.getInstance().getConsulta(nomC);
+
+	    if (!consulta.tieneReserva(nicknamePaciente)) {
+	        throw new ReservaDoesntExistsException(
+	                "El paciente " + nicknamePaciente + " no tiene reserva en la consulta " + nomC);
+	    }
+
+	    Clinica clinica = ManejadorClinica.getInstance()
+	            .clinicaDeDiaConsulta(consulta.getDiaConsulta());
+
+	    if (clinica == null) {
+	        throw new ClinicaNotFoundException("No se encontró la clínica de la consulta " + nomC);
+	    }
+
+	    ManejadorUsuario.getInstance().agregarMedicamento(
+	            nicknamePaciente, nombre.trim(), posologia.trim(),
+	            fechaIndicacion, clinica.getCostoTicket(), nomC);
+	}
+	
 	public List<DtMedicamento> listarMedicamentosRecetados(String nickname) throws UserNotFoundException {
 		return ManejadorUsuario.getInstance().medicamentosRecetados(nickname);
 	}
 	
 	public DtSolicitudMedicamento solicitarMedicamento(String nicknamePaciente, String nombre, LocalDate indicacion, LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException, MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException, FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
 			return ManejadorUsuario.getInstance().solicitarMedicamento(nicknamePaciente, nombre, indicacion, LocalDate.now(), entrega, direccion, usaBenef);
+	}
+	
+	public DtSolicitudMedicamento solicitarMedicamento(
+	        String nicknamePaciente, String nombre, LocalDate indicacion,
+	        LocalDate fechaSolicitud, LocalDate entrega, String direccion,
+	        boolean usaBenef, Integer anioBeneficio)
+	        throws UserNotFoundException, MedicamentoNotFoundException,
+	        MedicamentoYaSolicitadoException, MedicamentoVencidoException,
+	        FechaEntregaInvalidaException, DatosMedicamentoInvalidosException,
+	        BeneficioSinTicketsException {
+
+	    return ManejadorUsuario.getInstance().solicitarMedicamento(
+	            nicknamePaciente, nombre, indicacion, fechaSolicitud,
+	            entrega, direccion, usaBenef, anioBeneficio);
 	}
 	
 	public List<DtValoracionConsulta> listarConsultasAsistidas(String nickname)

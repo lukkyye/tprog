@@ -197,5 +197,71 @@ public class Paciente extends Usuario{
 		}
 		return solicitud;
 	}
+	
+	public DtSolicitudMedicamento solicitarMedicamento(
+	        String nombre, LocalDate indicacion, LocalDate hoy,
+	        LocalDate entrega, String direccion, boolean usaBenef,
+	        Integer anioBeneficio)
+	        throws MedicamentoNotFoundException, MedicamentoYaSolicitadoException,
+	        MedicamentoVencidoException, FechaEntregaInvalidaException,
+	        DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
+
+	    Medicamento medicamento = getMedicamento(nombre, indicacion);
+
+	    if (medicamento == null) {
+	        throw new MedicamentoNotFoundException(
+	                "El paciente no tiene recetado el medicamento " + nombre);
+	    }
+
+	    if (medicamento.getUsado()) {
+	        throw new MedicamentoYaSolicitadoException(
+	                "El medicamento " + nombre + " ya fue solicitado");
+	    }
+
+	    if (medicamento.estaVencido(hoy)) {
+	        throw new MedicamentoVencidoException(
+	                "El plazo para solicitar " + nombre + " vencio el " + medicamento.getVencimiento());
+	    }
+
+	    if (entrega == null || !entrega.isAfter(hoy)) {
+	        throw new FechaEntregaInvalidaException(
+	                "La fecha de entrega debe ser posterior a la fecha de solicitud");
+	    }
+
+	    if (direccion == null || direccion.isBlank()) {
+	        throw new DatosMedicamentoInvalidosException(
+	                "Debe ingresar una direccion de entrega");
+	    }
+
+	    BeneficioAnual beneficio = null;
+	    float costo = medicamento.getCostoMed();
+
+	    if (usaBenef) {
+	        if (anioBeneficio == null) {
+	            throw new BeneficioSinTicketsException(
+	                    "No se indico el beneficio anual que se desea utilizar");
+	        }
+
+	        beneficio = getBeneficio(anioBeneficio);
+
+	        if (beneficio == null || !beneficio.tieneTicketDisponibles()) {
+	            throw new BeneficioSinTicketsException(
+	                    "El beneficio anual no tiene tickets disponibles");
+	        }
+
+	        costo = 0.0f;
+	    }
+
+	    DtSolicitudMedicamento solicitud = new DtSolicitudMedicamento(
+	            getNickname(), entrega, direccion.trim(), usaBenef, costo);
+
+	    medicamento.registrarSolicitud(solicitud);
+
+	    if (beneficio != null) {
+	        beneficio.usarTicket();
+	    }
+
+	    return solicitud;
+	}
 
 }

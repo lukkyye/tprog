@@ -423,6 +423,16 @@ public class ManejadorUsuario {
 	public DtSolicitudMedicamento solicitarMedicamento(String nickname, String nombre, LocalDate indicacion, LocalDate hoy, LocalDate entrega, String direccion, boolean usaBenef) throws UserNotFoundException, MedicamentoNotFoundException, MedicamentoYaSolicitadoException, MedicamentoVencidoException, FechaEntregaInvalidaException, DatosMedicamentoInvalidosException, BeneficioSinTicketsException {
 		return getPaciente(nickname).solicitarMedicamento(nombre, indicacion, hoy, entrega, direccion, usaBenef);
 	}
+	public DtSolicitudMedicamento solicitarMedicamento(String nickname, String nombre,
+	        LocalDate indicacion, LocalDate hoy, LocalDate entrega,
+	        String direccion, boolean usaBenef, Integer anioBeneficio)
+	        throws UserNotFoundException, MedicamentoNotFoundException,
+	        MedicamentoYaSolicitadoException, MedicamentoVencidoException,
+	        FechaEntregaInvalidaException, DatosMedicamentoInvalidosException,
+	        BeneficioSinTicketsException {
 
+	    return getPaciente(nickname).solicitarMedicamento(
+	            nombre, indicacion, hoy, entrega, direccion, usaBenef, anioBeneficio);
+	}
 
 }

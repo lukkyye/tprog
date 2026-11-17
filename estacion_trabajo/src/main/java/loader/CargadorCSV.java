@@ -49,6 +49,16 @@ import logica.manejadores.ManejadorClinica;
 import logica.manejadores.ManejadorConsulta;
 import  logica.manejadores.ManejadorImagen;
 import logica.manejadores.ManejadorUsuario;
+import logica.excepciones.ClinicaNotFoundException;
+import logica.excepciones.ReservaDoesntExistsException;
+import logica.excepciones.MedicamentoAlreadyExistsException;
+import logica.excepciones.DatosMedicamentoInvalidosException;
+import logica.excepciones.MedicamentoNotFoundException;
+import logica.excepciones.MedicamentoYaSolicitadoException;
+import logica.excepciones.MedicamentoVencidoException;
+import logica.excepciones.FechaEntregaInvalidaException;
+import logica.excepciones.BeneficioSinTicketsException;
+
 
 
 public class CargadorCSV {
@@ -62,6 +72,9 @@ public class CargadorCSV {
 	private final Map<String, String> usuariosPorRef = new HashMap<>(); // nickname
 	private final Map<String, String> diasConsultaPorRef = new HashMap<>();
 	private final Map<String, String> consultasPorRef = new HashMap<>();
+	private final Map<String, String> detallesPorRef = new HashMap<>();
+	private final Map<String, String> indicacionesPorRef = new HashMap<>();
+	private final Map<String, String> beneficiosPorRef = new HashMap<>();
 	
 	// &reserva->String(&consulta)+String(&paciente)
 	private final Map<String, String> reservasPorRef = new HashMap<>();
@@ -75,6 +88,8 @@ public class CargadorCSV {
 		cargarConsultas();
 		cargarReservas();
 		cargarDetalles();
+		cargarIndicacionesMedicamento();
+		cargarSolicitudesMedicamento();
 		cargarValoraciones();
 	}
 
@@ -192,6 +207,7 @@ public class CargadorCSV {
 	            Consulta consulta = ManejadorConsulta.getInstance()
 	                    .getConsulta(consultasPorRef.get(refsReserva[0]));
 	            String nicknamePaciente = usuariosPorRef.get(refsReserva[1]);
+	            detallesPorRef.put(fila[0], nicknamePaciente + "," + consultasPorRef.get(refsReserva[0]));
 	            Reserva reserva = consulta.getReservas().stream()
 	                    .filter(x -> x.getNicknamePaciente().equals(nicknamePaciente))
 	                    .findFirst()
@@ -214,6 +230,8 @@ public class CargadorCSV {
 			int anio = Integer.parseInt(fila[2]);
 			int cantOrdenes = Integer.parseInt(fila[3]);
 			int cantTicket = Integer.parseInt(fila[4]);
+			beneficiosPorRef.put(fila[0], nicknamePaciente + "," + anio);
+			
 			System.out.printf("%s,%s,%s,%s,%s\n",fila);
 			try {
 				controladorUsuario.altaBeneficioAnual(nicknamePaciente, anio, cantOrdenes, cantTicket);
@@ -394,5 +412,88 @@ public class CargadorCSV {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	private void cargarIndicacionesMedicamento() {
+	    for (String[] fila : leerCsv("/2026IndicacionesMedicamento.csv")) {
+	        try {
+	            String[] datosDetalle = detallesPorRef.get(fila[1]).split(",", 2);
+
+	            String nicknamePaciente = datosDetalle[0];
+	            String nombreConsulta = datosDetalle[1];
+
+	            String nombreMedicamento = fila[2];
+	            String posologia = fila[3];
+	            LocalDate fechaIndicacion = LocalDate.parse(fila[4], FECHA_FMT);
+
+	            controladorUsuario.recetarMedicamento(
+	                    nicknamePaciente,
+	                    nombreConsulta,
+	                    nombreMedicamento,
+	                    posologia,
+	                    fechaIndicacion
+	            );
+	            
+	            indicacionesPorRef.put(
+	            	    fila[0],
+	            	    nicknamePaciente + "," + nombreMedicamento + "," + fechaIndicacion
+	            	);
+
+	        } catch (UserNotFoundException | ConsultaNotFoundException
+	                | ClinicaNotFoundException | ReservaDoesntExistsException
+	                | MedicamentoAlreadyExistsException | DatosMedicamentoInvalidosException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+	private void cargarSolicitudesMedicamento() {
+	    for (String[] fila : leerCsv("/2026SolicitudesMedicamento.csv")) {
+	        try {
+	            // Recuperar 
+	            String[] datosIndicacion = indicacionesPorRef.get(fila[1]).split(",", 3);
+
+	            String nicknamePaciente = datosIndicacion[0];
+	            String nombreMedicamento = datosIndicacion[1];
+	            LocalDate fechaIndicacion = LocalDate.parse(datosIndicacion[2]);
+
+	            // Datos de la solicitud
+	            LocalDate fechaSolicitud = LocalDate.parse(fila[2], FECHA_FMT);
+	            LocalDate fechaEntrega = LocalDate.parse(fila[3], FECHA_FMT);
+	            String direccion = fila[4];
+
+	            // Determinar si utiliza beneficio
+	            boolean usaBenef = !fila[5].isBlank();
+	            Integer anioBeneficio = null;
+
+	            if (usaBenef) {
+	                String[] datosBeneficio = beneficiosPorRef.get(fila[5]).split(",", 2);
+
+	                String nicknameBeneficio = datosBeneficio[0];
+	                anioBeneficio = Integer.parseInt(datosBeneficio[1]);
+
+	                if (!nicknamePaciente.equals(nicknameBeneficio)) {
+	                    throw new IllegalArgumentException(
+	                            "El beneficio no corresponde al paciente de la solicitud: " + fila[0]);
+	                }
+	            }
+
+	            controladorUsuario.solicitarMedicamento(
+	                    nicknamePaciente,
+	                    nombreMedicamento,
+	                    fechaIndicacion,
+	                    fechaSolicitud,
+	                    fechaEntrega,
+	                    direccion,
+	                    usaBenef,
+	                    anioBeneficio
+	            );
+
+	        } catch (UserNotFoundException | MedicamentoNotFoundException
+	                | MedicamentoYaSolicitadoException | MedicamentoVencidoException
+	                | FechaEntregaInvalidaException | DatosMedicamentoInvalidosException
+	                | BeneficioSinTicketsException e) {
+	            System.err.println("Error cargando solicitud " + fila[0] + ": " + e.getMessage());
+	        }
+	    }
 	}
 }
