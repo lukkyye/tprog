@@ -350,16 +350,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtUsuario }
-     * 
-     * @return
-     *     the new instance of {@link DtUsuario }
-     */
-    public DtUsuario createDtUsuario() {
-        return new DtUsuario();
-    }
-
-    /**
      * Create an instance of {@link DtConsulta }
      * 
      * @return
@@ -367,6 +357,16 @@ public class ObjectFactory {
      */
     public DtConsulta createDtConsulta() {
         return new DtConsulta();
+    }
+
+    /**
+     * Create an instance of {@link DtUsuario }
+     * 
+     * @return
+     *     the new instance of {@link DtUsuario }
+     */
+    public DtUsuario createDtUsuario() {
+        return new DtUsuario();
     }
 
     /**

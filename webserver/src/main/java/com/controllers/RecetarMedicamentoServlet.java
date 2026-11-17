@@ -3,6 +3,7 @@ package com.controllers;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 import com.gateway.delegators.ClinicControllerDelegator;
 import com.gateway.delegators.UserControllerDelegator;
@@ -58,7 +59,7 @@ public class RecetarMedicamentoServlet extends HttpServlet {
 
 		String error;
 		try {
-			userController.recetarMedicamento(paciente, nomC, nombre, posologia);
+			userController.recetarMedicamento(paciente, nomC, nombre, posologia, LocalDate.now());
 			request.getSession().setAttribute(MENSAJE_EXITO, "Se recetó " + nombre.trim() + " a " + paciente + ".");
 			response.sendRedirect(request.getContextPath() + "/RecetarMedicamentoServlet?consulta=" + enc(nomC) + "&nicknamePaciente=" + enc(paciente));
 			return;
