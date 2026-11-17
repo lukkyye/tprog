@@ -341,11 +341,11 @@ public class Publisher {
 	}
 	
 	@WebMethod
-	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia)
+	public void recetarMedicamento(String nicknamePaciente, String nomC, String nombre, String posologia, @XmlJavaTypeAdapter(logica.datatypes.LocalDateAdapter.class) LocalDate indicacion)
 	throws UserNotFoundException, ConsultaNotFoundException, ClinicaNotFoundException, ReservaDoesntExistsException,
 	MedicamentoAlreadyExistsException, DatosMedicamentoInvalidosException
 	{
-		controladorUsuario.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia);
+		controladorUsuario.recetarMedicamento(nicknamePaciente, nomC, nombre, posologia, indicacion);
 	}
 	
 	@WebMethod
