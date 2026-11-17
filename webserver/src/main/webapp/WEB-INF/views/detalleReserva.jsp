@@ -175,7 +175,7 @@ DtResConsultaDetalle reserva = (DtResConsultaDetalle) request.getAttribute("rese
                     </div>
                 </div>
             </div>
-            <a href="#" onclick="history.back()"
+            <a onclick="history.back()"
                    class="btn btn-outline-secondary">
                     Volver a reservas
              </a>
