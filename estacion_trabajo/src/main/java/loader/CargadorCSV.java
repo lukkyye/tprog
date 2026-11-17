@@ -260,9 +260,13 @@ public class CargadorCSV {
 			String nicknameMedico = usuariosPorRef.get(fila[6]);
 			//String costo = fila[7];
 			String state = fila[8];
+			String imgref = fila[9];
 			
 			try {
 				controladorClinica.ingresarConsulta(nombreDia, nicknameMedico, nombre, fecha, sala, cantNum);
+				if (imgref!=null && !imgref.isEmpty()) {
+					loadimg(imgref, nombre);
+				}
 			} catch (MedicoSinEspecialidadException | ConsultaNombreAlreadyExistsException
 					| FechaDiaSemanaInvalidaException | UserNotFoundException e) {
 				// TODO Auto-generated catch block

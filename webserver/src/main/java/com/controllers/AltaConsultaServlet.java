@@ -88,7 +88,7 @@ public class AltaConsultaServlet extends HttpServlet {
              
             clinicController.ingresarConsulta(dia, medico, nombre.trim(), fecha, sala, cantNum);
 
-            guardarImagen(request, nombre.trim());
+            guardarImagen(request, nombre);
 
             response.sendRedirect(request.getContextPath() + "/AltaConsultaServlet?ok=1");
             return;
@@ -113,7 +113,7 @@ public class AltaConsultaServlet extends HttpServlet {
             throws IOException, ServletException {
         Part archivo = request.getPart("imagen");
         if (archivo != null && archivo.getSize() > 0) {
-        	new ImageHandlerDelegator().addImg(archivo, "consulta:" + nombreConsulta);
+        	new ImageHandlerDelegator().addImg(archivo, nombreConsulta);
         }
     }
 
