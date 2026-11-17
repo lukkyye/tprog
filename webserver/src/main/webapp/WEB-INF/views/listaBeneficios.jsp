@@ -81,7 +81,7 @@
                                 <tr>
                                     <th>Año</th>
                                     <th>Órdenes (usadas / total)</th>
-                                    <th>Tickets de medicamento</th>
+                                    <th>Tickets de medicamento (usados / total))</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,7 +91,7 @@
                                 <tr>
                                     <td class="fw-bold"><%= b.getAnio() %></td>
                                     <td><%= b.getOrdenesUsadas() %> / <%= b.getCantOrdenes() %></td>
-                                    <td><%= b.getCantTicket() %></td>
+                                    <td><%= b.getTicketUsados() %> / <%= b.getCantTicket() %></td>
                                 </tr>
                             <% } %>
                             </tbody>
