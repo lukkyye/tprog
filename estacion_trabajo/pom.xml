@@ -11,7 +11,7 @@
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <testSourceDirectory>src/test/java</testSourceDirectory>
-
+	<finalName>servidor</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
